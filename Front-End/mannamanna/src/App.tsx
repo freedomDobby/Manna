@@ -29,6 +29,8 @@ import MyPageModify from './pages/User/MyPage/MyPageModify';
 import MyPageMiileage from './pages/User/MyPage/MyPageMileage';
 import MyPageHistory from './pages/User/MyPage/MyPageHistory';
 import MyPageWithdrawal from './pages/User/MyPage/MyPageWithdrawal';
+import StudyRecoil from './pages/Study/StudyRecoil';
+import StudyRecoilResult from './pages/Study/StudyRecoilResult';
 
 
 
@@ -69,6 +71,8 @@ function App() {
         <Route path="ForgotPw" element={<ForgotPw/>} />
         <Route path="register" element={<Register/>} />
         <Route path="registerDetail" element={<RegisterDetail/>}/>
+        <Route path="study" element={<StudyRecoil/>}/>
+        <Route path="studyResult" element={<StudyRecoilResult/>}/>
       </Routes>
     </>
   );
