@@ -47,7 +47,7 @@ function MacBookBox({children, width, height, color1, color2, alignItems}: MacBo
     align-items: ${alignItems};
     // align-items: center;
     font-size: 3vh;
-    border: 3px solid red;
+    // border: 3px solid red;
     &::-webkit-scrollbar {
       width: 0.5vw;
     }

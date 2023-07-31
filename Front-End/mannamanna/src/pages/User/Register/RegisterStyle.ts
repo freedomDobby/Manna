@@ -1,6 +1,6 @@
-import {styled} from 'styled-components';
+import { styled } from "styled-components";
 
-export let RegisterBox = styled.form `
+export let RegisterBox = styled.form`
   border: solid black 4px;
   width: 100vh;
   height: 90vh;
@@ -9,10 +9,15 @@ export let RegisterBox = styled.form `
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: rgba(188, 211, 255, 0.8); /* Using rgba() for transparency */
+  background-color: rgba(
+    188,
+    211,
+    255,
+    0.8
+  ); /* Using rgba() for transparency */
 `;
 
-export let SmallInputBox = styled.div `
+export let SmallInputBox = styled.div`
   display: flex;
   border: solid rgba(248, 227, 234, 0.68) 4px;
   width: 85%;
@@ -26,7 +31,7 @@ export let SmallInputBox = styled.div `
   justify-content: space-between; /* 두 개의 요소가 양쪽 끝에 배치되도록 설정 */
 `;
 
-export let MypageInputBox = styled.div `
+export let MypageInputBox = styled.div`
   display: flex;
   border: solid rgba(248, 227, 234, 0.68) 4px;
   width: 30vw;
@@ -39,7 +44,7 @@ export let MypageInputBox = styled.div `
   border-radius: 3px;
   justify-content: space-between; /* 두 개의 요소가 양쪽 끝에 배치되도록 설정 */
 `;
-export let ImageBox = styled.div `
+export let ImageBox = styled.div`
   display: flex;
   width: 20vw;
   height: 6vh;
@@ -52,7 +57,7 @@ export let ImageBox = styled.div `
   justify-content: space-between; /* 두 개의 요소가 양쪽 끝에 배치되도록 설정 */
 `;
 
-export let SmallInput = styled.input `
+export let SmallInput = styled.input`
   width: 30vh;
   height: 30%;
   font-size: 2.5vh;
@@ -69,107 +74,116 @@ export let SmallInput = styled.input `
   }
 `;
 
-const LogoBox = styled.div `
-height: 5vh;
-alignItems: center;
-// border: 1px solid red;
-display: flex;
-line-height: 5vh;
-`
+const LogoBox = styled.div`
+  height: 5vh;
+  alignitems: center;
+  // border: 1px solid red;
+  display: flex;
+  line-height: 5vh;
+`;
 
-const InnerBox = styled.div `
-display: flex;
-justify-content: center;
-align-items: center;
-height: 90vh;
-// border: 5px solid yellow;
-// flex-direction: column;
-width: 100vw;
-margin-top: 2vh;
-`
-const SideBox = styled.div `
-// border: 2px solid green;
-width: 15%;
-height: 100%;
-display: flex;
-flex-direction: column;
-`
+const InnerBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  // border: 5px solid yellow;
+  // flex-direction: column;
+  width: 100vw;
+  margin-top: 2vh;
+`;
+const SideBox = styled.div`
+  // border: 2px solid green;
+  width: 15%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+`;
 
-const MainBox = styled.div `
-// border: 2px solid green;
-width: 70%;
-height: 100%;
-display: flex;
-flex-direction: column;
-justify-content:center;
-align-contents: center;
-`
-const MainLogoBox = styled.div `
-// border: 2px solid red;
-width: 100%;
-height: 20%; 
-display: flex;
-justify-content: center;
-`
-const MainMidBox = styled.div `
-// border: 2px solid red;
-width: 100%;
-height: 80%; 
-display: flex;
-justify-content: center;
-align-items: center;
-`
+const MainBox = styled.div`
+  // border: 2px solid green;
+  width: 70%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-contents: center;
+`;
+const MainLogoBox = styled.div`
+  // border: 2px solid red;
+  width: 100%;
+  height: 20%;
+  display: flex;
+  justify-content: center;
+`;
+const MainMidBox = styled.div`
+  // border: 2px solid red;
+  width: 100%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
-const SideInnerBox = styled.div `
-width: 100%;
-height: 33%;
-// border: 1px solid black;
-display: flex;
-justify-content: center;
-align-items: center;
-`
+const SideInnerBox = styled.div`
+  width: 100%;
+  height: 33%;
+  // border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
-const SignUP = styled.img `
-width: 70%;
-height: 100%;
-// border: 1px solid gold;
-`
+const SignUP = styled.img`
+  width: 70%;
+  height: 100%;
+  // border: 1px solid gold;
+`;
 
-const InputBox = styled.div`
-// border: 1px solid blue;
-width: 95%;
-height: 95%;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-overflow: auto;
-`
+const InputBox = styled.form`
+  // border: 1px solid blue;
+  width: 95%;
+  height: 95%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+`;
 
 const AnswerBox = styled.div`
-width: 70%;
-height: 100%;
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-align-items: start;
-// border: 1px solid orange;
-`
+  width: 70%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+  // border: 1px solid orange;
+`;
 
 const Answer = styled.div`
-height: 70%;
-`
+  height: 70%;
+`;
+const Select = styled.div`
+  height: 70%;
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-contents: center;
+  // border: 1px solid red;
+`;
 
 export {
-    LogoBox,
-    InnerBox,
-    SideBox,
-    MainBox,
-    SideInnerBox,
-    MainLogoBox,
-    SignUP,
-    MainMidBox,
-    InputBox,
-    AnswerBox,
-    Answer
+  LogoBox,
+  InnerBox,
+  SideBox,
+  MainBox,
+  SideInnerBox,
+  MainLogoBox,
+  SignUP,
+  MainMidBox,
+  InputBox,
+  AnswerBox,
+  Answer,
+  Select,
 };

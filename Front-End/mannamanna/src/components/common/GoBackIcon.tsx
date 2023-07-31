@@ -5,10 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import GoBackBtn from '../../../src/asset/image/GoBackBtn.png'
 
 const StyledArrowBackIcon = styled.div`
-width: 10%;
-height: 17%;
-  // border: 1px solid red;
-  background-image:url(${GoBackBtn});
+// border: 1px solid red;
+width: 5vw;
+height: 5vh;
+background-image:url(${GoBackBtn});
+background-size:100% 100%;
+cursor: pointer;
 `;
 
 const GoBackIcon = () => {

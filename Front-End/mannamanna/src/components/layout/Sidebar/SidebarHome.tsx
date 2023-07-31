@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 import Sidetab from '../Sidetab';
+// import {useNavigate} from 'react-router-dom';
+
 
 const SidebarStyle = styled.div`
     height: 26vh;
@@ -9,10 +11,13 @@ const SidebarStyle = styled.div`
 `;
 
 function Sidebar(){
+
+ 
+
     return(
             <SidebarStyle>
                 <div>
-                <Sidetab menu={"Home"} bg={"pink"}/>
+                <Sidetab menu={"Home"} bg={"pink"} />
                 <Sidetab menu={"MyPage"} bg={"white"}/>
                 <Sidetab menu={"Chat"} bg={"white"}/>
                 <Sidetab menu={"Mission"} bg={"white"}/>

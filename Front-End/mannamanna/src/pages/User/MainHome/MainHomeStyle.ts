@@ -25,6 +25,7 @@ align-items: center;
 
 const SecondBox = styled.div`
 background-image:url(${mainImage});
+background-size:100% 100%;
 // background-color: #ece7f9;
 height: 120%;
 width: 90%;
