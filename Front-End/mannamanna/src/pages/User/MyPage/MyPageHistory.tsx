@@ -1,7 +1,7 @@
 // import React from 'react';
 // import styled from 'styled-components'
-import {MileageBox, LeftStyle, RightStyle} from './MyPageStyle';
 import MacBookBox from '../../../components/common/macbookBox';
+import { MeetList, SogeList } from './MyPageStyles';
 
 function MyPageHistory() {
     return (
@@ -74,21 +74,7 @@ function MyPageHistory() {
     );
 };
 
-function SogeList(){
-    return(
-        <LeftStyle>
-            <MileageBox>소개팅소개팅소개팅</MileageBox>
-        </LeftStyle>
-    );
-}
 
-function MeetList(){
-    return(
-        <RightStyle>
-            <MileageBox>미팅미팅미팅</MileageBox>
-        </RightStyle>
-    );
-}
 
 
 
