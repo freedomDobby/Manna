@@ -49,7 +49,6 @@ function App() {
         <Route path="meetingMain" element={<MeetingMain />} />
         <Route path="meetingMakeRoom" element={<MeetingMakeRoom />} />
         <Route path="meetingWait" element={<MeetingWait  />} />
-        <Route path="meeting" element={<Meeting  />} />
         <Route path="reserve" element={<Reserve  />} /> 
         <Route path="mypage" element={<Mypage />}>
           <Route index element={<MyPageModify />} />
@@ -63,6 +62,7 @@ function App() {
         <Route path="alram" element={<Alarm  />} />
         <Route index element={<Navigate to="home" replace />} />
         </Route>
+        <Route path="meeting" element={<Meeting  />} />
         <Route path="home" element={<Landing/>}/>
         <Route path="login" element={<Login/>}/>
         <Route path="ForgotId" element={<ForgotId/>} />
