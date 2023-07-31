@@ -1,11 +1,10 @@
-import React from 'react';
 import TenMinuteTimer from '../../components/common/Timer';
 // import SmallMacBookProfile from
 // '../../components/common/SmallMacBookProfile';
 import Selection1 from './Selection1';
 import Selection2 from './Selection2';
 import Selection3 from './Selection3';
-
+import KakaoMap from "../../components/common/KakaoMap";
 
 import {
     BigContainer,
@@ -27,6 +26,9 @@ import {
 } from './ReserveStyle';
 
 const Reserve = () => {
+
+
+
     return (
         <BigContainer>
             <TopContainer>
@@ -37,8 +39,7 @@ const Reserve = () => {
                     </LogoBox>
                 </TopSide>
                 <UserContainer>
-                User1
-                    {/* <SmallMacBookProfile/> */}
+                    User1 {/* <SmallMacBookProfile/> */}
                 </UserContainer>
                 <TimerContainer>
                     <Hart/>
@@ -56,7 +57,15 @@ const Reserve = () => {
                         <Selection3/>
                     </Select>
                     <FlexBox>
-                        <Map>카카오지도</Map>
+                        <Map>
+                            <div 
+                                style={{
+                                    width: '100%',
+                                    height: '100%'
+                                }}>
+                                <KakaoMap    />
+                            </div>
+                        </Map>
                         <Board>장소 리스트</Board>
                     </FlexBox>
                 </MapBox>

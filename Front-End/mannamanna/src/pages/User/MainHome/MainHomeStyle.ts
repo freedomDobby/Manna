@@ -1,5 +1,4 @@
 /* eslint-disable import/no-anonymous-default-export */
-import React from "react";
 import styled from 'styled-components'
 import mainImage from '../../../components/common/mainImage.png'
 

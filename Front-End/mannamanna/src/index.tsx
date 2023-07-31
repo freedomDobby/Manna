@@ -14,6 +14,7 @@ const root=ReactDOM.createRoot(container);
 const queryClient =new QueryClient();
 
 const store= configureStore({reducer:rootReducer}); 
+
 root.render(
     <BrowserRouter>
     <LocalizationProvider dateAdapter={AdapterMoment}>

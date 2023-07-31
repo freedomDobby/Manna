@@ -1,4 +1,4 @@
-import React from "react";
+
 import styled from "styled-components";
 import reserveLogo from "../../components/common/reserveLogo.png"
 import wingHart from "../../components/common/wingHart.png"

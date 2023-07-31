@@ -1,4 +1,3 @@
-
 import BackBox from '../../../components/common/Back';
 import Sidebar from '../../../components/layout/Sidebar/SidebarHome';
 import RadiusContainerBox from '../../../components/common/RadiusContainer';
