@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 interface SmallMacBookProps {
   children: ReactNode;
@@ -64,27 +64,6 @@ function MeetingMacBox({children, width, height, color1, color2, alignItems,User
     align-items: center;
     margin-right: 1vw;
   `
-  let MacBtnContainer = styled.div`
-  width : 5vw;
-  height : 4vh;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin-right: 1vw;
-`
-  interface MacBtnProps {
-    bg: string;
-  }
-
-  const MacBtn = styled.div<MacBtnProps>`
-    background: ${props => props.bg};
-    width: 2.5vh;
-    height: 2.5vh;
-    border-radius: 50%;
-  `;
-  const handleButtonClick = () => {
-    alert('버튼이 클릭되었습니다!');
-  };
   return (
       <MacBox>
         <MidBox>
