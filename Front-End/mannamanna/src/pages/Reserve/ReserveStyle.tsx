@@ -38,6 +38,7 @@ const Logo = styled.div `
 height:100%;
 width: 25%;
 background-image:url(${reserveLogo});
+background-size:100% 100%;
 // border: 2px solid red;
 `
 const LogoFont = styled.div`
@@ -67,6 +68,7 @@ const Hart = styled.div`
 height: 38%;
 width: 47%;
 background-image:url(${wingHart});
+background-size:100% 100%;
 `
 const MidContainer = styled.div `
 height:5%;
