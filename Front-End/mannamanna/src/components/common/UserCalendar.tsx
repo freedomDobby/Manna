@@ -52,11 +52,13 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[] 
       anchorOrigin={{
         vertical: 'top', // Place the badge at the top
         horizontal: 'left', // Place the badge on the left
+        
       }}
       style={{
         zIndex: 1, // Set the z-index for proper overlapping
         border: isSelected ? '0.2vh solid orange' : 'none', // Add circular border when selected
         borderRadius: '85%', // Make the border circulara
+        // backgroundColor:'white'
       }}
     >
       <PickersDay {...other} outsideCurrentMonth={outsideCurrentMonth} day={day} />
