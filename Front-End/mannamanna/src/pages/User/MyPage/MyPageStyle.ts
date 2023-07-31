@@ -11,7 +11,6 @@ export const MileageBox = styled.div`
     justify-content: center;
     align-items: center;
     font-size: 1.3vw;
-
 `
 
 export const LeftStyle = styled.div`
@@ -26,4 +25,14 @@ export const RightStyle = styled.div`
     display: flex;
     align-items: flex-end;
     margin: 1vh 3vw;
+`
+
+export const MyPageContainerBox = styled.div`
+    border: solid 5px black;
+    background-color : white;
+    width: 140vh;
+    height: 80vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 `

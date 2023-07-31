@@ -209,7 +209,6 @@ function MyPageModify() {
                     사진선택
                     <div  style={{display:'flex', justifyContent: 'center', alignItems: 'center'}}>
                         <ModifyBox>
-                            {/* <CenterBox style={{ flexDirection: 'column' }}> */}
                                 <ImageBox>
                                         <Avatar src="/broken-image.jpg" />
                                         <Avatar src="/broken-image.jpg" />
@@ -221,7 +220,6 @@ function MyPageModify() {
                                         </div>
                                         <OutboxIcon fontSize='large'></OutboxIcon>
                                 </MypageInputBox>
-                                {/* </CenterBox> */}
                         </ModifyBox>
                     </div>
                     자기소개
