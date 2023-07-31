@@ -1,9 +1,14 @@
 import React from 'react';
-import  ArrowBackIosIcon  from '@mui/icons-material/ArrowBackIos';
+// import  ArrowBackIosIcon  from '@mui/icons-material/ArrowBackIos';
 import { styled } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-const StyledArrowBackIcon = styled(ArrowBackIosIcon)`
-  color: white;
+import GoBackBtn from '../../../src/asset/image/GoBackBtn.png'
+
+const StyledArrowBackIcon = styled.div`
+width: 10%;
+height: 17%;
+  // border: 1px solid red;
+  background-image:url(${GoBackBtn});
 `;
 
 const GoBackIcon = () => {
@@ -12,7 +17,7 @@ const GoBackIcon = () => {
       navigate(-1);
     };
     return (
-        <StyledArrowBackIcon fontSize='large' onClick={GoBack}>
+        <StyledArrowBackIcon onClick={GoBack}>
         </StyledArrowBackIcon>
     );
 };
