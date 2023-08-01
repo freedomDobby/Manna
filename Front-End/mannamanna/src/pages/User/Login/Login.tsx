@@ -5,11 +5,15 @@ import GoBackIcon from '../../../components/common/GoBackIcon';
 import Logo from '../../../components/common/Logo';
 import { postLogin } from '../../../apis/LoginApi';
 import { CenterBox, BtnBox, ForgotPasswordLink, IdInput, IdLabel, InputBox, LoginBox, StyledButton } from './LoginStyle';
+import { genderAtom, nameAtom } from '../../../Recoil/State';
+import { useRecoilState } from 'recoil';
 const Login = () => {
   const navigate = useNavigate();
   const [userId, setUserId] = useState('');
   const [userPw, setUserPw] = useState('');
-
+  const [gender, setGender] = useRecoilState(genderAtom);
+  const [name, setName] = useRecoilState(nameAtom);
+  
   const GoFindId = () => {
     navigate('/ForgotId');
   };
@@ -22,11 +26,17 @@ const Login = () => {
     navigate('/register');
   };
 
-  const mutation = useMutation(postLogin, {
+  const Loginmutation = useMutation(postLogin, {
     onSuccess: (response) => {
       console.log('Login successful:', response);
-      // 값들 받으면 Reduxe에 넣을거랑 localStrorage에 넣을것들 찾아야함.
-      // localStrorage에 Refresh랑 Access 다 넣자
+
+      const { gender, name, accessToken,refreshToken } = response.data;
+
+      setGender(gender);
+      setName(name);
+      localStorage.setItem('refreshToken', refreshToken);
+      localStorage.setItem('accessToken', accessToken);
+
     },
     onError: (error) => {
       console.error('Login failed:', error);
@@ -34,8 +44,8 @@ const Login = () => {
   });
 
   const handleLogin = (e:React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault() // poem 제출시 새로고침 예방
-    mutation.mutate({ user_id: userId, user_pw: userPw });
+    e.preventDefault() // poem 제출시 새로고침 예방 + url에 어떤 값을 보내는지 안보이게 하기 용
+    Loginmutation.mutate({ id: userId, pwd: userPw });
   };
 
   return (

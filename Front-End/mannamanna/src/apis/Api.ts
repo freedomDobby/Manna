@@ -12,42 +12,42 @@ const api = axios.create({
   },
 });
 
-api.interceptors.request.use(
-  (config:any) => {
-    const token = getLocalStorageItem({
-      key: LOCAL_STORAGE_KEY.ACCESS_TOKEN,
-      defaultValue: '',
-    });
+// api.interceptors.request.use(
+//   (config:any) => {
+//     const token = getLocalStorageItem({
+//       key: LOCAL_STORAGE_KEY.ACCESS_TOKEN,
+//       defaultValue: '',
+//     });
 
-    if (typeof token !== 'string' || !token) return config;
+//     if (typeof token !== 'string' || !token) return config;
 
-    config.headers = {
-      'Content-type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    };
+//     config.headers = {
+//       'Content-type': 'application/json',
+//       Authorization: `Bearer ${token}`,
+//     };
 
-    return config;
-  },
+//     return config;
+//   },
 
-  (error) => {
-    return Promise.reject(error);
-  }
-);
+//   (error) => {
+//     return Promise.reject(error);
+//   }
+// );
 
-api.interceptors.response.use(
-  (response) => {
-    return response;
-  },
+// api.interceptors.response.use(
+//   (response) => {
+//     return response;
+//   },
 
-  (error: AxiosError<ErrorResponse>) => {
-    if (error?.response?.status === 401) {
-      removeLocalStorageItem({ key: LOCAL_STORAGE_KEY.ACCESS_TOKEN });
-      const navigate=useNavigate();
-      navigate('/login');
-    }
+//   (error: AxiosError<ErrorResponse>) => {
+//     if (error?.response?.status === 401) {
+//       removeLocalStorageItem({ key: LOCAL_STORAGE_KEY.ACCESS_TOKEN });
+//       const navigate=useNavigate();
+//       navigate('/login');
+//     }
 
-    return Promise.reject(error);
-  }
-);
+//     return Promise.reject(error);
+//   }
+// );
 
 export default api;
