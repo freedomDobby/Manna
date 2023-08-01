@@ -16,3 +16,7 @@ export interface ErrorResponse {
     message?: string;
     field?: string;
   }
+
+  export interface findidRes{
+    id:string;
+  }

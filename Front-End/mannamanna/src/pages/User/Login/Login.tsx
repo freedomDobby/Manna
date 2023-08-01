@@ -11,8 +11,12 @@ const Login = () => {
   const navigate = useNavigate();
   const [userId, setUserId] = useState('');
   const [userPw, setUserPw] = useState('');
+
   const [gender, setGender] = useRecoilState(genderAtom);
   const [name, setName] = useRecoilState(nameAtom);
+  const [id, setId] = useRecoilState(nameAtom);
+  const [accessToken, setAccessToken] = useRecoilState(nameAtom);
+  const [refreshToken, setRefreshToken] = useRecoilState(nameAtom);
   
   const GoFindId = () => {
     navigate('/ForgotId');
@@ -30,14 +34,15 @@ const Login = () => {
     onSuccess: (response) => {
       console.log('Login successful:', response);
 
-      const { gender, name, accessToken,refreshToken } = response.data;
+      const { gender, name,id, accessToken,refreshToken } = response.data;
 
       setGender(gender);
       setName(name);
-      localStorage.setItem('refreshToken', refreshToken);
-      localStorage.setItem('accessToken', accessToken);
-
-    },
+      setId(id);
+      setAccessToken(accessToken);
+      setRefreshToken(refreshToken);
+      navigate('/main');
+        },
     onError: (error) => {
       console.error('Login failed:', error);
     },
