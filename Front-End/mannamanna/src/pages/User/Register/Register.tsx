@@ -58,6 +58,30 @@ const Register = () => {
               <InputBox>
                 <SmallInputBox>
                   <AnswerBox>
+                    <Answer>이름</Answer>
+                    <SmallInput placeholder="이름"></SmallInput>
+                  </AnswerBox>
+                  <StyledButton>이름 확인</StyledButton>
+                </SmallInputBox>
+
+                <SmallInputBox>
+                  <AnswerBox>
+                    <Answer>전화번호</Answer>
+                    <SmallInput placeholder="전화번호"></SmallInput>
+                  </AnswerBox>
+                  <StyledButton>전화번호 확인</StyledButton>
+                </SmallInputBox>
+
+                <SmallInputBox>
+                  <AnswerBox>
+                    <Answer>태어난 년도</Answer>
+                    <SmallInput placeholder="태어난 년도"></SmallInput>
+                  </AnswerBox>
+                  <StyledButton>태어난 년도 확인</StyledButton>
+                </SmallInputBox>
+
+                <SmallInputBox>
+                  <AnswerBox>
                     <Answer>아이디 적어주세요</Answer>
                     <SmallInput placeholder="아이디 입력칸"></SmallInput>
                   </AnswerBox>
