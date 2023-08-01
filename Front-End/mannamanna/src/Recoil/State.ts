@@ -1,4 +1,15 @@
 import { atom } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
+
+// Persist 설정을 위한 storage 설정
+const sessionStorage=
+typeof window!=='undefined'? window.sessionStorage:undefined
+
+const { persistAtom } = recoilPersist({
+    key: 'recoilPersistData',
+    storage: sessionStorage,
+  });
+
 
 // 사용할 타입 정의
 export interface LoginDataType {
@@ -22,15 +33,47 @@ export const LoginDataState = atom<LoginDataType>({
 export const genderAtom = atom<string | null>({
     key: 'genderAtom',
     default: null,
+    effects_UNSTABLE: [persistAtom],
   });
   
   export const nameAtom = atom<string | null>({
     key: 'nameAtom',
     default: null,
+    effects_UNSTABLE: [persistAtom]
+  });
+
+  export const idAtom=atom<string|null>({
+    key:'idAtom',
+    default:null,
+    effects_UNSTABLE: [persistAtom],
+  });
+
+  export const accessTokenAtom=atom<string|null>({
+    key:'accessTokenAtom',
+    default:null,
+    effects_UNSTABLE: [persistAtom],
+  });
+  
+  export const refreshTokenAtom=atom<string|null>({
+    key:'refreshTokenAtom',
+    default:null,
+    effects_UNSTABLE: [persistAtom],
   });
   
   
+  export const findEmailNameAtom = atom<string>({
+    key: 'findEmailNameAtom',
+    default: '',
+  });
   
+
+  export const findEmailDomainAtom = atom<string>({
+    key: 'findEmailDomainAtom',
+    default: '',
+  });
+  
+
+
   
   
   
