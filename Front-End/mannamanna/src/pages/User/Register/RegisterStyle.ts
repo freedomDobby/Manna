@@ -57,7 +57,7 @@ export let ImageBox = styled.div`
   justify-content: space-between; /* 두 개의 요소가 양쪽 끝에 배치되도록 설정 */
 `;
 
-export let SmallInput = styled.input`
+const SmallInput = styled.input`
   width: 30vh;
   height: 30%;
   font-size: 2.5vh;
@@ -66,7 +66,6 @@ export let SmallInput = styled.input`
   background-color: rgba(248, 227, 234, 0);
   border-radius: 3px;
   // border: 1px solid red;
-
   ::placeholder {
     /* Styles for the placeholder text */
     color: #000; /* Placeholder text color */
@@ -140,15 +139,29 @@ const SignUP = styled.img`
   // border: 1px solid gold;
 `;
 
-const InputBox = styled.form`
+interface InputBoxProps {
+  alignItems?: string;
+}
+
+const InputBox = styled.form<InputBoxProps>`
   // border: 1px solid blue;
-  width: 95%;
-  height: 95%;
-  display: flex;
+  // margin-left: 7.5%;
+  width: 100%;
+  height: 100%;
+  display: inline-block;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  text-align: center;
+  align-contents: center;
+  align-items: ${(props) => props.alignItems || "center"};
   overflow: auto;
+  &::-webkit-scrollbar {
+    width: 0.5vw;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 0.5vh;
+    background: rgba(.slice(5, 7), 16 0.7);
+  }
 `;
 
 const AnswerBox = styled.div`
@@ -186,4 +199,5 @@ export {
   AnswerBox,
   Answer,
   Select,
+  SmallInput,
 };

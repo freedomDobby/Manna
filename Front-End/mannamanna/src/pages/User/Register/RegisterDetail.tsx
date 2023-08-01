@@ -57,49 +57,57 @@ const Register = () => {
               alignItems="center"
             >
               <InputBox>
-                {/* 사진 입력 받기 */}
+                <div
+                  style={{
+                    // border: "1px solid red",
+                    textAlign: "center",
+                    marginLeft: "10%",
+                    padding: "0%",
+                  }}
+                >
+                  {/* 사진 입력 받기 */}
 
-                <SmallInputBox>
-                  <AnswerBox>
-                    <Answer>직업을 골라주세요</Answer>
-                  </AnswerBox>
-                  <Select>
-                    <Job />
-                  </Select>
-                </SmallInputBox>
+                  <SmallInputBox>
+                    <AnswerBox>
+                      <Answer>직업을 골라주세요</Answer>
+                    </AnswerBox>
+                    <Select>
+                      <Job />
+                    </Select>
+                  </SmallInputBox>
 
-                <SmallInputBox>
-                  <AnswerBox>
-                    <Answer>흡연을 하시나요?</Answer>
-                  </AnswerBox>
-                  <SmokeCheck />
-                </SmallInputBox>
+                  <SmallInputBox>
+                    <AnswerBox>
+                      <Answer>흡연을 하시나요?</Answer>
+                    </AnswerBox>
+                    <SmokeCheck />
+                  </SmallInputBox>
 
-                <SmallInputBox>
-                  <AnswerBox>
-                    <Answer>음주를 하시나요?</Answer>
-                  </AnswerBox>
-                  <DrinkCheck />
-                </SmallInputBox>
+                  <SmallInputBox>
+                    <AnswerBox>
+                      <Answer>음주를 하시나요?</Answer>
+                    </AnswerBox>
+                    <DrinkCheck />
+                  </SmallInputBox>
 
-                <SmallInputBox>
-                  <AnswerBox>
-                    <Answer>종교을 골라주세요</Answer>
-                  </AnswerBox>
-                  <Select>
-                    <Religion />
-                  </Select>
-                </SmallInputBox>
+                  <SmallInputBox>
+                    <AnswerBox>
+                      <Answer>종교을 골라주세요</Answer>
+                    </AnswerBox>
+                    <Select>
+                      <Religion />
+                    </Select>
+                  </SmallInputBox>
 
-                <SmallInputBox>
-                  <AnswerBox>
-                    <Answer>MBTI를 골라주세요</Answer>
-                  </AnswerBox>
-                  <Select>
-                    <Mbti />
-                  </Select>
-                </SmallInputBox>
-
+                  <SmallInputBox>
+                    <AnswerBox>
+                      <Answer>MBTI를 골라주세요</Answer>
+                    </AnswerBox>
+                    <Select>
+                      <Mbti />
+                    </Select>
+                  </SmallInputBox>
+                </div>
                 <StyledButton onClick={GoMain}>완료</StyledButton>
               </InputBox>
             </MacBookBox>
