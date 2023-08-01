@@ -1,61 +1,72 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useMutation } from '@tanstack/react-query';
-import GoBackIcon from '../../../components/common/GoBackIcon';
-import Logo from '../../../components/common/Logo';
-import { postLogin } from '../../../apis/LoginApi';
-import { CenterBox, BtnBox, ForgotPasswordLink, IdInput, IdLabel, InputBox, LoginBox, StyledButton } from './LoginStyle';
-import { genderAtom, nameAtom } from '../../../Recoil/State';
-import { useRecoilState } from 'recoil';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import GoBackIcon from "../../../components/common/GoBackIcon";
+import Logo from "../../../components/common/Logo";
+import { postLogin } from "../../../apis/LoginApi";
+import {
+  CenterBox,
+  BtnBox,
+  ForgotPasswordLink,
+  IdInput,
+  IdLabel,
+  InputBox,
+  LoginBox,
+  StyledButton,
+} from "./LoginStyle";
+import { genderAtom, nameAtom } from "../../../Recoil/State";
+import { useRecoilState } from "recoil";
 const Login = () => {
   const navigate = useNavigate();
-  const [userId, setUserId] = useState('');
-  const [userPw, setUserPw] = useState('');
+  const [userId, setUserId] = useState("");
+  const [userPw, setUserPw] = useState("");
 
   const [gender, setGender] = useRecoilState(genderAtom);
   const [name, setName] = useRecoilState(nameAtom);
   const [id, setId] = useRecoilState(nameAtom);
   const [accessToken, setAccessToken] = useRecoilState(nameAtom);
   const [refreshToken, setRefreshToken] = useRecoilState(nameAtom);
-  
+
   const GoFindId = () => {
-    navigate('/ForgotId');
+    navigate("/ForgotId");
   };
-  
+
   const GoFindPw = () => {
-    navigate('/ForgotPw');
+    navigate("/ForgotPw");
   };
-  
+
   const GoRegister = () => {
-    navigate('/register');
+    navigate("/register");
   };
 
   const Loginmutation = useMutation(postLogin, {
     onSuccess: (response) => {
-      console.log('Login successful:', response);
+      console.log("Login successful:", response);
 
-      const { gender, name,id, accessToken,refreshToken } = response.data;
+      const { gender, name, id, accessToken, refreshToken } = response.data;
 
       setGender(gender);
       setName(name);
       setId(id);
       setAccessToken(accessToken);
       setRefreshToken(refreshToken);
-      navigate('/main');
-        },
+      navigate("/main");
+    },
     onError: (error) => {
-      console.error('Login failed:', error);
+      console.error("Login failed:", error);
     },
   });
 
-  const handleLogin = (e:React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault() // poem 제출시 새로고침 예방 + url에 어떤 값을 보내는지 안보이게 하기 용
-    Loginmutation.mutate({ id: userId, pwd: userPw });
+  const handleLogin = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault(); // poem 제출시 새로고침 예방 + url에 어떤 값을 보내는지 안보이게 하기 용
+    // Loginmutation.mutate({ id: userId, pwd: userPw });
   };
 
   return (
     <div>
-      <div style={{ height: '10vh', alignItems: 'center' }}><Logo /></div>
+      <div style={{ height: "10vh", alignItems: "center" }}>
+        <Logo />
+      </div>
       <CenterBox>
         <GoBackIcon></GoBackIcon>
         <LoginBox>
@@ -65,7 +76,7 @@ const Login = () => {
               type="text"
               name="user_id"
               value={userId}
-              onChange={(e) => setUserId(e.target.value)} 
+              onChange={(e) => setUserId(e.target.value)}
             />
           </InputBox>
           <InputBox>
@@ -74,7 +85,7 @@ const Login = () => {
               type="password"
               name="user_pw"
               value={userPw}
-              onChange={(e) => setUserPw(e.target.value)} 
+              onChange={(e) => setUserPw(e.target.value)}
             />
           </InputBox>
           <BtnBox>
