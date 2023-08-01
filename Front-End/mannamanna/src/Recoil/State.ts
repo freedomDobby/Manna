@@ -18,3 +18,19 @@ export const LoginDataState = atom<LoginDataType>({
         message: '로그인 시작 전입니다.'
     }
 });
+
+export const genderAtom = atom<string | null>({
+    key: 'genderAtom',
+    default: null,
+  });
+  
+  export const nameAtom = atom<string | null>({
+    key: 'nameAtom',
+    default: null,
+  });
+  
+  
+  
+  
+  
+  
