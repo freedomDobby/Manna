@@ -10,7 +10,7 @@ interface MacBookBoxProps {
   alignItems: string;
 }
 
-function MacBookBox({
+function MacBox({
   children,
   width,
   height,
@@ -116,4 +116,4 @@ function MacBookBox({
   );
 }
 
-export default MacBookBox;
+export default MacBox;
