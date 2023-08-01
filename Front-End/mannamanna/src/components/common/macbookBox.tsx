@@ -37,8 +37,8 @@ function MacBookBox({children, width, height, color1, color2, alignItems}: MacBo
   let MidBox = styled.div`
     width: 100%;
     height: 92%;
-    // display:inline-block;
-    display: flex;
+    display:inline-block;
+    // display: flex;
     background-color: ${color2};
     background-color: rgba(${parseInt(color2.slice(1, 3), 16)}, ${parseInt(color2.slice(3, 5), 16)}, ${parseInt(color2.slice(5, 7), 16)}, 0.5); 
     overflow: auto;
