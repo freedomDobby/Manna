@@ -26,6 +26,7 @@ const StudyRecoil = () => {
       <div>gender: {loginData.gender}</div>
       <div>accesstoken: {loginData.accessToken}</div>
       <div>message: {loginData.message}</div>
+      확인했다면 study.ts 파일도 한번 보자
       <StyledButton onClick={FakeLogin}>
         가짜 로그인<br /> 버튼
       </StyledButton>

@@ -12,60 +12,18 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-
-type MyPageButtonProps = {
-    children: string;
-    onClick: ()=>void;
-};
-  
-const MyPageButton = ({ children, onClick }: MyPageButtonProps) => {
-    return(
-        <Button
-        sx={{
-            width: '15vw', 
-            height: '10vh',
-            margin: '1vh',
-            backgroundColor: '#ffcced',
-            border: '0.3vw solid #000',
-            borderRadius: 3,
-            color:'common.black',
-            borderColor: "#ffcced",
-            fontSize: '3vh',
-            '&:hover': { backgroundColor: '#f8e3ea' },
-        }}
-        variant="contained"
-        onClick={onClick}
-        >{children}</Button>
-    )
-}
-
-
-const style = {
-    // position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    height: 300,
-    bgcolor: 'background.paper',
-    border: '0.3vw solid #000',
-    borderRadius: 4,
-    p: 4,
-    display: 'flex',
-    justifyContent: 'center', 
-    alignItems: 'center',
-};
+import { MyPageButton, MyPageModalStyle } from './MyPageStyles';
 
 function MyPageWithdrawal() {
 
+    // 비밀번호 보이게 하거나 안하기
     const [showPassword, setShowPassword] = React.useState(false);
-
     const handleClickShowPassword = () => setShowPassword((show) => !show);
-
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     };
 
+    // 모달창 열고 닫기
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -104,13 +62,18 @@ function MyPageWithdrawal() {
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
                 >
-                    <Box sx={style}>
-                        정말 탈퇴하시겠습니까ㄴㄴㄴ?
+                    {/* <MacBookBox width="60%" height="90%" color1="#bcd3ff" color2="#ffffff" alignItems='center'> */}
+                    <Box sx={MyPageModalStyle}>
+                        <p>
+                            회원 탈퇴를 진행하면 다시 복구할 수 없습니다. <br/>
+                            정말 탈퇴하시겠습니까?
+                        </p>
                         <div>
-                        <Button variant="outlined" color="warning">확인</Button>
-                        <Button variant="outlined" color="error">취소</Button>
+                        <Button variant="outlined" color="warning" >확인</Button>
+                        <Button variant="outlined" color="error" onClick={handleClose}>취소</Button>
                         </div>
                     </Box>
+                    {/* </MacBookBox> */}
                 </Modal>
             </div>
         </MacBookBox>

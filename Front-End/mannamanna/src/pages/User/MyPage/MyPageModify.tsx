@@ -27,7 +27,14 @@ import MacbookBox from '../../../components/common/macbookBox';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 
+import { useRecoilState } from 'recoil';
+import { useNavigate } from 'react-router-dom';
+
+
+import Box from '@mui/material/Box';
 import { CenterBox, StyledButton } from '../Login/LoginStyle';
+import { MyPageDataState } from './MyPageState';
+import { DrinkCustomSwitch, JobSelectBox, MBTISelectBox, MyPagePassButton, MyPageTextArea, MyPageUserHeightSlider, ReligionSelectBox, SmokeCustomSwitch} from './MyPageStyles';
 
 type MyPageButtonProps = {
     children: string;
@@ -135,7 +142,7 @@ const CustomSwitch = styled(Switch)(({  }) => ({
   };
 
 const ModifyBox = styled.div`
-    width: 35vw;
+    width: 90%;
     background: rgba(255, 255, 255, 0.5);
     border: solid 0.5vh black;
     border-radius: 2vh;
@@ -147,7 +154,21 @@ const ModifyBox = styled.div`
     font-size: 1.3vw;
 `
 
+// const [inputValue, setInputValue] = useState('여기에 기존의 정보');
+
+
+
+
+
 function MyPageModify() {
+
+    // const [userHeight, setUserHeight] = React.useState<number>(170);  
+
+    const [selfIntro, setSelfIntro] = useState('MyPageData.userSelfIntro');
+    const selfIntroChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setSelfIntro(event.target.value);
+    };
+
     
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
@@ -165,51 +186,59 @@ function MyPageModify() {
 
     return (
             <MacBookBox width="60%" height="90%" color1="#bcd3ff" color2="#ffffff" alignItems='center'>
-                    기본정보
-                    <div  style={{ display:'flex', justifyContent: 'center', alignItems: 'center'}}>
+                    <div  style={{flexDirection: 'column', display:'flex', justifyContent: 'center', alignItems: 'center'}}>
+                        <div style={{width:'90%',margin:'1vh'}}>기본정보</div>
                         <ModifyBox>
-                            <div style={{display:'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
-                                <pre>키    </pre><InputSlider/>
+                            
+                            
+                            <div style={{width:'100%', display:'flex', justifyContent: 'space-around', alignItems: 'center', flexDirection: 'row', margin:'1vh'}}>
+                                <div>키</div>
+                                <MyPageUserHeightSlider/>
                             </div>
-                            <div style={{display:'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
-                                <pre>주소  </pre><CustomTextField label="Custom TextField" />
+                            <div style={{width:'100%', display:'flex', justifyContent: 'space-around', alignItems: 'center', flexDirection: 'row', margin:'1vh'}}>
+                                <div>비밀번호 변경</div>
+                                <MyPagePassButton>dd</MyPagePassButton>
                             </div>
-                            <div style={{display:'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
-                            <pre>직업  </pre><MyComponent/>
+
+
+                            <div style={{width:'100%',height:'3vh',display:'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
+                                <div style={{width:'25%', height:'100%'}}>주소</div>
+                                <div style={{width:'75%', height:'100%'}}>입력입력</div>
                             </div>
-                            <div>
-                                지인차단
-                                <CustomSwitch
-                                    checked={block}
-                                    onChange={handleBlock}
-                                />    
+
+                            <div style={{width:'100%', display:'flex', justifyContent: 'space-around', alignItems: 'center', flexDirection: 'row', margin:'1vh'}}>
+                              <div style={{width:'15%'}}>직업</div>
+                              <JobSelectBox/> 
+                              <div style={{width:'15%'}}>지인차단</div>
+                              <SmokeCustomSwitch/>
                             </div>
                         </ModifyBox>
                     </div>
-                    세부정보
-                    <div  style={{display:'flex', justifyContent: 'center', alignItems: 'center'}}>
+
+                    <div style={{flexDirection: 'column',display:'flex', justifyContent: 'center', alignItems: 'center'}}>
+                        <div style={{width:'90%',margin:'1vh'}}>세부정보</div>
                         <ModifyBox>
-                            <div>
-                                흡연
-                                <CustomSwitch
-                                    checked={block}
-                                    onChange={handleBlock}
-                                />
-                                음주
-                                <CustomSwitch
-                                    checked={block}
-                                    onChange={handleBlock}
-                                />    
+                            <div style={{width:'100%', display:'flex', justifyContent: 'space-around', alignItems: 'center', flexDirection: 'row', margin:'1vh'}}>
+                                <div style={{width:'15%'}}>흡연</div>
+                                <SmokeCustomSwitch/> 
+                                <div style={{width:'15%'}}>음주</div>
+                                <DrinkCustomSwitch/>  
                             </div>
-                            <div>
-                            <pre>종교  </pre><MyComponent/> <pre>MBTI  </pre><MyComponent/>
+                            <div style={{width:'100%', display:'flex', justifyContent: 'space-around', alignItems: 'center', flexDirection: 'row', margin:'1vh'}}>
+                              <div style={{width:'15%'}}>종교</div>
+                              <ReligionSelectBox/> 
+                              <div style={{width:'15%'}}>MBTI</div>
+                              <MBTISelectBox/>
                             </div>
                         </ModifyBox>
                     </div>
-                    사진선택
-                    <div  style={{display:'flex', justifyContent: 'center', alignItems: 'center'}}>
+
+
+
+
+                    <div  style={{flexDirection: 'column',display:'flex', justifyContent: 'center', alignItems: 'center'}}>
+                        <div style={{width:'90%',margin:'1vh'}}>사진등록</div>
                         <ModifyBox>
-                            {/* <CenterBox style={{ flexDirection: 'column' }}> */}
                                 <ImageBox>
                                         <Avatar src="/broken-image.jpg" />
                                         <Avatar src="/broken-image.jpg" />
@@ -221,20 +250,21 @@ function MyPageModify() {
                                         </div>
                                         <OutboxIcon fontSize='large'></OutboxIcon>
                                 </MypageInputBox>
-                                {/* </CenterBox> */}
                         </ModifyBox>
                     </div>
-                    자기소개
-                    <div  style={{display:'flex', justifyContent: 'center', alignItems: 'center'}}>
+
+
+
+
+
+
+
+                    <div  style={{flexDirection: 'column',display:'flex', justifyContent: 'center', alignItems: 'center'}}>
+                        <div style={{width:'90%',margin:'1vh'}}>자기소개</div>
                         <ModifyBox>
-                        <TextField
-                        id="standard-multiline-static"
-                        label="Multiline"
-                        multiline
-                        rows={4}
-                        defaultValue="Default Value"
-                        variant="standard"
-                        />
+                          <div style={{width:'100%',}}>
+                          <MyPageTextArea/>
+                          </div>
                         </ModifyBox>
                     </div>
                     <div  style={{display:'flex', justifyContent: 'center', alignItems: 'center'}}>
@@ -244,7 +274,6 @@ function MyPageModify() {
     );
  };
   
-
 
 
 
