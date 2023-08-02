@@ -5,7 +5,7 @@ import Landing from "./pages/Landing/Landing";
 import Login from "./pages/User/Login/Login";
 import Register from "./pages/User/Register/Register";
 // import ForgotId from './pages/User/ForgotIdPw/ForgotId';
-// import ForgotPw from "./pages/User/ForgotIdPw/ForgotPw";
+import ForgotPw from "./pages/User/ForgotIdPw/ForgotPw";
 import MainHome from "./pages/User/MainHome/MainHome";
 import Choice from "./pages/Choice";
 import Schedule from "./pages/User/Schedule/Schedule";
@@ -31,7 +31,7 @@ import MyPageHistory from "./pages/User/MyPage/MyPageHistory";
 import MyPageWithdrawal from "./pages/User/MyPage/MyPageWithdrawal";
 import StudyRecoil from "./pages/Study/StudyRecoil";
 import StudyRecoilResult from "./pages/Study/StudyRecoilResult";
-// import ForgotId from "./pages/User/ForgotIdPw/ForgotId";
+import ForgotId from "./pages/User/ForgotIdPw/ForgotId";
 
 function App() {
   return (
@@ -66,8 +66,8 @@ function App() {
         <Route path="meeting" element={<Meeting />} />
         <Route path="home" element={<Landing />} />
         <Route path="login" element={<Login />} />
-        {/* <Route path="ForgotId" element={<ForgotId />} /> */}
-        {/* <Route path="ForgotPw" element={<ForgotPw />} /> */}
+        <Route path="ForgotId" element={<ForgotId />} />
+        <Route path="ForgotPw" element={<ForgotPw />} />
         <Route path="register" element={<Register />} />
         <Route path="registerDetail" element={<RegisterDetail />} />
         <Route path="study" element={<StudyRecoil />} />

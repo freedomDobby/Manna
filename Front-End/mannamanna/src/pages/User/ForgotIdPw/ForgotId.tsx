@@ -1,21 +1,21 @@
-// // import React, { useState, useEffect } from "react";
-// // import {
-// //   CenterBox,
-// //   BtnBox,
-// //   IdInput,
-// //   InputBox,
-// //   LoginBox,
-// // } from "../Login/LoginStyle";
-// // import { LargeStyledButton, SmallIdLabel } from "./ForgotIdStyle";
-// // import { useNavigate } from "react-router-dom";
-// // import GoBackIcon from "../../../components/common/GoBackIcon";
-// // import Logo from "../../../components/common/Logo";
-// // import EmailDomainInput from "../../../components/common/EmailDomain";
-// // import { findEmailDomainAtom, findEmailNameAtom } from "../../../Recoil/State";
-// // import { useRecoilState } from "recoil";
-// // import api from "../../../apis/Api";
-// // import { FindidReq } from "../../../apis/Request/Request";
-// // import axios from "axios";
+import React, { useState, useEffect } from "react";
+import {
+  CenterBox,
+  BtnBox,
+  IdInput,
+  InputBox,
+  LoginBox,
+} from "../Login/LoginStyle";
+import { LargeStyledButton, SmallIdLabel } from "./ForgotIdStyle";
+import { useNavigate } from "react-router-dom";
+import GoBackIcon from "../../../components/common/GoBackIcon";
+import Logo from "../../../components/common/Logo";
+import EmailDomainInput from "../../../components/common/EmailDomain";
+import { findEmailDomainAtom, findEmailNameAtom } from "../../../Recoil/State";
+import { useRecoilState } from "recoil";
+import api from "../../../apis/Api";
+import { FindidReq } from "../../../apis/Request/Request";
+import axios from "axios";
 
 const ForgotId = () => {
   // //   const [userId, setUserId] = useState("이름과 이메일을 제대로 작성해주세요");
