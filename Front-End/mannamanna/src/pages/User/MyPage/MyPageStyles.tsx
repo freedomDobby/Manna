@@ -1,6 +1,6 @@
 import Button from '@mui/material/Button';
 import React,{useState} from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { MileageBox, LeftStyle, RightStyle } from './MyPageStyle';
 import styled from 'styled-components';
 import Switch from '@mui/material/Switch';
@@ -9,72 +9,7 @@ import Grid from '@mui/material/Grid';
 import Slider from '@mui/material/Slider';
 import Modal from '@mui/material/Modal';
 import MacBookBox from "../../../components/common/macbookBox";
-import { MyPageDataState } from './MyPageState';
-import { findIdCheckIdAtom, findIdModalAtom, findPwModalAtom } from '../../../Recoil/State';
-
-// recoil을 활용 해 보자 
-
-
-
-export const Hello = () =>{
-  const [myPageData, setMyPageData] = useRecoilState(MyPageDataState);
-  const FakeLogin = () => {
-    setMyPageData((preMyPageData) => ({
-      ...preMyPageData,
-      userPassword: '유저이름',
-      userHeight: 155,
-      userAddress: '유저 주소',
-      userJob: '유저 직업',
-      userSmoke: '유저 흡연',
-      userDrink: '유저 음주',
-      userReligion: '유저 종교',
-      userMBTI: '유저 성격',
-      userBlock: true,
-      userSelfIntro: '유저 자기소개자기소개',
-    }));
-  };
-  const [MyPageUserHeight, setValue] = useState<number>(177);
-  const handleSliderChange = (_event:Event,newValue: number | number[]) => {
-    if (typeof newValue === 'number') {
-      setValue(newValue);
-    }
-  };
-  const MyPageUserHeightSlider = ()=> {
-  
-  
-    return (
-      <Box sx={{ width: 250 }}>
-        <Grid container spacing={2} alignItems="center">
-          <Grid item>
-            {MyPageUserHeight}
-          </Grid>
-          <Grid item xs>
-            <Slider
-              onChange={handleSliderChange}
-              value={MyPageUserHeight}
-              min={130}
-              max={210}
-              aria-labelledby="input-slider"
-              sx={{
-                color: "#ffcced"
-              }}
-            />
-          </Grid>
-          <Grid item>
-          </Grid>
-        </Grid>
-      </Box>
-    );
-}
-
-  return{
-  }
-  
-}
-
-
-
-
+import { ChangePass, IsBlock, IsDrink, IsSmoke, MyPageJob, MyPageMBTI, MyPageReligion, MyPageSelfIntro, MypageUserHeight, NowPass, OriginPass } from './MyPageState';
 
 // 마이페이지 버튼
 type MyPageButtonProps = {
@@ -104,6 +39,58 @@ export const MyPageButton = ({ children, onClick }: MyPageButtonProps) => {
     )
 }
 
+// 저장하기 버튼 
+type  SaveChangeButtonProps = {
+  children: string;
+};
+
+export const SaveChangeButton = ({ children }: SaveChangeButtonProps) => {
+
+  const mypageUserHeight = useRecoilValue(MypageUserHeight);
+  const myPageSelfIntro = useRecoilValue(MyPageSelfIntro);
+  const myPageMBTI = useRecoilValue(MyPageMBTI);
+  const myPageReligion = useRecoilValue(MyPageReligion);
+  const myPageJob = useRecoilValue(MyPageJob);
+  const isSmoke = useRecoilValue(IsSmoke);
+  const isDrink = useRecoilValue(IsDrink);
+  const isBlock = useRecoilValue(IsBlock);
+  const nowPass = useRecoilValue(NowPass);
+  
+  const saveChange = () => {
+    console.log(mypageUserHeight);
+    console.log(myPageSelfIntro);
+    console.log(myPageMBTI);
+    console.log(myPageReligion);
+    console.log(myPageJob);
+    console.log(isSmoke);
+    console.log(isDrink);
+    console.log(isBlock);
+    console.log(nowPass);
+  }
+  
+  return(
+      <Button
+      sx={{
+          width: '15vw', 
+          height: '10vh',
+          margin: '1vh',
+          backgroundColor: '#ffcced',
+          border: '0.3vw solid #000',
+          borderRadius: 3,
+          color:'common.black',
+          borderColor: "ffcced",
+          fontSize: '2.5vh',
+          fontFamily:'inherit',
+          '&:hover': { backgroundColor: '#f8e3ea' },
+      }}
+      variant="contained"
+      onClick={saveChange}
+      >{children}</Button>
+  )
+}
+
+
+
 // 내 정보 수정 페이지 비밀번호 변경 버튼 
 const PassChangeInput = styled.input` 
   width: 80%;
@@ -115,7 +102,7 @@ const PassChangeInput = styled.input`
 `;
 
 const MyNowPassInput = () => {
-  const [nowPass, setnowPass] = useState<string>('');
+  const [nowPass, setnowPass] = useRecoilState(NowPass);
     const handleNowChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       setnowPass(event.target.value);
     };
@@ -131,7 +118,7 @@ const MyNowPassInput = () => {
 };
 
 const MyChangePassInput = () => {
-  const [changePass, setChangePass] = useState<string>('');
+  const [changePass, setChangePass] = useRecoilState(ChangePass);
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       setChangePass(event.target.value);
     };
@@ -149,8 +136,20 @@ const MyChangePassInput = () => {
 type MyPagePassButtonProps = {
     children: string;
 };
+
+// const ChangePassword = () =>{
+//   const originPass = useRecoilValue(OriginPass);
+//   const nowPass = useRecoilValue(NowPass);
+//   const changePass = useRecoilValue(ChangePass);
+
+//   //현재 유저의 비밀번호와 바꿀 비밀 번호를 저장 
+//   if(originPass === nowPass){
+//     console.log(nowPass+ '에서')
+//     console.log(changePass+ '로 비밀번호 변경')
+//   }
+// }
   
-export const MyPagePassButton = ({ children}: MyPagePassButtonProps) => {
+export const MyPagePassButton = ({children}: MyPagePassButtonProps) => {
 
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -204,10 +203,17 @@ export const MyPagePassButton = ({ children}: MyPagePassButtonProps) => {
 // 내 정보 수정 키 슬라이더 
 export const MyPageUserHeightSlider = ()=> {
   
-    const [MyPageUserHeight, setValue] = useState<number>(177);
-    const handleSliderChange = (_event:Event,newValue: number | number[]) => {
+    // const [MyPageUserHeight, setMyPageUserHeight] = useState(177);
+    // const handleSliderChange = (_event:Event,newValue: number | number[]) => {
+    //   if (typeof newValue === 'number') {
+    //     setMyPageUserHeight(newValue);
+    //   }
+    // };
+    
+    const [myPageUserHeight, setMyPageUserHeight] = useRecoilState(MypageUserHeight);
+    const handleSliderChange = (_event:Event, newValue: number | number[]) => {
       if (typeof newValue === 'number') {
-        setValue(newValue);
+        setMyPageUserHeight(newValue);
       }
     };
   
@@ -215,12 +221,12 @@ export const MyPageUserHeightSlider = ()=> {
       <Box sx={{ width: 250 }}>
         <Grid container spacing={2} alignItems="center">
           <Grid item>
-            {MyPageUserHeight}
+            {myPageUserHeight}
           </Grid>
           <Grid item xs>
             <Slider
               onChange={handleSliderChange}
-              value={MyPageUserHeight}
+              value={myPageUserHeight}
               min={130}
               max={210}
               aria-labelledby="input-slider"
@@ -254,7 +260,13 @@ const MyPageTextAreaWrapper = styled.div`
 
 export const MyPageTextArea = () => {
 
-    const [MyPageSelfIntro, setMySelfIntro] = useState('');
+    // const [MyPageSelfIntro, setMySelfIntro] = useState('');
+
+    // const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    //     setMySelfIntro(event.target.value);
+    // };
+    
+    const [myPageSelfIntro, setMySelfIntro] = useRecoilState(MyPageSelfIntro);
 
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setMySelfIntro(event.target.value);
@@ -263,7 +275,7 @@ export const MyPageTextArea = () => {
     return (
         <MyPageTextAreaWrapper>
             <textarea
-                value={MyPageSelfIntro}
+                value={myPageSelfIntro}
                 onChange={handleChange}
                 rows={10}
                 cols={80}
@@ -288,7 +300,7 @@ const SelectBoxWrapper = styled.div`
 // 내 정보 수정 MBTI
 export const MBTISelectBox = () => {
 
-  const [MyPageMBTI, setMyPageMBTI] = useState('INFP');
+  const [myPageMBTI, setMyPageMBTI] = useRecoilState(MyPageMBTI);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
       setMyPageMBTI(event.target.value);
@@ -296,7 +308,7 @@ export const MBTISelectBox = () => {
 
   return (
     <SelectBoxWrapper>
-      <select defaultValue={MyPageMBTI} value={MyPageMBTI} onChange={handleChange}>
+      <select defaultValue={myPageMBTI} value={myPageMBTI} onChange={handleChange}>
         <option value="ISTJ"> ISTJ</option>
         <option value="ISFJ"> ISFJ</option>
         <option value="INFJ"> INFJ</option>
@@ -321,7 +333,7 @@ export const MBTISelectBox = () => {
 // 내 정보 수정 종교
 export const ReligionSelectBox = () => {
 
-    const [MyPageReligion, setMyPageReligion] = useState('무교');
+    const [myPageReligion, setMyPageReligion] = useRecoilState(MyPageReligion);
   
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setMyPageReligion(event.target.value);
@@ -329,7 +341,7 @@ export const ReligionSelectBox = () => {
   
     return (
       <SelectBoxWrapper>
-        <select value={MyPageReligion} onChange={handleChange}>
+        <select value={myPageReligion} onChange={handleChange}>
           <option value="기독교">기독교</option>
           <option value="천주교">천주교</option>
           <option value="불교">불교</option>
@@ -343,7 +355,7 @@ export const ReligionSelectBox = () => {
 // 내 정보 수정 직업
 export const JobSelectBox = () => {
 
-    const [MyPageJob, setMyPageJob] = useState('무교');
+    const [myPageJob, setMyPageJob] = useRecoilState(MyPageJob);
   
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setMyPageJob(event.target.value);
@@ -351,7 +363,7 @@ export const JobSelectBox = () => {
   
     return (
       <SelectBoxWrapper>
-        <select value={MyPageJob} onChange={handleChange}>
+        <select value={myPageJob} onChange={handleChange}>
             <option value="경영·사무·금융·보험직"> 경영·사무·금융·보험직</option>
             <option value="연구직 및 공학 기술직"> 연구직 및 공학 기술직</option>
             <option value="교육·법률·사회복지·경찰·소방직 및 군인"> 교육·법률·사회복지·경찰·소방직 및 군인</option>
@@ -373,16 +385,16 @@ export const JobSelectBox = () => {
 // 내 정보 수정 토글 스위치
 const MyPageCustomSwitch = styled(Switch)(() => ({
     '& .MuiSwitch-switchBase.Mui-checked': {
-        color: '#ffcced', // 스위치가 checked 상태일 때의 색상
-        },
-        '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-        backgroundColor: '#f8e3ea', // 스위치가 checked 상태일 때의 트랙 색상
-        },
+    color: '#ffcced', // 스위치가 checked 상태일 때의 색상
+    },
+    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+    backgroundColor: '#f8e3ea', // 스위치가 checked 상태일 때의 트랙 색상
+    },
 }));
 
 // 내 정보 수정 흡연
 export const SmokeCustomSwitch = () => {
-    const [isSmoke, setIsSmoke] = useState(false);
+    const [isSmoke, setIsSmoke] = useRecoilState(IsSmoke);
   
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setIsSmoke(event.target.checked);
@@ -397,7 +409,7 @@ export const SmokeCustomSwitch = () => {
 
 //내 정보 수정 음주
 export const DrinkCustomSwitch = () => {
-    const [isDrink, setIsDrink] = useState(false);
+    const [isDrink, setIsDrink] = useRecoilState(IsDrink);
   
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setIsDrink(event.target.checked);
@@ -412,7 +424,7 @@ export const DrinkCustomSwitch = () => {
 
 // 내 정보 수정 지인차단
 export const BlockCustomSwitch = () => {
-    const [isBlock, setIsBlock] = useState(false);
+    const [isBlock, setIsBlock] = useRecoilState(IsBlock);
   
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setIsBlock(event.target.checked);
