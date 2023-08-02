@@ -1,21 +1,22 @@
-import { useRecoilState } from "recoil";
-import { Switch } from "@mui/material";
-import { userSmokeState } from "./RegisterState";
-
+import React, { useState } from 'react';
+import { Switch } from '@mui/material';
+import { styled } from 'styled-components';
 const SmokeCheck = () => {
-  const [userSmoke, setUserSmoke] = useRecoilState(userSmokeState);
-  const handleSmokeingClick = () => {
-    setUserSmoke(!userSmoke);
-    console.log(userSmoke);
-  };
 
-  return (
-    <Switch
-      checked={!userSmoke}
-      onClick={handleSmokeingClick}
-      inputProps={{ "aria-label": "controlled" }}
-    />
-  );
+  const CustomSwitch = styled(Switch)(({  }) => ({
+  }));
+
+    const [smokingChecked, setSmokingChecked] = useState(false);
+    const handleSmokingClick = () => {
+        setSmokingChecked(!smokingChecked);
+      };
+    return (
+        <Switch 
+        checked={smokingChecked}
+        onClick={handleSmokingClick}
+        inputProps={{ 'aria-label': 'controlled' }}
+      />
+    );
 };
 
 export default SmokeCheck;
