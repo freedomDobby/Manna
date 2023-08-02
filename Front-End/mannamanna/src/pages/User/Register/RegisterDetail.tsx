@@ -1,5 +1,4 @@
 // import React, { useState } from "react";
-import { StyledButton } from "../Login/LoginStyle";
 import GoBackIcon from "../../../components/common/GoBackIcon";
 import signup from "../../../asset/image/signup.png";
 import Logo from "../../../components/common/Logo";
@@ -27,17 +26,11 @@ import {
   JobSelectBox,
   UserHeightSlider,
 } from "../Register/Selection";
-import { useNavigate } from "react-router-dom";
-import Question from "./AnswerBox";
 import IntroduceModal from "./IntroduceModal";
+import { EnterAge } from "./Question";
+import Save from "./SaveBtn";
 
 const Register = () => {
-  const navigate = useNavigate();
-
-  const GoMain = () => {
-    navigate("/main");
-  };
-
   return (
     <div>
       <LogoBox>
@@ -72,13 +65,7 @@ const Register = () => {
                   }}
                 >
                   {/* 사진 입력 받기 */}
-                  <Question
-                    question="몇 살이세요?"
-                    Type="number"
-                    Id="UserYear"
-                    placeholder="만 나이"
-                  />
-
+                  <EnterAge />
                   <SmallInputBox>
                     <AnswerBox>
                       <Answer>흡연을 하시나요?</Answer>
@@ -134,7 +121,7 @@ const Register = () => {
                     </AnswerBox>
                   </SmallInputBox>
                 </div>
-                <StyledButton onClick={GoMain}>완료</StyledButton>
+                <Save />
               </InputBox>
             </MacBookBox>
           </MainMidBox>
