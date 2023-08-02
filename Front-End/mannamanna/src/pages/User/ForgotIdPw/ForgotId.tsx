@@ -7,37 +7,40 @@ import Logo from '../../../components/common/Logo';
 import EmailDomainInput from '../../../components/common/EmailDomain';
 import { findEmailDomainAtom, findEmailNameAtom } from '../../../Recoil/State';
 import { useRecoilState } from 'recoil';
-import { useMutation, useQuery } from '@tanstack/react-query';
 import api from '../../../apis/Api';
 import { FindidReq } from '../../../apis/Request/Request';
-import { getId } from '../../../apis/FindIdPwApi';
+import axios from 'axios';
 
 
 const ForgotId = () => {
+  const [userId,setUserId]=useState('이름과 이메일을 제대로 작성해주세요');
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useRecoilState(findEmailNameAtom);
   const [selectedDomain, setSelectedDomain] = useRecoilState(findEmailDomainAtom);
+
+
+    const findid = async (e:React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault()
+      const updatedFindidReq: FindidReq = {
+        name: userName,
+        emailId: email,
+        emailDomain: selectedDomain,
+      };
+      console.log(updatedFindidReq);
+      try {
+        const response = await api.post('/user/findId', updatedFindidReq);
+        console.log(response.data); 
+        const { id } = response.data;
+        setUserId(id);
+        alert(userId);
+
   
-    const updatedFindidReq: FindidReq = {
-      name: userName,
-      emailId: email,
-      emailDomain: selectedDomain,
+      } catch (error) {
+        console.error(error);
+        alert(userId);
+      }
     };
 
-    const Loginmutation = useMutation(getId, {
-      onSuccess: (response) => {
-        console.log('Login successful:', response);
-
-          },
-      onError: (error) => {
-        console.error('Login failed:', error);
-      },
-    });
-  
-    const findid = (e:React.MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault() // poem 제출시 새로고침 예방 + url에 어떤 값을 보내는지 안보이게 하기 용
-      Loginmutation.mutate(updatedFindidReq);
-    };
   
 
     
