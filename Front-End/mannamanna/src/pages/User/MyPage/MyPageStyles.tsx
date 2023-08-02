@@ -10,6 +10,7 @@ import Slider from '@mui/material/Slider';
 import Modal from '@mui/material/Modal';
 import MacBookBox from "../../../components/common/macbookBox";
 import { ChangePass, IsBlock, IsDrink, IsSmoke, MyPageJob, MyPageMBTI, MyPageReligion, MyPageSelfIntro, MypageUserHeight, NowPass, OriginPass } from './MyPageState';
+import { findIdCheckIdAtom, findIdModalAtom, findPwModalAtom } from '../../../Recoil/State';
 
 // 마이페이지 버튼
 type MyPageButtonProps = {
