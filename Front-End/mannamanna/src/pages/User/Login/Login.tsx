@@ -92,7 +92,7 @@ const Login = () => {
             />
           </InputBox>
           <InputBox>
-            <IdLabel>PASSWORD</IdLabel>
+            <IdLabel>PASSWORD.</IdLabel>
             <IdInput
               type="password"
               name="user_pw"
