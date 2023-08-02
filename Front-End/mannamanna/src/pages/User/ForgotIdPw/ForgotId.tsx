@@ -21,15 +21,28 @@ const ForgotId = () => {
   const [userId, setUserId] = useState("이름과 이메일을 제대로 작성해주세요");
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useRecoilState(findEmailNameAtom);
-  const [selectedDomain, setSelectedDomain] =
-    useRecoilState(findEmailDomainAtom);
+  const [selectedDomain, setSelectedDomain] = useRecoilState(findEmailDomainAtom);
 
-  const findid = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    const updatedFindidReq: FindidReq = {
-      name: userName,
-      emailId: email,
-      emailDomain: selectedDomain,
+
+    const findid = async (e:React.MouseEvent<HTMLButtonElement>) => {
+      
+      e.preventDefault()
+      const updatedFindidReq: FindidReq = {
+        name: userName,
+        emailId: email,
+        emailDomain: selectedDomain,
+      };
+      console.log(updatedFindidReq);
+      try {
+        const response = await api.post('/user/findId', updatedFindidReq);
+        console.log(response.data.data); 
+        await setUserId(response.data.data.id);
+        alert(response.data.data.id); // setUserId 호출 후 alert를 하였습니다.
+  
+      } catch (error) {
+        console.error(error);
+        alert(userId);
+      }
     };
     console.log(updatedFindidReq);
     try {

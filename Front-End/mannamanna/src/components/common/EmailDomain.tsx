@@ -28,7 +28,7 @@ const STAIComponent = () => {
     'hanmail.net',
     'nate.com',
     'kakao.com',
-    'test_7a55cc62c1f0',
+    'gmail.com'
   ];
 
   const { username, domain } = extractEmailParts(email);
