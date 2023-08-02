@@ -64,7 +64,7 @@ function App() {
         <Route path="meeting" element={<Meeting />} />
         <Route path="home" element={<Landing />} />
         <Route path="login" element={<Login />} />
-        <Route path="ForgotId" element={<ForgotId />} />
+        {/* <Route path="ForgotId" element={<ForgotId />} /> */}
         <Route path="ForgotPw" element={<ForgotPw />} />
         <Route path="register" element={<Register />} />
         <Route path="registerDetail" element={<RegisterDetail />} />
