@@ -2,9 +2,21 @@ import { atom } from "recoil";
 
 export interface RegisterDataType {
   userPicture: {
-    Picture1: string;
-    Picture2: string;
-    Picture3: string;
+    Picture1: {
+      path: string;
+      name: string;
+      priority: number;
+    };
+    Picture2: {
+      path: string;
+      name: string;
+      priority: number;
+    };
+    Picture3: {
+      path: string;
+      name: string;
+      priority: number;
+    };
   };
   userName: string;
   userTel: string;
@@ -32,9 +44,21 @@ export const RegisterDataState = atom<RegisterDataType>({
   key: "RegisterData",
   default: {
     userPicture: {
-      Picture1: "src/asset/image/unknown.png",
-      Picture2: "src/asset/image/unknown.png",
-      Picture3: "src/asset/image/unknown.png",
+      Picture1: {
+        path: "src/asset/image/unknown.png",
+        name: "userProfile1",
+        priority: 1,
+      },
+      Picture2: {
+        path: "src/asset/image/unknown.png",
+        name: "userProfile1",
+        priority: 2,
+      },
+      Picture3: {
+        path: "src/asset/image/unknown.png",
+        name: "userProfile1",
+        priority: 3,
+      },
     },
     userName: "User",
     userTel: "010-1234-1234",
@@ -57,4 +81,69 @@ export const RegisterDataState = atom<RegisterDataType>({
     userMbti: "INTJ",
     userPr: "안녕하세요 ^^",
   },
+});
+
+export const userNameState = atom<string>({
+  key: "userName",
+  default: "UserKim",
+});
+
+export const userTelState = atom<string>({
+  key: "userTel",
+  default: "010-1234-1234",
+});
+
+export const userIdState = atom<string>({
+  key: "userId",
+  default: "UserId",
+});
+
+export const userPwdState = atom<string>({
+  key: "userPwd",
+  default: "User1234",
+});
+
+export const userPwdCheckState = atom<string>({
+  key: "userPwdCheck",
+  default: "User1234",
+});
+
+export const userAgeState = atom<number>({
+  key: "userAge",
+  default: 20,
+});
+
+export const userSmokeState = atom<boolean>({
+  key: "userSmoke",
+  default: false,
+});
+
+export const userDrinkState = atom<boolean>({
+  key: "userDrink",
+  default: false,
+});
+
+export const userHeightState = atom<number>({
+  key: "userHeight",
+  default: 177,
+});
+
+export const userReligionState = atom<string>({
+  key: " userReligion",
+  default: "무교",
+});
+
+export const userMbtiState = atom<string>({
+  key: "userMbti",
+  default: "INTJ",
+});
+
+export const userPrState = atom<string>({
+  key: "userPr",
+  default: "무직",
+});
+
+export const userJobState = atom<string>({
+  key: "userJob",
+  default: "안녕하세요 ^^",
 });
