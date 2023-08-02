@@ -26,7 +26,7 @@ import {
   JobSelectBox,
   UserHeightSlider,
 } from "../Register/Selection";
-import IntroduceModal from "./IntroduceModal";
+import { EnterPr } from "./IntroduceModal";
 import { EnterAge } from "./Question";
 import Save from "./SaveBtn";
 
@@ -117,7 +117,7 @@ const Register = () => {
                   <SmallInputBox>
                     <AnswerBox>
                       <Answer>자기소개를 작성해주세요</Answer>
-                      <IntroduceModal />
+                      <EnterPr>작성하기</EnterPr>
                     </AnswerBox>
                   </SmallInputBox>
                 </div>

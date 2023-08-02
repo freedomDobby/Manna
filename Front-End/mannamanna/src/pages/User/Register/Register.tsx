@@ -27,6 +27,8 @@ import {
   EnterPwdCheck,
   EnterTel,
 } from "./Question";
+import { EnterImage } from "./EnterImageModal";
+import { EnterLocation } from "./EnterAddressModal copy";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -74,9 +76,7 @@ const Register = () => {
                   <SmallInputBox>
                     <AnswerBox>
                       <Answer>프로필사진 등록</Answer>
-                      <StyledButton style={{ height: "100%" }}>
-                        사진 등록하기!
-                      </StyledButton>
+                      <EnterImage>사진 등록하기</EnterImage>
                     </AnswerBox>
                   </SmallInputBox>
 
@@ -89,9 +89,7 @@ const Register = () => {
                   <SmallInputBox>
                     <AnswerBox>
                       <Answer>사는 지역을 선택해주세요</Answer>
-                      <StyledButton style={{ height: "100%" }}>
-                        지역 찾기
-                      </StyledButton>
+                      <EnterLocation>주소입력</EnterLocation>
                     </AnswerBox>
                   </SmallInputBox>
                 </div>

@@ -12,11 +12,11 @@ import {
 } from "./ModalStyle";
 import EnterImageBox from "./ImageInput";
 
-type EnterPrProps = {
+type EnterImageProps = {
   children: string;
 };
 
-export const EnterPr = ({ children }: EnterPrProps) => {
+export const EnterImage = ({ children }: EnterImageProps) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -65,16 +65,12 @@ export const EnterPr = ({ children }: EnterPrProps) => {
               {/* 이미지 입력받기 */}
               <Container2>
                 <TitleBox>
-                  본인을 어필 할 수 있는 자기소개를 작성해주세요.
+                  본인을 어필 할 수 있는 사진 3장을 등록해 주세요.
                 </TitleBox>
                 <ImageForm>
-                  <textarea
-                    style={{
-                      border: "2px solid black",
-                      width: "100%",
-                      height: "90%",
-                    }}
-                  />
+                  <EnterImageBox title="프로필 사진 1" />
+                  <EnterImageBox title="프로필 사진 2" />
+                  <EnterImageBox title="프로필 사진 3" />
                 </ImageForm>
                 <EnterImageBtnBox>
                   <MyPageButton onClick={handleClose}>확인</MyPageButton>

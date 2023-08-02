@@ -1,52 +1,46 @@
-import Button from '@mui/material/Button';
-import React,{useState} from 'react';
-import { useRecoilState } from 'recoil';
-import { MileageBox, LeftStyle, RightStyle } from './MyPageStyle';
-import styled from 'styled-components';
-import Switch from '@mui/material/Switch';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Slider from '@mui/material/Slider';
-import Modal from '@mui/material/Modal';
+import Button from "@mui/material/Button";
+import React, { useState } from "react";
+import { useRecoilState } from "recoil";
+import { MileageBox, LeftStyle, RightStyle } from "./MyPageStyle";
+import styled from "styled-components";
+import Switch from "@mui/material/Switch";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Slider from "@mui/material/Slider";
+import Modal from "@mui/material/Modal";
 import MacBookBox from "../../../components/common/macbookBox";
-import { MyPageDataState } from './MyPageState';
+import { MyPageDataState } from "./MyPageState";
 
-// recoil을 활용 해 보자 
+// recoil을 활용 해 보자
 
-
-
-export const Hello = () =>{
+export const Hello = () => {
   const [myPageData, setMyPageData] = useRecoilState(MyPageDataState);
   const FakeLogin = () => {
     setMyPageData((preMyPageData) => ({
       ...preMyPageData,
-      userPassword: '유저이름',
+      userPassword: "유저이름",
       userHeight: 155,
-      userAddress: '유저 주소',
-      userJob: '유저 직업',
-      userSmoke: '유저 흡연',
-      userDrink: '유저 음주',
-      userReligion: '유저 종교',
-      userMBTI: '유저 성격',
+      userAddress: "유저 주소",
+      userJob: "유저 직업",
+      userSmoke: "유저 흡연",
+      userDrink: "유저 음주",
+      userReligion: "유저 종교",
+      userMBTI: "유저 성격",
       userBlock: true,
-      userSelfIntro: '유저 자기소개자기소개',
+      userSelfIntro: "유저 자기소개자기소개",
     }));
   };
   const [MyPageUserHeight, setValue] = useState<number>(177);
-  const handleSliderChange = (_event:Event,newValue: number | number[]) => {
-    if (typeof newValue === 'number') {
+  const handleSliderChange = (_event: Event, newValue: number | number[]) => {
+    if (typeof newValue === "number") {
       setValue(newValue);
     }
   };
-  const MyPageUserHeightSlider = ()=> {
-  
-  
+  const MyPageUserHeightSlider = () => {
     return (
       <Box sx={{ width: 250 }}>
         <Grid container spacing={2} alignItems="center">
-          <Grid item>
-            {MyPageUserHeight}
-          </Grid>
+          <Grid item>{MyPageUserHeight}</Grid>
           <Grid item xs>
             <Slider
               onChange={handleSliderChange}
@@ -55,56 +49,51 @@ export const Hello = () =>{
               max={210}
               aria-labelledby="input-slider"
               sx={{
-                color: "#ffcced"
+                color: "#ffcced",
               }}
             />
           </Grid>
-          <Grid item>
-          </Grid>
+          <Grid item></Grid>
         </Grid>
       </Box>
     );
-}
+  };
 
-  return{
-  }
-  
-}
-
-
-
-
+  return {};
+};
 
 // 마이페이지 버튼
 type MyPageButtonProps = {
-    children: string;
-    onClick: () => void;
+  children: string;
+  onClick: () => void;
 };
-  
-export const MyPageButton = ({ children, onClick }: MyPageButtonProps) => {
-    return(
-        <Button
-        sx={{
-            width: '15vw', 
-            height: '10vh',
-            margin: '1vh',
-            backgroundColor: '#ffcced',
-            border: '0.3vw solid #000',
-            borderRadius: 3,
-            color:'common.black',
-            borderColor: "ffcced",
-            fontSize: '2.5vh',
-            fontFamily:'inherit',
-            '&:hover': { backgroundColor: '#f8e3ea' },
-        }}
-        variant="contained"
-        onClick={onClick}
-        >{children}</Button>
-    )
-}
 
-// 내 정보 수정 페이지 비밀번호 변경 버튼 
-const PassChangeInput = styled.input` 
+export const MyPageButton = ({ children, onClick }: MyPageButtonProps) => {
+  return (
+    <Button
+      sx={{
+        width: "15vw",
+        height: "10vh",
+        margin: "1vh",
+        backgroundColor: "#ffcced",
+        border: "0.3vw solid #000",
+        borderRadius: 3,
+        color: "common.black",
+        borderColor: "ffcced",
+        fontSize: "2.5vh",
+        fontFamily: "inherit",
+        "&:hover": { backgroundColor: "#f8e3ea" },
+      }}
+      variant="contained"
+      onClick={onClick}
+    >
+      {children}
+    </Button>
+  );
+};
+
+// 내 정보 수정 페이지 비밀번호 변경 버튼
+const PassChangeInput = styled.input`
   width: 80%;
   height: 10vh;
   border: 0.5vh solid black;
@@ -114,161 +103,185 @@ const PassChangeInput = styled.input`
 `;
 
 const MyNowPassInput = () => {
-  const [nowPass, setnowPass] = useState<string>('');
-    const handleNowChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setnowPass(event.target.value);
-    };
+  const [nowPass, setnowPass] = useState<string>("");
+  const handleNowChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setnowPass(event.target.value);
+  };
 
   return (
     <PassChangeInput
-                  type="password"
-                  value={nowPass}
-                  onChange={handleNowChange}
-                  placeholder="현재 비밀번호"
-                />
+      type="password"
+      value={nowPass}
+      onChange={handleNowChange}
+      placeholder="현재 비밀번호"
+    />
   );
 };
 
 const MyChangePassInput = () => {
-  const [changePass, setChangePass] = useState<string>('');
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setChangePass(event.target.value);
-    };
+  const [changePass, setChangePass] = useState<string>("");
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setChangePass(event.target.value);
+  };
 
   return (
     <PassChangeInput
-                  type="password"
-                  value={changePass}
-                  onChange={handleChange}
-                  placeholder="변경할 비밀번호"
-                />
+      type="password"
+      value={changePass}
+      onChange={handleChange}
+      placeholder="변경할 비밀번호"
+    />
   );
 };
 
 type MyPagePassButtonProps = {
-    children: string;
+  children: string;
 };
-  
-export const MyPagePassButton = ({ children}: MyPagePassButtonProps) => {
 
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+export const MyPagePassButton = ({ children }: MyPagePassButtonProps) => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-    return(
-      <div style={{width:'30%'}}>
-        <Button
+  return (
+    <div style={{ width: "30%" }}>
+      <Button
         sx={{
-            width: '100%', 
-            height: '5vh',
-            margin: '1vh',
-            backgroundColor: '#ffcced',
-            border: '0.3vw solid #000',
-            borderRadius: 3,
-            color:'common.black',
-            borderColor: "ffcced",
-            fontSize: '2.5vh',
-            fontFamily:'inherit',
-            '&:hover': { backgroundColor: '#f8e3ea' },
+          width: "100%",
+          height: "5vh",
+          margin: "1vh",
+          backgroundColor: "#ffcced",
+          border: "0.3vw solid #000",
+          borderRadius: 3,
+          color: "common.black",
+          borderColor: "ffcced",
+          fontSize: "2.5vh",
+          fontFamily: "inherit",
+          "&:hover": { backgroundColor: "#f8e3ea" },
         }}
         variant="contained"
         onClick={handleOpen}
-        >{children}</Button>
-        <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
+      >
+        {children}
+      </Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <div
+          style={{
+            borderRadius: "5%",
+            background: "white",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "50%",
+            height: "70%",
+            flexDirection: "column",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
-          <div style={{borderRadius:'5%',background:'white',position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',width:'50%',height:'70%',flexDirection:'column',display:'flex',justifyContent:'center',alignItems:'center'}}>
-            <MacBookBox width="100%" height="100%" color1="#bcd3ff" color2="#ffffff" alignItems='center'>
-              <div style={{flexDirection:'column',display:'flex',justifyContent:'center',alignItems:'center',marginTop:'5vh'}}>
-                현재 비밀번호 입력
-                <MyNowPassInput/>
-                변경할 비밀번호 입력
-                <MyChangePassInput/>
-                <div>
-                <MyPageButton onClick={handleClose} >확인</MyPageButton>
-                <MyPageButton onClick={handleClose}>취소</MyPageButton>
-                </div>
-              </div>
-            </MacBookBox>
-          </div>
-        </Modal>
-      </div>
-    )
-}
-
-
-// 내 정보 수정 키 슬라이더 
-export const MyPageUserHeightSlider = ()=> {
-  
-    const [MyPageUserHeight, setValue] = useState<number>(177);
-    const handleSliderChange = (_event:Event,newValue: number | number[]) => {
-      if (typeof newValue === 'number') {
-        setValue(newValue);
-      }
-    };
-  
-    return (
-      <Box sx={{ width: 250 }}>
-        <Grid container spacing={2} alignItems="center">
-          <Grid item>
-            {MyPageUserHeight}
-          </Grid>
-          <Grid item xs>
-            <Slider
-              onChange={handleSliderChange}
-              value={MyPageUserHeight}
-              min={130}
-              max={210}
-              aria-labelledby="input-slider"
-              sx={{
-                color: "#ffcced"
+          <MacBookBox
+            width="100%"
+            height="100%"
+            color1="#bcd3ff"
+            color2="#ffffff"
+            alignItems="center"
+          >
+            <div
+              style={{
+                flexDirection: "column",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: "5vh",
               }}
-            />
-          </Grid>
-          <Grid item>
-          </Grid>
+            >
+              현재 비밀번호 입력
+              <MyNowPassInput />
+              변경할 비밀번호 입력
+              <MyChangePassInput />
+              <div>
+                <MyPageButton onClick={handleClose}>확인</MyPageButton>
+                <MyPageButton onClick={handleClose}>취소</MyPageButton>
+              </div>
+            </div>
+          </MacBookBox>
+        </div>
+      </Modal>
+    </div>
+  );
+};
+
+// 내 정보 수정 키 슬라이더
+export const MyPageUserHeightSlider = () => {
+  const [MyPageUserHeight, setValue] = useState<number>(177);
+  const handleSliderChange = (_event: Event, newValue: number | number[]) => {
+    if (typeof newValue === "number") {
+      setValue(newValue);
+    }
+  };
+
+  return (
+    <Box sx={{ width: 250 }}>
+      <Grid container spacing={2} alignItems="center">
+        <Grid item>{MyPageUserHeight}</Grid>
+        <Grid item xs>
+          <Slider
+            onChange={handleSliderChange}
+            value={MyPageUserHeight}
+            min={130}
+            max={210}
+            aria-labelledby="input-slider"
+            sx={{
+              color: "#ffcced",
+            }}
+          />
         </Grid>
-      </Box>
-    );
-}
+        <Grid item></Grid>
+      </Grid>
+    </Box>
+  );
+};
 
 // 내 정보 수정 자기소개 입력
 const MyPageTextAreaWrapper = styled.div`
-    textarea {
-        width: 95%;
-        height: 95%;
-        border: 1px solid white;
-        border-radius: 0.5vh;
-        color: black;
-        font-size: 2.5vh;
-        font-family: inherit;
-        outline: none;
-        align-items:center;
-        justify-content:center;
-    }
+  textarea {
+    width: 95%;
+    height: 95%;
+    border: 1px solid white;
+    border-radius: 0.5vh;
+    color: black;
+    font-size: 2.5vh;
+    font-family: inherit;
+    outline: none;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 export const MyPageTextArea = () => {
+  const [MyPageSelfIntro, setMySelfIntro] = useState("");
 
-    const [MyPageSelfIntro, setMySelfIntro] = useState('');
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setMySelfIntro(event.target.value);
+  };
 
-    const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setMySelfIntro(event.target.value);
-    };
-
-    return (
-        <MyPageTextAreaWrapper>
-            <textarea
-                value={MyPageSelfIntro}
-                onChange={handleChange}
-                rows={10}
-                cols={80}
-            />
-        </MyPageTextAreaWrapper>
-    );
+  return (
+    <MyPageTextAreaWrapper>
+      <textarea
+        value={MyPageSelfIntro}
+        onChange={handleChange}
+        rows={10}
+        cols={80}
+      />
+    </MyPageTextAreaWrapper>
+  );
 };
 
 // 내 정보 수정 selbox 공통
@@ -286,16 +299,19 @@ const SelectBoxWrapper = styled.div`
 
 // 내 정보 수정 MBTI
 export const MBTISelectBox = () => {
-
-  const [MyPageMBTI, setMyPageMBTI] = useState('INFP');
+  const [MyPageMBTI, setMyPageMBTI] = useState("INFP");
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-      setMyPageMBTI(event.target.value);
+    setMyPageMBTI(event.target.value);
   };
 
   return (
     <SelectBoxWrapper>
-      <select defaultValue={MyPageMBTI} value={MyPageMBTI} onChange={handleChange}>
+      <select
+        defaultValue={MyPageMBTI}
+        value={MyPageMBTI}
+        onChange={handleChange}
+      >
         <option value="ISTJ"> ISTJ</option>
         <option value="ISFJ"> ISFJ</option>
         <option value="INFJ"> INFJ</option>
@@ -319,159 +335,166 @@ export const MBTISelectBox = () => {
 
 // 내 정보 수정 종교
 export const ReligionSelectBox = () => {
+  const [MyPageReligion, setMyPageReligion] = useState("무교");
 
-    const [MyPageReligion, setMyPageReligion] = useState('무교');
-  
-    const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setMyPageReligion(event.target.value);
-    };
-  
-    return (
-      <SelectBoxWrapper>
-        <select value={MyPageReligion} onChange={handleChange}>
-          <option value="기독교">기독교</option>
-          <option value="천주교">천주교</option>
-          <option value="불교">불교</option>
-          <option value="원불교">원불교</option>
-          <option value="무교">무교</option>
-        </select>
-      </SelectBoxWrapper>
-    );
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setMyPageReligion(event.target.value);
   };
+
+  return (
+    <SelectBoxWrapper>
+      <select value={MyPageReligion} onChange={handleChange}>
+        <option value="기독교">기독교</option>
+        <option value="천주교">천주교</option>
+        <option value="불교">불교</option>
+        <option value="원불교">원불교</option>
+        <option value="무교">무교</option>
+      </select>
+    </SelectBoxWrapper>
+  );
+};
 
 // 내 정보 수정 직업
 export const JobSelectBox = () => {
+  const [MyPageJob, setMyPageJob] = useState("무교");
 
-    const [MyPageJob, setMyPageJob] = useState('무교');
-  
-    const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setMyPageJob(event.target.value);
-    };
-  
-    return (
-      <SelectBoxWrapper>
-        <select value={MyPageJob} onChange={handleChange}>
-            <option value="경영·사무·금융·보험직"> 경영·사무·금융·보험직</option>
-            <option value="연구직 및 공학 기술직"> 연구직 및 공학 기술직</option>
-            <option value="교육·법률·사회복지·경찰·소방직 및 군인"> 교육·법률·사회복지·경찰·소방직 및 군인</option>
-            <option value="보건·의료직"> 보건·의료직</option>
-            <option value="예술·디자인·방송·스포츠직"> 예술·디자인·방송·스포츠직</option>
-            <option value="미용·여행·숙박·음식·경비·청소직"> 미용·여행·숙박·음식·경비·청소직</option>
-            <option value="영업·판매·운전·운송직"> 영업·판매·운전·운송직</option>
-            <option value="건설·채굴직"> 건설·채굴직</option>
-            <option value="설치·정비·생산직"> 설치·정비·생산직</option>
-            <option value="농림·어업직"> 농림·어업직</option>
-            <option value="IT 기술직"> IT 기술직</option>
-            <option value="학생 및 취업준비생"> 학생 및 취업준비생</option>
-            <option value="무직"> 무직</option>
-        </select>
-      </SelectBoxWrapper>
-    );
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setMyPageJob(event.target.value);
   };
+
+  return (
+    <SelectBoxWrapper>
+      <select value={MyPageJob} onChange={handleChange}>
+        <option value="경영·사무·금융·보험직"> 경영·사무·금융·보험직</option>
+        <option value="연구직 및 공학 기술직"> 연구직 및 공학 기술직</option>
+        <option value="교육·법률·사회복지·경찰·소방직 및 군인">
+          {" "}
+          교육·법률·사회복지·경찰·소방직 및 군인
+        </option>
+        <option value="보건·의료직"> 보건·의료직</option>
+        <option value="예술·디자인·방송·스포츠직">
+          {" "}
+          예술·디자인·방송·스포츠직
+        </option>
+        <option value="미용·여행·숙박·음식·경비·청소직">
+          {" "}
+          미용·여행·숙박·음식·경비·청소직
+        </option>
+        <option value="영업·판매·운전·운송직"> 영업·판매·운전·운송직</option>
+        <option value="건설·채굴직"> 건설·채굴직</option>
+        <option value="설치·정비·생산직"> 설치·정비·생산직</option>
+        <option value="농림·어업직"> 농림·어업직</option>
+        <option value="IT 기술직"> IT 기술직</option>
+        <option value="학생 및 취업준비생"> 학생 및 취업준비생</option>
+        <option value="무직"> 무직</option>
+      </select>
+    </SelectBoxWrapper>
+  );
+};
 
 // 내 정보 수정 토글 스위치
 const MyPageCustomSwitch = styled(Switch)(() => ({
-    '& .MuiSwitch-switchBase.Mui-checked': {
-        color: '#ffcced', // 스위치가 checked 상태일 때의 색상
-        },
-        '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-        backgroundColor: '#f8e3ea', // 스위치가 checked 상태일 때의 트랙 색상
-        },
+  "& .MuiSwitch-switchBase.Mui-checked": {
+    color: "#ffcced", // 스위치가 checked 상태일 때의 색상
+  },
+  "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
+    backgroundColor: "#f8e3ea", // 스위치가 checked 상태일 때의 트랙 색상
+  },
 }));
 
 // 내 정보 수정 흡연
 export const SmokeCustomSwitch = () => {
-    const [isSmoke, setIsSmoke] = useState(false);
-  
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setIsSmoke(event.target.checked);
-    };
-  
-    return (
-      <div style={{ width: '10vw'}}>
-        <MyPageCustomSwitch checked={isSmoke} onChange={handleChange} />
-      </div>
-    );
+  const [isSmoke, setIsSmoke] = useState(false);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsSmoke(event.target.checked);
+  };
+
+  return (
+    <div style={{ width: "10vw" }}>
+      <MyPageCustomSwitch checked={isSmoke} onChange={handleChange} />
+    </div>
+  );
 };
 
 //내 정보 수정 음주
 export const DrinkCustomSwitch = () => {
-    const [isDrink, setIsDrink] = useState(false);
-  
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setIsDrink(event.target.checked);
-    };
-  
-    return (
-      <div style={{ width: '10vw'}}>
-        <MyPageCustomSwitch checked={isDrink} onChange={handleChange} />
-      </div>
-    );
+  const [isDrink, setIsDrink] = useState(false);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsDrink(event.target.checked);
   };
+
+  return (
+    <div style={{ width: "10vw" }}>
+      <MyPageCustomSwitch checked={isDrink} onChange={handleChange} />
+    </div>
+  );
+};
 
 // 내 정보 수정 지인차단
 export const BlockCustomSwitch = () => {
-    const [isBlock, setIsBlock] = useState(false);
-  
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setIsBlock(event.target.checked);
-    };
-  
-    return (
-      <div style={{ width: '10vw'}}>
-        <MyPageCustomSwitch checked={isBlock} onChange={handleChange} />
-      </div>
-    );
+  const [isBlock, setIsBlock] = useState(false);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsBlock(event.target.checked);
   };
+
+  return (
+    <div style={{ width: "10vw" }}>
+      <MyPageCustomSwitch checked={isBlock} onChange={handleChange} />
+    </div>
+  );
+};
 
 // 마이페이지 회원탈퇴 모달 스타일 (변경 후 삭제 예정)
 export const MyPageModalStyle = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    height: 500,
-    bgcolor: 'background.paper',
-    border: '0.3vw solid #000',
-    borderRadius: 4,
-    p: 4,
-    display: 'flex',
-    flexDirection:'column',
-    justifyContent: 'center', 
-    alignItems: 'center',
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  height: 500,
+  bgcolor: "background.paper",
+  border: "0.3vw solid #000",
+  borderRadius: 4,
+  p: 4,
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
 };
 
-export function UseMileage(){
-    return(
-        <LeftStyle>
-            시간시간시간
-            <MileageBox>-50 Point 쪽지 보내기</MileageBox>
-        </LeftStyle>
-    );
+export function UseMileage() {
+  return (
+    <LeftStyle>
+      시간시간시간
+      <MileageBox>-50 Point 쪽지 보내기</MileageBox>
+    </LeftStyle>
+  );
 }
 
-export function GetMileage(){
-    return(
-        <RightStyle>
-            시간시간시간
-            <MileageBox>+50 Point 미션 참여</MileageBox>
-        </RightStyle>
-    );
+export function GetMileage() {
+  return (
+    <RightStyle>
+      시간시간시간
+      <MileageBox>+50 Point 미션 참여</MileageBox>
+    </RightStyle>
+  );
 }
 
-export function SogeList(){
-    return(
-        <LeftStyle>
-            <MileageBox>소개팅소개팅소개팅</MileageBox>
-        </LeftStyle>
-    );
+export function SogeList() {
+  return (
+    <LeftStyle>
+      <MileageBox>소개팅소개팅소개팅</MileageBox>
+    </LeftStyle>
+  );
 }
 
-export function MeetList(){
-    return(
-        <RightStyle>
-            <MileageBox>미팅미팅미팅</MileageBox>
-        </RightStyle>
-    );
+export function MeetList() {
+  return (
+    <RightStyle>
+      <MileageBox>미팅미팅미팅</MileageBox>
+    </RightStyle>
+  );
 }

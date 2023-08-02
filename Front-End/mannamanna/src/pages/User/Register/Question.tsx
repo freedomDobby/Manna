@@ -62,7 +62,7 @@ const EnterTel = () => {
       question="전화번호를 입력해주세요"
       Type="text"
       Id="UserNum"
-      placeholder="010-0000-0000"
+      placeholder="010-1234-4570"
       onChange={EnterTelChange}
     />
   );

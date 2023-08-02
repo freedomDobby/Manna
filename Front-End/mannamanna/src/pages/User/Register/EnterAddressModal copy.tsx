@@ -10,13 +10,12 @@ import {
   MostBiggestBox,
   TitleBox,
 } from "./ModalStyle";
-import EnterImageBox from "./ImageInput";
 
-type EnterPrProps = {
+type EnterLocationProps = {
   children: string;
 };
 
-export const EnterPr = ({ children }: EnterPrProps) => {
+export const EnterLocation = ({ children }: EnterLocationProps) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -65,16 +64,36 @@ export const EnterPr = ({ children }: EnterPrProps) => {
               {/* 이미지 입력받기 */}
               <Container2>
                 <TitleBox>
-                  본인을 어필 할 수 있는 자기소개를 작성해주세요.
+                  예약하기 서비스를 이용하기 위한 주소를 입력해주세요.
                 </TitleBox>
-                <ImageForm>
-                  <textarea
+                <ImageForm
+                  style={{ justifyContent: "center", alignContent: "center" }}
+                >
+                  <div
                     style={{
-                      border: "2px solid black",
-                      width: "100%",
-                      height: "90%",
+                      // border: "1px solid blue",
+                      display: "flex",
+                      justifyContent: "space-around",
+                      alignItems: "center" /* 수직 중앙 정렬 설정 */,
+                      height: "60%",
+                      width: "70%",
                     }}
-                  />
+                  >
+                    <label
+                      style={{
+                        // border: "1px solid red",
+                        textAlign: "center",
+                        width: "30%" /* 라벨 너비 설정 */,
+                      }}
+                    >
+                      주소
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="시도/구군/상세주소"
+                      style={{ width: "70%", height: "10%" }}
+                    />
+                  </div>
                 </ImageForm>
                 <EnterImageBtnBox>
                   <MyPageButton onClick={handleClose}>확인</MyPageButton>
