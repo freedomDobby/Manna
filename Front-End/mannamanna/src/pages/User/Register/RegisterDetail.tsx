@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import { StyledButton } from "../Login/LoginStyle";
 import GoBackIcon from "../../../components/common/GoBackIcon";
 import signup from "../../../asset/image/signup.png";
@@ -36,18 +36,6 @@ const Register = () => {
 
   const GoMain = () => {
     navigate("/main");
-  };
-  const [userAge, setUserAge] = useState<number | undefined>(undefined);
-  const handleInputChange = (name: string, value: string | number) => {
-    switch (name) {
-      case "userAge":
-        setUserAge(value as number);
-        break;
-      // ... (other cases)
-      default:
-        // 필요한 경우 다른 인풋 필드 처리
-        break;
-    }
   };
 
   return (
@@ -89,7 +77,6 @@ const Register = () => {
                     Type="number"
                     Id="UserYear"
                     placeholder="만 나이"
-                    onChange={(value) => handleInputChange("userAge", value)}
                   />
 
                   <SmallInputBox>
