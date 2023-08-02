@@ -1,9 +1,16 @@
 // Request 타입 정의
 
 export interface LoginReq {
-  user_id: string;
-  user_pw: string;
+  id: string;
+  pwd: string;
 }
+
+export interface FindidReq{
+  name:string;
+  emailId:string;
+  emailDomain:string;
+}
+
 
 //회원가입시 받는 회원 정보
 export type Profile = {

@@ -7,9 +7,9 @@ import { useNavigate } from 'react-router-dom';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
-  headers: {
-    'Content-type': 'application/json',
-  },
+  // headers: {
+  //   'Content-type': 'application/json',
+  // },
 });
 
 // api.interceptors.request.use(
