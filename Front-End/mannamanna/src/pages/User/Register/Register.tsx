@@ -75,7 +75,7 @@ const Register = () => {
                     <AnswerBox>
                       <Answer>프로필사진 등록</Answer>
                       <StyledButton style={{ height: "100%" }}>
-                        사진 등록하기
+                        사진 등록하기!
                       </StyledButton>
                     </AnswerBox>
                   </SmallInputBox>
