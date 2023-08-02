@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-export let RegisterBox = styled.div`
+export let RegisterBox = styled.form`
   border: solid black 4px;
   width: 100vh;
   height: 90vh;

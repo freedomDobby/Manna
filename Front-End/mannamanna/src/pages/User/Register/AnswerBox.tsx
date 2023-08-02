@@ -12,7 +12,6 @@ interface QuestionProps {
   Type: string;
   Id: string;
   placeholder: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Question: React.FC<QuestionProps> = ({
@@ -20,8 +19,25 @@ const Question: React.FC<QuestionProps> = ({
   Type,
   Id,
   placeholder,
-  onChange,
 }) => {
+  const [registerData, setRegisterData] = useRecoilState(RegisterDataState);
+
+  const { userName, userTel, userId, userPwd, userAddress } = registerData;
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    setRegisterData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+    console.log(userName);
+    console.log(userTel);
+    console.log(userId);
+    console.log(userPwd);
+    console.log(userAddress);
+  };
+
   return (
     <SmallInputBox>
       <AnswerBox>
@@ -30,7 +46,7 @@ const Question: React.FC<QuestionProps> = ({
           type={Type}
           id={Id}
           placeholder={placeholder}
-          onChange={onChange}
+          onChange={handleChange}
         />
       </AnswerBox>
     </SmallInputBox>

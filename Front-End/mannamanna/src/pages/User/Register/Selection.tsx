@@ -4,13 +4,6 @@ import Switch from "@mui/material/Switch";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Slider from "@mui/material/Slider";
-import { useRecoilState } from "recoil";
-import {
-  userHeightState,
-  userMbtiState,
-  userReligionState,
-  userJobState,
-} from "./RegisterState";
 
 /// 자기소개 입력
 const MyPageTextAreaWrapper = styled.div`
@@ -48,7 +41,7 @@ export const MyPageTextArea = () => {
 };
 /////////////////////g회원키//////////////////////////////////
 export const UserHeightSlider = () => {
-  const [UserHeight, setUserHeight] = useRecoilState(userHeightState);
+  const [UserHeight, setUserHeight] = React.useState<number>(177);
 
   const handleSliderChange = (_event: Event, newValue: number | number[]) => {
     if (typeof newValue === "number") {
@@ -94,7 +87,7 @@ const SelectBoxWrapper = styled.div`
 `;
 
 export const MBTISelectBox = () => {
-  const [MBTI, setMBTI] = useRecoilState(userMbtiState);
+  const [MBTI, setMBTI] = useState("INFP");
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setMBTI(event.target.value);
@@ -127,7 +120,7 @@ export const MBTISelectBox = () => {
 };
 
 export const ReligionSelectBox = () => {
-  const [Religion, setReligion] = useRecoilState(userReligionState);
+  const [Religion, setReligion] = useState("무교");
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setReligion(event.target.value);
@@ -148,7 +141,7 @@ export const ReligionSelectBox = () => {
 };
 
 export const JobSelectBox = () => {
-  const [Job, setJob] = useRecoilState(userJobState);
+  const [Job, setJob] = useState("경영·사무·금융·보험직");
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setJob(event.target.value);
