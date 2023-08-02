@@ -5,6 +5,12 @@ export interface LoginReq {
   pwd: string;
 }
 
+export interface FindidReq {
+  name: string;
+  emailId: string;
+  emailDomain: string;
+}
+
 export interface FindidReq{
   name:string;
   emailId:string;

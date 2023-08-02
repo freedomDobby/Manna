@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import { StyledButton } from "../Login/LoginStyle";
 import signup from "../../../asset/image/signup.png";
 import GoBackIcon from "../../../components/common/GoBackIcon";
@@ -22,51 +22,10 @@ import { useNavigate } from "react-router-dom";
 import Question from "./AnswerBox";
 
 const Register = () => {
-  const [userName, setUserName] = useState<string>("");
-  const [userTel, setUserTel] = useState<string>("");
-  const [userId, setUserId] = useState<string>("");
-  const [userPwd, setUserPwd] = useState<string>("");
-  const [UserAddress, setUserAddress] = useState<string>("");
-
   const navigate = useNavigate();
+
   const GoRegisterDetail = () => {
     navigate("/registerDetail");
-  };
-
-  const handleInputChange = (name: string, value: string) => {
-    switch (name) {
-      case "userName":
-        setUserName(value);
-        break;
-      case "userTel":
-        setUserTel(value);
-        break;
-      case "userId":
-        setUserId(value);
-        break;
-      case "userPwd":
-        setUserPwd(value);
-        break;
-      case "UserAddress":
-        setUserAddress(value);
-        break;
-      default:
-        // 필요한 경우 다른 인풋 필드 처리
-        break;
-    }
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    // 여기서 폼 데이터를 서버로 전송하거나 필요한 작업을 수행합니다.
-    console.log("Form submitted:", {
-      userName,
-      userTel,
-      userId,
-      userPwd,
-      UserAddress,
-    });
-    GoRegisterDetail(); // GoRegisterDetail 함수를 사용하여 페이지 이동
   };
 
   return (
@@ -94,7 +53,10 @@ const Register = () => {
               color2="#ffffff"
               alignItems="center"
             >
-              <InputBox onSubmit={handleSubmit} alignItems="center">
+              <InputBox
+                // onSubmit={handleSubmit}
+                alignItems="center"
+              >
                 <div
                   style={{
                     textAlign: "center",
@@ -116,28 +78,24 @@ const Register = () => {
                     Type="text"
                     Id="UserName"
                     placeholder="이름"
-                    onChange={(value) => handleInputChange("userName", value)}
                   />
                   <Question
                     question="전화번호를 입력해주세요"
                     Type="text"
                     Id="UserNum"
                     placeholder="010-0000-0000"
-                    onChange={(value) => handleInputChange("userTel", value)}
                   />
                   <Question
                     question="아이디를 입력해주세요"
                     Type="text"
                     Id="UserId"
                     placeholder="아이디"
-                    onChange={(value) => handleInputChange("userId", value)}
                   />
                   <Question
                     question="비밀번호를 입력해주세요"
                     Type="text"
                     Id="UserPw"
                     placeholder="비밀번호"
-                    onChange={(value) => handleInputChange("userPwd", value)}
                   />
 
                   <Question
@@ -145,7 +103,6 @@ const Register = () => {
                     Type="text"
                     Id="UserPw"
                     placeholder="비밀번호 확인"
-                    onChange={(value) => handleInputChange("userPwd", value)}
                   />
 
                   <SmallInputBox>
@@ -158,7 +115,9 @@ const Register = () => {
                   </SmallInputBox>
                 </div>
 
-                <StyledButton type="submit">다음</StyledButton>
+                <StyledButton type="submit" onClick={GoRegisterDetail}>
+                  다음
+                </StyledButton>
               </InputBox>
             </MacBox>
           </MainMidBox>
