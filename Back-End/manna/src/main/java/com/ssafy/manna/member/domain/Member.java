@@ -1,5 +1,6 @@
 package com.ssafy.manna.member.domain;
 
+import com.ssafy.manna.global.auth.dto.LoginResponse;
 import com.ssafy.manna.global.common.domain.BaseTimeEntity;
 import com.ssafy.manna.member.Enums.UserRole;
 import jakarta.persistence.Entity;
@@ -59,5 +60,15 @@ public class Member extends BaseTimeEntity {
 
     public void updateRole(String role) {
         this.role = UserRole.valueOf(role);
+    }
+
+    public LoginResponse makeLoginResponse(String accessToken, String refreshToken) {
+        return LoginResponse.builder()
+            .gender(gender)
+            .userName(name)
+            .id(id)
+            .accessToken(accessToken)
+            .refreshToken(refreshToken)
+            .build();
     }
 }

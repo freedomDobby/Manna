@@ -2,7 +2,6 @@ package com.ssafy.manna.global.auth.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.ssafy.manna.member.repository.MemberRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.Date;
@@ -36,8 +35,6 @@ public class JwtService {
     private static final String REFRESH_TOKEN_SUBJECT = "RefreshToken";
     private static final String ID_CLAIM = "id";
     private static final String BEARER = "Bearer ";
-
-    private final MemberRepository memberRepository;
 
     public String createAccessToken(String id) {
         Date now = new Date();
@@ -105,14 +102,6 @@ public class JwtService {
     public void setRefreshTokenHeader(HttpServletResponse response, String refreshToken) {
         response.setHeader(refreshHeader, refreshToken);
     }
-
-//    public void updateRefreshToken(String id, String refreshToken) {
-//        memberRepository.findById(id)
-//            .ifPresentOrElse(
-//                member -> member.updateRefreshToken(refreshToken),
-//                () -> new Exception("일치하는 회원이 없습니다.")
-//            );
-//    }
 
     //    토큰이 유효한지 검사하는것, 회원정보가 일치하는지 검사하는것이 아님
     public boolean isTokenValid(String token) {
