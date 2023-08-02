@@ -85,7 +85,9 @@ export const CenterBox=styled.div`
 display: flex;
 justify-content: center;
 align-items: center;
-height: 90vh;`
+height: 90vh;
+border: 1px solid red;
+`
 
 export const StyledArrowBackIcon = styled(ArrowBackIosIcon)`
   color: white;

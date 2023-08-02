@@ -1,92 +1,131 @@
-import React from 'react';
-import { CenterBox, StyledButton } from '../Login/LoginStyle';
-import GoBackIcon from '../../../components/common/GoBackIcon';
-import signup from '../../../asset/image/signup.png';
-import Logo from '../../../components/common/Logo';
-import { SmallInput, SmallInputBox } from './RegisterStyle';
-import InputSlider from '../../../components/common/slider';
-import MacBookBox from '../../../components/common/macbookBox';
-import { useNavigate } from 'react-router-dom';
+// import React, { useState } from "react";
+import { StyledButton } from "../Login/LoginStyle";
+import signup from "../../../asset/image/signup.png";
+import GoBackIcon from "../../../components/common/GoBackIcon";
+import Logo from "../../../components/common/Logo";
+import {
+  LogoBox,
+  SmallInputBox,
+  InnerBox,
+  SideBox,
+  MainBox,
+  SideInnerBox,
+  MainLogoBox,
+  SignUP,
+  MainMidBox,
+  InputBox,
+  AnswerBox,
+  Answer,
+} from "./RegisterStyle";
+import MacBox from "../../../components/common/MacBox1";
+import { useNavigate } from "react-router-dom";
+import Question from "./AnswerBox";
+
 const Register = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const GoRegisterDetail = () => {
-        navigate('/registerDetail');
-      }
-    return (
-        <div>
-        <div style={{height:'5vh', alignItems:'center'}}><Logo/></div>
-        <CenterBox>
-            <GoBackIcon></GoBackIcon>
-        <CenterBox style={{ flexDirection: 'column' }}>
-            <img src={signup} alt="Signup" style={{ maxWidth: '80vh', maxHeight: '100vh' }}></img>
-            <MacBookBox width="120vh" height="60vh" color1="#bcd3ff" color2="#ffffff" alignItems='center'>
-            <CenterBox style={{ flexDirection: 'column', overflow:'auto'}}>
-            <SmallInputBox>
-                <div  style={{ width:'65%' }}>
-                <p>카카오톡 연동이 필요합니다.</p>
-                <p>카카오톡 인증을 해주세요!</p>
-                </div>
-                <StyledButton>
-                    인증하러가기
-                </StyledButton>
-            </SmallInputBox>
+  const GoRegisterDetail = () => {
+    navigate("/registerDetail");
+  };
 
-            <SmallInputBox>
-                <div>
-                <p>아이디 적어주세요</p>
-                <SmallInput placeholder='아이디 입력칸'></SmallInput>
+  return (
+    <div>
+      <LogoBox>
+        <Logo />
+      </LogoBox>
+      <InnerBox>
+        <SideBox>
+          <SideInnerBox>
+            <GoBackIcon />
+          </SideInnerBox>
+          <SideInnerBox />
+          <SideInnerBox />
+        </SideBox>
+        <MainBox>
+          <MainLogoBox>
+            <SignUP src={signup} />
+          </MainLogoBox>
+          <MainMidBox>
+            <MacBox
+              width="95%"
+              height="95%"
+              color1="#bcd3ff"
+              color2="#ffffff"
+              alignItems="center"
+            >
+              <InputBox
+                // onSubmit={handleSubmit}
+                alignItems="center"
+              >
+                <div
+                  style={{
+                    textAlign: "center",
+                    marginLeft: "10%",
+                    padding: "0%",
+                  }}
+                >
+                  <SmallInputBox>
+                    <AnswerBox>
+                      <Answer>프로필사진 등록</Answer>
+                      <StyledButton style={{ height: "100%" }}>
+                        사진 등록하기
+                      </StyledButton>
+                    </AnswerBox>
+                  </SmallInputBox>
+
+                  <Question
+                    question="이름을 입력해주세요"
+                    Type="text"
+                    Id="UserName"
+                    placeholder="이름"
+                  />
+                  <Question
+                    question="전화번호를 입력해주세요"
+                    Type="text"
+                    Id="UserNum"
+                    placeholder="010-0000-0000"
+                  />
+                  <Question
+                    question="아이디를 입력해주세요"
+                    Type="text"
+                    Id="UserId"
+                    placeholder="아이디"
+                  />
+                  <Question
+                    question="비밀번호를 입력해주세요"
+                    Type="text"
+                    Id="UserPw"
+                    placeholder="비밀번호"
+                  />
+
+                  <Question
+                    question="비밀번호 확인"
+                    Type="text"
+                    Id="UserPw"
+                    placeholder="비밀번호 확인"
+                  />
+
+                  <SmallInputBox>
+                    <AnswerBox>
+                      <Answer>사는 지역을 선택해주세요</Answer>
+                      <StyledButton style={{ height: "100%" }}>
+                        지역 찾기
+                      </StyledButton>
+                    </AnswerBox>
+                  </SmallInputBox>
                 </div>
-                <StyledButton>
-                   중복확인
+
+                <StyledButton type="submit" onClick={GoRegisterDetail}>
+                  다음
                 </StyledButton>
-            </SmallInputBox>
-            <SmallInputBox>
-            <div>
-                <p>비밀번호를 적어주세요</p>
-                <SmallInput placeholder='비밀번호 입력칸'></SmallInput>
-                </div>
-            </SmallInputBox>
-            <SmallInputBox>
-            <div>
-                <p>비밀번호를 확인해주세요</p>
-                <SmallInput placeholder='비밀번호 입력칸'></SmallInput>
-                </div>
-                <StyledButton>
-                    비밀번호 확인
-                </StyledButton>
-            </SmallInputBox>
-            <SmallInputBox>
-            <div>
-                <p>사는 지역을 선택해주세요</p>
-                </div>
-                <StyledButton>
-                    지역 찾기
-                </StyledButton>
-            </SmallInputBox>
-            <SmallInputBox>
-            <div>
-                <p>키를 입력해주세요</p>
-                </div>
-        <InputSlider ></InputSlider>
-            </SmallInputBox>
-            <SmallInputBox>
-            <div>
-                <p>자기소개를 작성해주세요</p>
-                </div>
-                <StyledButton>
-                    작성하기
-                </StyledButton>
-            </SmallInputBox>
-            <StyledButton onClick={GoRegisterDetail}>
-                다음
-            </StyledButton>
-            </CenterBox>
-            </MacBookBox>
-        </CenterBox>
-        </CenterBox>
-        </div>
-    );
+              </InputBox>
+            </MacBox>
+          </MainMidBox>
+        </MainBox>
+        <SideBox></SideBox>
+      </InnerBox>
+    </div>
+  );
 };
 
 export default Register;

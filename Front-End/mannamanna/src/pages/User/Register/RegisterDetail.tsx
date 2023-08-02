@@ -1,83 +1,147 @@
-import React, { useState } from 'react';
-import { CenterBox, StyledButton } from '../Login/LoginStyle';
-import GoBackIcon from '../../../components/common/GoBackIcon';
-import RadiusContainerBox from '../../../components/common/RadiusContainer';
-import signup from '../../../asset/image/signup.png';
-import Logo from '../../../components/common/Logo';
-import { ImageBox, SmallInputBox } from './RegisterStyle';
-import MacbookBox from '../../../components/common/macbookBox';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { Avatar } from '@mui/material';
-import OutboxIcon from '@mui/icons-material/Outbox';
-import { useNavigate } from 'react-router-dom';
-import SmokeCheck from './SmokeCheck';
-import DrinkCheck from './DrinkCheck';
+import { StyledButton } from "../Login/LoginStyle";
+import GoBackIcon from "../../../components/common/GoBackIcon";
+import signup from "../../../asset/image/signup.png";
+import Logo from "../../../components/common/Logo";
+import SmokeCheck from "./SmokeCheck";
+import DrinkCheck from "./DrinkCheck";
+import {
+  LogoBox,
+  SmallInputBox,
+  InnerBox,
+  SideBox,
+  MainBox,
+  SideInnerBox,
+  MainLogoBox,
+  SignUP,
+  MainMidBox,
+  InputBox,
+  AnswerBox,
+  Answer,
+  Select,
+} from "./RegisterStyle";
+import MacBookBox from "../../../components/common/macbookBox";
+import {
+  MBTISelectBox,
+  ReligionSelectBox,
+  JobSelectBox,
+  UserHeightSlider,
+} from "../Register/Selection";
+import { useNavigate } from "react-router-dom";
+import Question from "./AnswerBox";
+import IntroduceModal from "./IntroduceModal";
 
-const RegisterDetail = () => {
+const Register = () => {
   const navigate = useNavigate();
 
   const GoMain = () => {
-      navigate('/main');
-    }
+    navigate("/main");
+  };
+
   return (
     <div>
-      <div style={{ height: '5vh', alignItems: 'center' }}>
+      <LogoBox>
         <Logo />
-      </div>
-      <CenterBox>
-        <GoBackIcon></GoBackIcon>
-      <CenterBox style={{ flexDirection: 'column' }}>
-        <img src={signup} alt="Signup" style={{ maxWidth: '80vh', maxHeight: '100vh' }}></img>
-          <MacbookBox width="120vh" height="60vh" color1="#bcd3ff" color2="#FFFFFF" alignItems='center' >
-            <CenterBox style={{ flexDirection: 'column' }}>
-                <ImageBox>
-                <Avatar src="/broken-image.jpg" />
-                <Avatar src="/broken-image.jpg" />
-                <Avatar src="/broken-image.jpg" />
-                </ImageBox>
-              <SmallInputBox>
-                <div>
-                  <p>자신을 표현가능한 사진 3장을 입력해주세요.</p>
-                </div>
-                <OutboxIcon fontSize='large'></OutboxIcon>
-              </SmallInputBox>
+      </LogoBox>
+      <InnerBox>
+        <SideBox>
+          <SideInnerBox>
+            <GoBackIcon />
+          </SideInnerBox>
+          <SideInnerBox />
+          <SideInnerBox />
+        </SideBox>
+        <MainBox>
+          <MainLogoBox>
+            <SignUP src={signup} />
+          </MainLogoBox>
+          <MainMidBox>
+            <MacBookBox
+              width="95%"
+              height="95%"
+              color1="#bcd3ff"
+              color2="#ffffff"
+              alignItems="center"
+            >
+              <InputBox>
+                <div
+                  style={{
+                    textAlign: "center",
+                    marginLeft: "10%",
+                    padding: "0%",
+                  }}
+                >
+                  {/* 사진 입력 받기 */}
+                  <Question
+                    question="몇 살이세요?"
+                    Type="number"
+                    Id="UserYear"
+                    placeholder="만 나이"
+                  />
 
-              <SmallInputBox>
-                <div>
-                  <p>직업을 골라주세요</p>
+                  <SmallInputBox>
+                    <AnswerBox>
+                      <Answer>흡연을 하시나요?</Answer>
+                      <SmokeCheck />
+                    </AnswerBox>
+                  </SmallInputBox>
+
+                  <SmallInputBox>
+                    <AnswerBox>
+                      <Answer>음주를 하시나요?</Answer>
+                      <DrinkCheck />
+                    </AnswerBox>
+                  </SmallInputBox>
+
+                  <SmallInputBox>
+                    <AnswerBox>
+                      <Answer>키를 입력해주세요</Answer>
+                      <UserHeightSlider />
+                    </AnswerBox>
+                  </SmallInputBox>
+
+                  <SmallInputBox>
+                    <AnswerBox>
+                      <Answer>직업을 골라주세요</Answer>
+                      <Select>
+                        <JobSelectBox />
+                      </Select>
+                    </AnswerBox>
+                  </SmallInputBox>
+
+                  <SmallInputBox>
+                    <AnswerBox>
+                      <Answer>종교을 골라주세요</Answer>
+                      <Select>
+                        <ReligionSelectBox />
+                      </Select>
+                    </AnswerBox>
+                  </SmallInputBox>
+
+                  <SmallInputBox>
+                    <AnswerBox>
+                      <Answer>MBTI를 골라주세요</Answer>
+                      <Select>
+                        <MBTISelectBox />
+                      </Select>
+                    </AnswerBox>
+                  </SmallInputBox>
+
+                  <SmallInputBox>
+                    <AnswerBox>
+                      <Answer>자기소개를 작성해주세요</Answer>
+                      <IntroduceModal />
+                    </AnswerBox>
+                  </SmallInputBox>
                 </div>
-                <KeyboardArrowDownIcon fontSize="large" />
-              </SmallInputBox>
-              <SmallInputBox>
-                <div>
-                  <p>흡연을 하시나요?</p>
-                </div>
-              <SmokeCheck></SmokeCheck>
-              </SmallInputBox>
-              <SmallInputBox>
-                <div>
-                  <p>음주를 하시나요?</p>
-                </div>
-            <DrinkCheck></DrinkCheck>
-              </SmallInputBox>
-              <SmallInputBox>
-                <div>
-                  <p>종교을 골라주세요</p>
-                </div>
-                <KeyboardArrowDownIcon fontSize="large" />
-              </SmallInputBox>
-              <SmallInputBox>
-                <div>
-                  <p>MBTI를 골라주세요</p>
-                </div>
-                <KeyboardArrowDownIcon fontSize="large" />
-              </SmallInputBox>
-              <StyledButton onClick={GoMain}>완료</StyledButton>
-            </CenterBox>
-          </MacbookBox>
-      </CenterBox></CenterBox>
+                <StyledButton onClick={GoMain}>완료</StyledButton>
+              </InputBox>
+            </MacBookBox>
+          </MainMidBox>
+        </MainBox>
+        <SideBox />
+      </InnerBox>
     </div>
   );
 };
 
-export default RegisterDetail;
+export default Register;
