@@ -20,6 +20,7 @@ const ForgotId = () => {
 
 
     const findid = async (e:React.MouseEvent<HTMLButtonElement>) => {
+      
       e.preventDefault()
       const updatedFindidReq: FindidReq = {
         name: userName,
@@ -29,11 +30,9 @@ const ForgotId = () => {
       console.log(updatedFindidReq);
       try {
         const response = await api.post('/user/findId', updatedFindidReq);
-        console.log(response.data); 
-        const { id } = response.data;
-        setUserId(id);
-        alert(userId);
-
+        console.log(response.data.data); 
+        await setUserId(response.data.data.id);
+        alert(response.data.data.id); // setUserId 호출 후 alert를 하였습니다.
   
       } catch (error) {
         console.error(error);
