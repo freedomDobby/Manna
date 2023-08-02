@@ -488,3 +488,61 @@ export function MeetList(){
         </RightStyle>
     );
 }
+
+
+export const FindidModal = () => {
+
+  const [open, setOpen] = useRecoilState(findIdModalAtom);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const [userId] =  useRecoilState(findIdCheckIdAtom);
+  return(
+    <div style={{width:'30%'}}>
+      <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+      >
+        <div style={{borderRadius:'5%',background:'white',position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',width:'50%',height:'70%',flexDirection:'column',display:'flex',justifyContent:'center',alignItems:'center'}}>
+          <MacBookBox width="100%" height="100%" color1="#bcd3ff" color2="#ffffff" alignItems='center'>
+            <div style={{flexDirection:'column',display:'flex',justifyContent:'center',alignItems:'center',marginTop:'10vh'}}>
+              현재 본인의 아이디는 {userId}  입니다.
+              <div style={{marginTop:'20vh'}}>
+              <MyPageButton onClick={handleClose} >확인</MyPageButton>
+              </div>
+            </div>
+          </MacBookBox>
+        </div>
+      </Modal>
+    </div>
+  )
+}
+
+export const FindPwModal = () => {
+
+  const [open, setOpen] = useRecoilState(findPwModalAtom);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  return(
+    <div style={{width:'30%'}}>
+      <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+      >
+        <div style={{borderRadius:'5%',background:'white',position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',width:'50%',height:'70%',flexDirection:'column',display:'flex',justifyContent:'center',alignItems:'center'}}>
+          <MacBookBox width="100%" height="100%" color1="#bcd3ff" color2="#ffffff" alignItems='center'>
+            <div style={{flexDirection:'column',display:'flex',justifyContent:'center',alignItems:'center',marginTop:'10vh'}}>
+              이메일로 비밀번호를 전송하였습니다.
+              <div style={{marginTop:'20vh'}}>
+              <MyPageButton onClick={handleClose} >확인</MyPageButton>
+              </div>
+            </div>
+          </MacBookBox>
+        </div>
+      </Modal>
+    </div>
+  )
+}

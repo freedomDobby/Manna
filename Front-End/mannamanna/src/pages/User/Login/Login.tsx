@@ -56,25 +56,6 @@ const Login = () => {
       console.error(error);
     }
   };
-  const test = async (e:React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-
-    try {
-      const response = await api.get('/data2.json');
-      console.log(response.data); 
-      const { gender, name,id, accessToken,refreshToken } = response.data;
-
-      setGender(gender);
-      setName(name);
-      setId(id);
-      setAccessToken(accessToken);
-      setRefreshToken(refreshToken);
-      navigate('/main');
-
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   return (
     <div>

@@ -71,8 +71,21 @@ export const genderAtom = atom<string | null>({
     key: 'findEmailDomainAtom',
     default: '',
   });
-  
 
+  export const findIdModalAtom = atom<boolean>({
+    key: 'findIdModalAtom',
+    default: false,
+  });
+
+  export const findIdCheckIdAtom = atom<string>({
+    key: 'findIdCheckIdAtom',
+    default: "떴냐아아",
+  });
+  
+  export const findPwModalAtom = atom<boolean>({
+    key: 'findPwModalAtom',
+    default: false,
+  });
 
   
   
