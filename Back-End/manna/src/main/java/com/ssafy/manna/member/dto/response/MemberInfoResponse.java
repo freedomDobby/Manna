@@ -15,8 +15,7 @@ public class MemberInfoResponse {
     private String name;
     // 키
     private int height;
-    //상세주소 ( 카카오 맵 api가 주소를 어떻게 줄지 몰라서 추후 수정해야 할 듯)
-    private String detailAddress;
+
     // 직업
     private String job;
     // 지인차단여부
@@ -35,4 +34,8 @@ public class MemberInfoResponse {
     private String introduction;
     // 마일리지
     private int mileage;
+
+    private String sido;
+    private String gugun;
+    private String detailAddress;
 }

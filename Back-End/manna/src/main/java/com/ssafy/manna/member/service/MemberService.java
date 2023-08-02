@@ -25,7 +25,7 @@ public interface MemberService {
     void delete(String pwd, String id);
 
     //정보조회
-    Optional<Member> getInfo(String id);
+//    Optional<Member> getInfo(String id);
 
     Optional<Member> findOne(String insertedUserId);
 
@@ -46,4 +46,9 @@ public interface MemberService {
     void sendMail(MailDto mailDto);
 
     Optional<ProfilePicture> findProfilePictureById(Integer id);
+
+    //마이페이지 정보 조회
+    MemberInfoResponse getInfo(Member member);
+    void updateInfo(Member member,MemberUpdateRequest memberUpdateRequest);
+    void findPwd(Member member,MemberFindPwdRequest memberFindPwdRequest);
 }

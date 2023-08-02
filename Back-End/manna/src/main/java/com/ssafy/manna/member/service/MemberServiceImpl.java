@@ -4,6 +4,7 @@ import com.ssafy.manna.global.common.dto.MailDto;
 import com.ssafy.manna.global.common.domain.Address;
 import com.ssafy.manna.global.common.domain.Gugun;
 import com.ssafy.manna.global.common.domain.Sido;
+import com.ssafy.manna.global.common.dto.ProfilePictureDto;
 import com.ssafy.manna.global.common.repository.GugunRepository;
 import com.ssafy.manna.global.common.repository.SidoRepository;
 import com.ssafy.manna.member.Enums.UserRole;
@@ -19,6 +20,9 @@ import com.ssafy.manna.member.dto.response.MemberInfoResponse;
 import com.ssafy.manna.member.dto.response.MemberLoginResponse;
 import com.ssafy.manna.member.repository.MemberDetailRepository;
 import com.ssafy.manna.member.repository.MemberRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import com.ssafy.manna.member.repository.ProfilePictureRepository;
@@ -127,12 +131,6 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Optional<Member> getInfo(String id) {
-
-        return memberRepository.findById(id);
-    }
-
-    @Override
     public Optional<Member> findOne(String insertedUserId) {
         return memberRepository.findById(insertedUserId);
     }
@@ -216,4 +214,96 @@ public class MemberServiceImpl implements MemberService {
     public Optional<ProfilePicture> findProfilePictureById(Integer id) {
         return profilePictureRepository.findById(id);
     }
+
+    @Override
+    public MemberInfoResponse getInfo(Member member) {
+        MemberDetail memberDetail = member.getMemberDetail();
+        Address memberAddress = memberDetail.getAddress();
+        List<ProfilePicture> profilePictures= member.getProfilePictures();
+        List<ProfilePictureDto> profilePictureDtos = new ArrayList<>();
+
+        for(ProfilePicture profilePicture : profilePictures){
+            ProfilePictureDto profilePictureDto = new ProfilePictureDto(profilePicture.getId(),profilePicture.getPath(),profilePicture.getName(),profilePicture.getPriority());
+            profilePictureDtos.add(profilePictureDto);
+        }
+
+        MemberInfoResponse memberInfoResponse = new MemberInfoResponse(
+                member.getName(),memberDetail.getHeight(),
+                memberDetail.getJob(),memberDetail.isBlockingFriend(),memberDetail.isSmoker(),
+                memberDetail.isDrinker(),memberDetail.getReligion(),memberDetail.getMbti(),
+                profilePictureDtos,memberDetail.getIntroduction(),memberDetail.getMileage()
+                ,memberAddress.getSido().getName(),
+                memberAddress.getGugun().getName(),
+                memberAddress.getDetail()
+        );
+        return memberInfoResponse;
+    }
+
+    @Override
+    public void updateInfo(Member member,MemberUpdateRequest memberUpdateRequest) {
+        MemberDetail memberDetail = member.getMemberDetail();
+        Address address = memberDetail.getAddress();
+        memberDetail.updateHeight(memberUpdateRequest.getHeight());
+        memberDetail.updateIntroduction(memberUpdateRequest.getIntroduction());
+        memberDetail.updateJob(memberUpdateRequest.getJob());
+        memberDetail.updateMbti(memberUpdateRequest.getMbti());
+        memberDetail.updateIsDrinker(memberUpdateRequest.getIsDrinker());
+        memberDetail.updateIsSmoker(memberUpdateRequest.getIsSmoker());
+        memberDetail.updateReligion(memberUpdateRequest.getReligion());
+        memberDetail.updateIsBlockingFriend(memberUpdateRequest.getIsBlockingFriend());
+
+
+        //사진 업데이트
+        List<ProfilePicture> profilePictures= member.getProfilePictures();
+        List<ProfilePictureDto> profilePictureDtos = memberUpdateRequest.getProfilePictures();
+
+        //dto에서 데이터 꺼내서 profilePictures 를 업데이트
+        for(ProfilePictureDto profilePicture : profilePictureDtos){
+            Integer pictureId = profilePicture.getId();
+            String path = profilePicture.getPath();
+            String name = profilePicture.getName();
+            Integer priority = profilePicture.getPriority();
+
+            //findById 로 entity 불러오공
+            Optional<ProfilePicture> findProfilePic = this.findProfilePictureById(pictureId);
+            if(findProfilePic.isPresent()){
+                ProfilePicture pic = findProfilePic.get();
+                pic.updatePath(path);
+                pic.updateName(name);
+                pic.updatePriority(priority);
+            }else {
+                throw new RuntimeException("Wrong pic id");
+            }
+
+        }
+
+        String detail = memberUpdateRequest.getDetail();
+        Double latitude = memberUpdateRequest.getLatitude();
+        Double longitude = memberUpdateRequest.getLongitude();
+
+        Optional<Sido> sidoEntity = sidoRepository.findByName(memberUpdateRequest.getSido());
+        System.out.println(memberUpdateRequest.getGugun());
+        Optional<Gugun> gugunEntity = gugunRepository.findByNameAndSido(memberUpdateRequest.getGugun(),sidoEntity.get());
+
+        if(sidoEntity.isPresent() && gugunEntity.isPresent()){
+            address.updateAddress(sidoEntity.get(),gugunEntity.get(),detail,latitude,longitude);
+        }
+
+        memberRepository.save(member);
+    }
+
+    @Override
+    public void findPwd(Member member, MemberFindPwdRequest memberFindPwdRequest) {
+        String findId = member.getId();
+        String emailId = memberFindPwdRequest.getEmailId();
+        String emailDomain = memberFindPwdRequest.getEmailDomain();
+        //디비 업데이트
+        String tempPwd = this.updatePwd(findId);
+        //이메일 만들기
+        MailDto mailDto = this.createMail(emailId,emailDomain,tempPwd);
+        //이메일 발송
+        this.sendMail(mailDto);
+    }
+
+
 }

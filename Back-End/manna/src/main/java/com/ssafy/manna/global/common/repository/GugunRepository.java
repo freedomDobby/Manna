@@ -7,6 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface GugunRepository extends JpaRepository<Gugun, Integer> {
 
-    Optional<Gugun> findByNameAndSido(String name, Sido sido);
-
+    Optional<Gugun> findByNameAndSido(String gugun, Sido sido);
 }

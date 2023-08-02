@@ -16,8 +16,6 @@ public class MemberUpdateRequest {
     private String name;
     // 키
     private Integer height;
-    //상세주소 (카카오 맵 api가 주소를 어떻게 줄지 몰라서 추후 수정해야 할 듯)
-    private String detailAddress;
     // 직업
     private String job;
     // 지인차단여부
@@ -36,5 +34,12 @@ public class MemberUpdateRequest {
     private String introduction;
     // 마일리지
     private Integer mileage;
+
+    //주소
+    private String sido;
+    private String gugun;
+    private String detail;
+    private Double latitude;
+    private Double longitude;
 
 }

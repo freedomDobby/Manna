@@ -47,12 +47,12 @@ public class SecurityConfig {
 //        http.sessionManagement(AbstractHttpConfigurer::disable);
 //        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeHttpRequests(authorize -> authorize
-            .requestMatchers("/swagger-ui/**").permitAll()
-            .requestMatchers("/swagger-resources/**").permitAll()
-            .requestMatchers("/v3/api-docs/**").permitAll()
-            .requestMatchers("/user/login").permitAll()
-            .requestMatchers("/user/regist").permitAll()
-            .anyRequest().authenticated()
+//                .requestMatchers("/user/login").permitAll()
+//                .requestMatchers("/user/regist").permitAll()
+//                .requestMatchers("/user/findId").permitAll()
+                .requestMatchers("/**").permitAll()
+                .anyRequest().authenticated()
+
         );
 
         http.addFilterAfter(customJsonUsernamePasswordAuthenticationFilter(), LogoutFilter.class);
