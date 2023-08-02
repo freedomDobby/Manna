@@ -5,19 +5,20 @@ import { useNavigate } from 'react-router-dom';
 import GoBackIcon from '../../../components/common/GoBackIcon';
 import Logo from '../../../components/common/Logo';
 import EmailDomainInput from '../../../components/common/EmailDomain';
-import { findEmailDomainAtom, findEmailNameAtom } from '../../../Recoil/State';
+import { findEmailDomainAtom, findEmailNameAtom, findPwModalAtom } from '../../../Recoil/State';
 import { useRecoilState } from 'recoil';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import api from '../../../apis/Api';
 import { FindidReq, FindpwReq } from '../../../apis/Request/Request';
 import { getId } from '../../../apis/FindIdPwApi';
+import { FindPwModal } from '../MyPage/MyPageStyles';
 
 
 const ForgotPw = () => {
   const [userId, setUserId] = useState('');
   const [email, setEmail] = useRecoilState(findEmailNameAtom);
   const [selectedDomain, setSelectedDomain] = useRecoilState(findEmailDomainAtom);
-  
+  const [open, setOpen] = useRecoilState(findPwModalAtom);
 
   const findpw = async (e:React.MouseEvent<HTMLButtonElement>) => {
       
@@ -31,18 +32,18 @@ const ForgotPw = () => {
     try {
       const response = await api.post('/user/findPw', updatedFindpwReq);
       console.log(response.data.data); 
-      alert("이메일로 보냈습니다."); // setUserId 호출 후 alert를 하였습니다.
+      setOpen(true);
 
     } catch (error) {
       console.error(error);
-      alert("다시보내쇼");
+      setOpen(true);
     }
   };
 
     
     return (
       <div>
-      <div style={{height:'10vh', alignItems:'center'}}><Logo/></div>
+      <div style={{height:'10vh', alignItems:'center'}}><Logo/><FindPwModal></FindPwModal></div>
         <CenterBox>
             <GoBackIcon></GoBackIcon>
         <LoginBox>
