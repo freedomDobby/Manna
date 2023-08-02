@@ -7,6 +7,8 @@ import { postLogin } from '../../../apis/LoginApi';
 import { CenterBox, BtnBox, ForgotPasswordLink, IdInput, IdLabel, InputBox, LoginBox, StyledButton } from './LoginStyle';
 import { genderAtom, nameAtom } from '../../../Recoil/State';
 import { useRecoilState } from 'recoil';
+import { LoginReq } from '../../../apis/Request/Request';
+import api from '../../../apis/Api';
 const Login = () => {
   const navigate = useNavigate();
   const [userId, setUserId] = useState('');
@@ -30,10 +32,17 @@ const Login = () => {
     navigate('/register');
   };
 
-  const Loginmutation = useMutation(postLogin, {
-    onSuccess: (response) => {
-      console.log('Login successful:', response);
 
+  const handleLogin = async (e:React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    const userData: LoginReq = {
+      id: userId,
+      pwd: userPw,
+    };
+    console.log(userData);
+    try {
+      const response = await api.post('/user/login', userData);
+      console.log(response.data); 
       const { gender, name,id, accessToken,refreshToken } = response.data;
 
       setGender(gender);
@@ -42,15 +51,10 @@ const Login = () => {
       setAccessToken(accessToken);
       setRefreshToken(refreshToken);
       navigate('/main');
-        },
-    onError: (error) => {
-      console.error('Login failed:', error);
-    },
-  });
 
-  const handleLogin = (e:React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault() // poem 제출시 새로고침 예방 + url에 어떤 값을 보내는지 안보이게 하기 용
-    Loginmutation.mutate({ id: userId, pwd: userPw });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

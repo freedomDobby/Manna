@@ -1,12 +1,45 @@
-import React from 'react';
+import React, { useState ,useEffect} from 'react';
 import { CenterBox,BtnBox, IdInput, InputBox, LoginBox  } from '../Login/LoginStyle'
 import { LargeStyledButton, SmallIdLabel } from './ForgotIdStyle';
 import { useNavigate } from 'react-router-dom';
 import GoBackIcon from '../../../components/common/GoBackIcon';
 import Logo from '../../../components/common/Logo';
+import EmailDomainInput from '../../../components/common/EmailDomain';
+import { findEmailDomainAtom, findEmailNameAtom } from '../../../Recoil/State';
+import { useRecoilState } from 'recoil';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import api from '../../../apis/Api';
+import { FindidReq, FindpwReq } from '../../../apis/Request/Request';
+import { getId } from '../../../apis/FindIdPwApi';
 
 
 const ForgotPw = () => {
+  const [userId, setUserId] = useState('');
+  const [email, setEmail] = useRecoilState(findEmailNameAtom);
+  const [selectedDomain, setSelectedDomain] = useRecoilState(findEmailDomainAtom);
+  
+
+    const findpw = async (e:React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault()
+      const updatedFindpwReq: FindpwReq = {
+        id: userId,
+        emailId: email,
+        emailDomain: selectedDomain,
+      };
+      console.log(updatedFindpwReq);
+      try {
+        const response = await api.post('/user/findPw', updatedFindpwReq);
+        console.log(response.data); 
+        alert('이메일로 비밀번호가 전송되었습니다.')
+
+  
+      } catch (error) {
+        console.error(error);
+        alert('정확한 이메일과 아이디를 보내주세요.')
+      }
+    };
+
+    
     return (
       <div>
       <div style={{height:'10vh', alignItems:'center'}}><Logo/></div>
@@ -14,17 +47,27 @@ const ForgotPw = () => {
             <GoBackIcon></GoBackIcon>
         <LoginBox>
           <InputBox>
-            <SmallIdLabel>ID</SmallIdLabel>
-            <IdInput type="text" name="user_id" />
+            <SmallIdLabel>아이디</SmallIdLabel>
+            <IdInput
+              type="text"
+              name="user_id"
+              value={userId}
+              onChange={(e) => setUserId(e.target.value)} 
+            />
           </InputBox>
           <InputBox>
-            <SmallIdLabel>E-mail</SmallIdLabel>
-            <IdInput type="password" name="user_pw" />
+            <SmallIdLabel>이메일</SmallIdLabel>
+            <EmailDomainInput></EmailDomainInput>
           </InputBox>
           <BtnBox>
-            <LargeStyledButton>임시 비밀번호 발급</LargeStyledButton>
+            <LargeStyledButton onClick={findpw}>아이디찾기</LargeStyledButton>
           </BtnBox>
         </LoginBox>
+        <div>
+          {userId}
+          {email}
+          {selectedDomain}
+        </div>
       </CenterBox>
       </div>
     );
