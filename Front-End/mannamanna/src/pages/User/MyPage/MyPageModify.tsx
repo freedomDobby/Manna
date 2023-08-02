@@ -11,38 +11,43 @@ import {
   MBTISelectBox,
   MyPagePassButton,
   MyPageTextArea,
+  
   MyPageUserHeightSlider,
+  
   ReligionSelectBox,
   SmokeCustomSwitch,
 } from "./MyPageStyles";
+import { MyPageButton } from "./MyPageStyles";
 
-type MyPageButtonProps = {
-  children: string;
-  onClick: () => void;
-};
 
-const MyPageButton = ({ children, onClick }: MyPageButtonProps) => {
-  return (
-    <Button
-      sx={{
-        width: "15vw",
-        height: "10vh",
-        margin: "1vh",
-        backgroundColor: "#ffcced",
-        border: "0.3vw solid #000",
-        borderRadius: 3,
-        color: "common.black",
-        borderColor: "#ffcced",
-        fontSize: "3vh",
-        "&:hover": { backgroundColor: "#f8e3ea" },
-      }}
-      variant="contained"
-      onClick={onClick}
-    >
-      {children}
-    </Button>
-  );
-};
+
+// type MyPageButtonProps = {
+//   children: string;
+//   onClick: () => void;
+// };
+
+// const MyPageButton = ({ children, onClick }: MyPageButtonProps) => {
+//   return (
+//     <Button
+//       sx={{
+//         width: "15vw",
+//         height: "10vh",
+//         margin: "1vh",
+//         backgroundColor: "#ffcced",
+//         border: "0.3vw solid #000",
+//         borderRadius: 3,
+//         color: "common.black",
+//         borderColor: "#ffcced",
+//         fontSize: "3vh",
+//         "&:hover": { backgroundColor: "#f8e3ea" },
+//       }}
+//       variant="contained"
+//       onClick={onClick}
+//     >
+//       {children}
+//     </Button>
+//   );
+// };
 
 const ModifyBox = styled.div`
   width: 90%;
@@ -79,32 +84,19 @@ function MyPageModify() {
       >
         <div style={{ width: "90%", margin: "1vh" }}>기본정보</div>
         <ModifyBox>
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "space-around",
-              alignItems: "center",
-              flexDirection: "row",
-              margin: "1vh",
-            }}
-          >
-            <div>키</div>
-            <MyPageUserHeightSlider />
-          </div>
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "space-around",
-              alignItems: "center",
-              flexDirection: "row",
-              margin: "1vh",
-            }}
-          >
-            <div>비밀번호 변경</div>
-            <MyPagePassButton>dd</MyPagePassButton>
-          </div>
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "space-around",
+                  alignItems: "center",
+                  flexDirection: "row",
+                  margin: "1vh",
+                }}
+              >
+                <div>비밀번호 변경</div>
+                <MyPagePassButton>변경하러가기</MyPagePassButton>
+              </div>
           <div
             style={{
               width: "100%",
@@ -118,6 +110,19 @@ function MyPageModify() {
             <div style={{ width: "25%", height: "100%" }}>주소</div>
             <div style={{ width: "75%", height: "100%" }}>입력입력</div>
           </div>
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-around",
+                alignItems: "center",
+                flexDirection: "row",
+                margin: "1vh",
+              }}
+            >
+              <div>키</div>
+              <MyPageUserHeightSlider />
+            </div>
           <div
             style={{
               width: "100%",

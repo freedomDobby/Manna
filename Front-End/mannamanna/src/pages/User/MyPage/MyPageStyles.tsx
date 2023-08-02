@@ -1,12 +1,81 @@
 import Button from '@mui/material/Button';
 import React,{useState} from 'react';
+import { useRecoilState } from 'recoil';
 import { MileageBox, LeftStyle, RightStyle } from './MyPageStyle';
 import styled from 'styled-components';
 import Switch from '@mui/material/Switch';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Slider from '@mui/material/Slider';
+import Modal from '@mui/material/Modal';
+import MacBookBox from "../../../components/common/macbookBox";
+import { MyPageDataState } from './MyPageState';
 
+// recoil을 활용 해 보자 
+
+
+
+export const Hello = () =>{
+  const [myPageData, setMyPageData] = useRecoilState(MyPageDataState);
+  const FakeLogin = () => {
+    setMyPageData((preMyPageData) => ({
+      ...preMyPageData,
+      userPassword: '유저이름',
+      userHeight: 155,
+      userAddress: '유저 주소',
+      userJob: '유저 직업',
+      userSmoke: '유저 흡연',
+      userDrink: '유저 음주',
+      userReligion: '유저 종교',
+      userMBTI: '유저 성격',
+      userBlock: true,
+      userSelfIntro: '유저 자기소개자기소개',
+    }));
+  };
+  const [MyPageUserHeight, setValue] = useState<number>(177);
+  const handleSliderChange = (_event:Event,newValue: number | number[]) => {
+    if (typeof newValue === 'number') {
+      setValue(newValue);
+    }
+  };
+  const MyPageUserHeightSlider = ()=> {
+  
+  
+    return (
+      <Box sx={{ width: 250 }}>
+        <Grid container spacing={2} alignItems="center">
+          <Grid item>
+            {MyPageUserHeight}
+          </Grid>
+          <Grid item xs>
+            <Slider
+              onChange={handleSliderChange}
+              value={MyPageUserHeight}
+              min={130}
+              max={210}
+              aria-labelledby="input-slider"
+              sx={{
+                color: "#ffcced"
+              }}
+            />
+          </Grid>
+          <Grid item>
+          </Grid>
+        </Grid>
+      </Box>
+    );
+}
+
+  return{
+  }
+  
+}
+
+
+
+
+
+// 마이페이지 버튼
 type MyPageButtonProps = {
     children: string;
     onClick: () => void;
@@ -34,17 +103,63 @@ export const MyPageButton = ({ children, onClick }: MyPageButtonProps) => {
     )
 }
 
-// 비밀번호 변경 버튼 
+// 내 정보 수정 페이지 비밀번호 변경 버튼 
+const PassChangeInput = styled.input` 
+  width: 80%;
+  height: 10vh;
+  border: 0.5vh solid black;
+  border-radius: 5px;
+  font-size: 3vh;
+  margin: 2vh;
+`;
+
+const MyNowPassInput = () => {
+  const [nowPass, setnowPass] = useState<string>('');
+    const handleNowChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setnowPass(event.target.value);
+    };
+
+  return (
+    <PassChangeInput
+                  type="password"
+                  value={nowPass}
+                  onChange={handleNowChange}
+                  placeholder="현재 비밀번호"
+                />
+  );
+};
+
+const MyChangePassInput = () => {
+  const [changePass, setChangePass] = useState<string>('');
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setChangePass(event.target.value);
+    };
+
+  return (
+    <PassChangeInput
+                  type="password"
+                  value={changePass}
+                  onChange={handleChange}
+                  placeholder="변경할 비밀번호"
+                />
+  );
+};
 
 type MyPagePassButtonProps = {
     children: string;
 };
   
 export const MyPagePassButton = ({ children}: MyPagePassButtonProps) => {
+
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
     return(
+      <div style={{width:'30%'}}>
         <Button
         sx={{
-            width: '30%', 
+            width: '100%', 
             height: '5vh',
             margin: '1vh',
             backgroundColor: '#ffcced',
@@ -57,18 +172,38 @@ export const MyPagePassButton = ({ children}: MyPagePassButtonProps) => {
             '&:hover': { backgroundColor: '#f8e3ea' },
         }}
         variant="contained"
+        onClick={handleOpen}
         >{children}</Button>
+        <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+        >
+          <div style={{borderRadius:'5%',background:'white',position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',width:'50%',height:'70%',flexDirection:'column',display:'flex',justifyContent:'center',alignItems:'center'}}>
+            <MacBookBox width="100%" height="100%" color1="#bcd3ff" color2="#ffffff" alignItems='center'>
+              <div style={{flexDirection:'column',display:'flex',justifyContent:'center',alignItems:'center',marginTop:'5vh'}}>
+                현재 비밀번호 입력
+                <MyNowPassInput/>
+                변경할 비밀번호 입력
+                <MyChangePassInput/>
+                <div>
+                <MyPageButton onClick={handleClose} >확인</MyPageButton>
+                <MyPageButton onClick={handleClose}>취소</MyPageButton>
+                </div>
+              </div>
+            </MacBookBox>
+          </div>
+        </Modal>
+      </div>
     )
 }
 
 
-
-
-/////키 슬라이더 
-
+// 내 정보 수정 키 슬라이더 
 export const MyPageUserHeightSlider = ()=> {
-    const [MyPageUserHeight, setValue] = React.useState<number>(177);
   
+    const [MyPageUserHeight, setValue] = useState<number>(177);
     const handleSliderChange = (_event:Event,newValue: number | number[]) => {
       if (typeof newValue === 'number') {
         setValue(newValue);
@@ -89,7 +224,7 @@ export const MyPageUserHeightSlider = ()=> {
               max={210}
               aria-labelledby="input-slider"
               sx={{
-                color: "#F8E3EA"
+                color: "#ffcced"
               }}
             />
           </Grid>
@@ -100,19 +235,7 @@ export const MyPageUserHeightSlider = ()=> {
     );
 }
 
-
-
-
-///////////
-
-
-
-
-
-
-
-
-/// 자기소개 입력
+// 내 정보 수정 자기소개 입력
 const MyPageTextAreaWrapper = styled.div`
     textarea {
         width: 95%;
@@ -147,11 +270,8 @@ export const MyPageTextArea = () => {
         </MyPageTextAreaWrapper>
     );
 };
-///////////////////////////////////////////////////////
 
-
-// sel box 만들기 //////////////////////////////////////////
-
+// 내 정보 수정 selbox 공통
 const SelectBoxWrapper = styled.div`
   select {
     width: 10vw;
@@ -164,6 +284,7 @@ const SelectBoxWrapper = styled.div`
   }
 `;
 
+// 내 정보 수정 MBTI
 export const MBTISelectBox = () => {
 
   const [MyPageMBTI, setMyPageMBTI] = useState('INFP');
@@ -196,6 +317,7 @@ export const MBTISelectBox = () => {
   );
 };
 
+// 내 정보 수정 종교
 export const ReligionSelectBox = () => {
 
     const [MyPageReligion, setMyPageReligion] = useState('무교');
@@ -217,6 +339,7 @@ export const ReligionSelectBox = () => {
     );
   };
 
+// 내 정보 수정 직업
 export const JobSelectBox = () => {
 
     const [MyPageJob, setMyPageJob] = useState('무교');
@@ -245,9 +368,8 @@ export const JobSelectBox = () => {
       </SelectBoxWrapper>
     );
   };
-///////////////////////////////////////////////////////////////////
 
-//토글스위치만들기//////////////////////////////////////////
+// 내 정보 수정 토글 스위치
 const MyPageCustomSwitch = styled(Switch)(() => ({
     '& .MuiSwitch-switchBase.Mui-checked': {
         color: '#ffcced', // 스위치가 checked 상태일 때의 색상
@@ -255,9 +377,10 @@ const MyPageCustomSwitch = styled(Switch)(() => ({
         '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
         backgroundColor: '#f8e3ea', // 스위치가 checked 상태일 때의 트랙 색상
         },
-  }));
-  
-export const SmokeCustomSwitch: React.FC = () => {
+}));
+
+// 내 정보 수정 흡연
+export const SmokeCustomSwitch = () => {
     const [isSmoke, setIsSmoke] = useState(false);
   
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -269,9 +392,10 @@ export const SmokeCustomSwitch: React.FC = () => {
         <MyPageCustomSwitch checked={isSmoke} onChange={handleChange} />
       </div>
     );
-  };
+};
 
-export const DrinkCustomSwitch: React.FC = () => {
+//내 정보 수정 음주
+export const DrinkCustomSwitch = () => {
     const [isDrink, setIsDrink] = useState(false);
   
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -285,7 +409,8 @@ export const DrinkCustomSwitch: React.FC = () => {
     );
   };
 
-export const BlockCustomSwitch: React.FC = () => {
+// 내 정보 수정 지인차단
+export const BlockCustomSwitch = () => {
     const [isBlock, setIsBlock] = useState(false);
   
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -299,22 +424,14 @@ export const BlockCustomSwitch: React.FC = () => {
     );
   };
 
-/////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
+// 마이페이지 회원탈퇴 모달 스타일 (변경 후 삭제 예정)
 export const MyPageModalStyle = {
     position: 'absolute' as 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 400,
-    height: 300,
+    height: 500,
     bgcolor: 'background.paper',
     border: '0.3vw solid #000',
     borderRadius: 4,
