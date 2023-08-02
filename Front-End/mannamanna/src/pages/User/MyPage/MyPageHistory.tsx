@@ -68,8 +68,6 @@ function MyPageHistory() {
             <MeetList/>
             <SogeList/>
             <MeetList/>
-            <SogeList/>
-            <MeetList/>
         </MacBookBox>
     );
 };
