@@ -11,6 +11,13 @@ export interface FindidReq {
   emailDomain: string;
 }
 
+export interface FindidReq{
+  name:string;
+  emailId:string;
+  emailDomain:string;
+}
+
+
 //회원가입시 받는 회원 정보
 export type Profile = {
   name: string;
