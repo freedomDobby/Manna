@@ -10,7 +10,7 @@ import {
   MostBiggestBox,
   TitleBox,
 } from "./ModalStyle";
-import EnterImageBox from "./ImageInput";
+import { EnterImage1, EnterImage2, EnterImage3 } from "./ImageInput";
 
 type EnterImageProps = {
   children: string;
@@ -68,9 +68,9 @@ export const EnterImage = ({ children }: EnterImageProps) => {
                   본인을 어필 할 수 있는 사진 3장을 등록해 주세요.
                 </TitleBox>
                 <ImageForm>
-                  <EnterImageBox title="프로필 사진 1" />
-                  <EnterImageBox title="프로필 사진 2" />
-                  <EnterImageBox title="프로필 사진 3" />
+                  <EnterImage1 title="프로필 사진 1" coment="Best 사진" />
+                  <EnterImage2 title="프로필 사진 2" coment="사진 2" />
+                  <EnterImage3 title="프로필 사진 3" coment="사진1" />
                 </ImageForm>
                 <EnterImageBtnBox>
                   <MyPageButton onClick={handleClose}>확인</MyPageButton>
