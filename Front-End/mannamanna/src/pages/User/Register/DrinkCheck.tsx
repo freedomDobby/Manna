@@ -8,7 +8,7 @@ const DrinkCheck = () => {
 
   const handleDrinkingClick = () => {
     setUserDrink(!userDrink);
-    console.log(userDrink);
+    // console.log(userDrink);
   };
 
   return (

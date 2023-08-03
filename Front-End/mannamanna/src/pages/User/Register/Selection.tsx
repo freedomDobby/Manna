@@ -56,7 +56,7 @@ export const UserHeightSlider = () => {
     if (typeof newValue === "number") {
       setUserHeight(newValue);
     }
-    console.log(UserHeight); //유저 키 입력 완
+    // console.log(UserHeight); //유저 키 입력 완
   };
 
   return (
@@ -102,7 +102,7 @@ export const MBTISelectBox = () => {
     setMBTI(event.target.value);
   };
 
-  console.log(MBTI);
+  // console.log(MBTI);
 
   return (
     <SelectBoxWrapper>
@@ -134,7 +134,7 @@ export const ReligionSelectBox = () => {
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setReligion(event.target.value);
   };
-  console.log(Religion);
+  // console.log(Religion);
 
   return (
     <SelectBoxWrapper>
@@ -155,7 +155,7 @@ export const JobSelectBox = () => {
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setJob(event.target.value);
   };
-  console.log(Job);
+  // console.log(Job);
 
   return (
     <SelectBoxWrapper>

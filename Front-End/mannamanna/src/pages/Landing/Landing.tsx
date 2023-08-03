@@ -31,7 +31,12 @@ const LandingPage = () => {
         <img
           src={start}
           alt="Start"
-          style={{ marginTop: "10vh", maxWidth: "80vh", maxHeight: "100vh" }}
+          style={{
+            marginTop: "10vh",
+            maxWidth: "80vh",
+            maxHeight: "100vh",
+            cursor: "pointer",
+          }}
           onClick={GoLogin}
         ></img>
       </CenteredDiv>

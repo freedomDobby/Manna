@@ -16,7 +16,7 @@ const EnterAge = () => {
 
   const EnterAgeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserAge(String(event.target.value));
-    console.log(userAge); // 이 부분은 비동기적으로 업데이트되므로 최신값이 아닐 수 있습니다.
+    // console.log(userAge); // 이 부분은 비동기적으로 업데이트되므로 최신값이 아닐 수 있습니다.
   };
 
   return (
@@ -54,7 +54,7 @@ const EnterTel = () => {
 
   const EnterTelChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserTel(event.target.value);
-    console.log(userTel); // 이 부분은 비동기적으로 업데이트되므로 최신값이 아닐 수 있습니다.
+    // console.log(userTel); // 이 부분은 비동기적으로 업데이트되므로 최신값이 아닐 수 있습니다.
   };
 
   return (
@@ -74,7 +74,7 @@ const EnterId = () => {
 
   const EnterIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserId(event.target.value);
-    console.log(userId); // 이 부분은 비동기적으로 업데이트되므로 최신값이 아닐 수 있습니다.
+    // console.log(userId); // 이 부분은 비동기적으로 업데이트되므로 최신값이 아닐 수 있습니다.
   };
 
   return (
@@ -94,7 +94,7 @@ const EnterPwd = () => {
 
   const EnterPwdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserPwd(event.target.value);
-    console.log(userPwd); // 이 부분은 비동기적으로 업데이트되므로 최신값이 아닐 수 있습니다.
+    // console.log(userPwd); // 이 부분은 비동기적으로 업데이트되므로 최신값이 아닐 수 있습니다.
   };
 
   return (
@@ -116,7 +116,7 @@ const EnterPwdCheck = () => {
   const EnterPwdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserPwdCheck(event.target.value);
     if (userPwd === event.target.value) {
-      console.log("check");
+      // console.log("check");
     } else {
       alert("비밀번호를 확인해 주세요.");
       // alert(userPwdCheck);

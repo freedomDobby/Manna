@@ -6,7 +6,7 @@ const SmokeCheck = () => {
   const [userSmoke, setUserSmoke] = useRecoilState(userSmokeState);
   const handleSmokeingClick = () => {
     setUserSmoke(!userSmoke);
-    console.log(userSmoke);
+    // console.log(userSmoke);
   };
 
   return (
