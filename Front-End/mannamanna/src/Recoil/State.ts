@@ -98,3 +98,15 @@ export const genderAtom = atom<string | null>({
     key: 'ForgotIdErrorModalAtom',
     default: false,
   });
+
+
+
+  export const RegisterModalAtom = atom<boolean>({
+    key: 'RegisterModalAtom',
+    default: false,
+  });
+
+  export const RegisterMessageAtom = atom<string>({
+    key: 'RegisterMessageAtom',
+    default: '회원가입이 성공하였습니다.',
+  });

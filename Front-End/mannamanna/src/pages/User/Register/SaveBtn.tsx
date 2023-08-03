@@ -27,6 +27,8 @@ import {
 } from "./RegisterState";
 import { RegisterReq } from "../../../apis/Request/Request";
 import api from "../../../apis/Api";
+import { RegisterMessageAtom, RegisterModalAtom } from "../../../Recoil/State";
+import { StyledButton } from "../Login/LoginStyle";
 
 const Save = () => {
   const userName = useRecoilValue(userNameState);
@@ -103,7 +105,8 @@ const Save = () => {
   //   });
   //   return obj;
   // }
-
+  const [open, setOpen] = useRecoilState(RegisterModalAtom);
+  const [message,setMessage] =  useRecoilState(RegisterMessageAtom);
   const SaveInfo = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
@@ -117,19 +120,24 @@ const Save = () => {
           // },
         });
         // console.log(response.data.data);
-        alert("회원가입완료");
+        // alert("회원가입완료");
+        setOpen(true);
       } catch (error) {
         // console.log(RegisterUser);
         // console.log(formDataToObject(formdata));
         console.error(error);
-        alert("회원가입실패");
+        // alert("회원가입실패");
+        await setMessage("회원가입이 실패하였습니다.")
+        setOpen(true);
       }
     } else {
-      alert("비밀번호가 다릅니다.");
+      // alert("비밀번호가 다릅니다.");
+      await setMessage("비밀번호가 다릅니다.")
+      setOpen(true);
     }
   };
 
-  return <button onClick={SaveInfo}>저장</button>;
+  return <StyledButton onClick={SaveInfo}>저장</StyledButton>;
 };
 
 export default Save;

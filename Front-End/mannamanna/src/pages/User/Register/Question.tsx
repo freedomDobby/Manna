@@ -9,6 +9,7 @@ import {
   userPwdState,
   userPwdCheckState,
 } from "./RegisterState";
+import { RegisterMessageAtom, RegisterModalAtom } from "../../../Recoil/State";
 
 //// 회원 나이////
 const EnterAge = () => {
@@ -112,13 +113,17 @@ const EnterPwd = () => {
 const EnterPwdCheck = () => {
   const [userPwd, setUserPwd] = useRecoilState(userPwdState);
   const [userPwdCheck, setUserPwdCheck] = useRecoilState(userPwdCheckState);
+  const [open, setOpen] = useRecoilState(RegisterModalAtom);
+  const [message,setMessage] =  useRecoilState(RegisterMessageAtom);
 
   const EnterPwdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserPwdCheck(event.target.value);
     if (userPwd === event.target.value) {
       // console.log("check");
     } else {
-      alert("비밀번호를 확인해 주세요.");
+      // alert("비밀번호를 확인해 주세요.");
+      setMessage("비밀번호를 확인해 주세요.");
+      setOpen(true);
       // alert(userPwdCheck);
     }
     // console.log(userPwdCheck);

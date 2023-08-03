@@ -34,10 +34,16 @@ const ForgotPw = () => {
       const response = await api.post('/user/findPw', updatedFindpwReq);
       console.log(response.data.data); 
       setOpen(true);
+      setUserId('');
+      setEmail('');
+      setSelectedDomain('');
 
     } catch (error) {
       console.error(error);
       setErroropen(true);
+      setUserId('');
+      setEmail('');
+      setSelectedDomain('');
     }
   };
 

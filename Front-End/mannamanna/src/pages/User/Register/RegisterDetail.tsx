@@ -29,12 +29,14 @@ import {
 import { EnterPr } from "./IntroduceModal";
 import { EnterAge } from "./Question";
 import Save from "./SaveBtn";
+import { RegisterModal } from "../ForgotIdPw/ForgotIdStyles";
 
 const Register = () => {
   return (
     <div>
       <LogoBox>
         <Logo />
+        <RegisterModal></RegisterModal>
       </LogoBox>
       <InnerBox>
         <SideBox>
