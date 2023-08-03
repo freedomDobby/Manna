@@ -83,7 +83,6 @@ export const MyPageDataState = atom<MyPageDataType>({
     }
 });
 
-
 export const MypageUserHeight = atom<number>({
     key: 'MypageUserHeight',
     default: 177,
