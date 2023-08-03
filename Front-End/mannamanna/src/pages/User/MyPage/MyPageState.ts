@@ -123,11 +123,6 @@ export const IsBlock = atom<boolean>({
     default: true,
 });
 
-export const OriginPass = atom<string>({
-    key: 'originPass',
-    default: '1234',
-});
-
 export const NowPass = atom<string>({
     key: 'NowPass',
     default: '',
