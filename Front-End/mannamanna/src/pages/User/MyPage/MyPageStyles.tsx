@@ -9,7 +9,7 @@ import Grid from '@mui/material/Grid';
 import Slider from '@mui/material/Slider';
 import Modal from '@mui/material/Modal';
 import MacBookBox from "../../../components/common/macbookBox";
-import { ChangePass, IsBlock, IsDrink, IsSmoke, MyPageDataState, MyPageJob, MyPageMBTI, MyPageReligion, MyPageSelfIntro, MypageUserHeight, NowPass, OriginPass } from './MyPageState';
+import { ChangePass, IsBlock, IsDrink, IsSmoke, MyPageDataState, MyPageJob, MyPageMBTI, MyPageReligion, MyPageSelfIntro, MypageUserHeight, NowPass } from './MyPageState';
 import api from '../../../apis/Api';
 import { idAtom } from '../../../Recoil/State';
 
@@ -149,24 +149,72 @@ type MyPagePassButtonProps = {
     children: string;
 };
 
-// const ChangePassword = () =>{
-//   const originPass = useRecoilValue(OriginPass);
-//   const nowPass = useRecoilValue(NowPass);
-//   const changePass = useRecoilValue(ChangePass);
+type PassChangeProps = {
+  id: string|null;
+  pwd: string;
+};
 
-//   //현재 유저의 비밀번호와 바꿀 비밀 번호를 저장 
-//   if(originPass === nowPass){
-//     console.log(nowPass+ '에서')
-//     console.log(changePass+ '로 비밀번호 변경')
-//   }
-// }
-  
+// 비밀번호 변경 확인 버튼
+const PassCheckButton = ({children}: MyPagePassButtonProps) =>{
+  const userId = useRecoilValue(idAtom);
+  const nowPass = useRecoilValue(NowPass);
+  const changePass = useRecoilValue(ChangePass);
+  const checkData : PassChangeProps={
+    id : userId,
+    pwd : nowPass,
+  }
+  const CheckPassword = async ()=>{
+    try {
+      const response = await api.post('/user/mypage/checkPwd', checkData);
+      if(response.data.result){
+        checkData.pwd = changePass;
+        ChangePassword();
+      }else{
+        console.log("변경실패")
+      }
+    } catch (error) {
+      console.error(error);
+      alert('오류가 발생했습니다.');
+    }
+  }
+
+  const ChangePassword = async ()=>{
+    try {
+        console.log(checkData);
+        const response = await api.post('/user/mypage/changePwd', checkData);
+        console.log(response.data)
+    } catch (error) {
+      console.error(error);
+      alert('오류가 발생했습니다.');
+    }
+  }
+
+  return(
+    <Button
+    sx={{
+        width: '15vw', 
+        height: '10vh',
+        margin: '1vh',
+        backgroundColor: '#ffcced',
+        border: '0.3vw solid #000',
+        borderRadius: 3,
+        color:'common.black',
+        borderColor: "ffcced",
+        fontSize: '2.5vh',
+        fontFamily:'inherit',
+        '&:hover': { backgroundColor: '#f8e3ea' },
+    }}
+    variant="contained"
+    onClick={CheckPassword}
+    >{children}</Button>
+  )
+}
+
 export const MyPagePassButton = ({children}: MyPagePassButtonProps) => {
 
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-
     return(
       <div style={{width:'30%'}}>
         <Button
@@ -200,7 +248,7 @@ export const MyPagePassButton = ({children}: MyPagePassButtonProps) => {
                 변경할 비밀번호 입력
                 <MyChangePassInput/>
                 <div>
-                <MyPageButton onClick={handleClose} >확인</MyPageButton>
+                <PassCheckButton>확인</PassCheckButton>
                 <MyPageButton onClick={handleClose}>취소</MyPageButton>
                 </div>
               </div>
