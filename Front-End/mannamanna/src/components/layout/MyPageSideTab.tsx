@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { IsBlock, IsDrink, IsSmoke, MyPageDataState, MyPageJob, MyPageMBTI, MyPageReligion, MyPageSelfIntro, MypageUserHeight } from "../../pages/User/MyPage/MyPageState";
 import api from "../../apis/Api";
+import { idAtom } from "../../Recoil/State";
 
 interface SidebarProps {
   menu: string;
@@ -31,12 +32,13 @@ const MyPageSideTab: React.FC<SidebarProps> = ({ menu, bg }) => {
     const [isSmoke, setIsSmoke] = useRecoilState(IsSmoke);
     const [isDrink, setIsDrink] = useRecoilState(IsDrink);
     const [isBlock, setIsBlock] = useRecoilState(IsBlock);
+    const userId = useRecoilValue(idAtom);
 
     const navigate = useNavigate();
 
     const GoMyPage = async () => {
         try {
-            const response = await api.get('/user/mypage/test_bb1a270fbd30');
+            const response = await api.get(`/user/mypage/${userId}`);
             console.log(response.data); 
             setmyPageData((prevMyPageData) => ({
                 ...prevMyPageData,
