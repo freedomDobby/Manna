@@ -119,13 +119,15 @@ const EnterPwdCheck = () => {
       console.log("check");
     } else {
       alert("비밀번호를 확인해 주세요.");
+      // alert(userPwdCheck);
     }
+    // console.log(userPwdCheck);
   };
 
   return (
     <Question2
       question="비밀번호 확인"
-      Type="text"
+      Type="password"
       Id="UserPw"
       placeholder="비밀번호 확인"
       onBlur={EnterPwdChange}

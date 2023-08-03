@@ -84,13 +84,17 @@ const Save = () => {
   const SaveInfo = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    try {
-      const response = await api.post("/user/regist", RegisterUser);
-      console.log(response.data.data);
-      alert("회원가입완료");
-    } catch (error) {
-      console.error(error);
-      alert("회원가입실패");
+    if (userPwd === userPwdCheck) {
+      try {
+        const response = await api.post("/user/regist", RegisterUser);
+        console.log(response.data.data);
+        alert("회원가입완료");
+      } catch (error) {
+        console.error(error);
+        alert("회원가입실패");
+      }
+    } else {
+      alert("비밀번호가 다릅니다.");
     }
   };
 
