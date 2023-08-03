@@ -11,42 +11,41 @@ export interface FindidReq {
   emailDomain: string;
 }
 
-export interface FindidReq{
-  name:string;
-  emailId:string;
-  emailDomain:string;
-}
-
-export interface FindpwReq{
-  id:string;
-  emailId:string;
-  emailDomain:string;
-}
-
-
-//회원가입시 받는 회원 정보
-export type Profile = {
+export interface FindidReq {
   name: string;
-  id: string;
-  pwd: string;
-  tel: string;
-  birth: string;
   emailId: string;
   emailDomain: string;
+}
+
+export interface FindpwReq {
+  id: string;
+  emailId: string;
+  emailDomain: string;
+}
+
+//회원가입시 받는 회원 정보
+export type RegisterReq = {
+  id: string;
+  pwd: string;
+  name: string;
+  gender: string; //api
+  tel: string;
+  birth: string;
+  emailId: string; //api
+  emailDomain: string; //api
   height: number;
   job: string;
-  smoke: boolean;
-  drink: boolean;
+  isSmoke: boolean;
+  isDrink: boolean;
   mbti: string;
   religion: string;
-  pr: string;
-  banFriend: boolean;
-  address: {
-    sido: string;
-    gugun: string;
-    detail: string;
-    latitude: number;
-    longitude: number;
-    createTime: number;
-  };
+  introduction: string;
+  sido: string;
+  gugun: string;
+  detail: string;
+  latitude: number; //api
+  longitude: number; //api
+  priority1: number;
+  priority2: number;
+  priority3: number;
 };

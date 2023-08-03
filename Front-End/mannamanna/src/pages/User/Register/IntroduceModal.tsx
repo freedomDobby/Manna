@@ -10,7 +10,7 @@ import {
   MostBiggestBox,
   TitleBox,
 } from "./ModalStyle";
-import EnterImageBox from "./ImageInput";
+// import EnterImageBox from "./ImageInput";
 import { InroduceText } from "./IntroduceTextArea";
 
 type EnterPrProps = {
