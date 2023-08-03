@@ -9,7 +9,8 @@ import Grid from '@mui/material/Grid';
 import Slider from '@mui/material/Slider';
 import Modal from '@mui/material/Modal';
 import MacBookBox from "../../../components/common/macbookBox";
-import { ChangePass, IsBlock, IsDrink, IsSmoke, MyPageJob, MyPageMBTI, MyPageReligion, MyPageSelfIntro, MypageUserHeight, NowPass, OriginPass } from './MyPageState';
+import { ChangePass, IsBlock, IsDrink, IsSmoke, MyPageDataState, MyPageJob, MyPageMBTI, MyPageReligion, MyPageSelfIntro, MypageUserHeight, NowPass, OriginPass } from './MyPageState';
+import api from '../../../apis/Api';
 
 // 마이페이지 버튼
 type MyPageButtonProps = {
@@ -46,6 +47,8 @@ type  SaveChangeButtonProps = {
 
 export const SaveChangeButton = ({ children }: SaveChangeButtonProps) => {
 
+  const [myPageData, setmyPageData] = useRecoilState(MyPageDataState);
+
   const mypageUserHeight = useRecoilValue(MypageUserHeight);
   const myPageSelfIntro = useRecoilValue(MyPageSelfIntro);
   const myPageMBTI = useRecoilValue(MyPageMBTI);
@@ -54,18 +57,58 @@ export const SaveChangeButton = ({ children }: SaveChangeButtonProps) => {
   const isSmoke = useRecoilValue(IsSmoke);
   const isDrink = useRecoilValue(IsDrink);
   const isBlock = useRecoilValue(IsBlock);
-  const nowPass = useRecoilValue(NowPass);
+  // const nowPass = useRecoilValue(NowPass);
   
-  const saveChange = () => {
-    console.log(mypageUserHeight);
-    console.log(myPageSelfIntro);
-    console.log(myPageMBTI);
-    console.log(myPageReligion);
-    console.log(myPageJob);
-    console.log(isSmoke);
-    console.log(isDrink);
-    console.log(isBlock);
-    console.log(nowPass);
+  const saveChange = async () => {
+
+    console.log(myPageData);
+    setmyPageData((prevMyPageData) => ({
+      ...prevMyPageData,
+      // name: "string",
+      height: mypageUserHeight,
+      job: myPageJob,
+      isBlockingFriend: isBlock,
+      isSmoker: isSmoke,
+      isDrinker: isDrink,
+      religion: myPageReligion,
+      mbti: myPageMBTI,
+      // profilePictures: [
+      // {
+      //     id: 0,
+      //     path: "string",
+      //     name: "string",
+      //     priority: 0
+      // }
+      // ],
+      introduction: myPageSelfIntro,
+      // mileage: 0,
+      // sido: "string",
+      // gugun: "string",
+      // detail: "string",
+      // latitude: 0,
+      // longitude: 0
+    }));
+    // console.log(mypageUserHeight);
+    // console.log(myPageSelfIntro);
+    // console.log(myPageMBTI);
+    // console.log(myPageReligion);
+    // console.log(myPageJob);
+    // console.log(isSmoke);
+    // console.log(isDrink);
+    // console.log(isBlock);
+    // console.log(nowPass);
+    console.log(myPageData);
+    // try {
+    //   const response = await api.put(`/user/mypage/${myPageData.name}`, myPageData);
+    //   console.log(response.data); 
+    //   alert('내 정보가 수정 되었습니다.')
+
+
+    // } catch (error) {
+    //   console.error(error);
+    //   alert('오류가 발생했습니다.')
+    // }
+
   }
   
   return(

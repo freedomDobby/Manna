@@ -1,17 +1,41 @@
 import { atom } from 'recoil';
-import { Profile } from '../../../apis/Request/Request';
 
+// export interface MyPageDataType {
+//     userPassword: string;
+//     userHeight: number;
+//     userAddress: string;
+//     userJob: string;
+//     userSmoke: string;
+//     userDrink: string;
+//     userReligion: string;
+//     userMBTI: string;
+//     userBlock: boolean;
+//     userSelfIntro: string;
+// }
 export interface MyPageDataType {
-    userPassword: string;
-    userHeight: number;
-    userAddress: string;
-    userJob: string;
-    userSmoke: string;
-    userDrink: string;
-    userReligion: string;
-    userMBTI: string;
-    userBlock: boolean;
-    userSelfIntro: string;
+    name: string,
+    height: number,
+    job: string,
+    isBlockingFriend: boolean,
+    isSmoker: boolean,
+    isDrinker: boolean,
+    religion: string,
+    mbti: string,
+    profilePictures: [
+      {
+        id: number,
+        path: string,
+        name: string,
+        priority: number
+      }
+    ],
+    introduction: string,
+    mileage: number,
+    sido: string,
+    gugun: string,
+    detail: string,
+    latitude: number,
+    longitude: number
 }
 
 // export const MyPageDataState = atom<MyPageDataType>({
@@ -30,32 +54,32 @@ export interface MyPageDataType {
 //     }
 // });
 
-export const MyPageDataState = atom<Profile>({
+export const MyPageDataState = atom<MyPageDataType>({
     key: 'MyPageData', // key값은 다른 atom애들이랑 겹치면 안됨
     default: {
-        name: 'string',
-        id: 'string',
-        pwd: 'string',
-        tel: 'string',
-        birth: 'string',
-        emailId: 'string',
-        emailDomain: 'string',
-        height: 150,
-        job: 'string',
-        smoke: false,
-        drink: false,
-        mbti: 'string',
-        religion: 'string',
-        pr: 'string',
-        banFriend: false,
-        address: {
-            sido: 'string',
-            gugun: 'string',
-            detail: 'string',
-            latitude: 151,
-            longitude: 152,
-            createTime: 153,
-        },
+        name: "string",
+        height: 0,
+        job: "string",
+        isBlockingFriend: true,
+        isSmoker: true,
+        isDrinker: true,
+        religion: "string",
+        mbti: "string",
+        profilePictures: [
+        {
+            id: 0,
+            path: "string",
+            name: "string",
+            priority: 0
+        }
+        ],
+        introduction: "string",
+        mileage: 0,
+        sido: "string",
+        gugun: "string",
+        detail: "string",
+        latitude: 0,
+        longitude: 0
     }
 });
 
