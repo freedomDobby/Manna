@@ -1,18 +1,25 @@
 import React from "react";
-import { useRecoilState } from "recoil";
+// import { useRecoilState } from "recoil";
 import {
   SmallInputBox,
   AnswerBox,
   Answer,
   SmallInput,
 } from "../Register/RegisterStyle";
-import { RegisterDataType, RegisterDataState } from "./RegisterState";
+// import { RegisterDataType, RegisterDataState } from "./RegisterState";
 interface QuestionProps {
   question: string;
   Type: string;
   Id: string;
   placeholder: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+interface Question2Props {
+  question: string;
+  Type: string;
+  Id: string;
+  placeholder: string;
+  onBlur: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Question: React.FC<QuestionProps> = ({
@@ -37,4 +44,26 @@ const Question: React.FC<QuestionProps> = ({
   );
 };
 
-export default Question;
+const Question2: React.FC<Question2Props> = ({
+  question,
+  Type,
+  Id,
+  placeholder,
+  onBlur,
+}) => {
+  return (
+    <SmallInputBox>
+      <AnswerBox>
+        <Answer>{question}</Answer>
+        <SmallInput
+          type={Type}
+          id={Id}
+          placeholder={placeholder}
+          onBlur={onBlur}
+        />
+      </AnswerBox>
+    </SmallInputBox>
+  );
+};
+
+export { Question, Question2 };

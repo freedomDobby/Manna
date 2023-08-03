@@ -13,7 +13,13 @@ export const AddressDetail = () => {
       <input
         type="text"
         placeholder="상세주소"
-        style={{ width: "70%", height: "10%" }}
+        style={{
+          width: "100%",
+          height: "10%",
+          border: "1px solid black",
+          borderRadius: "0.5vh",
+          fontSize: "1.3rem",
+        }}
         value={userAddressDetail}
         onChange={EnterAddressDetail}
       />
