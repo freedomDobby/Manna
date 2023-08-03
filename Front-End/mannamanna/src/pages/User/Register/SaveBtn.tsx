@@ -53,7 +53,6 @@ const Save = () => {
   const profilePicture2 = useRecoilValue(profilePicture2State);
   const profilePicture3 = useRecoilValue(profilePicture3State);
 
-  
   const RegisterUser: RegisterReq = {
     id: userId,
     pwd: userPwd,
@@ -88,11 +87,11 @@ const Save = () => {
   // if (profilePicture1 instanceof File) {
   //   formdata.append("profilePicture1", profilePicture1);
   // }
-  
+
   // if (profilePicture2 instanceof File) {
   //   formdata.append("profilePicture2", profilePicture2);
   // }
-  
+
   // if (profilePicture3 instanceof File) {
   //   formdata.append("profilePicture3", profilePicture3);
   // }
@@ -104,25 +103,24 @@ const Save = () => {
   //   });
   //   return obj;
   // }
-  
 
   const SaveInfo = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
     if (userPwd === userPwdCheck) {
       try {
-        console.log(RegisterUser);
-        // console.log(formDataToObject(formdata)); 
+        // console.log(RegisterUser);
+        // console.log(formDataToObject(formdata));
         const response = await api.post("/user/regist", RegisterUser, {
           // headers: {
-          //   'Content-Type': 'multipart/form-data', 
+          //   'Content-Type': 'multipart/form-data',
           // },
         });
-        console.log(response.data.data);
+        // console.log(response.data.data);
         alert("회원가입완료");
       } catch (error) {
-        console.log(RegisterUser);
-        // console.log(formDataToObject(formdata)); 
+        // console.log(RegisterUser);
+        // console.log(formDataToObject(formdata));
         console.error(error);
         alert("회원가입실패");
       }

@@ -38,9 +38,9 @@ export const EnterImage1: React.FC<EnterImage1Props> = ({ title, coment }) => {
       setprofilePicture1(selectedFile);
       setpriority1(0);
     }
-    console.log(priority1);
-    console.log(selectedFile);
-    console.log(profilePicture1);
+    // console.log(priority1);
+    // console.log(selectedFile);
+    // console.log(profilePicture1);
   };
 
   return (
@@ -65,8 +65,8 @@ export const EnterImage2: React.FC<EnterImage2Props> = ({ title, coment }) => {
       setprofilePicture2(selectedFile);
       setpriority2(1);
     }
-    console.log(priority2);
-    console.log(profilePicture2);
+    // console.log(priority2);
+    // console.log(profilePicture2);
   };
 
   return (
@@ -91,8 +91,8 @@ export const EnterImage3: React.FC<EnterImage3Props> = ({ title, coment }) => {
       setprofilePicture3(selectedFile);
       setpriority3(2);
     }
-    console.log(priority3);
-    console.log(profilePicture3);
+    // console.log(priority3);
+    // console.log(profilePicture3);
   };
 
   return (

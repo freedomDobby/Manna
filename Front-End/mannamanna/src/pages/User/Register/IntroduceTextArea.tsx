@@ -5,7 +5,7 @@ export const InroduceText = () => {
   const [userPr, setUserPr] = useRecoilState(userPrState);
   const EnterPr = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setUserPr(event.target.value);
-    console.log(userPr);
+    // console.log(userPr);
   };
 
   return (
