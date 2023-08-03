@@ -13,19 +13,6 @@ const specificDate = dayjs();
 const abortController = new AbortController();
 const signal = abortController.signal;
 
-fakeFetch(specificDate, { signal })
-  .then((data) => {
-
-    console.log(data.daysToHighlight); 
-  })
-  .catch((error) => {
-
-    console.error(error.message);
-  });
-
-
-abortController.abort();
-
 function fakeFetch(date: Dayjs, { signal }: { signal: AbortSignal }) {
   return new Promise<{ daysToHighlight: number[] }>((resolve, reject) => {
 
