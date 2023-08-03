@@ -10,37 +10,34 @@ import Slider from '@mui/material/Slider';
 import Modal from '@mui/material/Modal';
 import MacBookBox from "../../../components/common/macbookBox";
 import { ChangePass, IsBlock, IsDrink, IsSmoke, MyPageJob, MyPageMBTI, MyPageReligion, MyPageSelfIntro, MypageUserHeight, NowPass, OriginPass } from './MyPageState';
-import { findIdCheckIdAtom, findIdModalAtom, findPwModalAtom } from '../../../Recoil/State';
 
 // 마이페이지 버튼
 type MyPageButtonProps = {
-  children: string;
-  onClick: () => void;
+    children: string;
+    onClick: () => void;
 };
-
+  
 export const MyPageButton = ({ children, onClick }: MyPageButtonProps) => {
-  return (
-    <Button
-      sx={{
-        width: "15vw",
-        height: "10vh",
-        margin: "1vh",
-        backgroundColor: "#ffcced",
-        border: "0.3vw solid #000",
-        borderRadius: 3,
-        color: "common.black",
-        borderColor: "ffcced",
-        fontSize: "2.5vh",
-        fontFamily: "inherit",
-        "&:hover": { backgroundColor: "#f8e3ea" },
-      }}
-      variant="contained"
-      onClick={onClick}
-    >
-      {children}
-    </Button>
-  );
-};
+    return(
+        <Button
+        sx={{
+            width: '15vw', 
+            height: '10vh',
+            margin: '1vh',
+            backgroundColor: '#ffcced',
+            border: '0.3vw solid #000',
+            borderRadius: 3,
+            color:'common.black',
+            borderColor: "ffcced",
+            fontSize: '2.5vh',
+            fontFamily:'inherit',
+            '&:hover': { backgroundColor: '#f8e3ea' },
+        }}
+        variant="contained"
+        onClick={onClick}
+        >{children}</Button>
+    )
+}
 
 // 저장하기 버튼 
 type  SaveChangeButtonProps = {
@@ -112,11 +109,11 @@ const MyNowPassInput = () => {
 
   return (
     <PassChangeInput
-      type="password"
-      value={nowPass}
-      onChange={handleNowChange}
-      placeholder="현재 비밀번호"
-    />
+                  type="password"
+                  value={nowPass}
+                  onChange={handleNowChange}
+                  placeholder="현재 비밀번호"
+                />
   );
 };
 
@@ -128,16 +125,16 @@ const MyChangePassInput = () => {
 
   return (
     <PassChangeInput
-      type="password"
-      value={changePass}
-      onChange={handleChange}
-      placeholder="변경할 비밀번호"
-    />
+                  type="password"
+                  value={changePass}
+                  onChange={handleChange}
+                  placeholder="변경할 비밀번호"
+                />
   );
 };
 
 type MyPagePassButtonProps = {
-  children: string;
+    children: string;
 };
 
 // const ChangePassword = () =>{
@@ -154,94 +151,54 @@ type MyPagePassButtonProps = {
   
 export const MyPagePassButton = ({children}: MyPagePassButtonProps) => {
 
-export const MyPagePassButton = ({ children }: MyPagePassButtonProps) => {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
-  return (
-    <div style={{ width: "30%" }}>
-      <Button
+    return(
+      <div style={{width:'30%'}}>
+        <Button
         sx={{
-          width: "100%",
-          height: "5vh",
-          margin: "1vh",
-          backgroundColor: "#ffcced",
-          border: "0.3vw solid #000",
-          borderRadius: 3,
-          color: "common.black",
-          borderColor: "ffcced",
-          fontSize: "2.5vh",
-          fontFamily: "inherit",
-          "&:hover": { backgroundColor: "#f8e3ea" },
+            width: '100%', 
+            height: '5vh',
+            margin: '1vh',
+            backgroundColor: '#ffcced',
+            border: '0.3vw solid #000',
+            borderRadius: 3,
+            color:'common.black',
+            borderColor: "ffcced",
+            fontSize: '2.5vh',
+            fontFamily:'inherit',
+            '&:hover': { backgroundColor: '#f8e3ea' },
         }}
         variant="contained"
         onClick={handleOpen}
-      >
-        {children}
-      </Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <div
-          style={{
-            borderRadius: "5%",
-            background: "white",
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: "50%",
-            height: "70%",
-            flexDirection: "column",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
+        >{children}</Button>
+        <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
         >
-          <MacBookBox
-            width="100%"
-            height="100%"
-            color1="#bcd3ff"
-            color2="#ffffff"
-            alignItems="center"
-          >
-            <div
-              style={{
-                flexDirection: "column",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                marginTop: "5vh",
-              }}
-            >
-              현재 비밀번호 입력
-              <MyNowPassInput />
-              변경할 비밀번호 입력
-              <MyChangePassInput />
-              <div>
-                <MyPageButton onClick={handleClose}>확인</MyPageButton>
+          <div style={{borderRadius:'5%',background:'white',position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',width:'50%',height:'70%',flexDirection:'column',display:'flex',justifyContent:'center',alignItems:'center'}}>
+            <MacBookBox width="100%" height="100%" color1="#bcd3ff" color2="#ffffff" alignItems='center'>
+              <div style={{flexDirection:'column',display:'flex',justifyContent:'center',alignItems:'center',marginTop:'5vh'}}>
+                현재 비밀번호 입력
+                <MyNowPassInput/>
+                변경할 비밀번호 입력
+                <MyChangePassInput/>
+                <div>
+                <MyPageButton onClick={handleClose} >확인</MyPageButton>
                 <MyPageButton onClick={handleClose}>취소</MyPageButton>
+                </div>
               </div>
-            </div>
-          </MacBookBox>
-        </div>
-      </Modal>
-    </div>
-  );
-};
+            </MacBookBox>
+          </div>
+        </Modal>
+      </div>
+    )
+}
 
-// 내 정보 수정 키 슬라이더
-export const MyPageUserHeightSlider = () => {
-  const [MyPageUserHeight, setValue] = useState<number>(177);
-  const handleSliderChange = (_event: Event, newValue: number | number[]) => {
-    if (typeof newValue === "number") {
-      setValue(newValue);
-    }
-  };
 
 // 내 정보 수정 키 슬라이더 
 export const MyPageUserHeightSlider = ()=> {
@@ -281,30 +238,27 @@ export const MyPageUserHeightSlider = ()=> {
           <Grid item>
           </Grid>
         </Grid>
-        <Grid item></Grid>
-      </Grid>
-    </Box>
-  );
-};
+      </Box>
+    );
+}
 
 // 내 정보 수정 자기소개 입력
 const MyPageTextAreaWrapper = styled.div`
-  textarea {
-    width: 95%;
-    height: 95%;
-    border: 1px solid white;
-    border-radius: 0.5vh;
-    color: black;
-    font-size: 2.5vh;
-    font-family: inherit;
-    outline: none;
-    align-items: center;
-    justify-content: center;
-  }
+    textarea {
+        width: 95%;
+        height: 95%;
+        border: 1px solid white;
+        border-radius: 0.5vh;
+        color: black;
+        font-size: 2.5vh;
+        font-family: inherit;
+        outline: none;
+        align-items:center;
+        justify-content:center;
+    }
 `;
 
 export const MyPageTextArea = () => {
-  const [MyPageSelfIntro, setMySelfIntro] = useState("");
 
     // const [MyPageSelfIntro, setMySelfIntro] = useState('');
 
@@ -349,7 +303,7 @@ export const MBTISelectBox = () => {
   const [myPageMBTI, setMyPageMBTI] = useRecoilState(MyPageMBTI);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setMyPageMBTI(event.target.value);
+      setMyPageMBTI(event.target.value);
   };
 
   return (
@@ -378,7 +332,6 @@ export const MBTISelectBox = () => {
 
 // 내 정보 수정 종교
 export const ReligionSelectBox = () => {
-  const [MyPageReligion, setMyPageReligion] = useState("무교");
 
     const [myPageReligion, setMyPageReligion] = useRecoilState(MyPageReligion);
   
@@ -399,22 +352,8 @@ export const ReligionSelectBox = () => {
     );
   };
 
-  return (
-    <SelectBoxWrapper>
-      <select value={MyPageReligion} onChange={handleChange}>
-        <option value="기독교">기독교</option>
-        <option value="천주교">천주교</option>
-        <option value="불교">불교</option>
-        <option value="원불교">원불교</option>
-        <option value="무교">무교</option>
-      </select>
-    </SelectBoxWrapper>
-  );
-};
-
 // 내 정보 수정 직업
 export const JobSelectBox = () => {
-  const [MyPageJob, setMyPageJob] = useState("무교");
 
     const [myPageJob, setMyPageJob] = useRecoilState(MyPageJob);
   
@@ -442,36 +381,6 @@ export const JobSelectBox = () => {
       </SelectBoxWrapper>
     );
   };
-
-  return (
-    <SelectBoxWrapper>
-      <select value={MyPageJob} onChange={handleChange}>
-        <option value="경영·사무·금융·보험직"> 경영·사무·금융·보험직</option>
-        <option value="연구직 및 공학 기술직"> 연구직 및 공학 기술직</option>
-        <option value="교육·법률·사회복지·경찰·소방직 및 군인">
-          {" "}
-          교육·법률·사회복지·경찰·소방직 및 군인
-        </option>
-        <option value="보건·의료직"> 보건·의료직</option>
-        <option value="예술·디자인·방송·스포츠직">
-          {" "}
-          예술·디자인·방송·스포츠직
-        </option>
-        <option value="미용·여행·숙박·음식·경비·청소직">
-          {" "}
-          미용·여행·숙박·음식·경비·청소직
-        </option>
-        <option value="영업·판매·운전·운송직"> 영업·판매·운전·운송직</option>
-        <option value="건설·채굴직"> 건설·채굴직</option>
-        <option value="설치·정비·생산직"> 설치·정비·생산직</option>
-        <option value="농림·어업직"> 농림·어업직</option>
-        <option value="IT 기술직"> IT 기술직</option>
-        <option value="학생 및 취업준비생"> 학생 및 취업준비생</option>
-        <option value="무직"> 무직</option>
-      </select>
-    </SelectBoxWrapper>
-  );
-};
 
 // 내 정보 수정 토글 스위치
 const MyPageCustomSwitch = styled(Switch)(() => ({
@@ -513,13 +422,6 @@ export const DrinkCustomSwitch = () => {
     );
   };
 
-  return (
-    <div style={{ width: "10vw" }}>
-      <MyPageCustomSwitch checked={isDrink} onChange={handleChange} />
-    </div>
-  );
-};
-
 // 내 정보 수정 지인차단
 export const BlockCustomSwitch = () => {
     const [isBlock, setIsBlock] = useRecoilState(IsBlock);
@@ -535,55 +437,48 @@ export const BlockCustomSwitch = () => {
     );
   };
 
-  return (
-    <div style={{ width: "10vw" }}>
-      <MyPageCustomSwitch checked={isBlock} onChange={handleChange} />
-    </div>
-  );
-};
-
 // 마이페이지 회원탈퇴 모달 스타일 (변경 후 삭제 예정)
 export const MyPageModalStyle = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  height: 500,
-  bgcolor: "background.paper",
-  border: "0.3vw solid #000",
-  borderRadius: 4,
-  p: 4,
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    height: 500,
+    bgcolor: 'background.paper',
+    border: '0.3vw solid #000',
+    borderRadius: 4,
+    p: 4,
+    display: 'flex',
+    flexDirection:'column',
+    justifyContent: 'center', 
+    alignItems: 'center',
 };
 
-export function UseMileage() {
-  return (
-    <LeftStyle>
-      시간시간시간
-      <MileageBox>-50 Point 쪽지 보내기</MileageBox>
-    </LeftStyle>
-  );
+export function UseMileage(){
+    return(
+        <LeftStyle>
+            시간시간시간
+            <MileageBox>-50 Point 쪽지 보내기</MileageBox>
+        </LeftStyle>
+    );
 }
 
-export function GetMileage() {
-  return (
-    <RightStyle>
-      시간시간시간
-      <MileageBox>+50 Point 미션 참여</MileageBox>
-    </RightStyle>
-  );
+export function GetMileage(){
+    return(
+        <RightStyle>
+            시간시간시간
+            <MileageBox>+50 Point 미션 참여</MileageBox>
+        </RightStyle>
+    );
 }
 
-export function SogeList() {
-  return (
-    <LeftStyle>
-      <MileageBox>소개팅소개팅소개팅</MileageBox>
-    </LeftStyle>
-  );
+export function SogeList(){
+    return(
+        <LeftStyle>
+            <MileageBox>소개팅소개팅소개팅</MileageBox>
+        </LeftStyle>
+    );
 }
 
 export function MeetList(){
@@ -592,62 +487,4 @@ export function MeetList(){
             <MileageBox>미팅미팅미팅</MileageBox>
         </RightStyle>
     );
-}
-
-
-export const FindidModal = () => {
-
-  const [open, setOpen] = useRecoilState(findIdModalAtom);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const [userId] =  useRecoilState(findIdCheckIdAtom);
-  return(
-    <div style={{width:'30%'}}>
-      <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-      >
-        <div style={{borderRadius:'5%',background:'white',position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',width:'50%',height:'70%',flexDirection:'column',display:'flex',justifyContent:'center',alignItems:'center'}}>
-          <MacBookBox width="100%" height="100%" color1="#bcd3ff" color2="#ffffff" alignItems='center'>
-            <div style={{flexDirection:'column',display:'flex',justifyContent:'center',alignItems:'center',marginTop:'10vh'}}>
-              현재 본인의 아이디는 {userId}  입니다.
-              <div style={{marginTop:'20vh'}}>
-              <MyPageButton onClick={handleClose} >확인</MyPageButton>
-              </div>
-            </div>
-          </MacBookBox>
-        </div>
-      </Modal>
-    </div>
-  )
-}
-
-export const FindPwModal = () => {
-
-  const [open, setOpen] = useRecoilState(findPwModalAtom);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  return(
-    <div style={{width:'30%'}}>
-      <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-      >
-        <div style={{borderRadius:'5%',background:'white',position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',width:'50%',height:'70%',flexDirection:'column',display:'flex',justifyContent:'center',alignItems:'center'}}>
-          <MacBookBox width="100%" height="100%" color1="#bcd3ff" color2="#ffffff" alignItems='center'>
-            <div style={{flexDirection:'column',display:'flex',justifyContent:'center',alignItems:'center',marginTop:'10vh'}}>
-              이메일로 비밀번호를 전송하였습니다.
-              <div style={{marginTop:'20vh'}}>
-              <MyPageButton onClick={handleClose} >확인</MyPageButton>
-              </div>
-            </div>
-          </MacBookBox>
-        </div>
-      </Modal>
-    </div>
-  )
 }
