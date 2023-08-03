@@ -15,16 +15,16 @@ const EnterAge = () => {
   const [userAge, setUserAge] = useRecoilState(userAgeState);
 
   const EnterAgeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUserAge(Number(event.target.value));
+    setUserAge(String(event.target.value));
     console.log(userAge); // 이 부분은 비동기적으로 업데이트되므로 최신값이 아닐 수 있습니다.
   };
 
   return (
     <Question
-      question="몇 살이세요?"
-      Type="number"
+      question="태어난 년도를 입력해주세요"
+      Type="string"
       Id="UserYear"
-      placeholder="만 나이"
+      placeholder="2002"
       onChange={EnterAgeChange}
     />
   );
@@ -100,7 +100,7 @@ const EnterPwd = () => {
   return (
     <Question
       question="비밀번호를 입력해주세요"
-      Type="text"
+      Type="password"
       Id="UserPw"
       placeholder="비밀번호"
       onChange={EnterPwdChange}

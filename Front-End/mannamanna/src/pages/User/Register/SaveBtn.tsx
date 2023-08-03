@@ -1,8 +1,10 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
 import {
+  userAddressDetailState,
   userAgeState,
   userDrinkState,
+  userGuGunState,
   userHeightState,
   userIdState,
   userJobState,
@@ -12,6 +14,7 @@ import {
   userPwdCheckState,
   userPwdState,
   userReligionState,
+  userSidoState,
   userSmokeState,
   userTelState,
 } from "./RegisterState";
@@ -30,6 +33,9 @@ const Save = () => {
   const userMbti = useRecoilValue(userMbtiState);
   const userPr = useRecoilValue(userPrState);
   const userJob = useRecoilValue(userJobState);
+  const userSido = useRecoilValue(userSidoState);
+  const userGuGun = useRecoilValue(userGuGunState);
+  const userAddressDetail = useRecoilValue(userAddressDetailState);
 
   const SaveInfo = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -52,6 +58,9 @@ const Save = () => {
     console.log(userMbti);
     console.log(userPr);
     console.log(userJob);
+    console.log(userSido);
+    console.log(userGuGun);
+    console.log(userAddressDetail);
   };
 
   return <button onClick={SaveInfo}>저장</button>;

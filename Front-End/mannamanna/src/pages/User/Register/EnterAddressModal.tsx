@@ -2,6 +2,8 @@ import { Button, Modal } from "@mui/material";
 import { useState } from "react";
 import MacBookBox from "../../../components/common/macbookBox";
 import { MyPageButton } from "../MyPage/MyPageStyles";
+// import { useRecoilState } from "recoil";
+// import { userAddress } from "../Register/RegisterState";
 import {
   Contain,
   Container2,
@@ -10,6 +12,9 @@ import {
   MostBiggestBox,
   TitleBox,
 } from "./ModalStyle";
+import { Sido } from "./Selection";
+import { GuGun } from "./EnterGuGun";
+import { AddressDetail } from "./AddressDetail";
 
 type EnterLocationProps = {
   children: string;
@@ -71,12 +76,13 @@ export const EnterLocation = ({ children }: EnterLocationProps) => {
                 >
                   <div
                     style={{
-                      // border: "1px solid blue",
+                      border: "1px solid blue",
                       display: "flex",
                       justifyContent: "space-around",
                       alignItems: "center" /* 수직 중앙 정렬 설정 */,
                       height: "60%",
                       width: "70%",
+                      margin: "3%",
                     }}
                   >
                     <label
@@ -88,11 +94,9 @@ export const EnterLocation = ({ children }: EnterLocationProps) => {
                     >
                       주소
                     </label>
-                    <input
-                      type="text"
-                      placeholder="시도/구군/상세주소"
-                      style={{ width: "70%", height: "10%" }}
-                    />
+                    <Sido />
+                    <GuGun />
+                    <AddressDetail />
                   </div>
                 </ImageForm>
                 <EnterImageBtnBox>

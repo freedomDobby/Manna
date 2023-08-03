@@ -11,6 +11,7 @@ import {
   TitleBox,
 } from "./ModalStyle";
 import EnterImageBox from "./ImageInput";
+import { InroduceText } from "./IntroduceTextArea";
 
 type EnterPrProps = {
   children: string;
@@ -68,13 +69,7 @@ export const EnterPr = ({ children }: EnterPrProps) => {
                   본인을 어필 할 수 있는 자기소개를 작성해주세요.
                 </TitleBox>
                 <ImageForm>
-                  <textarea
-                    style={{
-                      border: "2px solid black",
-                      width: "100%",
-                      height: "90%",
-                    }}
-                  />
+                  <InroduceText />
                 </ImageForm>
                 <EnterImageBtnBox>
                   <MyPageButton onClick={handleClose}>확인</MyPageButton>
