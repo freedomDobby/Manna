@@ -12,14 +12,22 @@ import com.ssafy.manna.member.dto.response.MemberFindIdResponse;
 import com.ssafy.manna.member.dto.response.MemberInfoResponse;
 import com.ssafy.manna.member.repository.MemberRepository;
 import com.ssafy.manna.member.service.MemberService;
+import jakarta.servlet.ServletContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.Optional;
 
 @RestController
@@ -32,15 +40,58 @@ public class MemberController {
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
 
+    @Value("${file.upload-dir}")
+    private String uploadDir;
+
+    @Autowired
+    private ServletContext servletContext;
+
     //회원가입
-    @PostMapping("/regist")
-    public ResponseEntity<String> join(@RequestBody MemberSignUpRequest memberSignUpRequest) {
+    @PostMapping(value="/regist")
+    public ResponseEntity<?> join(@RequestBody MemberSignUpRequest memberSignUpRequest) {
         try {
             // 회원가입 시 카카오 인증
             memberService.signUp(memberSignUpRequest);
             return ResponseEntity.ok("join success");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    //회원가입(이미지 포함)
+
+
+//    @PostMapping(value="/regist", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+//    public ResponseEntity<String> join(
+//            @RequestPart("memberSignUpRequest") MemberSignUpRequest memberSignUpRequest,
+//            @RequestPart("profilePicture1") MultipartFile profilePicture1,
+//            @RequestPart("profilePicture2") MultipartFile profilePicture2,
+//            @RequestPart("profilePicture3") MultipartFile profilePicture3
+//    ) {
+//        try {
+//            MultipartFile[] multipartFiles = new MultipartFile[3];
+//            multipartFiles[0] = profilePicture1;
+//            multipartFiles[1] = profilePicture2;
+//            multipartFiles[2] = profilePicture3;
+//            // 회원가입 시 카카오 인증
+//            memberService.signUp(memberSignUpRequest,multipartFiles);
+//            return ResponseEntity.ok("join success");
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().body(e.getMessage());
+//        }
+//    }
+
+    @PostMapping("/upload")
+    public ResponseEntity<?> handleFileUpload(@RequestParam("file") MultipartFile file) {
+
+        try {
+            String fileName = file.getOriginalFilename();
+            String filePath = uploadDir + File.separator + fileName;
+            File destFile = new File(filePath);
+            file.transferTo(destFile);
+            return ResponseEntity.ok("File uploaded successfully.");
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload file: " + e.getMessage());
         }
     }
 
@@ -196,7 +247,7 @@ public class MemberController {
             checkMember.updatePassword(passwordEncoder,memberChangePwdRequest.getPwd());
             body = ResponseTemplate.builder()
                     .result(true)
-                    .msg("비밀번호 변경 완료")
+                    .msg("비밀번호 변경 완료" )
                     .build();
             return new ResponseEntity<>(body,HttpStatus.OK);
         }
