@@ -39,6 +39,7 @@ public class MemberController {
 
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
+    private final MemberRepository memberRepository;
 
     @Value("${file.upload-dir}")
     private String uploadDir;
@@ -213,6 +214,8 @@ public class MemberController {
         Optional<Member> member = memberService.findOne(memberCheckPwdRequest.getId());
         ResponseTemplate<?> body;
         if(member.isPresent()){
+            System.out.println("받은거:"+memberCheckPwdRequest.getPwd());
+            System.out.println("꺼낸거:"+member.get().getPwd());
             if(passwordEncoder.matches(memberCheckPwdRequest.getPwd(), member.get().getPwd())){
                 body = ResponseTemplate.builder()
                         .result(true)
@@ -245,6 +248,7 @@ public class MemberController {
         if(member.isPresent()){
             Member checkMember = member.get();
             checkMember.updatePassword(passwordEncoder,memberChangePwdRequest.getPwd());
+            memberRepository.save(checkMember);
             body = ResponseTemplate.builder()
                     .result(true)
                     .msg("비밀번호 변경 완료" )
