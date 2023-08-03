@@ -1,17 +1,7 @@
-import styled from "styled-components";
 import Sidetab from "../Sidetab";
 import { useNavigate } from "react-router-dom";
 import MyPageSideTab from "../MyPageSideTab";
-
-const SidebarStyle = styled.div`
-  // border: 3px solid red;
-  // width: 20%;
-  height: 26vh;
-  background: black;
-  display: flex;
-  justify-content: flex-end;
-  margin: 0%;
-`;
+import { SidebarStyle, SidetabContainer } from "./SidebarStyle";
 
 function SidebarChat() {
   const navigate = useNavigate();
@@ -27,13 +17,13 @@ function SidebarChat() {
 
   return (
     <SidebarStyle>
-      <div>
+      <SidetabContainer>
         <Sidetab onClick={GoHome} menu={"Home"} bg={"white"} />
         <MyPageSideTab menu={"MyPage"} bg={"white"} />
-        <Sidetab onClick={Gochat} menu={"Chat"} bg={"pink"} />
+        <Sidetab onClick={Gochat} menu={"Chat"} bg={"#ffcced"} />
         <Sidetab onClick={Gomission} menu={"Mission"} bg={"white"} />
         <Sidetab onClick={GoHome} menu={"끝!"} bg={"white"} />
-      </div>
+      </SidetabContainer>
     </SidebarStyle>
   );
 }

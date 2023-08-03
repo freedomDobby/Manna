@@ -17,6 +17,7 @@ import {
   ChatInputBox,
 } from "./ChattingStyle";
 import SidebarChat from "../../components/layout/Sidebar/SidebarChat";
+import { MyPageContainerBox } from "../User/MyPage/MyPageStyle";
 
 const Chatting = () => {
   const [inputValue, setInputValue] = useState("");
@@ -34,89 +35,91 @@ const Chatting = () => {
         <div style={{ height: "80vh" }}>
           <SidebarChat />
         </div>
-        <ChatContainerBox>
-          <MacBookBox
-            width="30%"
-            height="90%"
-            color1="#ffcced"
-            color2="#ffffff"
-            alignItems="center"
-          >
-            <ChatPeopleOutBox>
-              <ChatInBox>
-                <ChatPeople />
-                <ChatPeople />
-                <ChatPeople />
-                <ChatPeople />
-                <ChatPeople />
-                <ChatPeople />
-                <ChatPeople />
-                <ChatPeople />
-                <ChatPeople />
-                <ChatPeople />
-                <ChatPeople />
-                <ChatPeople />
-                <ChatPeople />
-                <ChatPeople />
-                <ChatPeople />
-                <ChatPeople />
-                <ChatPeople />
-                <ChatPeople />
-                <ChatPeople />
-                <ChatPeople />
-                <ChatPeople />
-                <ChatPeople />
-                <ChatPeople />
-                <ChatPeople />
-                <ChatPeople />
-                <ChatPeople />
-                <ChatPeople />
-              </ChatInBox>
-            </ChatPeopleOutBox>
-          </MacBookBox>
-          <MacBookBox
-            width="60%"
-            height="90%"
-            color1="#ffcced"
-            color2="#ffffff"
-            alignItems="center"
-          >
-            {/* 스크롤바 디자인 추가해야함 */}
-            <ChatOutBox>
-              <ChatInBox>
-                <GetChat />
-                <SendChat />
-                <GetChat />
-                <SendChat />
-                <GetChat />
-                <SendChat />
-                <GetChat />
-                <SendChat />
-              </ChatInBox>
-            </ChatOutBox>
-            <ChatInputBox>
-              <TextField
-                variant="filled"
-                color="secondary"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                sx={{
-                  width: "70%",
-                  backgroundColor: "#ffcced",
-                  borderRadius: "0.5vw",
-                }}
-              />
-              <Button
-                variant="contained"
-                sx={{ backgroundColor: "#ffcced" }}
-                onClick={handleSubmit}
-              >
-                {/* 보내기 */}
-                <SendIcon />
-              </Button>
-            </ChatInputBox>
-          </MacBookBox>
-        </ChatContainerBox>
+        <div style={{ height: "80vh" }}>
+          <MyPageContainerBox>
+            <MacBookBox
+              width="30%"
+              height="90%"
+              color1="#ffcced"
+              color2="#ffffff"
+              alignItems="center"
+            >
+              <ChatPeopleOutBox>
+                <ChatInBox>
+                  <ChatPeople />
+                  <ChatPeople />
+                  <ChatPeople />
+                  <ChatPeople />
+                  <ChatPeople />
+                  <ChatPeople />
+                  <ChatPeople />
+                  <ChatPeople />
+                  <ChatPeople />
+                  <ChatPeople />
+                  <ChatPeople />
+                  <ChatPeople />
+                  <ChatPeople />
+                  <ChatPeople />
+                  <ChatPeople />
+                  <ChatPeople />
+                  <ChatPeople />
+                  <ChatPeople />
+                  <ChatPeople />
+                  <ChatPeople />
+                  <ChatPeople />
+                  <ChatPeople />
+                  <ChatPeople />
+                  <ChatPeople />
+                  <ChatPeople />
+                  <ChatPeople />
+                  <ChatPeople />
+                </ChatInBox>
+              </ChatPeopleOutBox>
+            </MacBookBox>
+            <MacBookBox
+              width="60%"
+              height="90%"
+              color1="#ffcced"
+              color2="#ffffff"
+              alignItems="center"
+            >
+              {/* 스크롤바 디자인 추가해야함 */}
+              <ChatOutBox>
+                <ChatInBox>
+                  <GetChat />
+                  <SendChat />
+                  <GetChat />
+                  <SendChat />
+                  <GetChat />
+                  <SendChat />
+                  <GetChat />
+                  <SendChat />
+                </ChatInBox>
+              </ChatOutBox>
+              <ChatInputBox>
+                <TextField
+                  variant="filled"
+                  color="secondary"
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  sx={{
+                    width: "70%",
+                    backgroundColor: "#ffcced",
+                    borderRadius: "0.5vw",
+                  }}
+                />
+                <Button
+                  variant="contained"
+                  sx={{ backgroundColor: "#ffcced" }}
+                  onClick={handleSubmit}
+                >
+                  {/* 보내기 */}
+                  <SendIcon />
+                </Button>
+              </ChatInputBox>
+            </MacBookBox>
+          </MyPageContainerBox>
+        </div>
       </BackBox>
     </div>
   );
