@@ -64,7 +64,6 @@ const Register = () => {
                     padding: "0%",
                   }}
                 >
-                  {/* 사진 입력 받기 */}
                   <EnterAge />
                   <SmallInputBox>
                     <AnswerBox>

@@ -108,9 +108,9 @@ export const userPwdCheckState = atom<string>({
   default: "User1234",
 });
 
-export const userAgeState = atom<number>({
+export const userAgeState = atom<string>({
   key: "userAge",
-  default: 20,
+  default: "2000",
 });
 
 export const userSmokeState = atom<boolean>({
@@ -140,10 +140,25 @@ export const userMbtiState = atom<string>({
 
 export const userPrState = atom<string>({
   key: "userPr",
-  default: "무직",
+  default: "안녕하세요 ^^",
 });
 
 export const userJobState = atom<string>({
   key: "userJob",
-  default: "안녕하세요 ^^",
+  default: "무직",
+});
+
+export const userSidoState = atom<string>({
+  key: "userSido",
+  default: "대전광역시",
+});
+
+export const userGuGunState = atom<string>({
+  key: "userGuGun",
+  default: "유성구",
+});
+
+export const userAddressDetailState = atom<string>({
+  key: "userAddressDetail",
+  default: "삼성화재연구원",
 });

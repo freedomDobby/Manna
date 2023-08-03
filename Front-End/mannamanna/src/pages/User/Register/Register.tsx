@@ -1,4 +1,3 @@
-// import React, { useState } from "react";
 import { StyledButton } from "../Login/LoginStyle";
 import signup from "../../../asset/image/signup.png";
 import GoBackIcon from "../../../components/common/GoBackIcon";
@@ -19,7 +18,6 @@ import {
 } from "./RegisterStyle";
 import MacBox from "../../../components/common/MacBox1";
 import { useNavigate } from "react-router-dom";
-// import Question from "./AnswerBox";
 import {
   EnterId,
   EnterName,
@@ -28,7 +26,7 @@ import {
   EnterTel,
 } from "./Question";
 import { EnterImage } from "./EnterImageModal";
-import { EnterLocation } from "./EnterAddressModal copy";
+import { EnterLocation } from "./EnterAddressModal";
 
 const Register = () => {
   const navigate = useNavigate();
