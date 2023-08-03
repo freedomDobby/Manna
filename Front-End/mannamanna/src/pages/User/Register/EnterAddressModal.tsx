@@ -76,12 +76,12 @@ export const EnterLocation = ({ children }: EnterLocationProps) => {
                 >
                   <div
                     style={{
-                      border: "1px solid blue",
+                      // border: "1px solid blue",
                       display: "flex",
                       justifyContent: "space-around",
                       alignItems: "center" /* 수직 중앙 정렬 설정 */,
                       height: "60%",
-                      width: "70%",
+                      width: "80%",
                       margin: "3%",
                     }}
                   >

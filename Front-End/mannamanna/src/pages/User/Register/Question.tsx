@@ -1,5 +1,5 @@
 import React from "react";
-import Question from "./AnswerBox";
+import { Question, Question2 } from "./AnswerBox";
 import { useRecoilState } from "recoil";
 import {
   userAgeState,
@@ -123,12 +123,12 @@ const EnterPwdCheck = () => {
   };
 
   return (
-    <Question
+    <Question2
       question="비밀번호 확인"
       Type="text"
       Id="UserPw"
       placeholder="비밀번호 확인"
-      onChange={EnterPwdChange}
+      onBlur={EnterPwdChange}
     />
   );
 };

@@ -9,7 +9,12 @@ export const InroduceText = () => {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        // border: "1px solid red",
+        width: "90%",
+      }}
+    >
       <textarea
         onChange={EnterPr}
         style={{
