@@ -5,6 +5,8 @@ import IconButton from '@mui/material/IconButton';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
+import { useRecoilState } from 'recoil';
+import { nameAtom } from '../../Recoil/State';
 
 const HeaderBack = styled.div`
     width: 100%;
@@ -17,13 +19,14 @@ const HeaderBack = styled.div`
 `;
 
 function Greetings(){
+    const [name] = useRecoilState(nameAtom);
     return(
         <div>
             <HeaderBack>
                 <Logo/>
                 <div style={{display:'flex', alignItems:'center'}}>
-                    <Profile></Profile>
-                    <div style={{fontSize:'large'}}>차 은 우</div>
+                    {/* <Profile></Profile> */}
+                    <div style={{fontSize:'large'}}>{name}님</div>
                     <IconButton color="primary" size="large">
                         <EmailOutlinedIcon fontSize="large"/>
                     </IconButton>
