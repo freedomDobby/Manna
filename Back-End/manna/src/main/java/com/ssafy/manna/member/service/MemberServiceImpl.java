@@ -15,28 +15,20 @@ import com.ssafy.manna.member.dto.request.MemberFindIdRequest;
 import com.ssafy.manna.member.dto.request.MemberFindPwdRequest;
 import com.ssafy.manna.member.dto.request.MemberSignUpRequest;
 import com.ssafy.manna.member.dto.request.MemberUpdateRequest;
-import com.ssafy.manna.member.dto.response.MemberFindIdResponse;
 import com.ssafy.manna.member.dto.response.MemberInfoResponse;
-import com.ssafy.manna.member.dto.response.MemberLoginResponse;
 import com.ssafy.manna.member.repository.MemberDetailRepository;
 import com.ssafy.manna.member.repository.MemberRepository;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import com.ssafy.manna.member.repository.ProfilePictureRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.core.io.WritableResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -85,7 +77,6 @@ public class MemberServiceImpl implements MemberService {
 
         Address address = new Address(sido, gugun, memberSignUpRequest.getDetail(),
                 memberSignUpRequest.getLatitude(), memberSignUpRequest.getLongitude());
-
         Member member = Member.builder()
                 .id(memberSignUpRequest.getId())
                 .pwd(memberSignUpRequest.getPwd())

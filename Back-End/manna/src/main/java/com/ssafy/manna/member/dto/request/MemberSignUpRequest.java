@@ -33,7 +33,8 @@ public class MemberSignUpRequest {
     private String mbti;
     private String religion;
     private String introduction;
-    private boolean isBlockingFriend;
+//    private boolean isBlockingFriend;
+
 
     // 추후 변경 가능성이 있는 주소 필드
     private String sido;
