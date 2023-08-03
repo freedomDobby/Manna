@@ -65,16 +65,16 @@ const Save = () => {
     emailDomain: userInfo.emailDomain, //api
     height: userHeight,
     job: userJob,
-    smoker: userSmoke,
-    drinker: userDrink,
     mbti: userMbti,
     religion: userReligion,
     introduction: userPr,
-    sido: userSido,
-    gugun: userGuGun,
+    sido: userInfo.sido,
+    gugun: userInfo.gugun,
     detail: userAddressDetail,
     latitude: userInfo.latitude, //api
     longitude: userInfo.longitude, //apiS
+    isSmoker: userSmoke,
+    isDrinker: userDrink,
     // priority1: priority1,
     // priority2: priority2,
     // priority3: priority3
