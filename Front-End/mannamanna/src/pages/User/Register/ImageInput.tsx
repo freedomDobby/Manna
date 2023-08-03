@@ -53,7 +53,7 @@ export const EnterImage1: React.FC<EnterImage1Props> = ({ title, coment }) => {
 };
 
 export const EnterImage2: React.FC<EnterImage2Props> = ({ title, coment }) => {
-  const [priority2, setpriority2] = useRecoilState<number>(priority2State); // Set the type to number
+  const [priority2, setpriority2] = useRecoilState<number>(priority2State);
   const [profilePicture2, setprofilePicture2] = useRecoilState<File | null>(
     profilePicture1State
   );

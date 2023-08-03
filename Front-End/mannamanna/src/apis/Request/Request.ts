@@ -35,8 +35,8 @@ export type RegisterReq = {
   emailDomain: string; //api
   height: number;
   job: string;
-  isSmoke: boolean;
-  isDrink: boolean;
+  smoker: boolean;
+  drinker: boolean;
   mbti: string;
   religion: string;
   introduction: string;
@@ -45,7 +45,7 @@ export type RegisterReq = {
   detail: string;
   latitude: number; //api
   longitude: number; //api
-  priority1: number;
-  priority2: number;
-  priority3: number;
+  // priority1: number;
+  // priority2: number;
+  // priority3: number;
 };

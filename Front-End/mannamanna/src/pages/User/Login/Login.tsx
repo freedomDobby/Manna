@@ -44,9 +44,7 @@ const Login = () => {
       console.log(response.data); 
       setGender(response.data.gender);
       setName(response.data.userName);
-      console.log("오는 값"+response.data.userName)
       setId(response.data.id);
-      console.log("바뀐값"+name)
       setAccessToken(response.data.accessToken);
       setRefreshToken(response.data.refreshToken);
       navigate('/main');
