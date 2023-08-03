@@ -17,7 +17,7 @@ const STAIComponent = () => {
   };
 
   const handleCustomDomainChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log('Selected Domain:', e.target.value);
+    // console.log('Selected Domain:', e.target.value);
     setSelectedDomain(e.target.value);
 
   };

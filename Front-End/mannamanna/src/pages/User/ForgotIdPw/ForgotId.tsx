@@ -45,9 +45,15 @@ const ForgotId = () => {
       console.log(response.data.data);
       await setUserId(response.data.data.id);
       setOpen(true);
+      setUserName('');
+      setEmail('');
+      setSelectedDomain('');
     } catch (error) {
       console.error(error);
       setErroropen(true);
+      setUserName('');
+      setEmail('');
+      setSelectedDomain('');
     }
   };
   return (

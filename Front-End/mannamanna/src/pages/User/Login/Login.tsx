@@ -38,10 +38,10 @@ const Login = () => {
       id: userId,
       pwd: userPw,
     };
-    console.log(userData);
+    // console.log(userData);
     try {
       const response = await api.post('/user/login', userData);
-      console.log(response.data); 
+      // console.log(response.data); 
       setGender(response.data.gender);
       setName(response.data.userName);
       setId(response.data.id);
