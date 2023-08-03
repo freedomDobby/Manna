@@ -89,4 +89,12 @@ export const genderAtom = atom<string | null>({
 
   
   
-  
+  export const LoginErrorModalAtom = atom<boolean>({
+    key: 'LoginErrorModalAtom',
+    default: false,
+  });
+
+  export const ForgotIdErrorModalAtom = atom<boolean>({
+    key: 'ForgotIdErrorModalAtom',
+    default: false,
+  });

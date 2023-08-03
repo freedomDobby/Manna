@@ -28,7 +28,7 @@ const STAIComponent = () => {
     'hanmail.net',
     'nate.com',
     'kakao.com',
-    'gmail.com'
+    'gmail.com',
   ];
 
   const { username, domain } = extractEmailParts(email);
@@ -66,18 +66,6 @@ const STAIComponent = () => {
           </option>
         ))}
       </select>
-      <div style={{ marginTop: '1vh', fontFamily: 'Arial, sans-serif', fontSize: '2vh' }}>
-        {domain && (
-          <>
-            <p>
-              Username: <span>{email}</span>
-            </p>
-            <p>
-              Domain: <span>{selectedDomain}</span>
-            </p>
-          </>
-        )}
-      </div>
     </div>
   );
 };

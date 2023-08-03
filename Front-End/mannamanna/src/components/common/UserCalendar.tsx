@@ -7,22 +7,30 @@ import { PickersDay, PickersDayProps } from '@mui/x-date-pickers/PickersDay';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { DayCalendarSkeleton } from '@mui/x-date-pickers/DayCalendarSkeleton';
 
-function getRandomNumber(min: number, max: number) {
-  return Math.round(Math.random() * (max - min) + min);
-}
+const specificDate = dayjs();
+
+
+const abortController = new AbortController();
+const signal = abortController.signal;
+
+fakeFetch(specificDate, { signal })
+  .then((data) => {
+
+    console.log(data.daysToHighlight); 
+  })
+  .catch((error) => {
+
+    console.error(error.message);
+  });
+
+
+abortController.abort();
+
 function fakeFetch(date: Dayjs, { signal }: { signal: AbortSignal }) {
   return new Promise<{ daysToHighlight: number[] }>((resolve, reject) => {
-    const timeout = setTimeout(() => {
-      const daysInMonth = date.daysInMonth();
-      const daysToHighlight = [1, 2, 3].map(() => getRandomNumber(1, daysInMonth));
 
-      resolve({ daysToHighlight });
-    }, 500);
-
-    signal.onabort = () => {
-      clearTimeout(timeout);
-      reject(new DOMException('aborted', 'AbortError'));
-    };
+    const daysToHighlight = [1, 3, 5];
+    resolve({ daysToHighlight });
   });
 }
 
@@ -40,7 +48,7 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[] 
       overlap="circular"
       badgeContent={
         <span style={{ display: 'flex', alignItems: 'center' }}>
-          {isCurrentDate && '🧡'} 
+
           {isSelected && '💛'} 
         </span>
       }
