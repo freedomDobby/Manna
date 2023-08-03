@@ -53,8 +53,7 @@ const Save = () => {
   const profilePicture2 = useRecoilValue(profilePicture2State);
   const profilePicture3 = useRecoilValue(profilePicture3State);
 
-  console.log(profilePicture1);
-
+  
   const RegisterUser: RegisterReq = {
     id: userId,
     pwd: userPwd,
@@ -66,8 +65,8 @@ const Save = () => {
     emailDomain: userInfo.emailDomain, //api
     height: userHeight,
     job: userJob,
-    isSmoke: userSmoke,
-    isDrink: userDrink,
+    smoker: userSmoke,
+    drinker: userDrink,
     mbti: userMbti,
     religion: userReligion,
     introduction: userPr,
@@ -75,21 +74,55 @@ const Save = () => {
     gugun: userGuGun,
     detail: userAddressDetail,
     latitude: userInfo.latitude, //api
-    longitude: userInfo.longitude, //api
-    priority1: priority1,
-    priority2: priority2,
-    priority3: priority3,
+    longitude: userInfo.longitude, //apiS
+    // priority1: priority1,
+    // priority2: priority2,
+    // priority3: priority3
   };
+
+  // const formdata =new FormData();
+  // formdata.append(
+  //   'memberSignUpRequest',
+  //   JSON.stringify(RegisterUser)
+  // );
+  // if (profilePicture1 instanceof File) {
+  //   formdata.append("profilePicture1", profilePicture1);
+  // }
+  
+  // if (profilePicture2 instanceof File) {
+  //   formdata.append("profilePicture2", profilePicture2);
+  // }
+  
+  // if (profilePicture3 instanceof File) {
+  //   formdata.append("profilePicture3", profilePicture3);
+  // }
+
+  // function formDataToObject(formData: FormData) {
+  //   const obj: { [key: string]: FormDataEntryValue } = {};
+  //   formData.forEach((value, key) => {
+  //     obj[key] = value;
+  //   });
+  //   return obj;
+  // }
+  
 
   const SaveInfo = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
     if (userPwd === userPwdCheck) {
       try {
-        const response = await api.post("/user/regist", RegisterUser);
+        console.log(RegisterUser);
+        // console.log(formDataToObject(formdata)); 
+        const response = await api.post("/user/regist", RegisterUser, {
+          // headers: {
+          //   'Content-Type': 'multipart/form-data', 
+          // },
+        });
         console.log(response.data.data);
         alert("회원가입완료");
       } catch (error) {
+        console.log(RegisterUser);
+        // console.log(formDataToObject(formdata)); 
         console.error(error);
         alert("회원가입실패");
       }
