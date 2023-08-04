@@ -1,17 +1,25 @@
 import React from "react";
-import { useRecoilState } from "recoil";
+// import { useRecoilState } from "recoil";
 import {
   SmallInputBox,
   AnswerBox,
   Answer,
   SmallInput,
 } from "../Register/RegisterStyle";
-import { RegisterDataType, RegisterDataState } from "./RegisterState";
+// import { RegisterDataType, RegisterDataState } from "./RegisterState";
 interface QuestionProps {
   question: string;
   Type: string;
   Id: string;
   placeholder: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+interface Question2Props {
+  question: string;
+  Type: string;
+  Id: string;
+  placeholder: string;
+  onBlur: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Question: React.FC<QuestionProps> = ({
@@ -19,25 +27,8 @@ const Question: React.FC<QuestionProps> = ({
   Type,
   Id,
   placeholder,
+  onChange,
 }) => {
-  const [registerData, setRegisterData] = useRecoilState(RegisterDataState);
-
-  const { userName, userTel, userId, userPwd, userAddress } = registerData;
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-
-    setRegisterData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-    console.log(userName);
-    console.log(userTel);
-    console.log(userId);
-    console.log(userPwd);
-    console.log(userAddress);
-  };
-
   return (
     <SmallInputBox>
       <AnswerBox>
@@ -46,11 +37,33 @@ const Question: React.FC<QuestionProps> = ({
           type={Type}
           id={Id}
           placeholder={placeholder}
-          onChange={handleChange}
+          onChange={onChange}
         />
       </AnswerBox>
     </SmallInputBox>
   );
 };
 
-export default Question;
+const Question2: React.FC<Question2Props> = ({
+  question,
+  Type,
+  Id,
+  placeholder,
+  onBlur,
+}) => {
+  return (
+    <SmallInputBox>
+      <AnswerBox>
+        <Answer>{question}</Answer>
+        <SmallInput
+          type={Type}
+          id={Id}
+          placeholder={placeholder}
+          onBlur={onBlur}
+        />
+      </AnswerBox>
+    </SmallInputBox>
+  );
+};
+
+export { Question, Question2 };

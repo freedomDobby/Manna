@@ -14,13 +14,11 @@ const queryClient =new QueryClient();
 
 root.render(
     <BrowserRouter>
-    <LocalizationProvider dateAdapter={AdapterMoment}>
     <QueryClientProvider client={queryClient}>
       <RecoilRoot>
       <App />
       </RecoilRoot>
    </QueryClientProvider>
-    </LocalizationProvider>
     </BrowserRouter>
 
 );

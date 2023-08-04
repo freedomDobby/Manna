@@ -1,11 +1,11 @@
 import axios, { AxiosError } from 'axios';
 import { LOCAL_STORAGE_KEY } from '../apis/utils/Storage';
 import { getLocalStorageItem, removeLocalStorageItem } from './utils/LocalStrorage';
-import { API_BASE_URL } from './Url';
+import { API_BASE_URL, TEST_URL } from './Url';
 import { ErrorResponse } from './Response/Response';
 import { useNavigate } from 'react-router-dom';
 
-const api = axios.create({
+export const api = axios.create({
   baseURL: API_BASE_URL,
   // headers: {
   //   'Content-type': 'application/json',

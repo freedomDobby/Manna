@@ -17,7 +17,7 @@ const STAIComponent = () => {
   };
 
   const handleCustomDomainChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log('Selected Domain:', e.target.value);
+    // console.log('Selected Domain:', e.target.value);
     setSelectedDomain(e.target.value);
 
   };
@@ -28,7 +28,7 @@ const STAIComponent = () => {
     'hanmail.net',
     'nate.com',
     'kakao.com',
-    'test_7a55cc62c1f0',
+    'gmail.com',
   ];
 
   const { username, domain } = extractEmailParts(email);
@@ -66,18 +66,6 @@ const STAIComponent = () => {
           </option>
         ))}
       </select>
-      <div style={{ marginTop: '1vh', fontFamily: 'Arial, sans-serif', fontSize: '2vh' }}>
-        {domain && (
-          <>
-            <p>
-              Username: <span>{email}</span>
-            </p>
-            <p>
-              Domain: <span>{selectedDomain}</span>
-            </p>
-          </>
-        )}
-      </div>
     </div>
   );
 };

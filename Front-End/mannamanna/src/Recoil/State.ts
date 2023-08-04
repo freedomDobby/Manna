@@ -71,9 +71,42 @@ export const genderAtom = atom<string | null>({
     key: 'findEmailDomainAtom',
     default: '',
   });
+
+  export const findIdModalAtom = atom<boolean>({
+    key: 'findIdModalAtom',
+    default: false,
+  });
+
+  export const findIdCheckIdAtom = atom<string>({
+    key: 'findIdCheckIdAtom',
+    default: "떴냐아아",
+  });
   
+  export const findPwModalAtom = atom<boolean>({
+    key: 'findPwModalAtom',
+    default: false,
+  });
+
+  
+  
+  export const LoginErrorModalAtom = atom<boolean>({
+    key: 'LoginErrorModalAtom',
+    default: false,
+  });
+
+  export const ForgotIdErrorModalAtom = atom<boolean>({
+    key: 'ForgotIdErrorModalAtom',
+    default: false,
+  });
 
 
-  
-  
-  
+
+  export const RegisterModalAtom = atom<boolean>({
+    key: 'RegisterModalAtom',
+    default: false,
+  });
+
+  export const RegisterMessageAtom = atom<string>({
+    key: 'RegisterMessageAtom',
+    default: '회원가입이 성공하였습니다.',
+  });

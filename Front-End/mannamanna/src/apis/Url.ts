@@ -8,3 +8,4 @@ export const WS_BASE_URL =
   export const API_BASE_URL = "http://i9b205.p.ssafy.io:9999";
 export const OPENVIDU_SERVER_URL ="http://i9b205.p.ssafy.io" + PORT_OPENVIDU;
 export const OPENVIDU_SERVER_SECRET = DEV ? "MY_SECRET" : "avatime"; // 현재는 무조건 MY_SECRET
+export const TEST_URL="https://codingapple1.github.io/shop"

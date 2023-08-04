@@ -1,24 +1,23 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useMutation } from '@tanstack/react-query';
 import GoBackIcon from '../../../components/common/GoBackIcon';
 import Logo from '../../../components/common/Logo';
-import { postLogin } from '../../../apis/LoginApi';
 import { CenterBox, BtnBox, ForgotPasswordLink, IdInput, IdLabel, InputBox, LoginBox, StyledButton } from './LoginStyle';
-import { genderAtom, nameAtom } from '../../../Recoil/State';
+import { LoginErrorModalAtom, accessTokenAtom, genderAtom, idAtom, nameAtom, refreshTokenAtom } from '../../../Recoil/State';
 import { useRecoilState } from 'recoil';
 import { LoginReq } from '../../../apis/Request/Request';
 import api from '../../../apis/Api';
+import { LoginErrorModal } from '../ForgotIdPw/ForgotIdStyles';
 const Login = () => {
   const navigate = useNavigate();
   const [userId, setUserId] = useState('');
   const [userPw, setUserPw] = useState('');
-
+  const [open, setOpen] = useRecoilState(LoginErrorModalAtom);
   const [gender, setGender] = useRecoilState(genderAtom);
   const [name, setName] = useRecoilState(nameAtom);
-  const [id, setId] = useRecoilState(nameAtom);
-  const [accessToken, setAccessToken] = useRecoilState(nameAtom);
-  const [refreshToken, setRefreshToken] = useRecoilState(nameAtom);
+  const [id, setId] = useRecoilState(idAtom);
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenAtom);
+  const [refreshToken, setRefreshToken] = useRecoilState(refreshTokenAtom);
   
   const GoFindId = () => {
     navigate('/ForgotId');
@@ -39,21 +38,20 @@ const Login = () => {
       id: userId,
       pwd: userPw,
     };
-    console.log(userData);
+    // console.log(userData);
     try {
       const response = await api.post('/user/login', userData);
-      console.log(response.data); 
-      const { gender, name,id, accessToken,refreshToken } = response.data;
-
-      setGender(gender);
-      setName(name);
-      setId(id);
-      setAccessToken(accessToken);
-      setRefreshToken(refreshToken);
+      // console.log(response.data); 
+      setGender(response.data.gender);
+      setName(response.data.userName);
+      setId(response.data.id);
+      setAccessToken(response.data.accessToken);
+      setRefreshToken(response.data.refreshToken);
       navigate('/main');
 
     } catch (error) {
       console.error(error);
+      setOpen(true);
     }
   };
 
@@ -63,6 +61,7 @@ const Login = () => {
       <CenterBox>
         <GoBackIcon></GoBackIcon>
         <LoginBox>
+          <LoginErrorModal></LoginErrorModal>
           <InputBox>
             <IdLabel>ID</IdLabel>
             <IdInput

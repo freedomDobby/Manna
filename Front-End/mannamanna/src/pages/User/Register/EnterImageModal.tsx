@@ -10,14 +10,13 @@ import {
   MostBiggestBox,
   TitleBox,
 } from "./ModalStyle";
-// import EnterImageBox from "./ImageInput";
-import { InroduceText } from "./IntroduceTextArea";
+import { EnterImage1, EnterImage2, EnterImage3 } from "./ImageInput";
 
-type EnterPrProps = {
+type EnterImageProps = {
   children: string;
 };
 
-export const EnterPr = ({ children }: EnterPrProps) => {
+export const EnterImage = ({ children }: EnterImageProps) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -66,10 +65,12 @@ export const EnterPr = ({ children }: EnterPrProps) => {
               {/* 이미지 입력받기 */}
               <Container2>
                 <TitleBox>
-                  본인을 어필 할 수 있는 자기소개를 작성해주세요.
+                  본인을 어필 할 수 있는 사진 3장을 등록해 주세요.
                 </TitleBox>
                 <ImageForm>
-                  <InroduceText />
+                  <EnterImage1 title="프로필 사진 1" coment="Best 사진" />
+                  <EnterImage2 title="프로필 사진 2" coment="사진 2" />
+                  <EnterImage3 title="프로필 사진 3" coment="사진1" />
                 </ImageForm>
                 <EnterImageBtnBox>
                   <MyPageButton onClick={handleClose}>확인</MyPageButton>

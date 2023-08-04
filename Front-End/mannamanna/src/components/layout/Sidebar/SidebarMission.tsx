@@ -1,24 +1,12 @@
-import styled from "styled-components";
 import Sidetab from "../Sidetab";
 import { useNavigate } from "react-router-dom";
-
-const SidebarStyle = styled.div`
-  // border: 3px solid red;
-  // width: 20%;
-  height: 26vh;
-  background: black;
-  display: flex;
-  justify-content: flex-end;
-  margin: 0%;
-`;
+import MyPageSideTab from "../MyPageSideTab";
+import { SidebarStyle, SidetabContainer } from "./SidebarStyle";
 
 function SidebarMission() {
   const navigate = useNavigate();
   const GoHome = () => {
     navigate("/main");
-  };
-  const GoMyPage = () => {
-    navigate("/mypage");
   };
   const Gochat = () => {
     navigate("/chatting");
@@ -29,13 +17,13 @@ function SidebarMission() {
 
   return (
     <SidebarStyle>
-      <div>
+      <SidetabContainer>
         <Sidetab onClick={GoHome} menu={"Home"} bg={"white"} />
-        <Sidetab onClick={GoMyPage} menu={"MyPage"} bg={"white"} />
+        <MyPageSideTab menu={"MyPage"} bg={"white"} />
         <Sidetab onClick={Gochat} menu={"Chat"} bg={"white"} />
-        <Sidetab onClick={Gomission} menu={"Mission"} bg={"white"} />
-        <Sidetab onClick={GoHome} menu={"끝!"} bg={"pink"} />
-      </div>
+        <Sidetab onClick={Gomission} menu={"Mission"} bg={"#ffcced"} />
+        <Sidetab onClick={GoHome} menu={"끝!"} bg={"white"} />
+      </SidetabContainer>
     </SidebarStyle>
   );
 }

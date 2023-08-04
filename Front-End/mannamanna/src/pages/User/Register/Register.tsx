@@ -1,4 +1,3 @@
-// import React, { useState } from "react";
 import { StyledButton } from "../Login/LoginStyle";
 import signup from "../../../asset/image/signup.png";
 import GoBackIcon from "../../../components/common/GoBackIcon";
@@ -19,7 +18,15 @@ import {
 } from "./RegisterStyle";
 import MacBox from "../../../components/common/MacBox1";
 import { useNavigate } from "react-router-dom";
-import Question from "./AnswerBox";
+import {
+  EnterId,
+  EnterName,
+  EnterPwd,
+  EnterPwdCheck,
+  EnterTel,
+} from "./Question";
+import { EnterImage } from "./EnterImageModal";
+import { EnterLocation } from "./EnterAddressModal";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -67,50 +74,20 @@ const Register = () => {
                   <SmallInputBox>
                     <AnswerBox>
                       <Answer>프로필사진 등록</Answer>
-                      <StyledButton style={{ height: "100%" }}>
-                        사진 등록하기
-                      </StyledButton>
+                      <EnterImage>사진 등록하기</EnterImage>
                     </AnswerBox>
                   </SmallInputBox>
 
-                  <Question
-                    question="이름을 입력해주세요"
-                    Type="text"
-                    Id="UserName"
-                    placeholder="이름"
-                  />
-                  <Question
-                    question="전화번호를 입력해주세요"
-                    Type="text"
-                    Id="UserNum"
-                    placeholder="010-0000-0000"
-                  />
-                  <Question
-                    question="아이디를 입력해주세요"
-                    Type="text"
-                    Id="UserId"
-                    placeholder="아이디"
-                  />
-                  <Question
-                    question="비밀번호를 입력해주세요"
-                    Type="text"
-                    Id="UserPw"
-                    placeholder="비밀번호"
-                  />
-
-                  <Question
-                    question="비밀번호 확인"
-                    Type="text"
-                    Id="UserPw"
-                    placeholder="비밀번호 확인"
-                  />
+                  <EnterName />
+                  <EnterTel />
+                  <EnterId />
+                  <EnterPwd />
+                  <EnterPwdCheck />
 
                   <SmallInputBox>
                     <AnswerBox>
                       <Answer>사는 지역을 선택해주세요</Answer>
-                      <StyledButton style={{ height: "100%" }}>
-                        지역 찾기
-                      </StyledButton>
+                      <EnterLocation>주소입력</EnterLocation>
                     </AnswerBox>
                   </SmallInputBox>
                 </div>

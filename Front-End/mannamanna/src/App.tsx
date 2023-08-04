@@ -4,7 +4,7 @@ import Layout from "./pages/Layout";
 import Landing from "./pages/Landing/Landing";
 import Login from "./pages/User/Login/Login";
 import Register from "./pages/User/Register/Register";
-// import ForgotId from './pages/User/ForgotIdPw/ForgotId';
+import ForgotId from './pages/User/ForgotIdPw/ForgotId';
 import ForgotPw from "./pages/User/ForgotIdPw/ForgotPw";
 import MainHome from "./pages/User/MainHome/MainHome";
 import Choice from "./pages/Choice";
@@ -31,14 +31,12 @@ import MyPageHistory from "./pages/User/MyPage/MyPageHistory";
 import MyPageWithdrawal from "./pages/User/MyPage/MyPageWithdrawal";
 import StudyRecoil from "./pages/Study/StudyRecoil";
 import StudyRecoilResult from "./pages/Study/StudyRecoilResult";
-import ForgotId from "./pages/User/ForgotIdPw/ForgotId";
 
 function App() {
   return (
     <>
       <GlobalFont />
       <GlobalStyle />
-      {/* 초기오류수정 */}
       <Routes>
         <Route path="/*" element={<Layout />}>
           <Route path="main" element={<MainHome />} />
