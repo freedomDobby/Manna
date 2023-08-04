@@ -7,6 +7,7 @@ import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import { useRecoilState } from 'recoil';
 import { nameAtom } from '../../Recoil/State';
+import {  useNavigate } from 'react-router-dom';
 
 const HeaderBack = styled.div`
     width: 100%;
@@ -20,6 +21,10 @@ const HeaderBack = styled.div`
 
 function Greetings(){
     const [name] = useRecoilState(nameAtom);
+    const navigate=useNavigate();
+    const GoResponseNote = () => {
+        navigate("/note");
+      };
     return(
         <div>
             <HeaderBack>
@@ -27,10 +32,10 @@ function Greetings(){
                 <div style={{display:'flex', alignItems:'center'}}>
                     {/* <Profile></Profile> */}
                     <div style={{fontSize:'large'}}>{name}님</div>
-                    <IconButton color="primary" size="large">
+                    <IconButton color="primary" size="large" onClick={GoResponseNote}>
                         <EmailOutlinedIcon fontSize="large"/>
                     </IconButton>
-                    <IconButton color="primary" size="large">
+                    <IconButton color="primary" size="large" >
                         <NotificationsNoneOutlinedIcon fontSize="large"/>
                     </IconButton>
                     <IconButton color="primary" size="large">

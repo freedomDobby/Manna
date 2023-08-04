@@ -20,7 +20,9 @@ import MeetingWait from "./pages/Meeting/MeetingWait";
 import Meeting from "./pages/Meeting/Meeting";
 import Reserve from "./pages/Reserve/Reserve";
 import Mission from "./pages/Mission";
-import Note from "./pages/Note";
+import Note from "./pages/Note/Note";
+import RequestNote from "./pages/Note/RequestNote"
+import ResponseNote from "./pages/Note/ResponseNote";
 import Alarm from "./pages/Alarm";
 import GlobalFont from "./Styles/GlobalFont";
 import GlobalStyle from "./Styles/GlobalStyle";
@@ -57,7 +59,10 @@ function App() {
           </Route>
           <Route path="chatting" element={<Chatting />} />
           <Route path="mission" element={<Mission />} />
-          <Route path="note" element={<Note />} />
+          <Route path="note" element={<Note />}>
+          <Route index element={<ResponseNote/>} />
+          <Route path="requestNote" element={<RequestNote />} />
+          </Route>
           <Route path="alram" element={<Alarm />} />
           <Route index element={<Navigate to="home" replace />} />
         </Route>
