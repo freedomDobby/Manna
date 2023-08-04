@@ -1,7 +1,7 @@
 import { Button, Modal } from "@mui/material";
 import { useState } from "react";
-import MacBookBox from "../../../components/common/macbookBox";
-import { MyPageButton } from "../MyPage/MyPageStyles";
+import MacBookBox from "../../../../components/common/macbookBox";
+import { MyPageButton } from "../../MyPage/MyPageStyles";
 import {
   Contain,
   Container2,
@@ -9,14 +9,15 @@ import {
   ImageForm,
   MostBiggestBox,
   TitleBox,
-} from "./ModalStyle";
-import { EnterImage1, EnterImage2, EnterImage3 } from "./ImageInput";
+} from "../ModalStyle";
+// import EnterImageBox from "./ImageInput";
+import { InroduceText } from "./IntroduceTextArea";
 
-type EnterImageProps = {
+type EnterPrProps = {
   children: string;
 };
 
-export const EnterImage = ({ children }: EnterImageProps) => {
+export const EnterPr = ({ children }: EnterPrProps) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -65,12 +66,10 @@ export const EnterImage = ({ children }: EnterImageProps) => {
               {/* 이미지 입력받기 */}
               <Container2>
                 <TitleBox>
-                  본인을 어필 할 수 있는 사진 3장을 등록해 주세요.
+                  본인을 어필 할 수 있는 자기소개를 작성해주세요.
                 </TitleBox>
                 <ImageForm>
-                  <EnterImage1 title="프로필 사진 1" coment="Best 사진" />
-                  <EnterImage2 title="프로필 사진 2" coment="사진 2" />
-                  <EnterImage3 title="프로필 사진 3" coment="사진1" />
+                  <InroduceText />
                 </ImageForm>
                 <EnterImageBtnBox>
                   <MyPageButton onClick={handleClose}>확인</MyPageButton>

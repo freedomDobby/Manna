@@ -25,8 +25,8 @@ import {
   EnterPwdCheck,
   EnterTel,
 } from "./Question";
-import { EnterImage } from "./EnterImageModal";
-import { EnterLocation } from "./EnterAddressModal";
+import { EnterImage } from "./Image/EnterImageModal";
+import { EnterLocation } from "./Address/EnterAddressModal";
 
 const Register = () => {
   const navigate = useNavigate();

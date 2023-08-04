@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil";
-import { userPrState } from "./RegisterState";
+import { userPrState } from "../RegisterState";
 
 export const InroduceText = () => {
   const [userPr, setUserPr] = useRecoilState(userPrState);

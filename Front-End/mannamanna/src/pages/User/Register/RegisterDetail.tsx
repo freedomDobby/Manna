@@ -2,8 +2,8 @@
 import GoBackIcon from "../../../components/common/GoBackIcon";
 import signup from "../../../asset/image/signup.png";
 import Logo from "../../../components/common/Logo";
-import SmokeCheck from "./SmokeCheck";
-import DrinkCheck from "./DrinkCheck";
+import SmokeCheck from "./Toggle/SmokeCheck";
+import DrinkCheck from "./Toggle/DrinkCheck";
 import {
   LogoBox,
   SmallInputBox,
@@ -26,7 +26,7 @@ import {
   JobSelectBox,
   UserHeightSlider,
 } from "../Register/Selection";
-import { EnterPr } from "./IntroduceModal";
+import { EnterPr } from "./SelfPR/IntroduceModal";
 import { EnterAge } from "./Question";
 import Save from "./SaveBtn";
 import { RegisterModal } from "../ForgotIdPw/ForgotIdStyles";

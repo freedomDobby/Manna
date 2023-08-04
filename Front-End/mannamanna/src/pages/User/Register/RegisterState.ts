@@ -24,7 +24,7 @@ export interface RegisterDataType {
   priority1: number;
   priority2: number;
   priority3: number;
-  blockingFriend:boolean;
+  blockingFriend: boolean;
 }
 
 export const RegisterDataState = atom<RegisterDataType>({
@@ -51,9 +51,10 @@ export const RegisterDataState = atom<RegisterDataType>({
     latitude: 36.35,
     longitude: 127.29,
     priority1: 0,
+
     priority2: 1,
     priority3: 2,
-    blockingFriend:true,
+    blockingFriend: true,
   },
 });
 
