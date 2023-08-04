@@ -24,7 +24,7 @@ export interface RegisterDataType {
   priority1: number;
   priority2: number;
   priority3: number;
-  blockingFriend:boolean;
+  blockingFriend: boolean;
 }
 
 export const RegisterDataState = atom<RegisterDataType>({
@@ -36,7 +36,7 @@ export const RegisterDataState = atom<RegisterDataType>({
     gender: "F",
     tel: "01012341234",
     birth: "1997",
-    emailId: "santafe3064",
+    emailId: "defaultId",
     emailDomain: "naver.com",
     height: 177,
     job: "무직",
@@ -45,15 +45,15 @@ export const RegisterDataState = atom<RegisterDataType>({
     mbti: "INTJ",
     religion: "무교",
     introduction: "안녕하세요 ^^",
-    sido: "서울",
-    gugun: "강남구",
+    sido: "서울특별시",
+    gugun: "종로구",
     detail: "삼성화재연구원",
     latitude: 36.35,
     longitude: 127.29,
     priority1: 0,
     priority2: 1,
     priority3: 2,
-    blockingFriend:true,
+    blockingFriend: true,
   },
 });
 

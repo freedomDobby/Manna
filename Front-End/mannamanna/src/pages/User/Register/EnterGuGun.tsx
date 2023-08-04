@@ -42,7 +42,7 @@ export const GuGun = () => {
       return <SejongGugun />;
     case "경기도":
       return <GyeonggiGugun />;
-    case "강원특별자치도":
+    case "강원도":
       return <GangwonGugun />;
     case "충청북도":
       return <ChungbukGugun />;

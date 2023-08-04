@@ -62,7 +62,7 @@ const Save = () => {
     gender: userInfo.gender, //api
     tel: userTel,
     birth: userAge,
-    emailId: userInfo.emailId, //api
+    emailId: userId, //api
     emailDomain: userInfo.emailDomain, //api
     height: userHeight,
     job: userJob,
@@ -106,7 +106,7 @@ const Save = () => {
   //   return obj;
   // }
   const [open, setOpen] = useRecoilState(RegisterModalAtom);
-  const [message,setMessage] =  useRecoilState(RegisterMessageAtom);
+  const [message, setMessage] = useRecoilState(RegisterMessageAtom);
   const SaveInfo = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
@@ -127,12 +127,12 @@ const Save = () => {
         // console.log(formDataToObject(formdata));
         console.error(error);
         // alert("회원가입실패");
-        await setMessage("회원가입이 실패하였습니다.")
+        await setMessage("회원가입이 실패하였습니다.");
         setOpen(true);
       }
     } else {
       // alert("비밀번호가 다릅니다.");
-      await setMessage("비밀번호가 다릅니다.")
+      await setMessage("비밀번호가 다릅니다.");
       setOpen(true);
     }
   };

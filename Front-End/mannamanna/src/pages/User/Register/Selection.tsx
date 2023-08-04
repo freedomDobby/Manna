@@ -266,7 +266,7 @@ export const Sido = () => {
         <option value="울산광역시"> 울산광역시</option>
         <option value="세종특별자치시"> 세종특별자치시</option>
         <option value="경기도"> 경기도</option>
-        <option value="강원특별자치도"> 강원특별자치도</option>
+        <option value="강원특별자치도"> 강원도</option>
         <option value="충청북도"> 충청북도</option>
         <option value="충청남도"> 충청남도</option>
         <option value="전라북도"> 전라북도</option>
@@ -297,7 +297,7 @@ export const SeoulGugun = () => {
       <select value={Gugun} onChange={handleChange}>
         <option value="종로구"> 종로구</option>
         <option value="중구"> 중구</option>
-        <option value="의정부시"> 의정부시</option>
+        <option value="용산구"> 용산구</option>
         <option value="성동구"> 성동구</option>
         <option value="광진구">광진구</option>
         <option value="동대문구">동대문구</option>
@@ -347,13 +347,14 @@ export const BuSanGugun = () => {
         <option value="동래구">동래구</option>
         <option value="남구"> 남구</option>
         <option value="북구"> 북구</option>
-        <option value="강서구"> 강서구</option>
         <option value="해운대구"> 해운대구</option>
         <option value="사하구"> 사하구</option>
         <option value="금정구"> 금정구</option>
+        <option value="강서구"> 강서구</option>
         <option value="연제구"> 연제구</option>
         <option value="수영구"> 수영구</option>
         <option value="사상구"> 사상구</option>
+        <option value="기장군"> 기장군</option>
       </select>
     </SelectBoxWrapper>
   );
@@ -381,7 +382,6 @@ export const DaeguGugun = () => {
         <option value="수성구"> 수성구</option>
         <option value="달서구">달서구</option>
         <option value="달성군">달성군</option>
-        <option value="군위군"> 군위군</option>
       </select>
     </SelectBoxWrapper>
   );
@@ -409,6 +409,8 @@ export const IncheonGugun = () => {
         <option value="부평구"> 부평구</option>
         <option value="계양구"> 계양구</option>
         <option value="서구"> 서구</option>
+        <option value="강화군"> 강화군</option>
+        <option value="옹진군"> 옹진군</option>
       </select>
     </SelectBoxWrapper>
   );
@@ -452,16 +454,16 @@ export const DaejeonGugun = () => {
       }}
     >
       <select value={Gugun} onChange={handleChange}>
+        <option value="동구"> 동구</option>
         <option value="중구"> 중구</option>
         <option value="서구"> 서구</option>
-        <option value="동구"> 동구</option>
         <option value="유성구"> 유성구</option>
         <option value="대덕구">대덕구</option>
       </select>
     </SelectBoxWrapper>
   );
 };
-////부산//////
+////울산//////
 export const UlSanGugun = () => {
   const [Gugun, setGugun] = useRecoilState(userGuGunState);
 
@@ -530,15 +532,28 @@ export const GyeonggiGugun = () => {
     >
       <select value={Gugun} onChange={handleChange}>
         <option value="수원시"> 수원시</option>
+        <option value="수원시 장안구"> 수원시 장안구</option>
+        <option value="수원시 권선구"> 수원시 권선구</option>
+        <option value="수원시 팔달구"> 수원시 팔달구</option>
+        <option value="수원시 영통구"> 수원시 영통구</option>
         <option value="성남시"> 성남시</option>
+        <option value="성남시 수정구"> 성남시 수정구</option>
+        <option value="성남시 중원구"> 성남시 중원구</option>
+        <option value="성남시 분당구"> 성남시 분당구</option>
         <option value="의정부시"> 의정부시</option>
         <option value="안양시"> 안양시</option>
+        <option value="안양시 만안구"> 안양시 만안구</option>
+        <option value="안양시 동안구"> 안양시 동안구</option>
         <option value="부천시">부천시</option>
         <option value="광명시">광명시</option>
         <option value="동두천시"> 동두천시</option>
-        <option value="평택시"> 평택시</option>
         <option value="안산시"> 안산시</option>
+        <option value="안산시 상록구"> 안산시 상록구</option>
+        <option value="안산시 단원구"> 안산시 단원구</option>
         <option value="고양시"> 고양시</option>
+        <option value="고양시 덕양구"> 고양시 덕양구</option>
+        <option value="고양시 일산동구"> 고양시 일산동구</option>
+        <option value="고양시 일산서구"> 고양시 일산서구</option>
         <option value="과천시"> 과천시</option>
         <option value="구리시"> 구리시</option>
         <option value="남양주시"> 남양주시</option>
@@ -548,6 +563,9 @@ export const GyeonggiGugun = () => {
         <option value="의왕시"> 의왕시</option>
         <option value="하남시"> 하남시</option>
         <option value="용인시"> 용인시</option>
+        <option value="용인시 처인구"> 용인시 처인구</option>
+        <option value="용인시 기흥구"> 용인시 기흥구</option>
+        <option value="용인시 수지구"> 용인시 수지구</option>
         <option value="파주시"> 파주시</option>
         <option value="이천시"> 이천시</option>
         <option value="안성시"> 안성시</option>
@@ -618,6 +636,10 @@ export const ChungbukGugun = () => {
     >
       <select value={Gugun} onChange={handleChange}>
         <option value="청주시"> 청주시</option>
+        <option value="청주시 상당구"> 청주시 상당구</option>
+        <option value="청주시 서원구"> 청주시 서원구</option>
+        <option value="청주시 흥덕구"> 청주시 흥덕구</option>
+        <option value="청주시 청원구"> 청주시 청원구</option>
         <option value="충주시"> 충주시</option>
         <option value="제천시"> 제천시</option>
         <option value="보은군"> 보은군</option>
@@ -648,6 +670,8 @@ export const ChungnamGugun = () => {
     >
       <select value={Gugun} onChange={handleChange}>
         <option value="천안시"> 천안시</option>
+        <option value="천안시 동남구"> 천안시 동남구</option>
+        <option value="천안시 서북구"> 천안시 서북구</option>
         <option value="공주시"> 공주시</option>
         <option value="보령시"> 보령시</option>
         <option value="아산시"> 아산시</option>
@@ -682,6 +706,8 @@ export const JeonbukGugun = () => {
     >
       <select value={Gugun} onChange={handleChange}>
         <option value="전주시"> 전주시</option>
+        <option value="전주시 완산구"> 전주시 완산구</option>
+        <option value="전주시 덕진구"> 전주시 덕진구</option>
         <option value="군산시"> 군산시</option>
         <option value="익산시"> 익산시</option>
         <option value="정읍시"> 정읍시</option>
@@ -719,6 +745,7 @@ export const JeonnamGugun = () => {
         <option value="순천시"> 순천시</option>
         <option value="나주시"> 나주시</option>
         <option value="광양시">광양시</option>
+        {/* <option value="양산시">양산시</option> */}
         <option value="담양군">담양군</option>
         <option value="곡성군"> 곡성군</option>
         <option value="구례군"> 구례군</option>
@@ -759,28 +786,31 @@ export const GyeongbukGugun = () => {
     >
       <select value={Gugun} onChange={handleChange}>
         <option value="포항시"> 포항시</option>
+        <option value="포항시 남구"> 포항시 남구</option>
+        <option value="포항시 북구"> 포항시 북구</option>
         <option value="경주시"> 경주시</option>
         <option value="김천시"> 김천시</option>
         <option value="안동시"> 안동시</option>
         <option value="구미시">구미시</option>
         <option value="영주시">영주시</option>
-        <option value="영천시">영천시군</option>
+        <option value="영천시">영천시</option>
         <option value="상주시"> 상주시</option>
         <option value="문경시"> 문경시</option>
         <option value="경산시"> 경산시</option>
+        <option value="군위군"> 군위군</option>
         <option value="의성군"> 의성군</option>
         <option value="청송군"> 청송군</option>
         <option value="영양군"> 영양군</option>
         <option value="영덕군"> 영덕군</option>
-        <option value="청도군"> 청도군</option>
+        <option value="봉화군"> 봉화군</option>
+        <option value="울진군"> 울진군</option>
+        <option value="울릉군"> 울릉군</option>
+        {/* <option value="청도군"> 청도군</option>
         <option value="고령군"> 고령군</option>
         <option value="성주군"> 성주군</option>
         <option value="칠곡군"> 칠곡군</option>
         <option value="예천군"> 예천군</option>
-        <option value="예천군"> 예천군</option>
-        <option value="봉화군"> 봉화군</option>
-        <option value="울진군"> 울진군</option>
-        <option value="울릉군"> 울릉군</option>
+        <option value="예천군"> 예천군</option> */}
       </select>
     </SelectBoxWrapper>
   );
@@ -800,6 +830,9 @@ export const GyeongnamGugun = () => {
       }}
     >
       <select value={Gugun} onChange={handleChange}>
+        <option value="창원시"> 창원시</option>
+        <option value="창원시"> 창원시</option>
+        <option value="창원시"> 창원시</option>
         <option value="창원시"> 창원시</option>
         <option value="진주시"> 진주시</option>
         <option value="통영시"> 통영시</option>
