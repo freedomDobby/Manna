@@ -23,9 +23,8 @@ const Chatting = () => {
   const [inputValue, setInputValue] = useState("");
 
   const handleSubmit = () => {
-    // 여기서 입력된 값을 처리하고 원하는 작업을 수행합니다.
     alert(`입력된 값: ${inputValue}`);
-    setInputValue(""); // 폼을 초기화하려면 상태값을 초기화해줍니다.
+    setInputValue(""); 
   };
 
   return (
@@ -47,31 +46,7 @@ const Chatting = () => {
               <ChatPeopleOutBox>
                 <ChatInBox>
                   <ChatPeople />
-                  <ChatPeople />
-                  <ChatPeople />
-                  <ChatPeople />
-                  <ChatPeople />
-                  <ChatPeople />
-                  <ChatPeople />
-                  <ChatPeople />
-                  <ChatPeople />
-                  <ChatPeople />
-                  <ChatPeople />
-                  <ChatPeople />
-                  <ChatPeople />
-                  <ChatPeople />
-                  <ChatPeople />
-                  <ChatPeople />
-                  <ChatPeople />
-                  <ChatPeople />
-                  <ChatPeople />
-                  <ChatPeople />
-                  <ChatPeople />
-                  <ChatPeople />
-                  <ChatPeople />
-                  <ChatPeople />
-                  <ChatPeople />
-                  <ChatPeople />
+
                   <ChatPeople />
                 </ChatInBox>
               </ChatPeopleOutBox>
@@ -86,12 +61,6 @@ const Chatting = () => {
               {/* 스크롤바 디자인 추가해야함 */}
               <ChatOutBox>
                 <ChatInBox>
-                  <GetChat />
-                  <SendChat />
-                  <GetChat />
-                  <SendChat />
-                  <GetChat />
-                  <SendChat />
                   <GetChat />
                   <SendChat />
                 </ChatInBox>

@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Note = () => {
+const RequestNote = () => {
     return (
         <div>
-            쪽지
+            보낸 쪽지
         </div>
     );
 };
 
-export default Note;
+export default RequestNote;
