@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil";
-import { userAddressDetailState } from "./RegisterState";
+import { userAddressDetailState } from "../RegisterState";
 
 export const AddressDetail = () => {
   const [userAddressDetail, setUserAddressDetail] = useRecoilState(

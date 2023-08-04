@@ -1,7 +1,7 @@
 // import React, { useState } from "react";
 import { useRecoilState } from "recoil";
 import { Switch } from "@mui/material";
-import { userDrinkState } from "./RegisterState";
+import { userDrinkState } from "../RegisterState";
 
 const DrinkCheck = () => {
   const [userDrink, setUserDrink] = useRecoilState(userDrinkState); // useRecoilState() 괄호 안을 채워야함

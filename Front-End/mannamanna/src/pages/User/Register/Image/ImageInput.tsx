@@ -4,14 +4,14 @@ import {
   ImageTitle,
   ImageMirror,
   InputImage,
-} from "./ModalStyle";
+} from "../ModalStyle";
 import { useRecoilState } from "recoil";
 import {
   priority1State,
   priority2State,
   priority3State,
   profilePicture1State,
-} from "./RegisterState";
+} from "../RegisterState";
 
 interface EnterImage1Props {
   title: string;

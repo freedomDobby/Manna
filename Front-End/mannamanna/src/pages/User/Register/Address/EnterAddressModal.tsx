@@ -1,7 +1,9 @@
 import { Button, Modal } from "@mui/material";
 import { useState } from "react";
-import MacBookBox from "../../../components/common/macbookBox";
-import { MyPageButton } from "../MyPage/MyPageStyles";
+import MacBookBox from "../../../../components/common/macbookBox";
+import { MyPageButton } from "../../MyPage/MyPageStyles";
+// import { useRecoilState } from "recoil";
+// import { userAddress } from "../Register/RegisterState";
 import {
   Contain,
   Container2,
@@ -9,15 +11,16 @@ import {
   ImageForm,
   MostBiggestBox,
   TitleBox,
-} from "./ModalStyle";
-// import EnterImageBox from "./ImageInput";
-import { InroduceText } from "./IntroduceTextArea";
+} from "../ModalStyle";
+import { Sido } from "../Selection";
+import { GuGun } from "./EnterGuGun";
+import { AddressDetail } from "./AddressDetail";
 
-type EnterPrProps = {
+type EnterLocationProps = {
   children: string;
 };
 
-export const EnterPr = ({ children }: EnterPrProps) => {
+export const EnterLocation = ({ children }: EnterLocationProps) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -66,10 +69,35 @@ export const EnterPr = ({ children }: EnterPrProps) => {
               {/* 이미지 입력받기 */}
               <Container2>
                 <TitleBox>
-                  본인을 어필 할 수 있는 자기소개를 작성해주세요.
+                  예약하기 서비스를 이용하기 위한 주소를 입력해주세요.
                 </TitleBox>
-                <ImageForm>
-                  <InroduceText />
+                <ImageForm
+                  style={{ justifyContent: "center", alignContent: "center" }}
+                >
+                  <div
+                    style={{
+                      // border: "1px solid blue",
+                      display: "flex",
+                      justifyContent: "space-around",
+                      alignItems: "center" /* 수직 중앙 정렬 설정 */,
+                      height: "60%",
+                      width: "80%",
+                      margin: "3%",
+                    }}
+                  >
+                    <label
+                      style={{
+                        // border: "1px solid red",
+                        textAlign: "center",
+                        width: "30%" /* 라벨 너비 설정 */,
+                      }}
+                    >
+                      주소
+                    </label>
+                    <Sido />
+                    <GuGun />
+                    <AddressDetail />
+                  </div>
                 </ImageForm>
                 <EnterImageBtnBox>
                   <MyPageButton onClick={handleClose}>확인</MyPageButton>

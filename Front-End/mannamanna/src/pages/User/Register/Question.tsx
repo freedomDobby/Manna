@@ -114,7 +114,7 @@ const EnterPwdCheck = () => {
   const [userPwd, setUserPwd] = useRecoilState(userPwdState);
   const [userPwdCheck, setUserPwdCheck] = useRecoilState(userPwdCheckState);
   const [open, setOpen] = useRecoilState(RegisterModalAtom);
-  const [message,setMessage] =  useRecoilState(RegisterMessageAtom);
+  const [message, setMessage] = useRecoilState(RegisterMessageAtom);
 
   const EnterPwdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserPwdCheck(event.target.value);

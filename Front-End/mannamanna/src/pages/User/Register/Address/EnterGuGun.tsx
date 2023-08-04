@@ -17,8 +17,8 @@ import {
   SejongGugun,
   SeoulGugun,
   UlSanGugun,
-} from "./Selection";
-import { userSidoState } from "./RegisterState";
+} from "../Selection";
+import { userSidoState } from "../RegisterState";
 
 export const GuGun = () => {
   const Sido = useRecoilValue(userSidoState);

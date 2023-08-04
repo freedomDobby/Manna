@@ -51,6 +51,7 @@ export const RegisterDataState = atom<RegisterDataType>({
     latitude: 36.35,
     longitude: 127.29,
     priority1: 0,
+
     priority2: 1,
     priority3: 2,
     blockingFriend: true,
