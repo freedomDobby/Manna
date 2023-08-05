@@ -6,7 +6,7 @@ import { CenterBox, BtnBox, ForgotPasswordLink, IdInput, IdLabel, InputBox, Logi
 import { LoginErrorModalAtom, accessTokenAtom, genderAtom, idAtom, nameAtom, refreshTokenAtom } from '../../../Recoil/State';
 import { useRecoilState } from 'recoil';
 import { LoginReq } from '../../../apis/Request/Request';
-import api from '../../../apis/Api';
+import api, { apilogin } from '../../../apis/Api';
 import { LoginErrorModal } from '../ForgotIdPw/ForgotIdStyles';
 const Login = () => {
   const navigate = useNavigate();
@@ -40,7 +40,7 @@ const Login = () => {
     };
     // console.log(userData);
     try {
-      const response = await api.post('/user/login', userData);
+      const response = await apilogin.post('/user/login', userData);
       // console.log(response.data); 
       setGender(response.data.gender);
       setName(response.data.userName);
