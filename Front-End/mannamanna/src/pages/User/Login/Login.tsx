@@ -10,30 +10,32 @@ import api, { apilogin } from '../../../apis/Api';
 import { LoginErrorModal } from '../ForgotIdPw/ForgotIdStyles';
 const Login = () => {
   const navigate = useNavigate();
-  const [userId, setUserId] = useState('');
-  const [userPw, setUserPw] = useState('');
+  const [userId, setUserId] = useState("");
+  const [userPw, setUserPw] = useState("");
   const [open, setOpen] = useRecoilState(LoginErrorModalAtom);
   const [gender, setGender] = useRecoilState(genderAtom);
   const [name, setName] = useRecoilState(nameAtom);
   const [id, setId] = useRecoilState(idAtom);
   const [accessToken, setAccessToken] = useRecoilState(accessTokenAtom);
   const [refreshToken, setRefreshToken] = useRecoilState(refreshTokenAtom);
-  
+
   const GoFindId = () => {
-    navigate('/ForgotId');
+    navigate("/ForgotId");
   };
-  
+
   const GoFindPw = () => {
-    navigate('/ForgotPw');
+    navigate("/ForgotPw");
   };
-  
+  const GoFKaKAo = () => {
+    navigate("/Kakao");
+  };
+
   const GoRegister = () => {
-    navigate('/register');
+    navigate("/register");
   };
 
-
-  const handleLogin = async (e:React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
+  const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     const userData: LoginReq = {
       id: userId,
       pwd: userPw,
@@ -47,8 +49,7 @@ const Login = () => {
       setId(response.data.id);
       setAccessToken(response.data.accessToken);
       setRefreshToken(response.data.refreshToken);
-      navigate('/main');
-
+      navigate("/main");
     } catch (error) {
       console.error(error);
       setOpen(true);
@@ -57,7 +58,9 @@ const Login = () => {
 
   return (
     <div>
-      <div style={{ height: '10vh', alignItems: 'center' }}><Logo /></div>
+      <div style={{ height: "10vh", alignItems: "center" }}>
+        <Logo />
+      </div>
       <CenterBox>
         <GoBackIcon></GoBackIcon>
         <LoginBox>
@@ -68,7 +71,7 @@ const Login = () => {
               type="text"
               name="user_id"
               value={userId}
-              onChange={(e) => setUserId(e.target.value)} 
+              onChange={(e) => setUserId(e.target.value)}
             />
           </InputBox>
           <InputBox>
@@ -77,10 +80,11 @@ const Login = () => {
               type="password"
               name="user_pw"
               value={userPw}
-              onChange={(e) => setUserPw(e.target.value)} 
+              onChange={(e) => setUserPw(e.target.value)}
             />
           </InputBox>
           <BtnBox>
+            <Kakao></Kakao>
             <ForgotPasswordLink onClick={GoFindId}>
               아이디 찾기
             </ForgotPasswordLink>
