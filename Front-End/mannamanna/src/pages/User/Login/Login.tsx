@@ -1,13 +1,30 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import GoBackIcon from '../../../components/common/GoBackIcon';
-import Logo from '../../../components/common/Logo';
-import { CenterBox, BtnBox, ForgotPasswordLink, IdInput, IdLabel, InputBox, LoginBox, StyledButton } from './LoginStyle';
-import { LoginErrorModalAtom, accessTokenAtom, genderAtom, idAtom, nameAtom, refreshTokenAtom } from '../../../Recoil/State';
-import { useRecoilState } from 'recoil';
-import { LoginReq } from '../../../apis/Request/Request';
-import api, { apilogin } from '../../../apis/Api';
-import { LoginErrorModal } from '../ForgotIdPw/ForgotIdStyles';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import GoBackIcon from "../../../components/common/GoBackIcon";
+import Logo from "../../../components/common/Logo";
+import {
+  CenterBox,
+  BtnBox,
+  ForgotPasswordLink,
+  IdInput,
+  IdLabel,
+  InputBox,
+  LoginBox,
+  StyledButton,
+} from "./LoginStyle";
+import {
+  LoginErrorModalAtom,
+  accessTokenAtom,
+  genderAtom,
+  idAtom,
+  nameAtom,
+  refreshTokenAtom,
+} from "../../../Recoil/State";
+import { useRecoilState } from "recoil";
+import { LoginReq } from "../../../apis/Request/Request";
+import api, { apilogin } from "../../../apis/Api";
+import { LoginErrorModal } from "../ForgotIdPw/ForgotIdStyles";
+import Kakao from "./KaKaoLogin";
 const Login = () => {
   const navigate = useNavigate();
   const [userId, setUserId] = useState("");
@@ -42,8 +59,8 @@ const Login = () => {
     };
     // console.log(userData);
     try {
-      const response = await apilogin.post('/user/login', userData);
-      // console.log(response.data); 
+      const response = await apilogin.post("/user/login", userData);
+      // console.log(response.data);
       setGender(response.data.gender);
       setName(response.data.userName);
       setId(response.data.id);
