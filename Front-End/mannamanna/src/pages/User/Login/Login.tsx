@@ -1,54 +1,73 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import GoBackIcon from '../../../components/common/GoBackIcon';
-import Logo from '../../../components/common/Logo';
-import { CenterBox, BtnBox, ForgotPasswordLink, IdInput, IdLabel, InputBox, LoginBox, StyledButton } from './LoginStyle';
-import { LoginErrorModalAtom, accessTokenAtom, genderAtom, idAtom, nameAtom, refreshTokenAtom } from '../../../Recoil/State';
-import { useRecoilState } from 'recoil';
-import { LoginReq } from '../../../apis/Request/Request';
-import api from '../../../apis/Api';
-import { LoginErrorModal } from '../ForgotIdPw/ForgotIdStyles';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import GoBackIcon from "../../../components/common/GoBackIcon";
+import Logo from "../../../components/common/Logo";
+import { useRecoilState } from "recoil";
+import { LoginReq } from "../../../apis/Request/Request";
+import api from "../../../apis/Api";
+import { LoginErrorModal } from "../ForgotIdPw/ForgotIdStyles";
+import KakaoLogin from "./KaKaoLogin";
+import {
+  CenterBox,
+  BtnBox,
+  ForgotPasswordLink,
+  IdInput,
+  IdLabel,
+  InputBox,
+  LoginBox,
+  StyledButton,
+} from "./LoginStyle";
+import {
+  LoginErrorModalAtom,
+  accessTokenAtom,
+  genderAtom,
+  idAtom,
+  nameAtom,
+  refreshTokenAtom,
+} from "../../../Recoil/State";
+import Kakao from "./KaKaoLogin";
 const Login = () => {
   const navigate = useNavigate();
-  const [userId, setUserId] = useState('');
-  const [userPw, setUserPw] = useState('');
+  const [userId, setUserId] = useState("");
+  const [userPw, setUserPw] = useState("");
   const [open, setOpen] = useRecoilState(LoginErrorModalAtom);
   const [gender, setGender] = useRecoilState(genderAtom);
   const [name, setName] = useRecoilState(nameAtom);
   const [id, setId] = useRecoilState(idAtom);
   const [accessToken, setAccessToken] = useRecoilState(accessTokenAtom);
   const [refreshToken, setRefreshToken] = useRecoilState(refreshTokenAtom);
-  
+
   const GoFindId = () => {
-    navigate('/ForgotId');
+    navigate("/ForgotId");
   };
-  
+
   const GoFindPw = () => {
-    navigate('/ForgotPw');
+    navigate("/ForgotPw");
   };
-  
+  const GoFKaKAo = () => {
+    navigate("/Kakao");
+  };
+
   const GoRegister = () => {
-    navigate('/register');
+    navigate("/register");
   };
 
-
-  const handleLogin = async (e:React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
+  const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     const userData: LoginReq = {
       id: userId,
       pwd: userPw,
     };
     // console.log(userData);
     try {
-      const response = await api.post('/user/login', userData);
-      // console.log(response.data); 
+      const response = await api.post("/user/login", userData);
+      // console.log(response.data);
       setGender(response.data.gender);
       setName(response.data.userName);
       setId(response.data.id);
       setAccessToken(response.data.accessToken);
       setRefreshToken(response.data.refreshToken);
-      navigate('/main');
-
+      navigate("/main");
     } catch (error) {
       console.error(error);
       setOpen(true);
@@ -57,7 +76,9 @@ const Login = () => {
 
   return (
     <div>
-      <div style={{ height: '10vh', alignItems: 'center' }}><Logo /></div>
+      <div style={{ height: "10vh", alignItems: "center" }}>
+        <Logo />
+      </div>
       <CenterBox>
         <GoBackIcon></GoBackIcon>
         <LoginBox>
@@ -68,7 +89,7 @@ const Login = () => {
               type="text"
               name="user_id"
               value={userId}
-              onChange={(e) => setUserId(e.target.value)} 
+              onChange={(e) => setUserId(e.target.value)}
             />
           </InputBox>
           <InputBox>
@@ -77,10 +98,11 @@ const Login = () => {
               type="password"
               name="user_pw"
               value={userPw}
-              onChange={(e) => setUserPw(e.target.value)} 
+              onChange={(e) => setUserPw(e.target.value)}
             />
           </InputBox>
           <BtnBox>
+            <Kakao></Kakao>
             <ForgotPasswordLink onClick={GoFindId}>
               아이디 찾기
             </ForgotPasswordLink>
