@@ -1,5 +1,6 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
+import Register from './../pages/User/Register/Register';
 
 // Persist 설정을 위한 storage 설정
 const sessionStorage=
@@ -109,4 +110,9 @@ export const genderAtom = atom<string | null>({
   export const RegisterMessageAtom = atom<string>({
     key: 'RegisterMessageAtom',
     default: '회원가입이 성공하였습니다.',
+  });
+
+  export const SendNoteModalAtom=atom<boolean>({
+    key: 'SendNoteModalAtom',
+    default: false,
   });

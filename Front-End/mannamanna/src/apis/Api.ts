@@ -1,12 +1,19 @@
 import axios, { AxiosError } from 'axios';
 import { LOCAL_STORAGE_KEY } from '../apis/utils/Storage';
 import { getLocalStorageItem, removeLocalStorageItem } from './utils/LocalStrorage';
-import { API_BASE_URL, TEST_URL } from './Url';
+import { API_BASE_URL, API_LOGIN_URL, TEST_URL } from './Url';
 import { ErrorResponse } from './Response/Response';
 import { useNavigate } from 'react-router-dom';
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
+  // headers: {
+  //   'Content-type': 'application/json',
+  // },
+});
+
+export const apilogin = axios.create({
+  baseURL: API_LOGIN_URL,
   // headers: {
   //   'Content-type': 'application/json',
   // },
