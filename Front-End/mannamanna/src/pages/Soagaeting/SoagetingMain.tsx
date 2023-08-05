@@ -15,6 +15,7 @@ import {
   DetailProfile,
   DetailText,
 } from "./SoagaetinStyle";
+import { StyledButton } from "../User/Login/LoginStyle";
 // import Button from '@mui/material/Button';
 
 const SoagetingFilter = () => {
