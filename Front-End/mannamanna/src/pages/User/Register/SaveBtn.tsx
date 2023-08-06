@@ -2,6 +2,7 @@ import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
   RegisterDataState,
+  genderState,
   priority1State,
   priority2State,
   priority3State,
@@ -47,19 +48,20 @@ const Save = () => {
   const userSido = useRecoilValue(userSidoState);
   const userGuGun = useRecoilValue(userGuGunState);
   const userAddressDetail = useRecoilValue(userAddressDetailState);
-  const priority1 = useRecoilValue(priority1State);
-  const priority2 = useRecoilValue(priority2State);
-  const priority3 = useRecoilValue(priority3State);
+  // const priority1 = useRecoilValue(priority1State);
+  // const priority2 = useRecoilValue(priority2State);
+  // const priority3 = useRecoilValue(priority3State);
   const [userInfo] = useRecoilState(RegisterDataState);
-  const profilePicture1 = useRecoilValue(profilePicture1State);
-  const profilePicture2 = useRecoilValue(profilePicture2State);
-  const profilePicture3 = useRecoilValue(profilePicture3State);
+  // const Usergender = useRecoilValue(genderState);
+  // const profilePicture1 = useRecoilValue(profilePicture1State);
+  // const profilePicture2 = useRecoilValue(profilePicture2State);
+  // const profilePicture3 = useRecoilValue(profilePicture3State);
 
   const RegisterUser: RegisterReq = {
     id: userId,
     pwd: userPwd,
     name: userName,
-    gender: userInfo.gender, //api
+    gender: userInfo.gender, //api => 자체회원가입땐 없어.
     tel: userTel,
     birth: userAge,
     emailId: userId, //api
@@ -76,9 +78,9 @@ const Save = () => {
     longitude: userInfo.longitude, //apiS
     isSmoker: userSmoke,
     isDrinker: userDrink,
-    // priority1: priority1,
-    // priority2: priority2,
-    // priority3: priority3
+    priority1: 1,
+    priority2: 2,
+    priority3: 3,
   };
 
   // const formdata =new FormData();
@@ -112,26 +114,26 @@ const Save = () => {
 
     if (userPwd === userPwdCheck) {
       try {
-        // console.log(RegisterUser);
+        console.log(RegisterUser);
         // console.log(formDataToObject(formdata));
-        const response = await api.post("/user/regist", RegisterUser, {
+        const response = await api.post("api/user/regist", RegisterUser, {
           // headers: {
           //   'Content-Type': 'multipart/form-data',
           // },
         });
         // console.log(response.data.data);
-        // alert("회원가입완료");
+        alert("회원가입완료");
         setOpen(true);
       } catch (error) {
         // console.log(RegisterUser);
         // console.log(formDataToObject(formdata));
         console.error(error);
-        // alert("회원가입실패");
+        alert("회원가입실패");
         await setMessage("회원가입이 실패하였습니다.");
         setOpen(true);
       }
     } else {
-      // alert("비밀번호가 다릅니다.");
+      alert("비밀번호가 다릅니다.");
       await setMessage("비밀번호가 다릅니다.");
       setOpen(true);
     }

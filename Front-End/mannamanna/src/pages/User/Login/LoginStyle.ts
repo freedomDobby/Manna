@@ -54,9 +54,8 @@ export let ForgotPasswordLink = styled.a`
   color: #ffffff;
   font-size: 2vh;
   text-decoration: underline;
-  margin-top: 1vh;
+  // margin-top: 1vh;
   cursor: pointer;
-
   &:hover {
     color: #d9cff4;
   }
