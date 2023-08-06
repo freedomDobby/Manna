@@ -6,8 +6,12 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import { useRecoilState } from 'recoil';
-import { nameAtom } from '../../Recoil/State';
+import { NoteAlarmAtom, idAtom, nameAtom } from '../../Recoil/State';
 import {  useNavigate } from 'react-router-dom';
+import { LoveNoteModal } from '../../pages/User/ForgotIdPw/ForgotIdStyles';
+import { useQuery } from '@tanstack/react-query';
+import api from '../../apis/Api';
+import { checkNote } from '../../apis/Response/Response';
 
 const HeaderBack = styled.div`
     width: 100%;
@@ -20,13 +24,32 @@ const HeaderBack = styled.div`
 `;
 
 function Greetings(){
-    const [name] = useRecoilState(nameAtom);
     const navigate=useNavigate();
     const GoResponseNote = () => {
         navigate("/note");
       };
+
+    const [open, setOpen] = useRecoilState(NoteAlarmAtom);
+    const [name] = useRecoilState(nameAtom);
+    const [Userid, setId] = useRecoilState(idAtom);
+
+    const checknote = useQuery<checkNote>(['recentnote'], async () => {
+        const response = await api.get("/note/recent/", {
+          params: {
+            id: Userid,
+          },
+        });
+        return response.data; 
+      });
+      
+      if (checknote.data) {
+        const checknoteResult = checknote.data;
+        setOpen(checknoteResult.result);
+      }
+      
     return(
         <div>
+            <LoveNoteModal></LoveNoteModal>
             <HeaderBack>
                 <Logo/>
                 <div style={{display:'flex', alignItems:'center'}}>

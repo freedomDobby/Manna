@@ -116,3 +116,8 @@ export const genderAtom = atom<string | null>({
     key: 'SendNoteModalAtom',
     default: false,
   });
+
+  export const NoteAlarmAtom=atom<boolean>({
+    key: 'NoteAlarmAtom',
+    default: false,
+  });
