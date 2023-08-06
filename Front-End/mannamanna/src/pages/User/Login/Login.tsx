@@ -25,6 +25,13 @@ import { LoginReq } from "../../../apis/Request/Request";
 import api, { apilogin } from "../../../apis/Api";
 import { LoginErrorModal } from "../ForgotIdPw/ForgotIdStyles";
 import Kakao from "./KaKaoLogin";
+declare global {
+  interface Window {
+    Kakao: any;
+    Auth: any;
+    kakao_account: any;
+  }
+}
 const Login = () => {
   const navigate = useNavigate();
   const [userId, setUserId] = useState("");
@@ -42,9 +49,6 @@ const Login = () => {
 
   const GoFindPw = () => {
     navigate("/ForgotPw");
-  };
-  const GoFKaKAo = () => {
-    navigate("/Kakao");
   };
 
   const GoRegister = () => {
@@ -101,7 +105,7 @@ const Login = () => {
             />
           </InputBox>
           <BtnBox>
-            <Kakao></Kakao>
+            <Kakao />
             <ForgotPasswordLink onClick={GoFindId}>
               아이디 찾기
             </ForgotPasswordLink>

@@ -2,6 +2,7 @@ import { StyledButton } from "../Login/LoginStyle";
 import signup from "../../../asset/image/signup.png";
 import GoBackIcon from "../../../components/common/GoBackIcon";
 import Logo from "../../../components/common/Logo";
+import { KakaoLocationParams } from "./Address/AddressApi";
 import {
   LogoBox,
   SmallInputBox,
@@ -106,3 +107,6 @@ const Register = () => {
 };
 
 export default Register;
+function KakaoLocation(params: KakaoLocationParams) {
+  throw new Error("Function not implemented.");
+}
