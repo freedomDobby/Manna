@@ -8,18 +8,18 @@ import api from '../../apis/Api';
 const RequestNote = () => {
     const [Userid, setId] = useRecoilState(idAtom);
 
-    const receivedntnote = useQuery<ReceivedNotesRes>(['receivedntnote'], async () => {
-        const response = await api.get("/note/received/", {
-          params: {
-            id: Userid,
-          },
-        });
-        return response.data; 
-      });
+    // const receivedntnote = useQuery<ReceivedNotesRes>(['receivedntnote'], async () => {
+    //     const response = await api.get("/note/received/", {
+    //       params: {
+    //         id: Userid,
+    //       },
+    //     });
+    //     return response.data; 
+    //   });
       
-      if (receivedntnote.data) {
-        const checknoteResult = receivedntnote.data;
-      }
+    //   if (receivedntnote.data) {
+    //     const checknoteResult = receivedntnote.data;
+    //   }
       
     
     return (

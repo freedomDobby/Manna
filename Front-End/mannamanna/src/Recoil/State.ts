@@ -1,6 +1,7 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 import Register from './../pages/User/Register/Register';
+import { MessageReq } from '../apis/Request/Request';
 
 // Persist 설정을 위한 storage 설정
 const sessionStorage=
@@ -31,6 +32,8 @@ export const LoginDataState = atom<LoginDataType>({
     }
 });
 
+
+// 로그인 
 export const genderAtom = atom<string | null>({
     key: 'genderAtom',
     default: null,
@@ -61,6 +64,20 @@ export const genderAtom = atom<string | null>({
     effects_UNSTABLE: [persistAtom],
   });
   
+ // 쪽지
+
+ export const sendNoteAtom = atom<MessageReq>({
+  key: 'sendnoteAtom', 
+  default: {
+    receiver: '',
+    sender: '',
+    subject: '',
+    content: '',
+    isSogae: false,
+  },
+});
+
+  // 이메일 
   
   export const findEmailNameAtom = atom<string>({
     key: 'findEmailNameAtom',
@@ -90,6 +107,8 @@ export const genderAtom = atom<string | null>({
 
   
   
+
+  // Modal 모음 
   export const LoginErrorModalAtom = atom<boolean>({
     key: 'LoginErrorModalAtom',
     default: false,

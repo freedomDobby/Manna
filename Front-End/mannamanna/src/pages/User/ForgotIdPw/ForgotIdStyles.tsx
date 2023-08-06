@@ -1,7 +1,7 @@
 
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
-import { ForgotIdErrorModalAtom, LoginErrorModalAtom, NoteAlarmAtom, RegisterMessageAtom, RegisterModalAtom, SendNoteModalAtom, findIdCheckIdAtom, findIdModalAtom, findPwModalAtom } from '../../../Recoil/State';
+import { ForgotIdErrorModalAtom, LoginErrorModalAtom, NoteAlarmAtom, RegisterMessageAtom, RegisterModalAtom, SendNoteModalAtom, findIdCheckIdAtom, findIdModalAtom, findPwModalAtom, idAtom, nameAtom, sendNoteAtom } from '../../../Recoil/State';
 import MacBookBox from '../../../components/common/macbookBox';
 import { MyPageButton } from '../MyPage/MyPageStyles';
 import Modal from '@mui/material/Modal';
@@ -9,6 +9,10 @@ import { useNavigate } from 'react-router-dom';
 import React, { useState, ChangeEvent } from 'react';
 import { TextField } from '@mui/material';
 import { StyledButton } from '../Login/LoginStyle';
+import { Answer, AnswerBox, SmallInput, SmallInputBox } from '../Register/RegisterStyle';
+import { Question } from '../Register/AnswerBox';
+import { MessageReq } from '../../../apis/Request/Request';
+import api from '../../../apis/Api';
 
 export const FindidModal = () => {
 
@@ -188,60 +192,165 @@ export const FindidModal = () => {
   const StyledButtonContainer = styled.div`
     margin-top: 20px;
   `;
-  
-  export const NoteModal = () => {
-    
-    const [open, setOpen] = useRecoilState(SendNoteModalAtom);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-  
-    const [sender, setSender] = useState('');
-    const [receiver, setReceiver] = useState('');
-    const [title, setTitle] = useState('');
-    const [contents, setContents] = useState('');
-  
-    const handleSubmit = () => {
-      console.log('Sender:', sender);
-      console.log('Receiver:', receiver);
-      console.log('Title:', title);
-      console.log('Contents:', contents);
-      handleClose();
-    };
-  
-    return (
-      <StyledModalContainer>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <StyledModalContent>
-          <MacBookBox width="100%" height="100%" color1="#bcd3ff" color2="#ffffff" alignItems='center'>
-            <StyledFormContainer>
-              
-              <TextField label="보내는 이" variant="outlined" value={sender} onChange={(e) => setSender(e.target.value)} />
-              <TextField label="받는 이" variant="outlined" value={receiver} onChange={(e) => setReceiver(e.target.value)} />
-              <TextField label="제목" variant="outlined" value={title} onChange={(e) => setTitle(e.target.value)} />
-              <TextField
-                label="내용"
-                variant="outlined"
-                multiline
-                rows={4}
-                value={contents}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => setContents(e.target.value)}
-              />
-                          <StyledButtonContainer>
-              <MyPageButton onClick={handleSubmit}>보내기</MyPageButton>
-              <MyPageButton onClick={handleClose}>취소</MyPageButton>
-            </StyledButtonContainer>
-            </StyledFormContainer>
-            </MacBookBox>
-          </StyledModalContent>
-        </Modal>
-      </StyledModalContainer>
-    );
+
+  interface NoteQuestionProps {
+    question: string;
+    Id: string;
+    placeholder: string;
+    value: string;
   }
+  
+  export const NoteQuestion: React.FC<NoteQuestionProps> = ({
+    question,
+    Id,
+    placeholder,
+    value,
+  }) => {
+    return (
+      <SmallInputBox>
+        <AnswerBox>
+          <Answer>{question}</Answer>
+          <SmallInput
+            id={Id}
+            placeholder={placeholder}
+            value={value}
+          />
+        </AnswerBox>
+      </SmallInputBox>
+    );
+  };
+  
+
+
+
+interface TextareaQuestionProps {
+  question: string;
+  Id: string;
+  placeholder: string;
+  onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+}
+const StyledTextarea = styled.textarea`
+  width: 100%; /* 가로 길이를 조정 */
+  height: 10vh; /* 세로 길이를 조정 */
+  font-weight: bold; /* 다른 스타일 속성도 추가할 수 있습니다 */
+  overflow-y: auto; /* 내용이 넘칠 경우 세로 스크롤바 표시 */
+`;
+
+export const TextareaQuestion: React.FC<TextareaQuestionProps> = ({
+  question,
+  Id,
+  placeholder,
+  onChange,
+}) => {
+  return (
+    <SmallInputBox>
+      <AnswerBox style={{flexDirection:'column'}}>
+        <Answer>{question}</Answer>
+        <StyledTextarea
+          id={Id}
+          placeholder={placeholder}
+          onChange={onChange}
+        />
+      </AnswerBox>
+    </SmallInputBox>
+  );
+};
+
+export const NoteModal = () => {
+  const [open, setOpen] = useRecoilState(SendNoteModalAtom);
+  const [sendnote, Setsendnote] = useRecoilState(sendNoteAtom);
+  const [UserId] = useRecoilState(idAtom);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  let temp = { ...sendnote };
+
+  const sendUnLoveNote= async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const updatedMessage: MessageReq = {
+      receiver: sendnote.receiver,
+      sender: sendnote.sender,
+      subject: sendnote.subject,
+      content: sendnote.content,
+      isSogae: sendnote.isSogae,
+    };
+    console.log(updatedMessage);
+    try {
+      const response = await api.post("/note/send", updatedMessage);
+      console.log(response.data.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    
+    if (UserId !== null) {
+      temp.sender = UserId;
+    }
+    Setsendnote(temp);
+    
+    sendUnLoveNote(e); 
+    
+    handleClose();
+  };
+
+  return (
+    <StyledModalContainer>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <StyledModalContent>
+          <MacBookBox
+            width="100%"
+            height="100%"
+            color1="#bcd3ff"
+            color2="#ffffff"
+            alignItems='center'
+          >
+            <StyledFormContainer>
+              {UserId !== null ? (
+                <NoteQuestion
+                  question="보내는 이"
+                  Id="sender"
+                  placeholder="이름"
+                  value={UserId}
+                />
+              ) : null}
+              <Question
+                question="받는 이"
+                Type="text"
+                Id="receiver"
+                placeholder="이름"
+                onChange={(e) => temp.receiver = e.target.value}
+              />
+              <Question
+                question="제목"
+                Type="text"
+                Id="subject"
+                placeholder="제목"
+                onChange={(e) => temp.subject = e.target.value}
+              />
+              <TextareaQuestion
+                question="내용"
+                Id="content"
+                placeholder="내용을 입력하세요"
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => temp.content = e.target.value}
+              />
+              <StyledButtonContainer>
+                <StyledButton onClick={handleSubmit}>보내기</StyledButton>
+                <StyledButton onClick={handleClose}>취소</StyledButton>
+              </StyledButtonContainer>
+            </StyledFormContainer>
+          </MacBookBox>
+        </StyledModalContent>
+      </Modal>
+    </StyledModalContainer>
+  );
+}
 
 
   
