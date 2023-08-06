@@ -6,7 +6,7 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import { useRecoilState } from 'recoil';
-import { NoteAlarmAtom, idAtom, nameAtom } from '../../Recoil/State';
+import { NoteAlarmAtom, accessTokenAtom, genderAtom, idAtom, nameAtom, refreshTokenAtom } from '../../Recoil/State';
 import {  useNavigate } from 'react-router-dom';
 import { LoveNoteModal } from '../../pages/User/ForgotIdPw/ForgotIdStyles';
 import { useQuery } from '@tanstack/react-query';
@@ -24,28 +24,38 @@ const HeaderBack = styled.div`
 `;
 
 function Greetings(){
+  const [gender, setGender] = useRecoilState(genderAtom);
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenAtom);
+  const [refreshToken, setRefreshToken] = useRecoilState(refreshTokenAtom);
+  const [open, setOpen] = useRecoilState(NoteAlarmAtom);
+  const [name,setName] = useRecoilState(nameAtom);
+  const [Userid, setId] = useRecoilState(idAtom);
     const navigate=useNavigate();
     const GoResponseNote = () => {
         navigate("/note");
       };
+    const GoLogOut =()=>{
+      setGender(null);
+      setAccessToken(null);
+      setRefreshToken(null);
+      setId(null);
+      setName(null);
+      navigate("/");
+    }
 
-    const [open, setOpen] = useRecoilState(NoteAlarmAtom);
-    const [name] = useRecoilState(nameAtom);
-    const [Userid, setId] = useRecoilState(idAtom);
-
-    const checknote = useQuery<checkNote>(['recentnote'], async () => {
-        const response = await api.get("/note/recent/", {
-          params: {
-            id: Userid,
-          },
-        });
-        return response.data; 
-      });
+    // const checknote = useQuery<checkNote>(['recentnote'], async () => {
+    //     const response = await api.get("/note/recent/", {
+    //       params: {
+    //         id: Userid,
+    //       },
+    //     });
+    //     return response.data; 
+    //   });
       
-      if (checknote.data) {
-        const checknoteResult = checknote.data;
-        setOpen(checknoteResult.result);
-      }
+    //   if (checknote.data) {
+    //     const checknoteResult = checknote.data;
+    //     setOpen(checknoteResult.result);
+    //   }
       
     return(
         <div>
@@ -61,7 +71,7 @@ function Greetings(){
                     <IconButton color="primary" size="large" >
                         <NotificationsNoneOutlinedIcon fontSize="large"/>
                     </IconButton>
-                    <IconButton color="primary" size="large">
+                    <IconButton color="primary" size="large" onClick={GoLogOut}>
                         <LogoutOutlinedIcon fontSize="large"/>
                     </IconButton>
                 </div>

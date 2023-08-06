@@ -49,3 +49,12 @@ export type RegisterReq = {
   // priority2: number;
   // priority3: number;
 };
+
+
+export interface MessageReq {
+  receiver: string;
+  sender: string;
+  subject: string;
+  content: string;
+  isSogae: boolean;
+}
