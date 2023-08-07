@@ -5,6 +5,8 @@ import {
   profilePicture1State,
   profilePicture2State,
   profilePicture3State,
+  // profilePicture2State,
+  // profilePicture3State,
   userAddressDetailState,
   userAgeState,
   userDrinkState,
@@ -44,14 +46,7 @@ const Save = () => {
   const userSido = useRecoilValue(userSidoState);
   const userGuGun = useRecoilValue(userGuGunState);
   const userAddressDetail = useRecoilValue(userAddressDetailState);
-  // const priority1 = useRecoilValue(priority1State);
-  // const priority2 = useRecoilValue(priority2State);
-  // const priority3 = useRecoilValue(priority3State);
   const [userInfo] = useRecoilState(RegisterDataState);
-  // const Usergender = useRecoilValue(genderState);
-  const profilePicture1 = useRecoilValue(profilePicture1State);
-  const profilePicture2 = useRecoilValue(profilePicture2State);
-  const profilePicture3 = useRecoilValue(profilePicture3State);
 
   const RegisterUser: RegisterReq = {
     id: userId,
@@ -78,16 +73,17 @@ const Save = () => {
 
   const formdata = new FormData();
   formdata.append("memberSignUpRequest", JSON.stringify(RegisterUser));
-  if (profilePicture1 instanceof File) {
-    formdata.append("profilePicture1", profilePicture1);
+
+  if (profilePicture1State instanceof File) {
+    formdata.append("profilePicture1", profilePicture1State);
   }
 
-  if (profilePicture2 instanceof File) {
-    formdata.append("profilePicture2", profilePicture2);
+  if (profilePicture2State instanceof File) {
+    formdata.append("profilePicture2", profilePicture2State);
   }
 
-  if (profilePicture3 instanceof File) {
-    formdata.append("profilePicture3", profilePicture3);
+  if (profilePicture3State instanceof File) {
+    formdata.append("profilePicture3", profilePicture3State);
   }
 
   function formDataToObject(formData: FormData) {
@@ -97,6 +93,7 @@ const Save = () => {
     });
     return obj;
   }
+
   const [open, setOpen] = useRecoilState(RegisterModalAtom);
   const [message, setMessage] = useRecoilState(RegisterMessageAtom);
   const SaveInfo = async (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -104,26 +101,30 @@ const Save = () => {
 
     if (userPwd === userPwdCheck) {
       try {
-        console.log(RegisterUser);
-        // console.log(formDataToObject(formdata));
-        const response = await api.post("/user/regist", RegisterUser, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-        // console.log(response.data.data);
-        alert("회원가입완료");
+        // axios를 사용하여 POST 요청 보내기
+        const response = await api.post(
+          "/user/regist",
+          formdata
+          // {
+          //   headers: {
+          //     "Content-Type": "multipart/form-data",
+          //   },
+          // }
+        );
+        console.log(formdata);
+        console.log("333333333333333");
+        console.log(response.data.data);
+        // alert("회원가입완료");
         setOpen(true);
       } catch (error) {
-        // console.log(RegisterUser);
-        // console.log(formDataToObject(formdata));
         console.error(error);
-        alert("회원가입실패");
+        console.log(formdata);
+        // alert("회원가입실패");
         await setMessage("회원가입이 실패하였습니다.");
         setOpen(true);
       }
     } else {
-      alert("비밀번호가 다릅니다.");
+      // alert("비밀번호가 다릅니다.");
       await setMessage("비밀번호가 다릅니다.");
       setOpen(true);
     }

@@ -11,6 +11,12 @@ import {
   TitleBox,
 } from "../ModalStyle";
 import { EnterImage1, EnterImage2, EnterImage3 } from "./ImageInput";
+import { useRecoilValue } from "recoil";
+import {
+  profilePicture1State,
+  profilePicture2State,
+  profilePicture3State,
+} from "../RegisterState";
 
 type EnterImageProps = {
   children: string;
@@ -20,6 +26,9 @@ export const EnterImage = ({ children }: EnterImageProps) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const handleSave = () => {
+    setOpen(false);
+  };
 
   return (
     <div style={{ width: "30%" }}>
@@ -74,7 +83,7 @@ export const EnterImage = ({ children }: EnterImageProps) => {
                 </ImageForm>
                 <EnterImageBtnBox>
                   <MyPageButton onClick={handleClose}>확인</MyPageButton>
-                  <MyPageButton onClick={handleClose}>취소</MyPageButton>
+                  <MyPageButton onClick={handleSave}>취소</MyPageButton>
                 </EnterImageBtnBox>
               </Container2>
             </Contain>

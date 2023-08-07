@@ -6,12 +6,7 @@ import {
   InputImage,
 } from "../ModalStyle";
 import { useRecoilState } from "recoil";
-import {
-  priority1State,
-  priority2State,
-  priority3State,
-  profilePicture1State,
-} from "../RegisterState";
+import { priority3State, profilePicture1State } from "../RegisterState";
 
 interface EnterImage1Props {
   title: string;
@@ -26,21 +21,17 @@ interface EnterImage3Props {
   coment: string;
 }
 export const EnterImage1: React.FC<EnterImage1Props> = ({ title, coment }) => {
-  const [priority1, setpriority1] = useRecoilState<number>(priority1State);
   const [profilePicture1, setprofilePicture1] = useRecoilState<File | null>(
     profilePicture1State
   );
 
   const EnterPic1 = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files && event.target.files[0];
+    const selectedFile = event.target.files;
+    console.log(selectedFile);
+    // setprofilePicture1(selectedFile);
 
-    if (selectedFile) {
-      setprofilePicture1(selectedFile);
-      setpriority1(0);
-    }
-    // console.log(priority1);
     // console.log(selectedFile);
-    // console.log(profilePicture1);
+    console.log(profilePicture1);
   };
 
   return (
@@ -53,20 +44,16 @@ export const EnterImage1: React.FC<EnterImage1Props> = ({ title, coment }) => {
 };
 
 export const EnterImage2: React.FC<EnterImage2Props> = ({ title, coment }) => {
-  const [priority2, setpriority2] = useRecoilState<number>(priority2State);
   const [profilePicture2, setprofilePicture2] = useRecoilState<File | null>(
     profilePicture1State
   );
 
   const EnterPic2 = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files && event.target.files[0];
+    // console.log(selectedFile);
+    setprofilePicture2(selectedFile);
 
-    if (selectedFile) {
-      setprofilePicture2(selectedFile);
-      setpriority2(1);
-    }
-    // console.log(priority2);
-    // console.log(profilePicture2);
+    console.log(profilePicture2);
   };
 
   return (
@@ -87,10 +74,7 @@ export const EnterImage3: React.FC<EnterImage3Props> = ({ title, coment }) => {
   const EnterPic3 = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files && event.target.files[0];
 
-    if (selectedFile) {
-      setprofilePicture3(selectedFile);
-      setpriority3(2);
-    }
+    setprofilePicture3(selectedFile);
     // console.log(priority3);
     // console.log(profilePicture3);
   };
