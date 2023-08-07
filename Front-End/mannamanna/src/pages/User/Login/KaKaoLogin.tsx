@@ -87,7 +87,7 @@ const Kakao: React.FC = () => {
               longitude: userInfo.longitude,
             };
             try {
-              // JSON.stringify(RegisvterUser);
+              // JSON.stringify(RegisterUser);
               console.log(RegisterUser);
               const response = api.post("/user/regist", RegisterUser);
               console.log(response);
