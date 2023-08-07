@@ -91,6 +91,7 @@ const Kakao: React.FC = () => {
             };
             try {
               console.log(RegisterUser);
+              // const JsonResiterUser = await RegisterUser.json();
               const response = api.post("user/regist", RegisterUser, {});
               console.log(response);
               setOpen(true);
