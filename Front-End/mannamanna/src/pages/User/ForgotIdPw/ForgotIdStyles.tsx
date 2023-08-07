@@ -273,10 +273,11 @@ export const NoteModal = () => {
       subject: sendnote.subject,
       content: sendnote.content,
       isSogae: sendnote.isSogae,
+      date:'',
     };
     console.log(updatedMessage);
     try {
-      const response = await api.post("/note/send", updatedMessage);
+      const response = await api.post("/note", updatedMessage);
       console.log(response.data.data);
     } catch (error) {
       console.error(error);
