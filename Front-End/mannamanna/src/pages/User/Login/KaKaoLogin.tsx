@@ -9,7 +9,7 @@ import {
   genderState,
   profile_nicknameState,
 } from "../Register/RegisterState";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { RegisterReq } from "../../../apis/Request/Request";
 import { RegisterMessageAtom, RegisterModalAtom } from "../../../Recoil/State";
 
@@ -23,7 +23,7 @@ declare global {
 
 const Kakao: React.FC = () => {
   const [userInfo] = useRecoilState(RegisterDataState);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [open, setOpen] = useRecoilState(RegisterModalAtom);
   const [message, setMessage] = useRecoilState(RegisterMessageAtom);

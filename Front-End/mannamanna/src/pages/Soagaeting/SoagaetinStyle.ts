@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import styled from "styled-components";
 import profile from "../../components/common/Sogeting/DummyImage.jpg";
 

@@ -1,11 +1,11 @@
-import React from 'react';
+// import React from 'react';
 import { CenteredDiv } from '../Landing/LandingStyle';
 import { CenterBox, StyledButton } from '../User/Login/LoginStyle';
 import SmallMacBookProfile from '../../components/common/SmallMacBookProfile';
 import { ImageContainer } from './SoagaetinStyle';
 import unKnown from '../../asset/image/unknown.png';
-import fullheart from '../../asset/image/fullheart.png'
-import emptyheart from '../../asset/image/emptyheart.png'
+// import fullheart from '../../asset/image/fullheart.png'
+// import emptyheart from '../../asset/image/emptyheart.png'
 import HeartAnimation from './../../components/animation/HeartAnimation';
 import { useNavigate } from 'react-router-dom';
 

@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+// import React from 'react';
 import { useRecoilState } from 'recoil';
 import { idAtom } from '../../Recoil/State';
 import { ReceivedNotesRes } from '../../apis/Response/Response';

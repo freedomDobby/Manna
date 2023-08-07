@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import Back from "../../components/common/Sogeting/SogetingMainBack";
 import Font1 from "../../components/common/Sogeting/SogetingFont1";
 import Btn1 from "../../components/common/Sogeting/button/NewPersonBtn";
