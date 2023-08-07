@@ -2,7 +2,6 @@ import { StyledButton } from "../Login/LoginStyle";
 import signup from "../../../asset/image/signup.png";
 import GoBackIcon from "../../../components/common/GoBackIcon";
 import Logo from "../../../components/common/Logo";
-import { KakaoLocationParams } from "./Address/AddressApi";
 import {
   LogoBox,
   SmallInputBox,
@@ -28,6 +27,7 @@ import {
 } from "./Question";
 import { EnterImage } from "./Image/EnterImageModal";
 import { EnterLocation } from "./Address/EnterAddressModal";
+// import KakaoAPI from "./Address/AddressApi";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -84,7 +84,6 @@ const Register = () => {
                   <EnterId />
                   <EnterPwd />
                   <EnterPwdCheck />
-
                   <SmallInputBox>
                     <AnswerBox>
                       <Answer>사는 지역을 선택해주세요</Answer>
@@ -107,6 +106,3 @@ const Register = () => {
 };
 
 export default Register;
-function KakaoLocation(params: KakaoLocationParams) {
-  throw new Error("Function not implemented.");
-}
