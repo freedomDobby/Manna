@@ -55,11 +55,11 @@
 
 
 
-// export const GetResponseNote = () => {
-//     return (
-//         <div>
+export const GetResponseNote = () => {
+    return (
+        <div>
             
-//         </div>
-//     );
-// };
+        </div>
+    );
+};
 
