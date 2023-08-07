@@ -11,8 +11,8 @@ export interface RegisterDataType {
   emailDomain: string; //api
   height: number;
   job: string;
-  isSmoke: boolean;
-  isDrink: boolean;
+  isSmoker: boolean;
+  isDrinker: boolean;
   mbti: string;
   religion: string;
   introduction: string;
@@ -21,10 +21,7 @@ export interface RegisterDataType {
   detail: string;
   latitude: number; //api
   longitude: number; //api
-  priority1: number;
-  priority2: number;
-  priority3: number;
-  blockingFriend: boolean;
+  // blockingFriend: boolean;
 }
 
 export const RegisterDataState = atom<RegisterDataType>({
@@ -40,9 +37,9 @@ export const RegisterDataState = atom<RegisterDataType>({
     emailDomain: "naver.com",
     height: 177,
     job: "unknownJob",
-    isSmoke: false,
-    isDrink: false,
-    mbti: "unknownMbtii",
+    isSmoker: false,
+    isDrinker: false,
+    mbti: "Mbti",
     religion: "unknown",
     introduction: "안녕하세요 ^^",
     sido: "대전광역시",
@@ -50,11 +47,7 @@ export const RegisterDataState = atom<RegisterDataType>({
     detail: "삼성화재연구원",
     latitude: 36.35,
     longitude: 127.29,
-    priority1: 0,
-
-    priority2: 1,
-    priority3: 2,
-    blockingFriend: true,
+    // blockingFriend: true,
   },
 });
 
