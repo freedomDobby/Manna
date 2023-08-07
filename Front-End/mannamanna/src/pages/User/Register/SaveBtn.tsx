@@ -2,10 +2,6 @@ import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
   RegisterDataState,
-  genderState,
-  priority1State,
-  priority2State,
-  priority3State,
   profilePicture1State,
   profilePicture2State,
   profilePicture3State,
@@ -53,9 +49,9 @@ const Save = () => {
   // const priority3 = useRecoilValue(priority3State);
   const [userInfo] = useRecoilState(RegisterDataState);
   // const Usergender = useRecoilValue(genderState);
-  // const profilePicture1 = useRecoilValue(profilePicture1State);
-  // const profilePicture2 = useRecoilValue(profilePicture2State);
-  // const profilePicture3 = useRecoilValue(profilePicture3State);
+  const profilePicture1 = useRecoilValue(profilePicture1State);
+  const profilePicture2 = useRecoilValue(profilePicture2State);
+  const profilePicture3 = useRecoilValue(profilePicture3State);
 
   const RegisterUser: RegisterReq = {
     id: userId,
@@ -71,42 +67,36 @@ const Save = () => {
     mbti: userMbti,
     religion: userReligion,
     introduction: userPr,
-    sido: userInfo.sido,
-    gugun: userInfo.gugun,
+    sido: userSido,
+    gugun: userGuGun,
     detail: userAddressDetail,
     latitude: userInfo.latitude, //api
     longitude: userInfo.longitude, //apiS
     isSmoker: userSmoke,
     isDrinker: userDrink,
-    priority1: 1,
-    priority2: 2,
-    priority3: 3,
   };
 
-  // const formdata =new FormData();
-  // formdata.append(
-  //   'memberSignUpRequest',
-  //   JSON.stringify(RegisterUser)
-  // );
-  // if (profilePicture1 instanceof File) {
-  //   formdata.append("profilePicture1", profilePicture1);
-  // }
+  const formdata = new FormData();
+  formdata.append("memberSignUpRequest", JSON.stringify(RegisterUser));
+  if (profilePicture1 instanceof File) {
+    formdata.append("profilePicture1", profilePicture1);
+  }
 
-  // if (profilePicture2 instanceof File) {
-  //   formdata.append("profilePicture2", profilePicture2);
-  // }
+  if (profilePicture2 instanceof File) {
+    formdata.append("profilePicture2", profilePicture2);
+  }
 
-  // if (profilePicture3 instanceof File) {
-  //   formdata.append("profilePicture3", profilePicture3);
-  // }
+  if (profilePicture3 instanceof File) {
+    formdata.append("profilePicture3", profilePicture3);
+  }
 
-  // function formDataToObject(formData: FormData) {
-  //   const obj: { [key: string]: FormDataEntryValue } = {};
-  //   formData.forEach((value, key) => {
-  //     obj[key] = value;
-  //   });
-  //   return obj;
-  // }
+  function formDataToObject(formData: FormData) {
+    const obj: { [key: string]: FormDataEntryValue } = {};
+    formData.forEach((value, key) => {
+      obj[key] = value;
+    });
+    return obj;
+  }
   const [open, setOpen] = useRecoilState(RegisterModalAtom);
   const [message, setMessage] = useRecoilState(RegisterMessageAtom);
   const SaveInfo = async (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -116,10 +106,10 @@ const Save = () => {
       try {
         console.log(RegisterUser);
         // console.log(formDataToObject(formdata));
-        const response = await api.post("api/user/regist", RegisterUser, {
-          // headers: {
-          //   'Content-Type': 'multipart/form-data',
-          // },
+        const response = await api.post("/user/regist", RegisterUser, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         });
         // console.log(response.data.data);
         alert("회원가입완료");

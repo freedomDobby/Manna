@@ -58,41 +58,38 @@ const Kakao: React.FC = () => {
           url: "/v2/user/me",
           success: (res: any) => {
             const kakao_account = res.kakao_account;
-            console.log(kakao_account); // 회원 정보 받아오기
+            // console.log(kakao_account); // 회원 정보 받아오기
             setProfileNickname(kakao_account.profile.nickname);
             setAccountEmail(kakao_account.email);
             setGender(kakao_account.gender);
-            console.log(gender);
+            // console.log(gender);
             //로그인 정보 Post보내기
             const RegisterUser: RegisterReq = {
-              id: userInfo.id,
+              id: profileNickname,
               pwd: userInfo.pwd,
               name: profileNickname,
-              gender: gender, //api => 자체회원가입땐 없어.
+              gender: gender,
               tel: userInfo.tel,
               birth: userInfo.birth,
-              emailId: accountEmail, //api
-              emailDomain: userInfo.emailDomain, //api
+              emailId: accountEmail,
+              emailDomain: userInfo.emailDomain,
               height: userInfo.height,
               job: userInfo.job,
+              isSmoker: userInfo.isSmoker,
+              isDrinker: userInfo.isDrinker,
               mbti: userInfo.mbti,
               religion: userInfo.religion,
               introduction: userInfo.introduction,
               sido: userInfo.sido,
               gugun: userInfo.gugun,
               detail: userInfo.detail,
-              latitude: userInfo.latitude, //api
-              longitude: userInfo.longitude, //api
-              isSmoker: userInfo.isSmoke,
-              isDrinker: userInfo.isDrink,
-              priority1: 1,
-              priority2: 2,
-              priority3: 3,
+              latitude: userInfo.latitude,
+              longitude: userInfo.longitude,
             };
             try {
+              // JSON.stringify(RegisvterUser);
               console.log(RegisterUser);
-              // const JsonResiterUser = await RegisterUser.json();
-              const response = api.post("user/regist", RegisterUser, {});
+              const response = api.post("/user/regist", RegisterUser);
               console.log(response);
               setOpen(true);
             } catch (error) {

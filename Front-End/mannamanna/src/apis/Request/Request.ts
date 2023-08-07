@@ -45,11 +45,7 @@ export type RegisterReq = {
   detail: string;
   latitude: number; //api
   longitude: number; //api
-  priority1: number;
-  priority2: number;
-  priority3: number;
 };
-
 
 export interface MessageReq {
   receiver: string;
@@ -57,5 +53,5 @@ export interface MessageReq {
   subject: string;
   content: string;
   isSogae: boolean;
-  date:string;
+  date: string;
 }
