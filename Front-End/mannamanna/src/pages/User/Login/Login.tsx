@@ -22,7 +22,7 @@ import {
 } from "../../../Recoil/State";
 import { useRecoilState } from "recoil";
 import { LoginReq } from "../../../apis/Request/Request";
-import api, { apilogin } from "../../../apis/Api";
+import api from "../../../apis/Api";
 import { LoginErrorModal } from "../ForgotIdPw/ForgotIdStyles";
 import Kakao from "./KaKaoLogin";
 declare global {
@@ -63,7 +63,7 @@ const Login = () => {
     };
     // console.log(userData);
     try {
-      const response = await apilogin.post("/user/login", userData);
+      const response = await api.post("/user/login", userData);
       // console.log(response.data);
       setGender(response.data.gender);
       setName(response.data.userName);

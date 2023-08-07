@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 import Register from './../pages/User/Register/Register';
-import { MessageReq } from '../apis/Request/Request';
+import { MessageReq, SogaetingReq } from '../apis/Request/Request';
 
 // Persist 설정을 위한 storage 설정
 const sessionStorage=
@@ -64,7 +64,7 @@ export const genderAtom = atom<string | null>({
     effects_UNSTABLE: [persistAtom],
   });
   
- // 쪽지
+ // 쪽지s
 
  export const sendNoteAtom = atom<MessageReq>({
   key: 'sendnoteAtom', 
@@ -74,6 +74,15 @@ export const genderAtom = atom<string | null>({
     subject: '',
     content: '',
     isSogae: false,
+    date:'',
+  },
+});
+
+export const sogaetingNoteAtom = atom<SogaetingReq>({
+  key: 'sogaetingNoteAtom', 
+  default: {
+    receiver: '',
+    sender: '',
     date:'',
   },
 });

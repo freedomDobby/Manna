@@ -1,7 +1,7 @@
 
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
-import { ForgotIdErrorModalAtom, LoginErrorModalAtom, NoteAlarmAtom, RegisterMessageAtom, RegisterModalAtom, SendNoteModalAtom, findIdCheckIdAtom, findIdModalAtom, findPwModalAtom, idAtom, nameAtom, sendNoteAtom } from '../../../Recoil/State';
+import { ForgotIdErrorModalAtom, LoginErrorModalAtom, NoteAlarmAtom, RegisterMessageAtom, RegisterModalAtom, SendNoteModalAtom, findIdCheckIdAtom, findIdModalAtom, findPwModalAtom, idAtom, nameAtom, sendNoteAtom, sogaetingNoteAtom } from '../../../Recoil/State';
 import MacBookBox from '../../../components/common/macbookBox';
 import { MyPageButton } from '../MyPage/MyPageStyles';
 import Modal from '@mui/material/Modal';
@@ -11,7 +11,7 @@ import { TextField } from '@mui/material';
 import { StyledButton } from '../Login/LoginStyle';
 import { Answer, AnswerBox, SmallInput, SmallInputBox } from '../Register/RegisterStyle';
 import { Question } from '../Register/AnswerBox';
-import { MessageReq } from '../../../apis/Request/Request';
+import { MessageReq, SogaetingReq } from '../../../apis/Request/Request';
 import api from '../../../apis/Api';
 
 export const FindidModal = () => {
@@ -265,13 +265,15 @@ export const FalseNoteModal = () => {
 
   const sendUnLoveNote= async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    const date = new Date();
+    const dateString = date.toISOString();
     const updatedMessage: MessageReq = {
       receiver: temp.receiver,
       sender: temp.sender,
       subject: temp.subject,
       content: temp.content,
       isSogae: temp.isSogae,
-      date:'',
+      date:dateString,
     };
     console.log(updatedMessage);
     try {
@@ -336,6 +338,7 @@ export const FalseNoteModal = () => {
                 placeholder="제목"
                 onChange={(e) => temp.subject = e.target.value}
               />
+              
               <TextareaQuestion
                 question="내용"
                 Id="content"
@@ -358,28 +361,35 @@ export const FalseNoteModal = () => {
   
 // 소개팅 신청용
 export const TrueNoteModal = () => {
+  function formatToCustomDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+  
+    return `${year}년 ${month}월 ${day}일 ${hours}시 ${minutes}분`;
+  }
   const [open, setOpen] = useRecoilState(SendNoteModalAtom);
-  const [sendnote, Setsendnote] = useRecoilState(sendNoteAtom);
+  const [sendnote, Setsendnote] = useRecoilState(sogaetingNoteAtom);
   const [UserId] = useRecoilState(idAtom);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   let temp = { ...sendnote };
-  
+  let day:string="";
+  let time:string="";
 
   const sendUnLoveNote= async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const updatedMessage: MessageReq = {
+    const updatedMessage: SogaetingReq = {
       receiver: temp.receiver,
       sender: temp.sender,
-      subject: temp.subject,
-      content: temp.content,
-      isSogae: true,
-      date:'',
+      date:temp.date,
     };
     console.log(updatedMessage);
     try {
-      const response = await api.post("/note/send", updatedMessage);
+      const response = await api.post("/note/sogae/send", updatedMessage);
       console.log(response.data);
     } catch (error) {
       console.error(error);
@@ -392,10 +402,13 @@ export const TrueNoteModal = () => {
     if (UserId !== null) {
       temp.sender = UserId;
     }
+    const localDate = new Date(`${day} ${time}`);
+    temp.date = formatToCustomDate(localDate);
+
+    await sendUnLoveNote(e);
     console.log(temp.receiver);
     console.log(temp.sender);
-    console.log(temp.content);
-    console.log(temp.subject);
+    console.log(temp.date);
 
     await sendUnLoveNote(e);
   
@@ -433,19 +446,21 @@ export const TrueNoteModal = () => {
                 placeholder="이름"
                 onChange={(e) => temp.receiver = e.target.value}
               />
-              <Question
-                question="제목"
-                Type="text"
+                            <Question
+                question="원하는 날짜"
+                Type="Date"
                 Id="subject"
-                placeholder="제목"
-                onChange={(e) => temp.subject = e.target.value}
+                placeholder="YY-MM-DD"
+                onChange={(e) =>  day = e.target.value}
               />
-              <TextareaQuestion
-                question="내용"
-                Id="content"
-                placeholder="내용을 입력하세요"
-                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => temp.content = e.target.value}
+                                          <Question
+                question="원하는 시간"
+                Type="Time"
+                Id="subject"
+                placeholder="YY-MM-DD"
+                onChange={(e) => time= e.target.value}
               />
+
               <StyledButtonContainer>
                 <StyledButton onClick={handleSubmit}>보내기</StyledButton>
                 <StyledButton onClick={handleClose}>취소</StyledButton>

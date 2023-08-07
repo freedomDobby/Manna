@@ -55,3 +55,9 @@ export interface MessageReq {
   isSogae: boolean;
   date: string;
 }
+
+export interface SogaetingReq {
+  receiver: string;
+  sender: string;
+  date: string;
+}
