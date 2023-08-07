@@ -4,7 +4,7 @@ import Layout from "./pages/Layout";
 import Landing from "./pages/Landing/Landing";
 import Login from "./pages/User/Login/Login";
 import Register from "./pages/User/Register/Register";
-import ForgotId from './pages/User/ForgotIdPw/ForgotId';
+import ForgotId from "./pages/User/ForgotIdPw/ForgotId";
 import ForgotPw from "./pages/User/ForgotIdPw/ForgotPw";
 import MainHome from "./pages/User/MainHome/MainHome";
 import Choice from "./pages/Choice";
@@ -20,7 +20,9 @@ import MeetingWait from "./pages/Meeting/MeetingWait";
 import Meeting from "./pages/Meeting/Meeting";
 import Reserve from "./pages/Reserve/Reserve";
 import Mission from "./pages/Mission";
-import Note from "./pages/Note";
+import Note from "./pages/Note/Note";
+import RequestNote from "./pages/Note/RequestNote";
+import ResponseNote from "./pages/Note/ResponseNote";
 import Alarm from "./pages/Alarm";
 import GlobalFont from "./Styles/GlobalFont";
 import GlobalStyle from "./Styles/GlobalStyle";
@@ -31,6 +33,7 @@ import MyPageHistory from "./pages/User/MyPage/MyPageHistory";
 import MyPageWithdrawal from "./pages/User/MyPage/MyPageWithdrawal";
 import StudyRecoil from "./pages/Study/StudyRecoil";
 import StudyRecoilResult from "./pages/Study/StudyRecoilResult";
+import Kakao from "./pages/User/Login/KaKaoLogin";
 
 function App() {
   return (
@@ -57,7 +60,10 @@ function App() {
           </Route>
           <Route path="chatting" element={<Chatting />} />
           <Route path="mission" element={<Mission />} />
-          <Route path="note" element={<Note />} />
+          <Route path="note" element={<Note />}>
+            <Route index element={<ResponseNote />} />
+            <Route path="requestNote" element={<RequestNote />} />
+          </Route>
           <Route path="alram" element={<Alarm />} />
           <Route index element={<Navigate to="home" replace />} />
         </Route>
@@ -70,6 +76,7 @@ function App() {
         <Route path="registerDetail" element={<RegisterDetail />} />
         <Route path="study" element={<StudyRecoil />} />
         <Route path="studyResult" element={<StudyRecoilResult />} />
+        <Route path="Kakao" element={<Kakao />} />
       </Routes>
     </>
   );

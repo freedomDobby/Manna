@@ -2,12 +2,11 @@ import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
   RegisterDataState,
-  priority1State,
-  priority2State,
-  priority3State,
   profilePicture1State,
   profilePicture2State,
   profilePicture3State,
+  // profilePicture2State,
+  // profilePicture3State,
   userAddressDetailState,
   userAgeState,
   userDrinkState,
@@ -47,19 +46,13 @@ const Save = () => {
   const userSido = useRecoilValue(userSidoState);
   const userGuGun = useRecoilValue(userGuGunState);
   const userAddressDetail = useRecoilValue(userAddressDetailState);
-  const priority1 = useRecoilValue(priority1State);
-  const priority2 = useRecoilValue(priority2State);
-  const priority3 = useRecoilValue(priority3State);
   const [userInfo] = useRecoilState(RegisterDataState);
-  const profilePicture1 = useRecoilValue(profilePicture1State);
-  const profilePicture2 = useRecoilValue(profilePicture2State);
-  const profilePicture3 = useRecoilValue(profilePicture3State);
 
   const RegisterUser: RegisterReq = {
     id: userId,
     pwd: userPwd,
     name: userName,
-    gender: userInfo.gender, //api
+    gender: userInfo.gender, //api => 자체회원가입땐 없어.
     tel: userTel,
     birth: userAge,
     emailId: userId, //api
@@ -69,42 +62,38 @@ const Save = () => {
     mbti: userMbti,
     religion: userReligion,
     introduction: userPr,
-    sido: userInfo.sido,
-    gugun: userInfo.gugun,
+    sido: userSido,
+    gugun: userGuGun,
     detail: userAddressDetail,
     latitude: userInfo.latitude, //api
     longitude: userInfo.longitude, //apiS
     isSmoker: userSmoke,
     isDrinker: userDrink,
-    // priority1: priority1,
-    // priority2: priority2,
-    // priority3: priority3
   };
 
-  // const formdata =new FormData();
-  // formdata.append(
-  //   'memberSignUpRequest',
-  //   JSON.stringify(RegisterUser)
-  // );
-  // if (profilePicture1 instanceof File) {
-  //   formdata.append("profilePicture1", profilePicture1);
-  // }
+  const formdata = new FormData();
+  formdata.append("memberSignUpRequest", JSON.stringify(RegisterUser));
 
-  // if (profilePicture2 instanceof File) {
-  //   formdata.append("profilePicture2", profilePicture2);
-  // }
+  if (profilePicture1State instanceof File) {
+    formdata.append("profilePicture1", profilePicture1State);
+  }
 
-  // if (profilePicture3 instanceof File) {
-  //   formdata.append("profilePicture3", profilePicture3);
-  // }
+  if (profilePicture2State instanceof File) {
+    formdata.append("profilePicture2", profilePicture2State);
+  }
 
-  // function formDataToObject(formData: FormData) {
-  //   const obj: { [key: string]: FormDataEntryValue } = {};
-  //   formData.forEach((value, key) => {
-  //     obj[key] = value;
-  //   });
-  //   return obj;
-  // }
+  if (profilePicture3State instanceof File) {
+    formdata.append("profilePicture3", profilePicture3State);
+  }
+
+  function formDataToObject(formData: FormData) {
+    const obj: { [key: string]: FormDataEntryValue } = {};
+    formData.forEach((value, key) => {
+      obj[key] = value;
+    });
+    return obj;
+  }
+
   const [open, setOpen] = useRecoilState(RegisterModalAtom);
   const [message, setMessage] = useRecoilState(RegisterMessageAtom);
   const SaveInfo = async (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -112,20 +101,24 @@ const Save = () => {
 
     if (userPwd === userPwdCheck) {
       try {
-        // console.log(RegisterUser);
-        // console.log(formDataToObject(formdata));
-        const response = await api.post("/user/regist", RegisterUser, {
-          // headers: {
-          //   'Content-Type': 'multipart/form-data',
-          // },
-        });
-        // console.log(response.data.data);
+        // axios를 사용하여 POST 요청 보내기
+        const response = await api.post(
+          "/user/regist",
+          formdata
+          // {
+          //   headers: {
+          //     "Content-Type": "multipart/form-data",
+          //   },
+          // }
+        );
+        console.log(formdata);
+        console.log("333333333333333");
+        console.log(response.data.data);
         // alert("회원가입완료");
         setOpen(true);
       } catch (error) {
-        // console.log(RegisterUser);
-        // console.log(formDataToObject(formdata));
         console.error(error);
+        console.log(formdata);
         // alert("회원가입실패");
         await setMessage("회원가입이 실패하였습니다.");
         setOpen(true);

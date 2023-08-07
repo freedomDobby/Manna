@@ -11,8 +11,8 @@ export interface RegisterDataType {
   emailDomain: string; //api
   height: number;
   job: string;
-  isSmoke: boolean;
-  isDrink: boolean;
+  isSmoker: boolean;
+  isDrinker: boolean;
   mbti: string;
   religion: string;
   introduction: string;
@@ -21,39 +21,33 @@ export interface RegisterDataType {
   detail: string;
   latitude: number; //api
   longitude: number; //api
-  priority1: number;
-  priority2: number;
-  priority3: number;
-  blockingFriend: boolean;
+  // blockingFriend: boolean;
 }
 
 export const RegisterDataState = atom<RegisterDataType>({
   key: "RegisterData",
   default: {
-    id: "UserId",
-    pwd: "User1234",
-    name: "User",
-    gender: "F",
-    tel: "01012341234",
-    birth: "1997",
-    emailId: "defaultId",
+    id: "unknownId",
+    pwd: "unknownPw",
+    name: "unknownName",
+    gender: "unknownGender",
+    tel: "unknownTel",
+    birth: "unknownBirth",
+    emailId: "unknownEmail",
     emailDomain: "naver.com",
     height: 177,
-    job: "무직",
-    isSmoke: false,
-    isDrink: false,
-    mbti: "INTJ",
-    religion: "무교",
+    job: "unknownJob",
+    isSmoker: false,
+    isDrinker: false,
+    mbti: "Mbti",
+    religion: "unknown",
     introduction: "안녕하세요 ^^",
-    sido: "서울특별시",
-    gugun: "종로구",
+    sido: "대전광역시",
+    gugun: "유성구",
     detail: "삼성화재연구원",
     latitude: 36.35,
     longitude: 127.29,
-    priority1: 0,
-    priority2: 1,
-    priority3: 2,
-    blockingFriend: true,
+    // blockingFriend: true,
   },
 });
 
@@ -162,5 +156,35 @@ export const profilePicture2State = atom<File | null>({
 });
 export const profilePicture3State = atom<File | null>({
   key: "profilePicture3",
+  default: null,
+});
+
+export const profile_nicknameState = atom<string>({
+  key: "profile_nickname",
+  default: "unknow",
+});
+
+export const friendsState = atom<string>({
+  key: "friends",
+  default: "unknow",
+});
+
+export const account_emailState = atom<string>({
+  key: "account_email",
+  default: "unknow",
+});
+
+export const genderState = atom<string>({
+  key: "Usergender",
+  default: "unknown",
+});
+
+export const age_rangeState = atom<number | null>({
+  key: "age_range",
+  default: null,
+});
+
+export const birthdayState = atom<number | null>({
+  key: "birthdat",
   default: null,
 });

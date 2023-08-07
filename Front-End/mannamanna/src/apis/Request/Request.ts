@@ -28,7 +28,7 @@ export type RegisterReq = {
   id: string;
   pwd: string;
   name: string;
-  gender: string; //api
+  gender: any; //api
   tel: string;
   birth: string;
   emailId: string; //api
@@ -45,7 +45,19 @@ export type RegisterReq = {
   detail: string;
   latitude: number; //api
   longitude: number; //api
-  // priority1: number;
-  // priority2: number;
-  // priority3: number;
 };
+
+export interface MessageReq {
+  receiver: string;
+  sender: string;
+  subject: string;
+  content: string;
+  isSogae: boolean;
+  date: string;
+}
+
+export interface SogaetingReq {
+  receiver: string;
+  sender: string;
+  date: string;
+}

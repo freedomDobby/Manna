@@ -9,9 +9,168 @@ import Grid from '@mui/material/Grid';
 import Slider from '@mui/material/Slider';
 import Modal from '@mui/material/Modal';
 import MacBookBox from "../../../components/common/macbookBox";
-import { ChangePass, IsBlock, IsDrink, IsSmoke, MyPageDataState, MyPageJob, MyPageMBTI, MyPageReligion, MyPageSelfIntro, MypageUserHeight, NowPass } from './MyPageState';
+import { ChangePass, IsBlock, IsDrink, IsSmoke, MyPageDataState, MyPageJob, MyPageMBTI, MyPageReligion, MyPageSelfIntro, MypageUserHeight, NowPass, WithdrawalPass } from './MyPageState';
 import api from '../../../apis/Api';
 import { idAtom } from '../../../Recoil/State';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+
+
+// 회원탈퇴 버튼 
+type  WithdrawalButtonProps = {
+  children: string;
+};
+type WithdrawalDataProps = {
+  id: string|null;
+  pwd: string;
+};
+
+export const MyPageSmallButton = ({ children, onClick }: MyPageButtonProps) => {
+  return(
+      <Button
+      sx={{
+          width: '5vw', 
+          height: '5vh',
+          margin: '1vh',
+          backgroundColor: '#ffcced',
+          border: '0.2vw solid #000',
+          borderRadius: 3,
+          color:'common.black',
+          borderColor: "ffcced",
+          fontSize: '2.5vh',
+          fontFamily:'inherit',
+          '&:hover': { backgroundColor: '#f8e3ea' },
+      }}
+      variant="contained"
+      onClick={onClick}
+      >{children}</Button>
+  )
+}
+
+export const WithdrawalButton = ({ children }: WithdrawalButtonProps) => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const withdrawalPass = useRecoilValue(WithdrawalPass);
+  const userId = useRecoilValue(idAtom);
+  const WithdrawalData : WithdrawalDataProps={
+    id : userId,
+    pwd : withdrawalPass,
+  }
+  const CheckPassword = async ()=>{
+    try {
+      const response = await api.post('/user/mypage/checkPwd', WithdrawalData);
+      if(response.data.result){
+        withdarwal();
+      }else{
+        console.log("비밀번호가 일치하지 않습니다.")
+      }
+    } catch (error) {
+      console.error(error);
+      alert('오류가 발생했습니다.');
+    }
+  }
+
+  const withdarwal = async () => {
+    try {
+      const response = await api.post(`/user/mypage/${userId}`, WithdrawalData);
+      alert('회원 탈퇴가 완료 되었습니다.');
+    } catch (error) {
+      console.error(error);
+      alert('오류가 발생했습니다.');
+    }
+  }
+  return(
+    <div style={{width:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
+    <Button
+    sx={{
+        width: '15vw', 
+        height: '8vh',
+        margin: '1vh',
+        backgroundColor: '#ffcced',
+        border: '0.3vw solid #000',
+        borderRadius: 3,
+        color:'common.black',
+        borderColor: "ffcced",
+        fontSize: '2.5vh',
+        fontFamily:'inherit',
+        '&:hover': { backgroundColor: '#f8e3ea' },
+    }}
+    variant="contained"
+    onClick={handleOpen}
+    >{children}</Button>
+    <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+    >
+      <div style={{borderRadius:'8%',background:'white',position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',width:'25%',height:'60%',flexDirection:'column',display:'flex',justifyContent:'center',alignItems:'center'}}>
+        <MacBookBox width="100%" height="100%" color1="#bcd3ff" color2="#ffffff" alignItems='center'>
+          <div style={{height:'100%',flexDirection:'column',display:'flex',justifyContent:'space-around',alignItems:'center',marginTop:'5vh'}}>
+            <div style={{fontSize:'3vh'}}>정말 탈퇴하시겠습니까?</div>
+            <div>
+              {/* <MyPageSmallButton onClick={CheckPassword}>확인</MyPageSmallButton> */}
+              <MyPageSmallButton onClick={handleClose}>확인</MyPageSmallButton>
+              <MyPageSmallButton onClick={handleClose}>취소</MyPageSmallButton>
+            </div>
+          </div>
+        </MacBookBox>
+      </div>
+    </Modal>
+  </div>
+  )
+}
+
+// 회원탈퇴 입력 
+const WithdrawalInputContainer = styled.div`
+  width: 80%;
+  height: 100%;
+  border: 0.5vh solid black;
+  border-radius: 1vh;
+  display: flex;
+  align-items: center;
+  font-size: 3vh;
+  background-color: #ffcced;
+  margin-top: 3vh;
+`;
+const WithdrawalInput = styled.input`
+  width: 90%;
+  height: 90%;
+  outline: none;
+  border: none;
+  font-size: inherit;
+  background-color: inherit;
+`;
+
+const WithdrawalHideInput = styled.button`
+  width: 10%;
+  border: none;
+  background-color: inherit;
+  cursor: pointer;
+`;
+
+export const WithdrawalPassInput = () =>{
+  const [withdrawalPass, setWithdrawalPass] = useRecoilState(WithdrawalPass);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleTogglePassword = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
+  return (
+    <WithdrawalInputContainer>
+      <WithdrawalInput
+        type={showPassword ? 'text' : 'password'}
+        value={withdrawalPass}
+        onChange={(e) => setWithdrawalPass(e.target.value)}
+      />
+      <WithdrawalHideInput onClick={handleTogglePassword}>
+        {showPassword ? <VisibilityOff /> : <Visibility />}
+      </WithdrawalHideInput>
+    </WithdrawalInputContainer>
+  );
+}
 
 // 마이페이지 버튼
 type MyPageButtonProps = {
@@ -262,13 +421,6 @@ export const MyPagePassButton = ({children}: MyPagePassButtonProps) => {
 
 // 내 정보 수정 키 슬라이더 
 export const MyPageUserHeightSlider = ()=> {
-  
-    // const [MyPageUserHeight, setMyPageUserHeight] = useState(177);
-    // const handleSliderChange = (_event:Event,newValue: number | number[]) => {
-    //   if (typeof newValue === 'number') {
-    //     setMyPageUserHeight(newValue);
-    //   }
-    // };
     
     const [myPageUserHeight, setMyPageUserHeight] = useRecoilState(MypageUserHeight);
     const handleSliderChange = (_event:Event, newValue: number | number[]) => {

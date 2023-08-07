@@ -1,5 +1,7 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
+import Register from './../pages/User/Register/Register';
+import { MessageReq, SogaetingReq } from '../apis/Request/Request';
 
 // Persist 설정을 위한 storage 설정
 const sessionStorage=
@@ -30,6 +32,8 @@ export const LoginDataState = atom<LoginDataType>({
     }
 });
 
+
+// 로그인 
 export const genderAtom = atom<string | null>({
     key: 'genderAtom',
     default: null,
@@ -60,6 +64,30 @@ export const genderAtom = atom<string | null>({
     effects_UNSTABLE: [persistAtom],
   });
   
+ // 쪽지s
+
+ export const sendNoteAtom = atom<MessageReq>({
+  key: 'sendnoteAtom', 
+  default: {
+    receiver: '',
+    sender: '',
+    subject: '',
+    content: '',
+    isSogae: false,
+    date:'',
+  },
+});
+
+export const sogaetingNoteAtom = atom<SogaetingReq>({
+  key: 'sogaetingNoteAtom', 
+  default: {
+    receiver: '',
+    sender: '',
+    date:'',
+  },
+});
+
+  // 이메일 
   
   export const findEmailNameAtom = atom<string>({
     key: 'findEmailNameAtom',
@@ -89,6 +117,8 @@ export const genderAtom = atom<string | null>({
 
   
   
+
+  // Modal 모음 
   export const LoginErrorModalAtom = atom<boolean>({
     key: 'LoginErrorModalAtom',
     default: false,
@@ -109,4 +139,14 @@ export const genderAtom = atom<string | null>({
   export const RegisterMessageAtom = atom<string>({
     key: 'RegisterMessageAtom',
     default: '회원가입이 성공하였습니다.',
+  });
+
+  export const SendNoteModalAtom=atom<boolean>({
+    key: 'SendNoteModalAtom',
+    default: false,
+  });
+
+  export const NoteAlarmAtom=atom<boolean>({
+    key: 'NoteAlarmAtom',
+    default: false,
   });

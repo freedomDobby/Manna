@@ -6,7 +6,12 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import { useRecoilState } from 'recoil';
-import { nameAtom } from '../../Recoil/State';
+import { NoteAlarmAtom, accessTokenAtom, genderAtom, idAtom, nameAtom, refreshTokenAtom } from '../../Recoil/State';
+import {  useNavigate } from 'react-router-dom';
+import { LoveNoteModal } from '../../pages/User/ForgotIdPw/ForgotIdStyles';
+import { useQuery } from '@tanstack/react-query';
+import api from '../../apis/Api';
+import { checkNote } from '../../apis/Response/Response';
 
 const HeaderBack = styled.div`
     width: 100%;
@@ -19,21 +24,54 @@ const HeaderBack = styled.div`
 `;
 
 function Greetings(){
-    const [name] = useRecoilState(nameAtom);
+  const [gender, setGender] = useRecoilState(genderAtom);
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenAtom);
+  const [refreshToken, setRefreshToken] = useRecoilState(refreshTokenAtom);
+  const [open, setOpen] = useRecoilState(NoteAlarmAtom);
+  const [name,setName] = useRecoilState(nameAtom);
+  const [Userid, setId] = useRecoilState(idAtom);
+    const navigate=useNavigate();
+    const GoResponseNote = () => {
+        navigate("/note");
+      };
+    const GoLogOut =()=>{
+      setGender(null);
+      setAccessToken(null);
+      setRefreshToken(null);
+      setId(null);
+      setName(null);
+      navigate("/");
+    }
+
+    // const checknote = useQuery<checkNote>(['recentnote'], async () => {
+    //     const response = await api.get("/note/recent/", {
+    //       params: {
+    //         id: Userid,
+    //       },
+    //     });
+    //     return response.data; 
+    //   });
+      
+    //   if (checknote.data) {
+    //     const checknoteResult = checknote.data;
+    //     setOpen(checknoteResult.result);
+    //   }
+      
     return(
         <div>
+            <LoveNoteModal></LoveNoteModal>
             <HeaderBack>
                 <Logo/>
                 <div style={{display:'flex', alignItems:'center'}}>
                     {/* <Profile></Profile> */}
                     <div style={{fontSize:'large'}}>{name}님</div>
-                    <IconButton color="primary" size="large">
+                    <IconButton color="primary" size="large" onClick={GoResponseNote}>
                         <EmailOutlinedIcon fontSize="large"/>
                     </IconButton>
-                    <IconButton color="primary" size="large">
+                    <IconButton color="primary" size="large" >
                         <NotificationsNoneOutlinedIcon fontSize="large"/>
                     </IconButton>
-                    <IconButton color="primary" size="large">
+                    <IconButton color="primary" size="large" onClick={GoLogOut}>
                         <LogoutOutlinedIcon fontSize="large"/>
                     </IconButton>
                 </div>

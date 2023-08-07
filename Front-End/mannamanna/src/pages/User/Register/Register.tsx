@@ -25,8 +25,9 @@ import {
   EnterPwdCheck,
   EnterTel,
 } from "./Question";
-import { EnterImage } from "./EnterImageModal";
-import { EnterLocation } from "./EnterAddressModal";
+import { EnterImage } from "./Image/EnterImageModal";
+import { EnterLocation } from "./Address/EnterAddressModal";
+// import KakaoAPI from "./Address/AddressApi";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -83,7 +84,6 @@ const Register = () => {
                   <EnterId />
                   <EnterPwd />
                   <EnterPwdCheck />
-
                   <SmallInputBox>
                     <AnswerBox>
                       <Answer>사는 지역을 선택해주세요</Answer>

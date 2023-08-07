@@ -1,9 +1,7 @@
 import { Button, Modal } from "@mui/material";
 import { useState } from "react";
-import MacBookBox from "../../../components/common/macbookBox";
-import { MyPageButton } from "../MyPage/MyPageStyles";
-// import { useRecoilState } from "recoil";
-// import { userAddress } from "../Register/RegisterState";
+import MacBookBox from "../../../../components/common/macbookBox";
+import { MyPageButton } from "../../MyPage/MyPageStyles";
 import {
   Contain,
   Container2,
@@ -11,19 +9,26 @@ import {
   ImageForm,
   MostBiggestBox,
   TitleBox,
-} from "./ModalStyle";
-import { Sido } from "./Selection";
-import { GuGun } from "./EnterGuGun";
-import { AddressDetail } from "./AddressDetail";
+} from "../ModalStyle";
+import { EnterImage1, EnterImage2, EnterImage3 } from "./ImageInput";
+import { useRecoilValue } from "recoil";
+import {
+  profilePicture1State,
+  profilePicture2State,
+  profilePicture3State,
+} from "../RegisterState";
 
-type EnterLocationProps = {
+type EnterImageProps = {
   children: string;
 };
 
-export const EnterLocation = ({ children }: EnterLocationProps) => {
+export const EnterImage = ({ children }: EnterImageProps) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const handleSave = () => {
+    setOpen(false);
+  };
 
   return (
     <div style={{ width: "30%" }}>
@@ -69,39 +74,16 @@ export const EnterLocation = ({ children }: EnterLocationProps) => {
               {/* 이미지 입력받기 */}
               <Container2>
                 <TitleBox>
-                  예약하기 서비스를 이용하기 위한 주소를 입력해주세요.
+                  본인을 어필 할 수 있는 사진 3장을 등록해 주세요.
                 </TitleBox>
-                <ImageForm
-                  style={{ justifyContent: "center", alignContent: "center" }}
-                >
-                  <div
-                    style={{
-                      // border: "1px solid blue",
-                      display: "flex",
-                      justifyContent: "space-around",
-                      alignItems: "center" /* 수직 중앙 정렬 설정 */,
-                      height: "60%",
-                      width: "80%",
-                      margin: "3%",
-                    }}
-                  >
-                    <label
-                      style={{
-                        // border: "1px solid red",
-                        textAlign: "center",
-                        width: "30%" /* 라벨 너비 설정 */,
-                      }}
-                    >
-                      주소
-                    </label>
-                    <Sido />
-                    <GuGun />
-                    <AddressDetail />
-                  </div>
+                <ImageForm>
+                  <EnterImage1 title="프로필 사진 1" coment="Best 사진" />
+                  <EnterImage2 title="프로필 사진 2" coment="사진 2" />
+                  <EnterImage3 title="프로필 사진 3" coment="사진1" />
                 </ImageForm>
                 <EnterImageBtnBox>
                   <MyPageButton onClick={handleClose}>확인</MyPageButton>
-                  <MyPageButton onClick={handleClose}>취소</MyPageButton>
+                  <MyPageButton onClick={handleSave}>취소</MyPageButton>
                 </EnterImageBtnBox>
               </Container2>
             </Contain>

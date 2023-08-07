@@ -1,6 +1,6 @@
 import { useRecoilState } from "recoil";
 import { Switch } from "@mui/material";
-import { userSmokeState } from "./RegisterState";
+import { userSmokeState } from "../RegisterState";
 
 const SmokeCheck = () => {
   const [userSmoke, setUserSmoke] = useRecoilState(userSmokeState);

@@ -1,6 +1,5 @@
-
-import { styled } from 'styled-components';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { styled } from "styled-components";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 export let LoginBox = styled.form`
   border: solid white 4px;
@@ -42,10 +41,11 @@ export let IdInput = styled.input`
 `;
 
 export let BtnBox = styled.div`
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
-  width: 40vh;
+  // border: 1px solid red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45vw;
   gap: 4vh;
   height: 10vh;
 `;
@@ -54,9 +54,8 @@ export let ForgotPasswordLink = styled.a`
   color: #ffffff;
   font-size: 2vh;
   text-decoration: underline;
-  margin-top: 1vh;
+  // margin-top: 1vh;
   cursor: pointer;
-
   &:hover {
     color: #d9cff4;
   }
@@ -81,12 +80,12 @@ export const StyledButton = styled.button`
   }
 `;
 
-export const CenterBox=styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
-height: 90vh;
-`
+export const CenterBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+`;
 
 export const StyledArrowBackIcon = styled(ArrowBackIosIcon)`
   color: white;

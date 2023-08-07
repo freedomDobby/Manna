@@ -46,7 +46,7 @@ const ForgotId = () => {
       await setUserId(response.data.data.id);
       setOpen(true);
       setUserName('');
-      setEmail('');
+      setEmail(''); 
       setSelectedDomain('');
     } catch (error) {
       console.error(error);

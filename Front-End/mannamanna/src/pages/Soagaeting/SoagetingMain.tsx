@@ -15,9 +15,18 @@ import {
   DetailProfile,
   DetailText,
 } from "./SoagaetinStyle";
+import { StyledButton } from "../User/Login/LoginStyle";
+import { useRecoilState } from "recoil";
+import { SendNoteModalAtom } from "../../Recoil/State";
+import { TrueNoteModal } from "../User/ForgotIdPw/ForgotIdStyles";
 // import Button from '@mui/material/Button';
 
 const SoagetingFilter = () => {
+  const [open, setOpen] = useRecoilState(SendNoteModalAtom);
+
+  const handleOpenNoteModal = () => {
+    setOpen(true);
+  };
   return (
     <div>
       <Back>
@@ -27,6 +36,7 @@ const SoagetingFilter = () => {
             height: "87vh",
           }}
         >
+          <TrueNoteModal></TrueNoteModal>
           <Font1
             style={
               {
@@ -105,7 +115,9 @@ const SoagetingFilter = () => {
           </Font1>
           <Btn1 />
         </div>
-
+          <div>
+         <StyledButton onClick={handleOpenNoteModal}>소개팅 신청</StyledButton>    {/* 임시 확인용 */}
+          </div>
         <div
           style={{
             // border: `solid 1px orange`,
