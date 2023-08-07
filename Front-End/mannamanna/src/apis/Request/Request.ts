@@ -57,4 +57,5 @@ export interface MessageReq {
   subject: string;
   content: string;
   isSogae: boolean;
+  date:string;
 }

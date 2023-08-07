@@ -74,6 +74,7 @@ export const genderAtom = atom<string | null>({
     subject: '',
     content: '',
     isSogae: false,
+    date:'',
   },
 });
 
