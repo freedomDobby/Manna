@@ -1,10 +1,10 @@
-import React from 'react';
+// import React from 'react';
 import BackBox from '../../components/common/Back';
-import SidebarMission from '../../components/layout/Sidebar/SidebarMission';
+// import SidebarMission from '../../components/layout/Sidebar/SidebarMission';
 import { MyPageContainerBox } from '../User/MyPage/MyPageStyle';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { StyledButton } from '../User/Login/LoginStyle';
-import { FlexBox } from '../Reserve/ReserveStyle';
+// import { FlexBox } from '../Reserve/ReserveStyle';
 import { SendNoteModalAtom } from '../../Recoil/State';
 import { useRecoilState } from 'recoil';
 import { FalseNoteModal } from '../User/ForgotIdPw/ForgotIdStyles';

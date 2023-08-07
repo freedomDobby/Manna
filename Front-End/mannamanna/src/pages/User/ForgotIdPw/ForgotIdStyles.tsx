@@ -6,8 +6,8 @@ import MacBookBox from '../../../components/common/macbookBox';
 import { MyPageButton } from '../MyPage/MyPageStyles';
 import Modal from '@mui/material/Modal';
 import { useNavigate } from 'react-router-dom';
-import React, { useState, ChangeEvent } from 'react';
-import { TextField } from '@mui/material';
+import React from 'react';
+// import { TextField } from '@mui/material';
 import { StyledButton } from '../Login/LoginStyle';
 import { Answer, AnswerBox, SmallInput, SmallInputBox } from '../Register/RegisterStyle';
 import { Question } from '../Register/AnswerBox';
@@ -17,7 +17,7 @@ import api from '../../../apis/Api';
 export const FindidModal = () => {
 
     const [open, setOpen] = useRecoilState(findIdModalAtom);
-    const handleOpen = () => setOpen(true);
+    // const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const [userId] =  useRecoilState(findIdCheckIdAtom);
     return(

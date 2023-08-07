@@ -1,16 +1,16 @@
-import React, { useState ,useEffect} from 'react';
+import React, { useState } from 'react';
 import { CenterBox,BtnBox, IdInput, InputBox, LoginBox  } from '../Login/LoginStyle'
 import { LargeStyledButton, SmallIdLabel } from './ForgotIdStyle';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import GoBackIcon from '../../../components/common/GoBackIcon';
 import Logo from '../../../components/common/Logo';
 import EmailDomainInput from '../../../components/common/EmailDomain';
 import { ForgotIdErrorModalAtom, findEmailDomainAtom, findEmailNameAtom, findPwModalAtom } from '../../../Recoil/State';
 import { useRecoilState } from 'recoil';
-import { useMutation, useQuery } from '@tanstack/react-query';
+// import { useMutation, useQuery } from '@tanstack/react-query';
 import api from '../../../apis/Api';
-import { FindidReq, FindpwReq } from '../../../apis/Request/Request';
-import { getId } from '../../../apis/FindIdPwApi';
+import { FindpwReq } from '../../../apis/Request/Request';
+// import { getId } from '../../../apis/FindIdPwApi';
 import { FindPwModal, ForgotIdErrorModal } from './ForgotIdStyles';
 
 

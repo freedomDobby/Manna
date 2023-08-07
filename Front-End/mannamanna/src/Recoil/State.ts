@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
-import Register from './../pages/User/Register/Register';
+// import Register from './../pages/User/Register/Register';
 import { MessageReq, SogaetingReq } from '../apis/Request/Request';
 
 // Persist 설정을 위한 storage 설정
