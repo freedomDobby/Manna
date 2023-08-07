@@ -7,7 +7,7 @@ import { StyledButton } from '../User/Login/LoginStyle';
 import { FlexBox } from '../Reserve/ReserveStyle';
 import { SendNoteModalAtom } from '../../Recoil/State';
 import { useRecoilState } from 'recoil';
-import NoteModal from './../User/ForgotIdPw/ForgotIdStyles';
+import { FalseNoteModal } from '../User/ForgotIdPw/ForgotIdStyles';
 
 const Note = () => {
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ const Note = () => {
               <Outlet></Outlet></MyPageContainerBox>
             </div>
           </BackBox>
-          <NoteModal></NoteModal>
+          <FalseNoteModal></FalseNoteModal>
         </div>
       );
 };

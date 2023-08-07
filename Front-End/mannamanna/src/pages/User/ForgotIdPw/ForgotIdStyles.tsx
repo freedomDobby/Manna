@@ -197,14 +197,12 @@ export const FindidModal = () => {
     question: string;
     Id: string;
     placeholder: string;
-    value: string;
   }
   
   export const NoteQuestion: React.FC<NoteQuestionProps> = ({
     question,
     Id,
     placeholder,
-    value,
   }) => {
     return (
       <SmallInputBox>
@@ -213,7 +211,6 @@ export const FindidModal = () => {
           <SmallInput
             id={Id}
             placeholder={placeholder}
-            value={value}
           />
         </AnswerBox>
       </SmallInputBox>
@@ -256,7 +253,7 @@ export const TextareaQuestion: React.FC<TextareaQuestionProps> = ({
   );
 };
 
-export const NoteModal = () => {
+export const FalseNoteModal = () => {
   const [open, setOpen] = useRecoilState(SendNoteModalAtom);
   const [sendnote, Setsendnote] = useRecoilState(sendNoteAtom);
   const [UserId] = useRecoilState(idAtom);
@@ -264,35 +261,40 @@ export const NoteModal = () => {
   const handleClose = () => setOpen(false);
 
   let temp = { ...sendnote };
+  
 
   const sendUnLoveNote= async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const updatedMessage: MessageReq = {
-      receiver: sendnote.receiver,
-      sender: sendnote.sender,
-      subject: sendnote.subject,
-      content: sendnote.content,
-      isSogae: sendnote.isSogae,
+      receiver: temp.receiver,
+      sender: temp.sender,
+      subject: temp.subject,
+      content: temp.content,
+      isSogae: temp.isSogae,
       date:'',
     };
     console.log(updatedMessage);
     try {
-      const response = await api.post("/note", updatedMessage);
-      console.log(response.data.data);
+      const response = await api.post("/note/send", updatedMessage);
+      console.log(response.data);
     } catch (error) {
       console.error(error);
     }
   };
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    
+  
+    // Update temp object
     if (UserId !== null) {
       temp.sender = UserId;
     }
-    Setsendnote(temp);
-    
-    sendUnLoveNote(e); 
-    
+    console.log(temp.receiver);
+    console.log(temp.sender);
+    console.log(temp.content);
+    console.log(temp.subject);
+
+    await sendUnLoveNote(e);
+  
     handleClose();
   };
 
@@ -317,8 +319,111 @@ export const NoteModal = () => {
                 <NoteQuestion
                   question="보내는 이"
                   Id="sender"
-                  placeholder="이름"
-                  value={UserId}
+                  placeholder={UserId}
+                />
+              ) : null}
+              <Question
+                question="받는 이"
+                Type="text"
+                Id="receiver"
+                placeholder="이름"
+                onChange={(e) => temp.receiver = e.target.value}
+              />
+              <Question
+                question="제목"
+                Type="text"
+                Id="subject"
+                placeholder="제목"
+                onChange={(e) => temp.subject = e.target.value}
+              />
+              <TextareaQuestion
+                question="내용"
+                Id="content"
+                placeholder="내용을 입력하세요"
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => temp.content = e.target.value}
+              />
+              <StyledButtonContainer>
+                <StyledButton onClick={handleSubmit}>보내기</StyledButton>
+                <StyledButton onClick={handleClose}>취소</StyledButton>
+              </StyledButtonContainer>
+            </StyledFormContainer>
+          </MacBookBox>
+        </StyledModalContent>
+      </Modal>
+    </StyledModalContainer>
+  );
+}
+
+
+  
+// 소개팅 신청용
+export const TrueNoteModal = () => {
+  const [open, setOpen] = useRecoilState(SendNoteModalAtom);
+  const [sendnote, Setsendnote] = useRecoilState(sendNoteAtom);
+  const [UserId] = useRecoilState(idAtom);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  let temp = { ...sendnote };
+  
+
+  const sendUnLoveNote= async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const updatedMessage: MessageReq = {
+      receiver: temp.receiver,
+      sender: temp.sender,
+      subject: temp.subject,
+      content: temp.content,
+      isSogae: true,
+      date:'',
+    };
+    console.log(updatedMessage);
+    try {
+      const response = await api.post("/note/send", updatedMessage);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+  
+    // Update temp object
+    if (UserId !== null) {
+      temp.sender = UserId;
+    }
+    console.log(temp.receiver);
+    console.log(temp.sender);
+    console.log(temp.content);
+    console.log(temp.subject);
+
+    await sendUnLoveNote(e);
+  
+    handleClose();
+  };
+
+  return (
+    <StyledModalContainer>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <StyledModalContent>
+          <MacBookBox
+            width="100%"
+            height="100%"
+            color1="#bcd3ff"
+            color2="#ffffff"
+            alignItems='center'
+          >
+            <StyledFormContainer>
+              {UserId !== null ? (
+                <NoteQuestion
+                  question="보내는 이"
+                  Id="sender"
+                  placeholder={UserId}
                 />
               ) : null}
               <Question
@@ -356,7 +461,6 @@ export const NoteModal = () => {
 
   
 
-export default NoteModal;
 
 export const LoveNoteModal = () => {
   const navigate = useNavigate();
