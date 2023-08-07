@@ -21,6 +21,7 @@
     "@types/redux": "^3.6.0",
     "@types/redux-logger": "^3.0.9",
     "axios": "^1.4.0",
+    "browser-image-compression": "^2.0.2",
     "dayjs": "^1.11.9",
     "framer-motion": "^10.14.0",
     "moment": "^2.29.4",
