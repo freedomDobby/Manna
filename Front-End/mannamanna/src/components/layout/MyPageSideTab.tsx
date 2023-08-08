@@ -83,6 +83,7 @@ const MyPageSideTab: React.FC<SidebarProps> = ({ menu, bg }) => {
       setIsSmoke(response.data.data.smoker);
       setIsDrink(response.data.data.drinker);
       setIsBlock(response.data.data.blockingFriend);
+      console.log(myPageData.profilePictures[0].path);
     } catch (error) {
       console.error(error);
       alert("오류가 발생했습니다.");

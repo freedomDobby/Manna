@@ -10,10 +10,9 @@ import {
   JobSelectBox,
   MBTISelectBox,
   MyPagePassButton,
+  MyPagePictures,
   MyPageTextArea,
-  
   MyPageUserHeightSlider,
-  
   ReligionSelectBox,
   SaveChangeButton,
   SmokeCustomSwitch,
@@ -51,19 +50,19 @@ function MyPageModify() {
       >
         <div style={{ width: "90%", margin: "1vh" }}>기본정보</div>
         <ModifyBox>
-              <div
-                style={{
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "space-around",
-                  alignItems: "center",
-                  flexDirection: "row",
-                  margin: "1vh",
-                }}
-              >
-                <div>비밀번호 변경</div>
-                <MyPagePassButton>변경하러가기</MyPagePassButton>
-              </div>
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "space-around",
+              alignItems: "center",
+              flexDirection: "row",
+              margin: "1vh",
+            }}
+          >
+            <div>비밀번호 변경</div>
+            <MyPagePassButton>변경하러가기</MyPagePassButton>
+          </div>
           <div
             style={{
               width: "100%",
@@ -77,19 +76,19 @@ function MyPageModify() {
             <div style={{ width: "25%", height: "100%" }}>주소</div>
             <div style={{ width: "75%", height: "100%" }}>입력입력</div>
           </div>
-            <div
-              style={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "space-around",
-                alignItems: "center",
-                flexDirection: "row",
-                margin: "1vh",
-              }}
-            >
-              <div>키</div>
-              <MyPageUserHeightSlider />
-            </div>
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "space-around",
+              alignItems: "center",
+              flexDirection: "row",
+              margin: "1vh",
+            }}
+          >
+            <div>키</div>
+            <MyPageUserHeightSlider />
+          </div>
           <div
             style={{
               width: "100%",
@@ -196,6 +195,11 @@ function MyPageModify() {
       >
         <SaveChangeButton>저장하기</SaveChangeButton>
       </div>
+      <img
+        src={"https://i9b205.p.ssafy.io/img/hyunii_goyoonjung.png"}
+        alt="Image"
+      />
+      <MyPagePictures />
     </MacBookBox>
   );
 }
