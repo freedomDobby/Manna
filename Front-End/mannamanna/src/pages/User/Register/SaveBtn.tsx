@@ -49,7 +49,6 @@ const Save = () => {
   const userGuGun = useRecoilValue(userGuGunState);
   const userAddressDetail = useRecoilValue(userAddressDetailState);
   const [userInfo] = useRecoilState(RegisterDataState);
-<<<<<<< Front-End/mannamanna/src/pages/User/Register/SaveBtn.tsx
 
   const [profilePicture1, setprofilePicture1] = useRecoilState(
     profilePicture1State
