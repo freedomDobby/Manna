@@ -88,7 +88,18 @@ const Save = () => {
     });
     return obj;
   }
-
+  const imageToBase64 = async (file: File) => {
+    return new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        resolve(event.target?.result as string);
+      };
+      reader.onerror = (error) => {
+        reject(error);
+      };
+      reader.readAsDataURL(file);
+    });
+  };
   const [open, setOpen] = useRecoilState(RegisterModalAtom);
   const [message, setMessage] = useRecoilState(RegisterMessageAtom);
   const SaveInfo = async (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -116,10 +127,11 @@ const Save = () => {
         console.log("FormData:", formDataToObject(formdata));
         const response = await api.post("/user/regist", formdata, {
           headers: {
-            "Content-type": "multipart/form-data", // Set the correct content type
+            "Content-type": "multipart/form-data", 
           },
         });
-        console.log(response.data.data);
+        console.log(response.data);
+        await setMessage("회원가입이 성공하였습니다.");
         setOpen(true);
       } catch (error) {
         console.error(error);
