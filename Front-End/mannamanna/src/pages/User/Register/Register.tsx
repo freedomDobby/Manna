@@ -90,8 +90,8 @@ const Register = () => {
                   <SmallInputBox>
                     <AnswerBox>
                       <Answer>사는 지역을 선택해주세요</Answer>
-                      <EnterLocation>주소입력</EnterLocation>
                     </AnswerBox>
+                    <EnterLocation />
                   </SmallInputBox>
                 </div>
 

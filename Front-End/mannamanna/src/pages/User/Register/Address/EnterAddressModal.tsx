@@ -15,15 +15,76 @@ import {
 import { Sido } from "../Selection";
 import { GuGun } from "./EnterGuGun";
 import { AddressDetail } from "./AddressDetail";
+import { LocalApi } from "./LocalApi";
+import { useRecoilState } from "recoil";
+import api from "../../../../apis/Api";
+import {
+  latitudeState,
+  longitudeState,
+  RegisterDataState,
+  userAddressDetailState,
+  userGuGunState,
+  userSidoState,
+} from "../RegisterState";
 
-type EnterLocationProps = {
-  children: string;
-};
+interface AddressSearchResult {
+  documents: {
+    address_name: string;
+    x: string;
+    y: string;
+  }[];
+}
 
-export const EnterLocation = ({ children }: EnterLocationProps) => {
-  const [open, setOpen] = useState(false);
+export const EnterLocation = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [latitude, setlatitude] = useRecoilState(latitudeState);
+  const [longitude, setlongitude] = useRecoilState(longitudeState);
+  const [userInfo] = useRecoilState(RegisterDataState);
+  const [sido] = useRecoilState(userSidoState);
+  const [gugun] = useRecoilState(userGuGunState);
+  const [detail] = useRecoilState(userAddressDetailState);
+  const [searchQuery, setSearchQuery] = useState(""); // 주소 검색어 상태
+  const [searchResults, setSearchResults] =
+    useState<AddressSearchResult | null>(null); // 검색 결과 상태
+  const [open, setOpen] = useState(false);
+
+  const SaveLocal = async () => {
+    // await handleSearch(); // handleSearch 함수 호출
+    setOpen(false);
+  };
+  const handleSearch = async (event: any) => {
+    event.preventDefault();
+
+    const combinedString = `${sido} ${gugun} ${detail}`; // 데이터 합치기
+    const REST_API_KEY = "2502d7b7bd98ef898c9d2e3a10cfd6e3"; // 실제 키로 교체해야 합니다.
+    try {
+      const response = await api.get<AddressSearchResult>( // axios.get으로 수정
+        "https://dapi.kakao.com/v2/local/search/address.json",
+        {
+          headers: {
+            Authorization: `KakaoAK ${REST_API_KEY}`,
+          },
+          params: {
+            query: combinedString,
+          },
+        }
+      );
+      setSearchResults(response.data);
+      console.log(searchResults);
+      if (searchResults !== null) {
+        const xValue = parseFloat(response.data.documents[0].x);
+        const yValue = parseFloat(response.data.documents[0].y);
+        setlatitude(xValue);
+        setlongitude(yValue);
+      } else {
+        setlatitude(userInfo.latitude);
+        setlongitude(userInfo.longitude);
+      }
+    } catch (error) {
+      console.error("Error fetching address data:", error);
+    }
+  };
 
   return (
     <div style={{ width: "30%" }}>
@@ -49,7 +110,7 @@ export const EnterLocation = ({ children }: EnterLocationProps) => {
         variant="contained"
         onClick={handleOpen}
       >
-        {children}
+        지역검색
       </Button>
       <Modal
         open={open}

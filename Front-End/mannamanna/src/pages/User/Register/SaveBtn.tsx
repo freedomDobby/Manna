@@ -4,11 +4,11 @@ import {
   RegisterDataState,
   account_emailState,
   genderState,
+  latitudeState,
+  longitudeState,
   profilePicture1State,
   profilePicture2State,
   profilePicture3State,
-  // profilePicture2State,
-  // profilePicture3State,
   userAddressDetailState,
   userAgeState,
   userDrinkState,
@@ -49,6 +49,7 @@ const Save = () => {
   const userGuGun = useRecoilValue(userGuGunState);
   const userAddressDetail = useRecoilValue(userAddressDetailState);
   const [userInfo] = useRecoilState(RegisterDataState);
+<<<<<<< Front-End/mannamanna/src/pages/User/Register/SaveBtn.tsx
 
   const [profilePicture1, setprofilePicture1] = useRecoilState(
     profilePicture1State
@@ -62,6 +63,9 @@ const Save = () => {
   const [accountEmail] = useRecoilState(account_emailState);
   const [UserEmailId, Userdomain] = accountEmail.split('@');
   const [gender, setGender] = useRecoilState(genderState);
+  const [latitude, setlatitude] = useRecoilState(latitudeState);
+  const [longitude, setlongitude] = useRecoilState(longitudeState);
+  
 
   const RegisterUser: RegisterReq = {
     id: userId,
@@ -80,12 +84,11 @@ const Save = () => {
     sido: userSido,
     gugun: userGuGun,
     detail: userAddressDetail,
-    latitude: userInfo.latitude, //api
-    longitude: userInfo.longitude, //apiS
+    latitude: latitude, //api
+    longitude: longitude, //api
     isSmoker: userSmoke,
     isDrinker: userDrink,
   };
-
 
   function formDataToObject(formData: FormData) {
     const obj: { [key: string]: FormDataEntryValue } = {};
@@ -114,16 +117,15 @@ const Save = () => {
         formdata.append("memberSignUpRequest", blob);
 
         if (profilePicture1 instanceof File) {
-            formdata.append("profilePicture1", profilePicture1);
+          formdata.append("profilePicture1", profilePicture1);
         }
         if (profilePicture2 instanceof File) {
-            formdata.append("profilePicture2", profilePicture2);
+          formdata.append("profilePicture2", profilePicture2);
         }
         if (profilePicture3 instanceof File) {
-            formdata.append("profilePicture3", profilePicture3);
+          formdata.append("profilePicture3", profilePicture3);
         }
-        
-  
+
         console.log(RegisterUser);
         console.log("FormData:", formDataToObject(formdata));
         const response = await api.post("/user/regist", formdata, {
