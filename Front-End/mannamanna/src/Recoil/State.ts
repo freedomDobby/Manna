@@ -83,6 +83,12 @@ export const sendNoteReceiverAtom = atom<string>({
   default:'',
 });
 
+export const sendNoteIdAtom = atom<number>({
+  key: 'sendNoteIdAtom', 
+  default:0,
+});
+
+
 export const sogaetingNoteAtom = atom<SogaetingReq>({
   key: 'sogaetingNoteAtom', 
   default: {
@@ -162,5 +168,11 @@ export const sogaetingNoteReceiverAtom = atom<string>({
 
   export const SogaeResultNoteAtom=atom<boolean>({
     key: 'SogaeResultNoteAtom',
+    default: false,
+  });
+
+
+  export const DeleteNoteAtom=atom<boolean>({
+    key: 'DeleteNoteAtom',
     default: false,
   });

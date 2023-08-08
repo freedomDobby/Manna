@@ -8,7 +8,7 @@ import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNone
 import { useRecoilState } from 'recoil';
 import { NoteAlarmAtom, accessTokenAtom, genderAtom, idAtom, nameAtom, refreshTokenAtom } from '../../Recoil/State';
 import {  useNavigate } from 'react-router-dom';
-import { LoveNoteModal } from '../../pages/User/ForgotIdPw/ForgotIdStyles';
+import { RecentNoteModal } from '../../pages/User/ForgotIdPw/ForgotIdStyles';
 import { useQuery } from '@tanstack/react-query';
 import api from '../../apis/Api';
 import { checkNote } from '../../apis/Response/Response';
@@ -59,7 +59,7 @@ function Greetings(){
       
     return(
         <div>
-            <LoveNoteModal></LoveNoteModal>
+            <RecentNoteModal></RecentNoteModal>
             <HeaderBack>
                 <Logo/>
                 <div style={{display:'flex', alignItems:'center'}}>

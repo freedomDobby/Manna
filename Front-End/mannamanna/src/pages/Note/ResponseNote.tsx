@@ -1,28 +1,32 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { useRecoilState } from 'recoil';
-import { SendNoteModalAtom, idAtom, sendNoteReceiverAtom } from '../../Recoil/State';
+import { DeleteNoteAtom, SendNoteModalAtom, SogaeResultNoteAtom, idAtom, sendNoteIdAtom, sendNoteReceiverAtom } from '../../Recoil/State';
 import { ReceivedNotesRes, SentNotesRes } from '../../apis/Response/Response';
 import api from '../../apis/Api';
 import { SendContainer } from './NoteStyle';
 import { ResponsetNoteBody } from './NoteComponent/NoteBody';
-import { FalseNoteModal } from '../User/ForgotIdPw/ForgotIdStyles';
+import { CheckSogaeNoteModal, DeleteNoteModal, FalseNoteModal } from '../User/ForgotIdPw/ForgotIdStyles';
 
 const ResponseNote = () => {
         const [userId, setId] = useRecoilState(idAtom);
         const [NoteOpen, setNoteOpen] = useRecoilState(SendNoteModalAtom);
-        const [SogaeOpen, setSogaeOpen] = useRecoilState(SendNoteModalAtom);
+        const [SogaeOpen, setSogaeOpen] = useRecoilState(SogaeResultNoteAtom);
+        const [DeleteOpen, setDeleteOpen] = useRecoilState(DeleteNoteAtom);
         const [receiver, setReceiver] = useRecoilState(sendNoteReceiverAtom);
-        const handleRemove = () => {
-            
+        const [noteId, setNoteId] = useRecoilState(sendNoteIdAtom);
+           const handleRemove = (NoteId:number) => {
+            setNoteId(NoteId);
+            setDeleteOpen(true);
           };
         
-          const handleCheck = (senderId:string,sogae:boolean) => {
+          const handleCheck = (senderId:string,sogae:boolean,NoteId:number) => {
             console.log("답장하기!", senderId);
             setReceiver(senderId);
+            setNoteId(NoteId);
             console.log(sogae);
             if(sogae===true){
-                setNoteOpen(true);
+                setSogaeOpen(true);
             }else{
                 setNoteOpen(true);
             }
@@ -53,11 +57,13 @@ const ResponseNote = () => {
                 To={note.senderName} 
                 Title={note.subject}
                 Note={note.content}
-                Remove={handleRemove}
-                Check={() => handleCheck(note.senderId, note.sogae)}
+                Remove={() => handleRemove(note.id)}
+                Check={() => handleCheck(note.senderId, note.sogae,note.id)}
               />
             ))}
             <FalseNoteModal></FalseNoteModal>
+            <CheckSogaeNoteModal></CheckSogaeNoteModal>
+            <DeleteNoteModal></DeleteNoteModal>
           </SendContainer>
         );
       };
