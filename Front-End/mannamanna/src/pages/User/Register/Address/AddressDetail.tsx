@@ -6,6 +6,7 @@ export const AddressDetail = () => {
     userAddressDetailState
   );
   const EnterAddressDetail = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // event.preventDefault();
     setUserAddressDetail(event.target.value);
   };
   return (
