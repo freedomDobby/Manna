@@ -88,7 +88,7 @@ const Kakao: React.FC = () => {
             };
             try {
               // JSON.stringify(RegisterUser);
-              console.log(RegisterUser);
+              // console.log(RegisterUser);
               const response = api.post("/user/regist", RegisterUser);
               console.log(response);
               setOpen(true);
