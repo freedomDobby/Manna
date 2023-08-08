@@ -28,6 +28,7 @@ import {
 import { EnterImage } from "./Image/EnterImageModal";
 import { EnterLocation } from "./Address/EnterAddressModal";
 // import KakaoAPI from "./Address/AddressApi";
+import Kakao from './../Login/KaKaoLogin';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -78,7 +79,9 @@ const Register = () => {
                       <EnterImage>사진 등록하기</EnterImage>
                     </AnswerBox>
                   </SmallInputBox>
-
+                  <SmallInputBox>
+                    <Kakao></Kakao>
+                  </SmallInputBox>
                   <EnterName />
                   <EnterTel />
                   <EnterId />

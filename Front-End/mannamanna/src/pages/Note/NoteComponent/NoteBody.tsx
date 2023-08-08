@@ -8,30 +8,61 @@ import {
   NoteTopBar,
   Info,
   NoteButton,
+  NoteTitle,
+  NoteDetail
 } from "../NoteStyle";
 
 interface NoteBodyProps {
   comment: string;
   To: string;
+  Title: string;
+  Note: string;
+  Remove: ()=> void;
+  Check: ()=> void;
 }
 
-const NoteBody: React.FC<NoteBodyProps> = ({ comment, To }) => {
+export const RequestNoteBody: React.FC<NoteBodyProps> = ({ comment, To,Title,Note,Remove, Check }) => {
   // NoteBodyProps를 React.FC로 사용하고, comment를 구조분해하여 사용합니다.
   return (
     <NoteContainer>
       <NoteTopBar> {comment}</NoteTopBar>
       <NoteInfoBar>
-        <Info>보낸사람: {To}</Info>
+        <Info>받은 사람: {To}</Info>
       </NoteInfoBar>
       <NoteMidBar>
-        <NotePart></NotePart>
+        <NotePart>
+          <NoteTitle>제목: {Title}</NoteTitle>
+          <NoteDetail>내용 : {Note}</NoteDetail>
+        </NotePart>
       </NoteMidBar>
       <NoteFootBar>
-        <NoteButton>삭제하기</NoteButton>
-        <NoteButton>답장하기</NoteButton>
+        <NoteButton onClick={Remove}>삭제하기</NoteButton>
+        <NoteButton onClick={Check}>답장하기</NoteButton>
       </NoteFootBar>
     </NoteContainer>
   );
 };
 
-export default NoteBody;
+
+
+export const ResponsetNoteBody: React.FC<NoteBodyProps> = ({ comment, To,Title,Note,Remove, Check}) => {
+  // NoteBodyProps를 React.FC로 사용하고, comment를 구조분해하여 사용합니다.
+  return (
+    <NoteContainer>
+      <NoteTopBar> {comment}</NoteTopBar>
+      <NoteInfoBar>
+        <Info>보낸 사람: {To}</Info>
+      </NoteInfoBar>
+      <NoteMidBar>
+        <NotePart>
+          <NoteTitle>제목: {Title}</NoteTitle>
+          <NoteDetail>내용 : {Note}</NoteDetail>
+        </NotePart>
+      </NoteMidBar>
+      <NoteFootBar>
+        <NoteButton onClick={Remove}>삭제하기</NoteButton>
+        <NoteButton onClick={Check}>답장하기</NoteButton>
+      </NoteFootBar>
+    </NoteContainer>
+  );
+};
