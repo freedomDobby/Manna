@@ -44,22 +44,17 @@ export const EnterLocation = () => {
   const [sido] = useRecoilState(userSidoState);
   const [gugun] = useRecoilState(userGuGunState);
   const [detail] = useRecoilState(userAddressDetailState);
-  const [searchQuery, setSearchQuery] = useState(""); // 주소 검색어 상태
+  // const [searchQuery, setSearchQuery] = useState(""); // 주소 검색어 상태
   const [searchResults, setSearchResults] =
     useState<AddressSearchResult | null>(null); // 검색 결과 상태
   const [open, setOpen] = useState(false);
 
-  const SaveLocal = async () => {
-    // await handleSearch(); // handleSearch 함수 호출
-    setOpen(false);
-  };
-  const handleSearch = async (event: any) => {
-    event.preventDefault();
-
-    const combinedString = `${sido} ${gugun} ${detail}`; // 데이터 합치기
-    const REST_API_KEY = "2502d7b7bd98ef898c9d2e3a10cfd6e3"; // 실제 키로 교체해야 합니다.
+  const handleSearch = async () => {
+    // event.preventDefault(); // 폼 전송을 막음
+    const combinedString = `${sido} ${gugun} `;
+    const REST_API_KEY = "2502d7b7bd98ef898c9d2e3a10cfd6e3";
     try {
-      const response = await api.get<AddressSearchResult>( // axios.get으로 수정
+      const response = await api.get<AddressSearchResult>(
         "https://dapi.kakao.com/v2/local/search/address.json",
         {
           headers: {
@@ -84,6 +79,7 @@ export const EnterLocation = () => {
     } catch (error) {
       console.error("Error fetching address data:", error);
     }
+    handleClose();
   };
 
   return (
@@ -129,9 +125,7 @@ export const EnterLocation = () => {
             <Contain>
               {/* 이미지 입력받기 */}
               <Container2>
-                <TitleBox>
-                  예약하기 서비스를 이용하기 위한 주소를 입력해주세요.
-                </TitleBox>
+                <TitleBox>예약하기 서비스를 위한 주소를 입력해주세요.</TitleBox>
                 <ImageForm
                   style={{ justifyContent: "center", alignContent: "center" }}
                 >
@@ -161,7 +155,7 @@ export const EnterLocation = () => {
                   </div>
                 </ImageForm>
                 <EnterImageBtnBox>
-                  <MyPageButton onClick={handleClose}>확인</MyPageButton>
+                  <MyPageButton onClick={handleSearch}>확인</MyPageButton>
                   <MyPageButton onClick={handleClose}>취소</MyPageButton>
                 </EnterImageBtnBox>
               </Container2>
