@@ -1,7 +1,7 @@
 
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
-import { ForgotIdErrorModalAtom, LoginErrorModalAtom, NoteAlarmAtom, RegisterMessageAtom, RegisterModalAtom, SendNoteModalAtom, SogaeResultNoteAtom, findIdCheckIdAtom, findIdModalAtom, findPwModalAtom, idAtom, nameAtom, sendNoteAtom, sendNoteReceiverAtom, sogaetingNoteAtom } from '../../../Recoil/State';
+import { DeleteNoteAtom, ForgotIdErrorModalAtom, LoginErrorModalAtom, NoteAlarmAtom, RegisterMessageAtom, RegisterModalAtom, SendNoteModalAtom, SogaeResultNoteAtom, findIdCheckIdAtom, findIdModalAtom, findPwModalAtom, idAtom, nameAtom, sendNoteAtom, sendNoteIdAtom, sendNoteReceiverAtom, sogaetingNoteAtom } from '../../../Recoil/State';
 import MacBookBox from '../../../components/common/macbookBox';
 import { MyPageButton } from '../MyPage/MyPageStyles';
 import Modal from '@mui/material/Modal';
@@ -474,44 +474,38 @@ export const CheckSogaeNoteModal = () => {
   const [UserId] = useRecoilState(idAtom);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [notereceiver, setReceiver] = useRecoilState(sendNoteReceiverAtom);
+  const [noteId, setNoteId] = useRecoilState(sendNoteIdAtom);
   let temp = { ...sendnote };
   
 
-  const sendUnLoveNote= async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const sendAccept= async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const date = new Date();
-    const dateString = date.toISOString();
-    const updatedMessage: MessageReq = {
-      receiver: notereceiver,
-      sender: temp.sender,
-      subject: temp.subject,
-      content: temp.content,
-      isSogae: temp.isSogae,
-      date:dateString,
-    };
-    console.log(updatedMessage);
     try {
-      const response = await api.post("/note/send", updatedMessage);
+      const response = await api.get(`note/sogae/accept/${noteId}`);
       console.log(response.data);
+      console.log("잘갔군.")
     } catch (error) {
       console.error(error);
     }
   };
-  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleAccpet = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-  
-    // Update temp object
-    if (UserId !== null) {
-      temp.sender = UserId;
+    await sendAccept(e);
+    handleClose();
+  };
+  const sendRefuse= async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    try {
+      const response = await api.get(`note/sogae/refuse/${noteId}`);
+      console.log(response.data);
+      console.log("잘갔군.")
+    } catch (error) {
+      console.error(error);
     }
-    console.log(temp.receiver);
-    console.log(temp.sender);
-    console.log(temp.content);
-    console.log(temp.subject);
-
-    await sendUnLoveNote(e);
-  
+  };
+  const handleRefuse = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    await sendRefuse(e);
     handleClose();
   };
 
@@ -531,38 +525,11 @@ export const CheckSogaeNoteModal = () => {
             color2="#ffffff"
             alignItems='center'
           >
-            <StyledFormContainer>
-              {UserId !== null ? (
-                <NoteQuestion
-                  question="보내는 이"
-                  Id={UserId}
-                />
-              ) : null}
-              {notereceiver !== null ? (
-                <NoteQuestion
-                  question="받는 이"
-                  Id={notereceiver}
-                />
-              ) : null}
-              <Question
-                question="제목"
-                Type="text"
-                Id="subject"
-                placeholder="제목"
-                onChange={(e) => temp.subject = e.target.value}
-              />
-              
-              <TextareaQuestion
-                question="내용"
-                Id="content"
-                placeholder="내용을 입력하세요"
-                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => temp.content = e.target.value}
-              />
-              <StyledButtonContainer>
-                <StyledButton onClick={handleSubmit}>보내기</StyledButton>
-                <StyledButton onClick={handleClose}>취소</StyledButton>
-              </StyledButtonContainer>
-            </StyledFormContainer>
+            <div>
+              소개팅 신청을 수락하겠습니까? 
+            </div>
+                <StyledButton onClick={handleAccpet}>수락</StyledButton>
+                <StyledButton onClick={handleRefuse}>거절</StyledButton>
           </MacBookBox>
         </StyledModalContent>
       </Modal>
@@ -571,7 +538,7 @@ export const CheckSogaeNoteModal = () => {
 }
 
 
-export const LoveNoteModal = () => {
+export const RecentNoteModal = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useRecoilState(NoteAlarmAtom);
 
@@ -611,3 +578,52 @@ export const LoveNoteModal = () => {
   );
 }
 
+export const DeleteNoteModal = () => {
+  const [open, setOpen] = useRecoilState(DeleteNoteAtom);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const [noteId, setNoteId] = useRecoilState(sendNoteIdAtom);
+  
+
+  const sendDelete= async (e: React.MouseEvent<HTMLButtonElement>) => {
+    try {
+      const response = await api.delete(`note/${noteId}`);
+      console.log(response.data);
+      console.log("잘지웠군")
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const handleRemove = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    await sendDelete(e);
+    handleClose();
+    window.location.reload();
+  };
+
+  return (
+    <StyledModalContainer>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <StyledModalContent>
+          <MacBookBox
+            width="100%"
+            height="100%"
+            color1="#bcd3ff"
+            color2="#ffffff"
+            alignItems='center'
+          >
+            <div>
+              쪽지를 정말 삭제하겠습니까? 
+            </div>
+                <StyledButton onClick={handleRemove}>삭제</StyledButton>
+                <StyledButton onClick={handleClose}>취소</StyledButton>
+          </MacBookBox>
+        </StyledModalContent>
+      </Modal>
+    </StyledModalContainer>
+  );
+}
