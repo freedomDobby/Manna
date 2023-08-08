@@ -62,41 +62,15 @@ const Kakao: React.FC = () => {
             setProfileNickname(kakao_account.profile.nickname);
             setAccountEmail(kakao_account.email);
             setGender(kakao_account.gender);
+            console.log(gender);
+            console.log(profileNickname);
+            console.log(accountEmail);
+            
             // console.log(gender);
             //로그인 정보 Post보내기
-            const RegisterUser: RegisterReq = {
-              id: profileNickname,
-              pwd: userInfo.pwd,
-              name: profileNickname,
-              gender: gender,
-              tel: userInfo.tel,
-              birth: userInfo.birth,
-              emailId: accountEmail,
-              emailDomain: userInfo.emailDomain,
-              height: userInfo.height,
-              job: userInfo.job,
-              isSmoker: userInfo.isSmoker,
-              isDrinker: userInfo.isDrinker,
-              mbti: userInfo.mbti,
-              religion: userInfo.religion,
-              introduction: userInfo.introduction,
-              sido: userInfo.sido,
-              gugun: userInfo.gugun,
-              detail: userInfo.detail,
-              latitude: userInfo.latitude,
-              longitude: userInfo.longitude,
-            };
             try {
-              // JSON.stringify(RegisterUser);
-              // console.log(RegisterUser);
-              const response = api.post("/user/regist", RegisterUser);
-              console.log(response);
-              setOpen(true);
             } catch (error) {
-              console.log(RegisterUser);
               console.error(error);
-              setMessage("회원가입이 실패하였습니다.");
-              setOpen(true);
             }
             //   // 로그인이 끝나면 main으로 보내기
             //   // navigate("/main");
@@ -138,7 +112,7 @@ const Kakao: React.FC = () => {
         // border: "1px solid red",
       }}
     >
-      카카오 로그인
+      카카오 연동(두번 눌러주세요)
     </ForgotPasswordLink>
   );
 };

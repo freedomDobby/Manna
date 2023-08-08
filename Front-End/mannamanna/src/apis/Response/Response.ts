@@ -26,14 +26,17 @@ export interface ErrorResponse {
   }
 
   export interface ReceivedNotesRes {
-    ReceivedNotes: Array<{
-      sender: string;
-      receiver: string;
-      title: string;
-      isRead: boolean;
-      isLove: boolean;
+      receiverName: string;
+      senderName: string;
+      receiverId: string;
+      senderId:string;
+      id:number;
       date: string;
-    }>;
+      subject:string;
+      content:string;
+      sogae:boolean;
+      check:boolean;
+      reject:false;
   }
 
 

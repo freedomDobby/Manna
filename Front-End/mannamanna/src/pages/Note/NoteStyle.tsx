@@ -161,6 +161,14 @@ const NotePart = styled.div`
   width: 80%;
   height: 80%;
 `;
+const NoteTitle = styled.div`
+  width: 100%;
+  height: 15%;
+`
+const NoteDetail = styled.div`
+  width: 100%;
+  height: 85%;
+`
 const NoteFootBar = styled.div`
   border-top: 1px solid black;
   // background-color: red;
@@ -198,4 +206,6 @@ export {
   NotePart,
   Info,
   NoteButton,
+NoteTitle,NoteDetail
+
 };

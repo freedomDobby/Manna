@@ -1,34 +1,51 @@
 import { useQuery } from "@tanstack/react-query";
-// import React from 'react';
 import { useRecoilState } from "recoil";
-import { idAtom } from "../../Recoil/State";
-import { ReceivedNotesRes } from "../../apis/Response/Response";
+import { SendNoteModalAtom, idAtom } from "../../Recoil/State";
 import api from "../../apis/Api";
 import { NoteContainer, SendContainer } from "./NoteStyle";
-import NoteBody from "./NoteComponent/NoteBody";
+import { ReceivedNotesRes } from "../../apis/Response/Response";
+import { RequestNoteBody } from "./NoteComponent/NoteBody";
 
 const RequestNote = () => {
-  const [Userid, setId] = useRecoilState(idAtom);
+  const [userId, setId] = useRecoilState(idAtom);
+  const handleRemove = () => {
+    // Remove 로직 구현
+  };
 
-  const receivedntnote = useQuery<ReceivedNotesRes>(
-    ["receivedntnote"],
+  const handleCheck = () => {
+    // Check 로직 구현
+  };
+  // React Query 사용
+  const { data: receivedNoteList, isLoading, isError } = useQuery<ReceivedNotesRes[]>(
+    ["receivedNote"],
     async () => {
-      const response = await api.get("/note/received/", {
-        params: {
-          id: Userid,
-        },
-      });
+      const response = await api.get(`note/sent/${userId}`);
       return response.data;
     }
   );
 
-  if (receivedntnote.data) {
-    const checknoteResult = receivedntnote.data;
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (isError) {
+    return <p>Error occurred while fetching data</p>;
   }
 
   return (
     <SendContainer>
-      <NoteBody comment={"보낸쪽지"} To={"김우빈"}></NoteBody>
+      {receivedNoteList.reverse().map((note, index) => (
+        <RequestNoteBody
+                key={index}
+                comment="보낸 쪽지"
+                To={note.receiverName} 
+                Title={note.subject}
+                Note={note.content}
+                Remove={handleRemove}
+                Check={handleCheck}
+                
+              />
+      ))}
     </SendContainer>
   );
 };

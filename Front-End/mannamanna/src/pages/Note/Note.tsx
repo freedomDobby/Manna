@@ -5,7 +5,7 @@ import BackBox from "../../components/common/Back";
 import { MyPageContainerBox } from "../User/MyPage/MyPageStyle";
 import { Outlet, useNavigate } from "react-router-dom";
 import { StyledButton } from "../User/Login/LoginStyle";
-import { SendNoteModalAtom } from "../../Recoil/State";
+import { SendNoteModalAtom, idAtom } from "../../Recoil/State";
 import { useRecoilState } from "recoil";
 import { FalseNoteModal } from "../User/ForgotIdPw/ForgotIdStyles";
 import {
@@ -21,7 +21,9 @@ import {
   SidePart,
   BtnBox,
 } from "./NoteStyle";
+import api from "../../apis/Api";
 const Note = () => {
+  const [userId, setId] = useRecoilState(idAtom);
   const navigate = useNavigate();
   const GoRequestNote = () => {
     navigate("/note/requestNote");
@@ -30,11 +32,7 @@ const Note = () => {
     navigate("/note");
   };
 
-  const [open, setOpen] = useRecoilState(SendNoteModalAtom);
 
-  const handleOpenNoteModal = () => {
-    setOpen(true);
-  };
 
   return (
     <div>
@@ -51,6 +49,7 @@ const Note = () => {
             <KeySelectPart>
               <NoteBtn onClick={GoResponseNote}>받은 쪽지</NoteBtn>
               <NoteBtn onClick={GoRequestNote}>보낸 쪽지</NoteBtn>
+              
               <SearchPart>
                 <SearchInput type="text" placeholder="검색어를 입력해주세요." />
                 <BtnBox>
@@ -58,7 +57,6 @@ const Note = () => {
                   <SearchBtn>이름</SearchBtn>
                 </BtnBox>
               </SearchPart>
-              <NoteBtn onClick={handleOpenNoteModal}>쪽지보내기</NoteBtn>
             </KeySelectPart>
             <KeyMainPart>
               <Outlet />

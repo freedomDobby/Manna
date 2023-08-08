@@ -78,6 +78,11 @@ export const genderAtom = atom<string | null>({
   },
 });
 
+export const sendNoteReceiverAtom = atom<string>({
+  key: 'sendNoteReceiverAtom', 
+  default:'',
+});
+
 export const sogaetingNoteAtom = atom<SogaetingReq>({
   key: 'sogaetingNoteAtom', 
   default: {
@@ -87,6 +92,10 @@ export const sogaetingNoteAtom = atom<SogaetingReq>({
   },
 });
 
+export const sogaetingNoteReceiverAtom = atom<string>({
+  key: 'sogaetingNoteReceiverAtom', 
+  default:'',
+});
   // 이메일 
   
   export const findEmailNameAtom = atom<string>({
@@ -148,5 +157,10 @@ export const sogaetingNoteAtom = atom<SogaetingReq>({
 
   export const NoteAlarmAtom=atom<boolean>({
     key: 'NoteAlarmAtom',
+    default: false,
+  });
+
+  export const SogaeResultNoteAtom=atom<boolean>({
+    key: 'SogaeResultNoteAtom',
     default: false,
   });

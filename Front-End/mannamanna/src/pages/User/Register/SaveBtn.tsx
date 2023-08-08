@@ -2,6 +2,8 @@ import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
   RegisterDataState,
+  account_emailState,
+  genderState,
   latitudeState,
   longitudeState,
   profilePicture1State,
@@ -47,24 +49,33 @@ const Save = () => {
   const userGuGun = useRecoilValue(userGuGunState);
   const userAddressDetail = useRecoilValue(userAddressDetailState);
   const [userInfo] = useRecoilState(RegisterDataState);
+<<<<<<< Front-End/mannamanna/src/pages/User/Register/SaveBtn.tsx
+
+  const [profilePicture1, setprofilePicture1] = useRecoilState(
+    profilePicture1State
+  );
+  const [profilePicture2, setprofilePicture2] = useRecoilState(
+    profilePicture2State
+  );
+  const [profilePicture3, setprofilePicture3] = useRecoilState(
+    profilePicture3State
+  );
+  const [accountEmail] = useRecoilState(account_emailState);
+  const [UserEmailId, Userdomain] = accountEmail.split('@');
+  const [gender, setGender] = useRecoilState(genderState);
   const [latitude, setlatitude] = useRecoilState(latitudeState);
   const [longitude, setlongitude] = useRecoilState(longitudeState);
-  const [profilePicture1, setprofilePicture1] =
-    useRecoilState(profilePicture1State);
-  const [profilePicture2, setprofilePicture2] =
-    useRecoilState(profilePicture2State);
-  const [profilePicture3, setprofilePicture3] =
-    useRecoilState(profilePicture3State);
+  
 
   const RegisterUser: RegisterReq = {
     id: userId,
     pwd: userPwd,
     name: userName,
-    gender: userInfo.gender, //api => 자체회원가입땐 없어.
+    gender: gender, //api => 자체회원가입땐 없어.
     tel: userTel,
     birth: userAge,
-    emailId: userId, //api
-    emailDomain: userInfo.emailDomain, //api
+    emailId: UserEmailId, //api
+    emailDomain: Userdomain, //api
     height: userHeight,
     job: userJob,
     mbti: userMbti,
@@ -86,22 +97,17 @@ const Save = () => {
     });
     return obj;
   }
-  const imageToBase64 = async (file: File) => {
-    return new Promise<string>((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        resolve(event.target?.result as string);
-      };
-      reader.onerror = (error) => {
-        reject(error);
-      };
-      reader.readAsDataURL(file);
-    });
-  };
+
   const [open, setOpen] = useRecoilState(RegisterModalAtom);
   const [message, setMessage] = useRecoilState(RegisterMessageAtom);
   const SaveInfo = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+    console.log(gender);
+    console.log(UserEmailId);
+    console.log(gender);
+    
+    
+
 
     if (userPwd === userPwdCheck) {
       try {
@@ -124,11 +130,10 @@ const Save = () => {
         console.log("FormData:", formDataToObject(formdata));
         const response = await api.post("/user/regist", formdata, {
           headers: {
-            "Content-type": "multipart/form-data", 
+            "Content-type": "multipart/form-data", // Set the correct content type
           },
         });
-        console.log(response.data);
-        await setMessage("회원가입이 성공하였습니다.");
+        console.log(response.data.data);
         setOpen(true);
       } catch (error) {
         console.error(error);
