@@ -61,3 +61,12 @@ export interface SogaetingReq {
   sender: string;
   date: string;
 }
+
+interface SogaetingFilterReq {
+  memberId: string;
+  gender: string;
+  mbti?: string | null;
+  religion?: string | null;
+  isDrinker: boolean | null;
+  isSmoker: boolean | null;
+}

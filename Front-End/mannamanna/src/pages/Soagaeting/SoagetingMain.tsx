@@ -31,6 +31,8 @@ const SoagetingFilter = () => {
   const handleNoteModal = () => {
     setNoteOpen(true);
   };
+
+  
   
   return (
     <div>

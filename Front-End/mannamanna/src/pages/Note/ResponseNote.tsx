@@ -15,7 +15,7 @@ const ResponseNote = () => {
         const [DeleteOpen, setDeleteOpen] = useRecoilState(DeleteNoteAtom);
         const [receiver, setReceiver] = useRecoilState(sendNoteReceiverAtom);
         const [noteId, setNoteId] = useRecoilState(sendNoteIdAtom);
-           const handleRemove = (NoteId:number) => { 
+           const handleRemove = (NoteId:number) => {
             setNoteId(NoteId);
             setDeleteOpen(true);
           };
@@ -36,7 +36,6 @@ const ResponseNote = () => {
           ["receivedNote"],
           async () => {
             const response = await api.get(`note/received/${userId}`);
-            console.log(response.data);
             return response.data;
           }
         );
