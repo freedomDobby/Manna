@@ -1,6 +1,7 @@
 import styled from 'styled-components'
+import { MyPagePictures } from '../../pages/User/MyPage/MyPageStyles';
 
-const ProFile = styled.div`
+const ProFileStyle = styled.div`
     width: 75px;
     height: 75px;
     background : black;
@@ -12,10 +13,9 @@ const ProFile = styled.div`
 
 function Profile(){
     return(
-        <div>
-            <ProFile>
-            </ProFile>
-        </div>
+            <ProFileStyle>
+                <MyPagePictures/>
+            </ProFileStyle>
     );
 }
 
