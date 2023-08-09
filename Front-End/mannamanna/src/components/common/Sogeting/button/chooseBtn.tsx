@@ -8,6 +8,7 @@ const ChooseBtn = styled.div`
   border-radius: 6vw;
   text-align: center;
   line-height: 3vh;
+  cursor: pointer;
   //   color: #f8e3ea;
   //   font-weight: bolder;
   -webkit-text-stroke: 0.2px #ffcced;

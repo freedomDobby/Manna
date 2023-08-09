@@ -45,7 +45,7 @@ const SoagetingFilter = () => {
             }
           >
             <p>
-              소개팅~~
+              소개팅
               <br />
               추천
             </p>
@@ -115,9 +115,10 @@ const SoagetingFilter = () => {
           </Font1>
           <Btn1 />
         </div>
-          <div>
-         <StyledButton onClick={handleOpenNoteModal}>소개팅 신청</StyledButton>    {/* 임시 확인용 */}
-          </div>
+        <div>
+          <StyledButton onClick={handleOpenNoteModal}>소개팅 신청</StyledButton>{" "}
+          {/* 임시 확인용 */}
+        </div>
         <div
           style={{
             // border: `solid 1px orange`,
@@ -183,5 +184,5 @@ const SoagetingFilter = () => {
     </div>
   );
 };
-
+//지울 문장
 export default SoagetingFilter;

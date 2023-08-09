@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { JavaScriptKey } from "../../pages/User/Login/ApiKey";
 
 declare global {
   interface Window {
@@ -15,9 +16,10 @@ const KakaoMap: React.FC = () => {
     const script = document.createElement("script");
     script.src = `//dapi.kakao.com/v2/maps/sdk.js`;
     script.async = true;
+    const apiKey = JavaScriptKey;
 
     script.onload = () => {
-      window.Kakao.init("dd25fb1ab1355cc42fcc658c13182ed6"); // Replace with your Kakao App Key
+      window.Kakao.init(apiKey); // Replace with your Kakao App Key
       if (window.kakao && window.kakao.maps) {
         const container = document.getElementById("map");
         const { LatLng, Map } = window.kakao.maps; // 명시적으로 객체 가져오기

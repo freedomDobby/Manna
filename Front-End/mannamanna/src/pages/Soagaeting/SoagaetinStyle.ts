@@ -42,14 +42,15 @@ const UnderBar = styled.div`
   //     border-top-left-radius: 1.5vw;
   //   }
 
-  ${Profile}:hover & {
-    display: none;
-  }
+  // ${Profile}:hover & {
+  //   display: none;
+  // }
 `;
 
 const DetailProfile = styled.div`
+  // border: 1px solid red;
   border-radius: 1.5vw;
-  height: 40vh;
+  height: 33%;
   position: absolute;
   width: 20vw;
   background-color: rgba(255, 255, 255, 0.3);
@@ -66,8 +67,9 @@ const DetailProfile = styled.div`
 `;
 
 const DetailText = styled.div`
+  // border: 1px solid red;
   border-radius: 1.5vw;
-  height: 27vh;
+  height: 60%;
   width: 13vw;
   background-color: rgba(0, 0, 0, 0.6);
   color: white;
@@ -94,10 +96,10 @@ export {
   DetailProfile,
 };
 
-
 export const ImageContainer = styled.div`
+  // border: 1px solid red;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top:3vh;
+  margin-top: 3vh;
 `;

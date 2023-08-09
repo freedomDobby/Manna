@@ -10,11 +10,14 @@ const BtnContainer = styled.div`
   justify-content: space-around;
   align-items: center;
 `;
+const ClickCheck = () => {
+  console.log("dd");
+};
 
 const BtnBox = () => {
   return (
     <BtnContainer>
-      <ChooseBtn>신청</ChooseBtn>
+      <ChooseBtn onClick={ClickCheck}>신청</ChooseBtn>
       <ChooseBtn>신고</ChooseBtn>
       <ChooseBtn>쪽지</ChooseBtn>
     </BtnContainer>
