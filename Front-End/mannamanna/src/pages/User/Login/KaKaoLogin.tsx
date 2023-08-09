@@ -12,6 +12,7 @@ import {
 // import { useNavigate } from "react-router-dom";
 import { RegisterReq } from "../../../apis/Request/Request";
 import { RegisterMessageAtom, RegisterModalAtom } from "../../../Recoil/State";
+import { JavaScriptKey } from "./ApiKey";
 
 declare global {
   interface Window {
@@ -39,9 +40,10 @@ const Kakao: React.FC = () => {
     const script = document.createElement("script");
     script.src = "https://developers.kakao.com/sdk/js/kakao.js";
     script.async = true;
+    const apiKey = JavaScriptKey;
 
     script.onload = () => {
-      window.Kakao.init("dd25fb1ab1355cc42fcc658c13182ed6"); // Replace with your Kakao App Key
+      window.Kakao.init(apiKey); // Replace with your Kakao App Key
       setIsKakaoInitialized(true);
     };
 
@@ -65,7 +67,7 @@ const Kakao: React.FC = () => {
             console.log(gender);
             console.log(profileNickname);
             console.log(accountEmail);
-            
+
             // console.log(gender);
             //로그인 정보 Post보내기
             try {

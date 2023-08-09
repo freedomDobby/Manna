@@ -7,6 +7,7 @@ import {
 } from "../RegisterState";
 import { useRecoilState } from "recoil";
 import { type } from "os";
+import { RestKey } from "../../Login/ApiKey";
 
 interface AddressSearchResult {
   documents: {
@@ -30,7 +31,7 @@ export const LocalApi = () => {
 
   const handleSearch = async (event: any) => {
     event.preventDefault();
-    const REST_API_KEY = "2502d7b7bd98ef898c9d2e3a10cfd6e3"; // 실제 키로 교체해야 합니다.
+    const REST_API_KEY = RestKey; // 실제 키로 교체해야 합니다.
     try {
       const response = await api.get<AddressSearchResult>(
         "https://dapi.kakao.com/v2/local/search/address.json",
