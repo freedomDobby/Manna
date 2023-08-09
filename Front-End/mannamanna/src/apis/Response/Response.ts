@@ -39,6 +39,21 @@ export interface ErrorResponse {
       reject:false;
   }
 
+  
+  export interface SogaetingFilterRes {
+    id: string;
+    name: string;
+    birth: string;
+    sido: string;
+    mbti: string;
+    religion: string;
+    introduction: string;
+    isSmoke: boolean;
+    isDrink: boolean;
+    isOnline: boolean;
+    pictureURLs: string[];
+}
+
 
   export interface SentNotesRes {
     SentNote: Array<{
