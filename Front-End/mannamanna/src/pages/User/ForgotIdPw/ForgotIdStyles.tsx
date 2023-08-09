@@ -1,7 +1,7 @@
 
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
-import { DeleteNoteAtom, ForgotIdErrorModalAtom, LoginErrorModalAtom, NoteAlarmAtom, RegisterMessageAtom, RegisterModalAtom, SendNoteModalAtom, SogaeResultNoteAtom, findIdCheckIdAtom, findIdModalAtom, findPwModalAtom, idAtom, nameAtom, sendNoteAtom, sendNoteIdAtom, sendNoteReceiverAtom, sogaetingNoteAtom } from '../../../Recoil/State';
+import { DeleteNoteAtom, ForgotIdErrorModalAtom, LoginErrorModalAtom, NoteAlarmAtom, RegisterMessageAtom, RegisterModalAtom, SendNoteModalAtom, SogaeNoteModalAtom, SogaeResultNoteAtom, findIdCheckIdAtom, findIdModalAtom, findPwModalAtom, idAtom, nameAtom, sendNoteAtom, sendNoteIdAtom, sendNoteReceiverAtom, sogaetingNoteAtom } from '../../../Recoil/State';
 import MacBookBox from '../../../components/common/macbookBox';
 import { MyPageButton } from '../MyPage/MyPageStyles';
 import Modal from '@mui/material/Modal';
@@ -13,6 +13,7 @@ import { Answer, AnswerBox, SmallInput, SmallInputBox } from '../Register/Regist
 import { Question } from '../Register/AnswerBox';
 import { MessageReq, SogaetingReq } from '../../../apis/Request/Request';
 import api from '../../../apis/Api';
+import {NoteModalContent} from '../../Note/NoteStyle'
 
 export const FindidModal = () => {
 
@@ -365,7 +366,7 @@ export const TrueNoteModal = () => {
   
     return `${year}년 ${month}월 ${day}일 ${hours}시 ${minutes}분`;
   }
-  const [open, setOpen] = useRecoilState(SendNoteModalAtom);
+  const [open, setOpen] = useRecoilState(SogaeNoteModalAtom);
   const [sendnote, Setsendnote] = useRecoilState(sogaetingNoteAtom);
   const [UserId] = useRecoilState(idAtom);
   const handleOpen = () => setOpen(true);
@@ -404,8 +405,6 @@ export const TrueNoteModal = () => {
     console.log(temp.receiver);
     console.log(temp.sender);
     console.log(temp.date);
-
-    await sendUnLoveNote(e);
   
     handleClose();
   };
@@ -517,7 +516,7 @@ export const CheckSogaeNoteModal = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <StyledModalContent>
+        <NoteModalContent>
           <MacBookBox
             width="100%"
             height="100%"
@@ -531,7 +530,7 @@ export const CheckSogaeNoteModal = () => {
                 <StyledButton onClick={handleAccpet}>수락</StyledButton>
                 <StyledButton onClick={handleRefuse}>거절</StyledButton>
           </MacBookBox>
-        </StyledModalContent>
+        </NoteModalContent>
       </Modal>
     </StyledModalContainer>
   );

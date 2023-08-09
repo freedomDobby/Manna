@@ -67,7 +67,6 @@ const Note = () => {
         </MidPart>
         <SidePart />
       </BackPart>
-      <FalseNoteModal />
     </div>
   );
 };

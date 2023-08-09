@@ -25,6 +25,10 @@ const initialValue = dayjs();
 
 function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[] }) {
   const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
+  const handleDayClick = () => {
+    const nextDay = day.add(1, 'day'); 
+    console.log('Clicked Day:', nextDay.toString());
+  };
   const isCurrentDate = dayjs().isSame(day, 'day'); 
   const isSelected =
     !props.outsideCurrentMonth && highlightedDays.indexOf(props.day.date()) >= 0;
@@ -50,6 +54,7 @@ function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[] 
         borderRadius: '85%', 
        
       }}
+      onClick={handleDayClick}
     >
       <PickersDay {...other} outsideCurrentMonth={outsideCurrentMonth} day={day} />
     </Badge>
