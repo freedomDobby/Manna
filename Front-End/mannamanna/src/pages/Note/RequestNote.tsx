@@ -16,13 +16,14 @@ const RequestNote = () => {
     // Check 로직 구현
   };
   // React Query 사용
-  const { data: receivedNoteList, isLoading, isError } = useQuery<ReceivedNotesRes[]>(
-    ["receivedNote"],
-    async () => {
-      const response = await api.get(`note/sent/${userId}`);
-      return response.data;
-    }
-  );
+  const {
+    data: receivedNoteList,
+    isLoading,
+    isError,
+  } = useQuery<ReceivedNotesRes[]>(["receivedNote"], async () => {
+    const response = await api.get(`note/sent/${userId}`);
+    return response.data;
+  });
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -36,15 +37,14 @@ const RequestNote = () => {
     <SendContainer>
       {receivedNoteList.reverse().map((note, index) => (
         <RequestNoteBody
-                key={index}
-                comment="보낸 쪽지"
-                To={note.receiverName} 
-                Title={note.subject}
-                Note={note.content}
-                Remove={handleRemove}
-                Check={handleCheck}
-                
-              />
+          key={index}
+          comment="보낸 쪽지"
+          To={note.receiverName}
+          Title={note.subject}
+          Note={note.content}
+          Remove={handleRemove}
+          // Check={handleCheck}
+        />
       ))}
     </SendContainer>
   );

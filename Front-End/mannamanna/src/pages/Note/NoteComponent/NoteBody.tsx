@@ -9,19 +9,35 @@ import {
   Info,
   NoteButton,
   NoteTitle,
-  NoteDetail
+  NoteDetail,
 } from "../NoteStyle";
 
-interface NoteBodyProps {
+interface RequestNoteBodyProps {
   comment: string;
   To: string;
   Title: string;
   Note: string;
-  Remove: ()=> void;
-  Check: ()=> void;
+  Remove: () => void;
+  // Check: () => void;
 }
 
-export const RequestNoteBody: React.FC<NoteBodyProps> = ({ comment, To,Title,Note,Remove, Check }) => {
+interface ResponsetNoteProps {
+  comment: string;
+  To: string;
+  Title: string;
+  Note: string;
+  Remove: () => void;
+  Check: () => void;
+}
+
+export const RequestNoteBody: React.FC<RequestNoteBodyProps> = ({
+  comment,
+  To,
+  Title,
+  Note,
+  Remove,
+  // Check,
+}) => {
   // NoteBodyProps를 React.FC로 사용하고, comment를 구조분해하여 사용합니다.
   return (
     <NoteContainer>
@@ -37,15 +53,20 @@ export const RequestNoteBody: React.FC<NoteBodyProps> = ({ comment, To,Title,Not
       </NoteMidBar>
       <NoteFootBar>
         <NoteButton onClick={Remove}>삭제하기</NoteButton>
-        <NoteButton onClick={Check}>답장하기</NoteButton>
+        {/* <NoteButton onClick={Check}>답장하기</NoteButton> */}
       </NoteFootBar>
     </NoteContainer>
   );
 };
 
-
-
-export const ResponsetNoteBody: React.FC<NoteBodyProps> = ({ comment, To,Title,Note,Remove, Check}) => {
+export const ResponsetNoteBody: React.FC<ResponsetNoteProps> = ({
+  comment,
+  To,
+  Title,
+  Note,
+  Remove,
+  Check,
+}) => {
   // NoteBodyProps를 React.FC로 사용하고, comment를 구조분해하여 사용합니다.
   return (
     <NoteContainer>
