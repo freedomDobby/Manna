@@ -36,6 +36,7 @@ const ResponseNote = () => {
           ["receivedNote"],
           async () => {
             const response = await api.get(`note/received/${userId}`);
+            console.log(response.data);
             return response.data;
           }
         );

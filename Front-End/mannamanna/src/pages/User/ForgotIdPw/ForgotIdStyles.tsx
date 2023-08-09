@@ -13,6 +13,7 @@ import { Answer, AnswerBox, SmallInput, SmallInputBox } from '../Register/Regist
 import { Question } from '../Register/AnswerBox';
 import { MessageReq, SogaetingReq } from '../../../apis/Request/Request';
 import api from '../../../apis/Api';
+import {NoteModalContent} from '../../Note/NoteStyle'
 
 export const FindidModal = () => {
 
@@ -515,7 +516,7 @@ export const CheckSogaeNoteModal = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <StyledModalContent>
+        <NoteModalContent>
           <MacBookBox
             width="100%"
             height="100%"
@@ -529,7 +530,7 @@ export const CheckSogaeNoteModal = () => {
                 <StyledButton onClick={handleAccpet}>수락</StyledButton>
                 <StyledButton onClick={handleRefuse}>거절</StyledButton>
           </MacBookBox>
-        </StyledModalContent>
+        </NoteModalContent>
       </Modal>
     </StyledModalContainer>
   );
