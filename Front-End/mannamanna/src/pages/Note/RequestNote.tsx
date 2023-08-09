@@ -10,7 +10,8 @@ import api from "../../apis/Api";
 import { NoteContainer, SendContainer } from "./NoteStyle";
 import { ReceivedNotesRes } from "../../apis/Response/Response";
 import { RequestNoteBody } from "./NoteComponent/NoteBody";
-import { DeleteNoteModal } from "../User/ForgotIdPw/ForgotIdStyles";
+import { RecentNoteModal } from "../User/ForgotIdPw/ForgotIdStyles";
+import { DeleteNoteModal } from "./Modal/DeleteNoteModal";
 
 const RequestNote = () => {
   const [userId, setId] = useRecoilState(idAtom);
@@ -34,8 +35,6 @@ const RequestNote = () => {
     return response.data;
   });
 
-  
-
   if (isLoading) {
     return <p>Loading...</p>;
   }
@@ -56,7 +55,7 @@ const RequestNote = () => {
           Remove={() => handleRemove(note.id)}
         />
       ))}
-      <DeleteNoteModal></DeleteNoteModal>
+      <DeleteNoteModal />
     </SendContainer>
   );
 };

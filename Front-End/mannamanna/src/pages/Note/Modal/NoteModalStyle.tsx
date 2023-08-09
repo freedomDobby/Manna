@@ -1,5 +1,54 @@
 import styled from "styled-components";
+/////////////////삭제모달
 
+const RemoveModalContent = styled.div`
+  border-radius: 6%;
+  background: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 23vw;
+  height: 50%;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const RemoveModalContainer = styled.div`
+  // border: 1px solid red
+  // background-color: red;
+  width: 25%;
+`;
+
+const RemoveProfileContainer = styled.div`
+  // border: 1px solid red;
+  width: 100%;
+  height: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // margin-top: 3%;
+`;
+
+const RemoveInfoContainer = styled.div`
+  // border: 1px solid green;
+  width: 100%;
+  height: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center; // 쪽지삭제땐 없어야함
+`;
+const RemoveBtnContainer = styled.div`
+  // border: 1px solid green;
+  width: 100%;
+  height: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+//////////////////////////////////////////////////////////////////////
 const ModalContent = styled.div`
   border-radius: 5%;
   background: white;
@@ -26,7 +75,7 @@ const ProfileContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 3%;
+  // margin-top: 3%;
 `;
 
 const ProfileBox = styled.div`
@@ -36,9 +85,12 @@ const ProfileBox = styled.div`
   border-radius: 50%;
 `;
 const InfoContainer = styled.div`
-  border: 1px solid green;
+  // border: 1px solid green;
   width: 100%;
   height: 55%;
+  display: flex;
+  justify-content: center;
+  // align-items: center; // 쪽지삭제땐 없어야함
 `;
 const BtnContainer = styled.div`
   // border: 1px solid green;
@@ -46,7 +98,7 @@ const BtnContainer = styled.div`
   height: 15%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: top;
 `;
 
 export {
@@ -56,4 +108,9 @@ export {
   InfoContainer,
   BtnContainer,
   ProfileBox,
+  RemoveModalContent,
+  RemoveModalContainer,
+  RemoveProfileContainer,
+  RemoveInfoContainer,
+  RemoveBtnContainer,
 };
