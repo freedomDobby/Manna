@@ -18,6 +18,13 @@ const SidePart = styled.div`
   width: 15%;
 `;
 
+const NoteLogoBox = styled.div`
+  border: solid 1px black;
+  height: 10%;
+  width: 100%;
+  // background-image: url("");
+`;
+
 const MidPart = styled.div`
   // border: solid 1px blue;
   // background-color: green;
@@ -106,13 +113,15 @@ const NoteBtn = styled.button`
   }
 `;
 const KeyMainPart = styled.div`
-  border: solid 1px red;
+  // border: solid 3px red;
   width: 100%;
   height: 88%;
+  overflow-y: auto;
+  overflow-x: hidden;
 `;
 ////////////////////////////////보낸쪽지///////////////////////////////////////
 const SendContainer = styled.div`
-  border: 1px solid blue;
+  // border: 1px solid blue;
   width: 100%;
   height: 100%;
   display: flex;
@@ -120,7 +129,7 @@ const SendContainer = styled.div`
   flex-wrap: wrap;
 `;
 const NoteContainer = styled.div`
-  border: 2px solid black;
+  border: 3px solid black;
   width: 30%;
   height: 40%;
   margin-top: 1.5%;
@@ -158,17 +167,17 @@ const NoteMidBar = styled.div`
 `;
 const NotePart = styled.div`
   border: 1px solid black;
-  width: 80%;
+  width: 90%;
   height: 80%;
 `;
 const NoteTitle = styled.div`
   width: 100%;
   height: 15%;
-`
+`;
 const NoteDetail = styled.div`
   width: 100%;
   height: 85%;
-`
+`;
 const NoteFootBar = styled.div`
   border-top: 1px solid black;
   // background-color: red;
@@ -183,21 +192,6 @@ const NoteButton = styled.button`
   height: 90%;
   margin-left: 1%;
   margin-right: 3%;
-`;
-///////////////////////////////////답장하기 모달/////////////////////////////////
-const  NoteModalContent = styled.div`
-border-radius: 5%;
-background: white;
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-width: 30vw;
-height: 70%;
-flex-direction: column;
-display: flex;
-justify-content: center;
-align-items: center;
 `;
 
 export {
@@ -221,6 +215,6 @@ export {
   NotePart,
   Info,
   NoteButton,
-NoteTitle,NoteDetail,NoteModalContent
-
+  NoteTitle,
+  NoteDetail,
 };

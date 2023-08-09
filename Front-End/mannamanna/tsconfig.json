@@ -1,11 +1,8 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "types": ["kakao.maps.d.ts"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -20,10 +17,8 @@
     "noEmit": true,
     "jsx": "react-jsx",
     /* Linting */
-   "noUnusedLocals": false,
-   "noUnusedParameters": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

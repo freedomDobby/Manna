@@ -20,6 +20,7 @@ import {
   SearchPart,
   SidePart,
   BtnBox,
+  // NoteLogoBox,
 } from "./NoteStyle";
 import api from "../../apis/Api";
 const Note = () => {
@@ -32,8 +33,6 @@ const Note = () => {
     navigate("/note");
   };
 
-
-
   return (
     <div>
       <div
@@ -43,13 +42,15 @@ const Note = () => {
         }}
       />
       <BackPart>
-        <SidePart />
+        <SidePart style={{ border: "1px solid red" }}>
+          {/* <NoteLogoBox></NoteLogoBox> */}
+        </SidePart>
         <MidPart>
           <KeyPart>
             <KeySelectPart>
               <NoteBtn onClick={GoResponseNote}>받은 쪽지</NoteBtn>
               <NoteBtn onClick={GoRequestNote}>보낸 쪽지</NoteBtn>
-              
+
               <SearchPart>
                 <SearchInput type="text" placeholder="검색어를 입력해주세요." />
                 <BtnBox>
@@ -58,6 +59,7 @@ const Note = () => {
                 </BtnBox>
               </SearchPart>
             </KeySelectPart>
+
             <KeyMainPart>
               <Outlet />
             </KeyMainPart>
