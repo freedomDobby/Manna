@@ -1,7 +1,7 @@
 
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
-import { DeleteNoteAtom, ForgotIdErrorModalAtom, LoginErrorModalAtom, NoteAlarmAtom, RegisterMessageAtom, RegisterModalAtom, SendNoteModalAtom, SogaeResultNoteAtom, findIdCheckIdAtom, findIdModalAtom, findPwModalAtom, idAtom, nameAtom, sendNoteAtom, sendNoteIdAtom, sendNoteReceiverAtom, sogaetingNoteAtom } from '../../../Recoil/State';
+import { DeleteNoteAtom, ForgotIdErrorModalAtom, LoginErrorModalAtom, NoteAlarmAtom, RegisterMessageAtom, RegisterModalAtom, SendNoteModalAtom, SogaeNoteModalAtom, SogaeResultNoteAtom, findIdCheckIdAtom, findIdModalAtom, findPwModalAtom, idAtom, nameAtom, sendNoteAtom, sendNoteIdAtom, sendNoteReceiverAtom, sogaetingNoteAtom } from '../../../Recoil/State';
 import MacBookBox from '../../../components/common/macbookBox';
 import { MyPageButton } from '../MyPage/MyPageStyles';
 import Modal from '@mui/material/Modal';
@@ -365,7 +365,7 @@ export const TrueNoteModal = () => {
   
     return `${year}년 ${month}월 ${day}일 ${hours}시 ${minutes}분`;
   }
-  const [open, setOpen] = useRecoilState(SendNoteModalAtom);
+  const [open, setOpen] = useRecoilState(SogaeNoteModalAtom);
   const [sendnote, Setsendnote] = useRecoilState(sogaetingNoteAtom);
   const [UserId] = useRecoilState(idAtom);
   const handleOpen = () => setOpen(true);
@@ -404,8 +404,6 @@ export const TrueNoteModal = () => {
     console.log(temp.receiver);
     console.log(temp.sender);
     console.log(temp.date);
-
-    await sendUnLoveNote(e);
   
     handleClose();
   };
