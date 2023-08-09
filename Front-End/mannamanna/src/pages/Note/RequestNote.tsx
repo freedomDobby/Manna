@@ -21,13 +21,14 @@ const RequestNote = () => {
     // Check 로직 구현
   };
   // React Query 사용
-  const { data: receivedNoteList, isLoading, isError } = useQuery<ReceivedNotesRes[]>(
-    ["receivedNote"],
-    async () => {
-      const response = await api.get(`note/sent/${userId}`);
-      return response.data;
-    }
-  );
+  const {
+    data: receivedNoteList,
+    isLoading,
+    isError,
+  } = useQuery<ReceivedNotesRes[]>(["receivedNote"], async () => {
+    const response = await api.get(`note/sent/${userId}`);
+    return response.data;
+  });
 
   if (isLoading) {
     return <p>Loading...</p>;
