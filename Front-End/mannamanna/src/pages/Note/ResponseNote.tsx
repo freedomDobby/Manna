@@ -72,8 +72,8 @@ const ResponseNote = () => {
           Check={() => handleCheck(note.senderId, note.sogae, note.id)}
         />
       ))}
-      <FalseNoteModal></FalseNoteModal>
-      <CheckSogaeNoteModal />
+      <FalseNoteModal />
+      {/* <CheckSogaeNoteModal /> */}
       <DeleteNoteModal />
     </SendContainer>
   );

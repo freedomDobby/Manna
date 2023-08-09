@@ -89,9 +89,36 @@ const InfoContainer = styled.div`
   width: 100%;
   height: 55%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   // align-items: center; // 쪽지삭제땐 없어야함
 `;
+
+//이름 담는 큰 컨테이너
+const NameInfo = styled.div`
+  border: 1px silid black;
+  width: 100%;
+  height: 25%;
+`;
+// 키, 나이
+const Info1 = styled.div`
+  border: 1px silid black;
+  width: 100%;
+  height: 25%;
+`;
+//직업 mbti
+const Info2 = styled.div`
+  border: 1px silid black;
+  width: 100%;
+  height: 25%;
+`;
+//자기소개
+const SelfPrInfo = styled.div`
+  border: 1px silid black;
+  width: 100%;
+  height: 25%;
+`;
+
 const BtnContainer = styled.div`
   // border: 1px solid green;
   width: 100%;
@@ -113,4 +140,8 @@ export {
   RemoveProfileContainer,
   RemoveInfoContainer,
   RemoveBtnContainer,
+  NameInfo,
+  Info1,
+  Info2,
+  SelfPrInfo,
 };
