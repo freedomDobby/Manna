@@ -161,6 +161,13 @@ export const sogaetingNoteReceiverAtom = atom<string>({
     default: false,
   });
 
+  export const SogaeNoteModalAtom=atom<boolean>({
+    key: 'SogaeNoteModalAtom',
+    default: false,
+  });
+
+  
+
   export const NoteAlarmAtom=atom<boolean>({
     key: 'NoteAlarmAtom',
     default: false,

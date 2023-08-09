@@ -15,7 +15,7 @@ const ResponseNote = () => {
         const [DeleteOpen, setDeleteOpen] = useRecoilState(DeleteNoteAtom);
         const [receiver, setReceiver] = useRecoilState(sendNoteReceiverAtom);
         const [noteId, setNoteId] = useRecoilState(sendNoteIdAtom);
-           const handleRemove = (NoteId:number) => {
+           const handleRemove = (NoteId:number) => { 
             setNoteId(NoteId);
             setDeleteOpen(true);
           };

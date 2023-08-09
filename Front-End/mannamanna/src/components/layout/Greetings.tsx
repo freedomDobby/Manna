@@ -29,7 +29,7 @@ function Greetings(){
   const [refreshToken, setRefreshToken] = useRecoilState(refreshTokenAtom);
   const [open, setOpen] = useRecoilState(NoteAlarmAtom);
   const [name,setName] = useRecoilState(nameAtom);
-  const [Userid, setId] = useRecoilState(idAtom);
+  const [userId, setId] = useRecoilState(idAtom);
     const navigate=useNavigate();
     const GoResponseNote = () => {
         navigate("/note");
@@ -43,18 +43,16 @@ function Greetings(){
       navigate("/");
     }
 
-    // const checknote = useQuery<checkNote>(['recentnote'], async () => {
-    //     const response = await api.get("/note/recent/", {
-    //       params: {
-    //         id: Userid,
-    //       },
-    //     });
-    //     return response.data; 
-    //   });
-      
-    //   if (checknote.data) {
-    //     const checknoteResult = checknote.data;
-    //     setOpen(checknoteResult.result);
+
+    // const { data: checkrecentnote } = useQuery<boolean>(
+    //     ["checkrecentnote"],
+    //     async () => {
+    //       const response = await api.get(`note/new/${userId}`);
+    //       return response.data;
+    //     }
+    //   );
+    //   if(checkrecentnote===true){
+    //     setOpen(true);
     //   }
       
     return(

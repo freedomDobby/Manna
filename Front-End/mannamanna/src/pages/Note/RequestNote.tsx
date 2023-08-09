@@ -1,16 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRecoilState } from "recoil";
-import { SendNoteModalAtom, idAtom } from "../../Recoil/State";
+import { DeleteNoteAtom, SendNoteModalAtom, idAtom, sendNoteIdAtom } from "../../Recoil/State";
 import api from "../../apis/Api";
 import { NoteContainer, SendContainer } from "./NoteStyle";
 import { ReceivedNotesRes } from "../../apis/Response/Response";
 import { RequestNoteBody } from "./NoteComponent/NoteBody";
+import { DeleteNoteModal } from "../User/ForgotIdPw/ForgotIdStyles";
 
 const RequestNote = () => {
   const [userId, setId] = useRecoilState(idAtom);
-  const handleRemove = () => {
-    // Remove 로직 구현
-  };
+  const [DeleteOpen, setDeleteOpen] = useRecoilState(DeleteNoteAtom);
+  const [noteId, setNoteId] = useRecoilState(sendNoteIdAtom);
+    const handleRemove = (NoteId:number) => {
+      setNoteId(NoteId);
+      setDeleteOpen(true);
+    };
+
 
   const handleCheck = () => {
     // Check 로직 구현
@@ -41,12 +46,14 @@ const RequestNote = () => {
                 To={note.receiverName} 
                 Title={note.subject}
                 Note={note.content}
-                Remove={handleRemove}
+                Remove={() => handleRemove(note.id)}
                 Check={handleCheck}
                 
               />
       ))}
+               <DeleteNoteModal></DeleteNoteModal>
     </SendContainer>
+  
   );
 };
 

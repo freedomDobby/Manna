@@ -17,16 +17,21 @@ import {
 } from "./SoagaetinStyle";
 import { StyledButton } from "../User/Login/LoginStyle";
 import { useRecoilState } from "recoil";
-import { SendNoteModalAtom } from "../../Recoil/State";
-import { TrueNoteModal } from "../User/ForgotIdPw/ForgotIdStyles";
+import { SendNoteModalAtom, SogaeNoteModalAtom } from "../../Recoil/State";
+import { FalseNoteModal, TrueNoteModal } from "../User/ForgotIdPw/ForgotIdStyles";
 // import Button from '@mui/material/Button';
 
 const SoagetingFilter = () => {
-  const [open, setOpen] = useRecoilState(SendNoteModalAtom);
+  const [sogaeOpen, setSogaeOpen] = useRecoilState(SogaeNoteModalAtom);
+  const [NoteOpen, setNoteOpen] = useRecoilState(SendNoteModalAtom);
 
-  const handleOpenNoteModal = () => {
-    setOpen(true);
+  const handleOpenSogaeModal = () => {
+    setSogaeOpen(true);
   };
+  const handleNoteModal = () => {
+    setNoteOpen(true);
+  };
+  
   return (
     <div>
       <Back>
@@ -37,6 +42,7 @@ const SoagetingFilter = () => {
           }}
         >
           <TrueNoteModal></TrueNoteModal>
+          <FalseNoteModal></FalseNoteModal>
           <Font1
             style={
               {
@@ -116,7 +122,8 @@ const SoagetingFilter = () => {
           <Btn1 />
         </div>
         <div>
-          <StyledButton onClick={handleOpenNoteModal}>소개팅 신청</StyledButton>{" "}
+          <StyledButton onClick={handleOpenSogaeModal}>소개팅 신청</StyledButton>{" "}
+          <StyledButton onClick={handleNoteModal}>일반 쪽지</StyledButton>{" "}
           {/* 임시 확인용 */}
         </div>
         <div
