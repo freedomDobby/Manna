@@ -52,7 +52,6 @@ const RequestNote = () => {
           Title={note.subject}
           Note={note.content}
           Remove={() => handleRemove(note.id)}
-          // Check={handleCheck}
         />
       ))}
       <DeleteNoteModal></DeleteNoteModal>
