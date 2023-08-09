@@ -13,11 +13,9 @@ import { ReceivedNotesRes, SentNotesRes } from "../../apis/Response/Response";
 import api from "../../apis/Api";
 import { SendContainer } from "./NoteStyle";
 import { ResponsetNoteBody } from "./NoteComponent/NoteBody";
-import {
-  DeleteNoteModal,
-  FalseNoteModal,
-} from "../User/ForgotIdPw/ForgotIdStyles";
+import { FalseNoteModal } from "../User/ForgotIdPw/ForgotIdStyles";
 import { CheckSogaeNoteModal } from "./Modal/AcceptModal";
+import { DeleteNoteModal } from "./Modal/DeleteNoteModal";
 
 const ResponseNote = () => {
   const [userId, setId] = useRecoilState(idAtom);
