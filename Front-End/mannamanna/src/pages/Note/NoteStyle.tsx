@@ -22,7 +22,7 @@ const NoteLogoBox = styled.div`
   border: solid 1px black;
   height: 10%;
   width: 100%;
-  background-image: url("");
+  // background-image: url("");
 `;
 
 const MidPart = styled.div`
@@ -194,19 +194,19 @@ const NoteButton = styled.button`
   margin-right: 3%;
 `;
 ///////////////////////////////////답장하기 모달/////////////////////////////////
-const  NoteModalContent = styled.div`
-border-radius: 5%;
-background: white;
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-width: 30vw;
-height: 70%;
-flex-direction: column;
-display: flex;
-justify-content: center;
-align-items: center;
+const NoteModalContent = styled.div`
+  border-radius: 5%;
+  background: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30vw;
+  height: 70%;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export {
@@ -230,6 +230,7 @@ export {
   NotePart,
   Info,
   NoteButton,
-NoteTitle,NoteDetail,NoteModalContent
-
+  NoteTitle,
+  NoteDetail,
+  NoteModalContent,
 };
