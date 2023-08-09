@@ -184,6 +184,21 @@ const NoteButton = styled.button`
   margin-left: 1%;
   margin-right: 3%;
 `;
+///////////////////////////////////답장하기 모달/////////////////////////////////
+const  NoteModalContent = styled.div`
+border-radius: 5%;
+background: white;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+width: 30vw;
+height: 70%;
+flex-direction: column;
+display: flex;
+justify-content: center;
+align-items: center;
+`;
 
 export {
   BackPart,
@@ -206,6 +221,6 @@ export {
   NotePart,
   Info,
   NoteButton,
-NoteTitle,NoteDetail
+NoteTitle,NoteDetail,NoteModalContent
 
 };
