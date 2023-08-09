@@ -20,6 +20,7 @@ import {
   SearchPart,
   SidePart,
   BtnBox,
+  NoteLogoBox,
   // NoteLogoBox,
 } from "./NoteStyle";
 import api from "../../apis/Api";
@@ -42,8 +43,8 @@ const Note = () => {
         }}
       />
       <BackPart>
-        <SidePart style={{ border: "1px solid red" }}>
-          {/* <NoteLogoBox></NoteLogoBox> */}
+        <SidePart>
+          <NoteLogoBox></NoteLogoBox>
         </SidePart>
         <MidPart>
           <KeyPart>

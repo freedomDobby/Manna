@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import noteLogo from "../../asset/image/noteLogo.png";
 const BackPart = styled.div`
   // border: solid 2px blue;
   // background-color: gold;
@@ -19,10 +20,11 @@ const SidePart = styled.div`
 `;
 
 const NoteLogoBox = styled.div`
-  border: solid 1px black;
+  // border: solid 1px black;
   height: 10%;
   width: 100%;
-  // background-image: url("");
+  background-image: url(${noteLogo});
+  background-size: 100% 100%;
 `;
 
 const MidPart = styled.div`
@@ -211,6 +213,7 @@ export {
   NoteTopBar,
   NoteInfoBar,
   NoteMidBar,
+  NoteLogoBox,
   NoteFootBar,
   NotePart,
   Info,
