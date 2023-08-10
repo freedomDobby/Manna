@@ -21,12 +21,16 @@ import {
 } from "./SoagaetinStyle";
 import { StyledButton } from "../User/Login/LoginStyle";
 import { useRecoilState } from "recoil";
-import { SendNoteModalAtom, SogaeNoteModalAtom } from "../../Recoil/State";
+import { SendNoteModalAtom, SogaeNoteModalAtom, genderAtom, idAtom } from "../../Recoil/State";
 import {
   FalseNoteModal,
   TrueNoteModal,
 } from "../User/ForgotIdPw/ForgotIdStyles";
 import FilterComponent from "../../components/common/Sogeting/FilterComponents";
+import { SogaetingFilterReq } from '../../apis/Request/Request';
+import { useMutation } from '@tanstack/react-query';
+import api from '../../apis/Api';
+import { SogaetingMember } from '../../apis/Response/Response';
 // import Button from '@mui/material/Button';
 
 const SoagetingFilter = () => {
@@ -47,8 +51,52 @@ const SoagetingFilter = () => {
   //더미데이터
   const UserSmoke = true;
   const UserAlchol = true;
+  const updatedSogaetingFilter: SogaetingFilterReq = {
+    memberId: userId,
+    gender: usergender,
+    mbti: null,
+    religion: null,
+    isDrinker: null,
+    isSmoker: null,
+    curPage:0,
+    // curPage: page !== undefined ? page : 0,
+  };
 
-  //
+  const { mutate:normalrecommand ,data:recommandData} = useMutation<any>(
+    ['filtersogaeting'],
+    async () => {
+      const response = await api.post('sogaeting/recommend', updatedSogaetingFilter);
+      setPage(response.data.data.curPage+1);
+      console.log(response.data.data.sogaetingMembers);
+      return response.data.data.sogaetingMembers;
+    }
+  );
+
+  const { mutate:locatereommand ,data:locateData} = useMutation<any>(
+    ['filtersogaeting'],
+    async () => {
+      const response = await api.post('sogaeting/recommend/locate', updatedSogaetingFilter);
+      console.log(response.data.data.sogaetingMembers);
+      return response.data.data.sogaetingMembers;
+    }
+  );
+    const fetechchange =async ()=>{
+      const recommand = await normalrecommand(); 
+      const locate=await locatereommand();
+    }
+  useEffect(() => {
+    const fetchInitialData = async () => {
+      try {
+        const recommand = await normalrecommand(); 
+        const locate=await locatereommand();
+      } catch (error) {
+        console.error('Mutation Error:', error);
+      }
+    };
+
+    fetchInitialData();
+  }, []);
+
 
   return (
     <div>
@@ -69,18 +117,24 @@ const SoagetingFilter = () => {
         </SelectSpace>
 
         <SelectPeople>
+        {recommandData && recommandData.length > 0 && (
+            <div>
+          {recommandData.map((member: SogaetingMember, index: number) => (
           <FilterComponent
-            name="이름"
-            age={25}
+            name={member.id}
+            age={member.birth}
             height={188}
-            location="대전"
+            location={member.sido}
             selfPR="저는 김치볶음밥을 좋아합니다."
-            smoke={UserSmoke ? "흡연" : "비흡연"}
-            alchol={UserAlchol ? "술좋아" : "술싫어"}
-            mbti="infp"
-            profilePicture="profile"
-          />
-
+            smoke={member.isSmoke ? "흡연" : "비흡연"}
+            alchol={member.isDrink ? "술좋아" : "술싫어"}
+            mbti={member.mbti}
+            profilePicture={`https://i9b205.p.ssafy.io/img/${member.pictureURLs[0]}`}
+            isOnline={member.isOnline}
+          />                  ))}
+          </div>
+        )}
+{/* 
           <ProfileContaine>
             <DetailProfile></DetailProfile>
             <Profile>
@@ -91,7 +145,7 @@ const SoagetingFilter = () => {
                 <BtnBox></BtnBox>
               </UnderBar>
             </Profile>
-          </ProfileContaine>
+          </ProfileContaine> */}
         </SelectPeople>
 
         <MidSpace>
@@ -111,55 +165,24 @@ const SoagetingFilter = () => {
           <StyledButton onClick={handleNoteModal}>일반 쪽지</StyledButton>
           {/* 임시 확인용 */}
         </BtnContainer>
-        <NearPeople>
+        {locateData && locateData.length > 0 && (
+            <NearPeople>
+          {locateData.map((member: SogaetingMember, index: number) => (
           <FilterComponent
-            name="이름"
-            age={25}
+            name={member.id}
+            age={member.birth}
             height={188}
-            location="대전"
+            location={member.sido}
             selfPR="저는 김치볶음밥을 좋아합니다."
-            smoke={UserSmoke ? "흡연" : "비흡연"}
-            alchol={UserAlchol ? "술좋아" : "술싫어"}
-            mbti="infp"
-            profilePicture="profile"
-          />
+            smoke={member.isSmoke ? "흡연" : "비흡연"}
+            alchol={member.isDrink ? "술좋아" : "술싫어"}
+            mbti={member.mbti}
+            profilePicture={`https://i9b205.p.ssafy.io/img/${member.pictureURLs[0]}`}
+            isOnline={member.isOnline}
 
-          <ProfileContaine>
-            <DetailProfile></DetailProfile>
-            <Profile>
-              <UnderBar>
-                <Online>
-                  <OnlineBox></OnlineBox>
-                </Online>
-                <BtnBox />
-              </UnderBar>
-            </Profile>
-          </ProfileContaine>
-
-          <ProfileContaine>
-            <DetailProfile></DetailProfile>
-            <Profile>
-              <UnderBar>
-                <Online>
-                  <OnlineBox></OnlineBox>
-                </Online>
-                <BtnBox />
-              </UnderBar>
-            </Profile>
-          </ProfileContaine>
-
-          <ProfileContaine>
-            <DetailProfile></DetailProfile>
-            <Profile>
-              <UnderBar>
-                <Online>
-                  <OnlineBox></OnlineBox>
-                </Online>
-                <BtnBox />
-              </UnderBar>
-            </Profile>
-          </ProfileContaine>
-        </NearPeople>
+          />                  ))}
+          </NearPeople>
+        )}
       </Back>
     </div>
   );
