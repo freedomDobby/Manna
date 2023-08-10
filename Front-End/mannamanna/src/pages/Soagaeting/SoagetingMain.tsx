@@ -13,16 +13,21 @@ import {
   Profile,
   Online,
   DetailProfile,
-  DetailText,
+  BtnContainer,
+  NearPeople,
+  MidSpace,
+  SelectPeople,
+  SelectSpace,
 } from "./SoagaetinStyle";
 import { StyledButton } from "../User/Login/LoginStyle";
 import { useRecoilState } from "recoil";
-import { SendNoteModalAtom, SogaeNoteModalAtom, genderAtom, idAtom } from "../../Recoil/State";
-import { FalseNoteModal, TrueNoteModal } from "../User/ForgotIdPw/ForgotIdStyles";
-import { SogaetingFilterRes, SogaetingMember } from "../../apis/Response/Response";
-import { useMutation } from "@tanstack/react-query";
-import api from "../../apis/Api";
-import { SogaetingFilterReq, SogaetingReq } from "../../apis/Request/Request";
+import { SendNoteModalAtom, SogaeNoteModalAtom } from "../../Recoil/State";
+import {
+  FalseNoteModal,
+  TrueNoteModal,
+} from "../User/ForgotIdPw/ForgotIdStyles";
+import FilterComponent from "../../components/common/Sogeting/FilterComponents";
+// import Button from '@mui/material/Button';
 
 const SoagetingFilter = () => {
   const [sogaeOpen, setSogaeOpen] = useRecoilState(SogaeNoteModalAtom);
@@ -39,104 +44,125 @@ const SoagetingFilter = () => {
     setNoteOpen(true);
   };
 
-  const updatedSogaetingFilter: SogaetingFilterReq = {
-    memberId: userId,
-    gender: usergender,
-    mbti: null,
-    religion: null,
-    isDrinker: null,
-    isSmoker: null,
-    curPage: page !== undefined ? page : 0,
-  };
+  //더미데이터
+  const UserSmoke = true;
+  const UserAlchol = true;
 
-  const { mutate:normalrecommand ,data:recommandData} = useMutation<any>(
-    ['filtersogaeting'],
-    async () => {
-      const response = await api.post('sogaeting/recommend', updatedSogaetingFilter);
-      setPage(response.data.data.curPage+1);
-      console.log(response.data.data.sogaetingMembers);
-      return response.data.data.sogaetingMembers;
-    }
+  //
+
+  return (
+    <div>
+      <Back>
+        <SelectSpace>
+          <TrueNoteModal />
+          <FalseNoteModal />
+          <Font1>
+            <p>
+              소개팅
+              <br />
+              추천
+            </p>
+          </Font1>
+          <FilterContainer>
+            <FilterBody></FilterBody>
+          </FilterContainer>
+        </SelectSpace>
+
+        <SelectPeople>
+          <FilterComponent
+            name="이름"
+            age={25}
+            height={188}
+            location="대전"
+            selfPR="저는 김치볶음밥을 좋아합니다."
+            smoke={UserSmoke ? "흡연" : "비흡연"}
+            alchol={UserAlchol ? "술좋아" : "술싫어"}
+            mbti="infp"
+            profilePicture="profile"
+          />
+
+          <ProfileContaine>
+            <DetailProfile></DetailProfile>
+            <Profile>
+              <UnderBar>
+                <Online>
+                  <OnlineBox></OnlineBox>
+                </Online>
+                <BtnBox></BtnBox>
+              </UnderBar>
+            </Profile>
+          </ProfileContaine>
+        </SelectPeople>
+
+        <MidSpace>
+          <Font1>
+            <p>
+              내 근처
+              <br />
+              추천
+            </p>
+          </Font1>
+          <Btn1 />
+        </MidSpace>
+        <BtnContainer>
+          <StyledButton onClick={handleOpenSogaeModal}>
+            소개팅 신청
+          </StyledButton>
+          <StyledButton onClick={handleNoteModal}>일반 쪽지</StyledButton>
+          {/* 임시 확인용 */}
+        </BtnContainer>
+        <NearPeople>
+          <FilterComponent
+            name="이름"
+            age={25}
+            height={188}
+            location="대전"
+            selfPR="저는 김치볶음밥을 좋아합니다."
+            smoke={UserSmoke ? "흡연" : "비흡연"}
+            alchol={UserAlchol ? "술좋아" : "술싫어"}
+            mbti="infp"
+            profilePicture="profile"
+          />
+
+          <ProfileContaine>
+            <DetailProfile></DetailProfile>
+            <Profile>
+              <UnderBar>
+                <Online>
+                  <OnlineBox></OnlineBox>
+                </Online>
+                <BtnBox />
+              </UnderBar>
+            </Profile>
+          </ProfileContaine>
+
+          <ProfileContaine>
+            <DetailProfile></DetailProfile>
+            <Profile>
+              <UnderBar>
+                <Online>
+                  <OnlineBox></OnlineBox>
+                </Online>
+                <BtnBox />
+              </UnderBar>
+            </Profile>
+          </ProfileContaine>
+
+          <ProfileContaine>
+            <DetailProfile></DetailProfile>
+            <Profile>
+              <UnderBar>
+                <Online>
+                  <OnlineBox></OnlineBox>
+                </Online>
+                <BtnBox />
+              </UnderBar>
+            </Profile>
+          </ProfileContaine>
+        </NearPeople>
+      </Back>
+    </div>
   );
-
-  const { mutate:locatereommand ,data:locateData} = useMutation<any>(
-    ['filtersogaeting'],
-    async () => {
-      const response = await api.post('sogaeting/recommend/locate', updatedSogaetingFilter);
-      console.log(response.data.data.sogaetingMembers);
-      return response.data.data.sogaetingMembers;
-    }
-  );
-    const fetechchange =async ()=>{
-      const recommand = await normalrecommand(); 
-      const locate=await locatereommand();
-    }
-  useEffect(() => {
-    const fetchInitialData = async () => {
-      try {
-        const recommand = await normalrecommand(); 
-        const locate=await locatereommand();
-      } catch (error) {
-        console.error('Mutation Error:', error);
-      }
-    };
-
-    fetchInitialData();
-  }, []);
-
-    return (
-      <div>
-        {/* 이전 코드 생략 */}
-        <div>
-          <Back>
-            {/* 이전 코드 생략 */}
-            <div
-              style={{
-                // border: `solid 1px black`,
-                height: "87vh",
-                width: "50vw",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <div>
-                {/* recommandData가 존재하고 데이터가 있는 경우에만 렌더링 */}
-                {recommandData && recommandData.length > 0 && (
-                  <div>
-                    {recommandData.map((member: SogaetingMember, index: number) => (
-                      <div key={index}>
-                        <p>ID: {member.id}</p>
-                        <p>Name: {member.name}</p>
-                        <p>birth:{member.birth}</p>
-                        <hr />
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-              <div>
-                {/* recommandData가 존재하고 데이터가 있는 경우에만 렌더링 */}
-                {locateData && locateData.length > 0 && (
-                  <div>
-                    {locateData.map((member: SogaetingMember, index: number) => (
-                      <div key={index}>
-                        <p>ID: {member.id}</p>
-                        <p>Name: {member.name}</p>
-                        <p>birth:{member.birth}</p>
-                        <hr />
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-              <div>
-              </div>
-            </div>
-          </Back>
-        </div>
-      </div>
-    );
-                    }
+};
 
 export default SoagetingFilter;

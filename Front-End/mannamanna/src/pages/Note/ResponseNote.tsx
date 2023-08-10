@@ -14,7 +14,7 @@ import api from "../../apis/Api";
 import { SendContainer } from "./NoteStyle";
 import { ResponsetNoteBody } from "./NoteComponent/NoteBody";
 import { FalseNoteModal } from "../User/ForgotIdPw/ForgotIdStyles";
-import { CheckSogaeNoteModal } from "./Modal/AcceptModal";
+import { CheckSogaeNoteModal } from "../Note/Modal/AcceptModal";
 import { DeleteNoteModal } from "./Modal/DeleteNoteModal";
 
 const ResponseNote = () => {
@@ -58,7 +58,6 @@ const ResponseNote = () => {
   if (isError) {
     return <p>Error occurred while fetching data</p>;
   }
-
   return (
     <SendContainer>
       {receivedNoteList.reverse().map((note, index) => (
@@ -73,7 +72,15 @@ const ResponseNote = () => {
         />
       ))}
       <FalseNoteModal />
-      {/* <CheckSogaeNoteModal /> */}
+      <CheckSogaeNoteModal
+        profile={"profile"}
+        name={"name"}
+        height={166}
+        age={25}
+        job={"job"}
+        mbti={"mbti"}
+        selfPr={"selfPR"}
+      />
       <DeleteNoteModal />
     </SendContainer>
   );

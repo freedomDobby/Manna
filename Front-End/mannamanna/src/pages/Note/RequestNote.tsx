@@ -12,6 +12,7 @@ import { ReceivedNotesRes } from "../../apis/Response/Response";
 import { RequestNoteBody } from "./NoteComponent/NoteBody";
 import { RecentNoteModal } from "../User/ForgotIdPw/ForgotIdStyles";
 import { DeleteNoteModal } from "./Modal/DeleteNoteModal";
+import { CheckSogaeNoteModal } from "./Modal/AcceptModal";
 
 const RequestNote = () => {
 
@@ -56,6 +57,7 @@ const RequestNote = () => {
           Remove={() => handleRemove(note.id)}
         />
       ))}
+
       <DeleteNoteModal />
     </SendContainer>
   );
