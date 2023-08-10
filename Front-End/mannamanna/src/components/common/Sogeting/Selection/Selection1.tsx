@@ -4,13 +4,19 @@ import MenuItem from "@mui/material/MenuItem";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { isNonNullExpression } from "typescript";
+import { useRecoilState } from "recoil";
+import { SogaetingFilterAtom } from "../../../../Recoil/State";
 
 export default function SelectionObj() {
-  const [smok, setSmok] = React.useState("");
+  const [sogaetingFilter, setSogaetingFilter] = useRecoilState(SogaetingFilterAtom);
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setSmok(event.target.value);
+  const handleChange = async (event: SelectChangeEvent) => {
+    const newValue = event.target.value === "true"; 
+    console.log(newValue);
+    await setSogaetingFilter((prevFilter) => ({
+      ...prevFilter,
+      isSmoker: newValue,
+    }));
   };
 
   return (
@@ -30,12 +36,12 @@ export default function SelectionObj() {
       <Select
         labelId="demo-simple-select-helper-label"
         id="demo-simple-select-helper"
-        value={smok}
+        value={sogaetingFilter.isSmoker ? "true" : "false"} // Convert boolean to string
         label="흡연"
         onChange={handleChange}
       >
-        <MenuItem value={0}>흡연</MenuItem>
-        <MenuItem value={1}>비흡연</MenuItem>
+        <MenuItem value={"true"}>흡연</MenuItem>
+        <MenuItem value={"false"}>비흡연</MenuItem>
       </Select>
     </FormControl>
   );

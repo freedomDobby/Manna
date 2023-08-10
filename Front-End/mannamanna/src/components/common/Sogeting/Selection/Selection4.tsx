@@ -5,12 +5,19 @@ import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { isNonNullExpression } from "typescript";
+import { useRecoilState } from "recoil";
+import { SogaetingFilterAtom } from "../../../../Recoil/State";
 
 export default function SelectionObj4() {
-  const [MBTI, setMBTI] = React.useState("");
+  const [sogaetingFilter, setSogaetingFilter] = useRecoilState(SogaetingFilterAtom);
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setMBTI(event.target.value);
+  const handleChange = async (event: SelectChangeEvent) => {
+    const newValue = event.target.value; 
+    console.log(newValue);
+    await setSogaetingFilter((prevFilter) => ({
+      ...prevFilter,
+      mbti: newValue,
+    }));
   };
 
   return (
@@ -30,26 +37,26 @@ export default function SelectionObj4() {
       <Select
         labelId="demo-simple-select-helper-label"
         id="demo-simple-select-helper"
-        value={MBTI}
+        value={sogaetingFilter.mbti || "ISTJ"}
         label="MBTI"
         onChange={handleChange}
       >
-        <MenuItem value={0}>ISTJ</MenuItem>
-        <MenuItem value={1}>ISFJ</MenuItem>
-        <MenuItem value={2}>INFJ</MenuItem>
-        <MenuItem value={3}>INTJ</MenuItem>
-        <MenuItem value={4}>ISTP</MenuItem>
-        <MenuItem value={5}>ISFP</MenuItem>
-        <MenuItem value={6}>INFP</MenuItem>
-        <MenuItem value={7}>INTP</MenuItem>
-        <MenuItem value={8}>ESTP</MenuItem>
-        <MenuItem value={9}>ESFP</MenuItem>
-        <MenuItem value={10}>ENFP</MenuItem>
-        <MenuItem value={11}>ENTP</MenuItem>
-        <MenuItem value={12}>ESTJ</MenuItem>
-        <MenuItem value={13}>ESFJ</MenuItem>
-        <MenuItem value={14}>ENFJ</MenuItem>
-        <MenuItem value={15}>ENTJ</MenuItem>
+  <MenuItem value="ISTJ">ISTJ</MenuItem>
+  <MenuItem value="ISFJ">ISFJ</MenuItem>
+  <MenuItem value="INFJ">INFJ</MenuItem>
+  <MenuItem value="INTJ">INTJ</MenuItem>
+  <MenuItem value="ISTP">ISTP</MenuItem>
+  <MenuItem value="ISFP">ISFP</MenuItem>
+  <MenuItem value="INFP">INFP</MenuItem>
+  <MenuItem value="INTP">INTP</MenuItem>
+  <MenuItem value="ESTP">ESTP</MenuItem>
+  <MenuItem value="ESFP">ESFP</MenuItem>
+  <MenuItem value="ENFP">ENFP</MenuItem>
+  <MenuItem value="ENTP">ENTP</MenuItem>
+  <MenuItem value="ESTJ">ESTJ</MenuItem>
+  <MenuItem value="ESFJ">ESFJ</MenuItem>
+  <MenuItem value="ENFJ">ENFJ</MenuItem>
+  <MenuItem value="ENTJ">ENTJ</MenuItem>
       </Select>
     </FormControl>
   );
