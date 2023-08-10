@@ -96,27 +96,55 @@ const InfoContainer = styled.div`
 
 //이름 담는 큰 컨테이너
 const NameInfo = styled.div`
-  border: 1px silid black;
+  // border: 1px solid black;
   width: 100%;
   height: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const Name = styled.div`
+  // border: 1px solid black;
 `;
 // 키, 나이
 const Info1 = styled.div`
-  border: 1px silid black;
+  // border: 1px solid black;
   width: 100%;
   height: 25%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`;
+const Height = styled.div`
+  // border: 1px solid black;
+`;
+const Age = styled.div`
+  // border: 1px solid black;
 `;
 //직업 mbti
 const Info2 = styled.div`
-  border: 1px silid black;
+  // border: 1px solid black;
   width: 100%;
   height: 25%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`;
+
+const Job = styled.div`
+  // border: 1px solid black;
+`;
+const MBTI = styled.div`
+  // border: 1px solid black;
 `;
 //자기소개
 const SelfPrInfo = styled.div`
-  border: 1px silid black;
+  // border: 1px solid black;
   width: 100%;
   height: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const BtnContainer = styled.div`
@@ -141,7 +169,12 @@ export {
   RemoveInfoContainer,
   RemoveBtnContainer,
   NameInfo,
+  Name,
   Info1,
+  Height,
+  Age,
   Info2,
+  Job,
+  MBTI,
   SelfPrInfo,
 };

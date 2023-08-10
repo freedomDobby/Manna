@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Brightness1Icon from "@mui/icons-material/Brightness1";
 
-const OnlineBtn = styled.div`
+const Offline = styled.div`
   // border: 1px solid black;
   height: 5vh;
   width: 6vw;
@@ -14,13 +14,13 @@ const OnlineBtn = styled.div`
   //   -webkit-text-stroke: 1px #0cd820;
 `;
 
-const OnlineBox = () => {
+const OfflineBox = () => {
   return (
-    <OnlineBtn>
-      <Brightness1Icon sx={{ color: "#0cd820" }}></Brightness1Icon>
-      <p style={{ color: "#0cd820" }}>온라인</p>
-    </OnlineBtn>
+    <Offline>
+      <Brightness1Icon sx={{ color: "#ff0000" }}></Brightness1Icon>
+      <p style={{ color: "#ff0000" }}>오프라인</p>
+    </Offline>
   );
 };
 
-export default OnlineBox;
+export default OfflineBox;
