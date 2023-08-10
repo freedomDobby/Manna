@@ -21,17 +21,16 @@ import {
 } from "./SoagaetinStyle";
 import { StyledButton } from "../User/Login/LoginStyle";
 import { useRecoilState } from "recoil";
-import {
-  SendNoteModalAtom,
-  SogaeNoteModalAtom,
-  genderAtom,
-  idAtom,
-} from "../../Recoil/State";
+import { SendNoteModalAtom, SogaeNoteModalAtom, genderAtom, idAtom, sendNoteReceiverAtom } from "../../Recoil/State";
 import {
   FalseNoteModal,
   TrueNoteModal,
 } from "../User/ForgotIdPw/ForgotIdStyles";
 import FilterComponent from "../../components/common/Sogeting/FilterComponents";
+import { SogaetingFilterReq } from '../../apis/Request/Request';
+import { useMutation } from '@tanstack/react-query';
+import api from '../../apis/Api';
+import { SogaetingMember } from '../../apis/Response/Response';
 // import Button from '@mui/material/Button';
 
 const SoagetingFilter = () => {
@@ -40,19 +39,63 @@ const SoagetingFilter = () => {
   const [NoteOpen, setNoteOpen] = useRecoilState(SendNoteModalAtom);
   const [userId, setId] = useRecoilState(idAtom);
   const [usergender, setGender] = useRecoilState(genderAtom);
-
-  const handleOpenSogaeModal = () => {
+  const [notereceiver, setReceiver] = useRecoilState(sendNoteReceiverAtom);
+  const handleOpenSogaeModal = async (memberId:string) => {
+    await setReceiver(memberId);
     setSogaeOpen(true);
   };
 
-  const handleNoteModal = () => {
-    setNoteOpen(true);
+  const handleNoteModal = async(memberId:string) => {
+    await setReceiver(memberId);
+    setSogaeOpen(true);
   };
 
-  //더미데이터
-  const UserSmoke = true;
-  const UserAlchol = true;
-  const UserProfile = "https://i9b205.p.ssafy.io/img/gyubo1_gong1.jpg";
+  const SogaetingFilter: SogaetingFilterReq = {
+    memberId: userId,
+    gender: usergender,
+    mbti: null,
+    religion: null,
+    isDrinker: null,
+    isSmoker: null,
+    // curPage: page !== undefined ? page : 0,
+    curPage:0,
+  };
+
+  const { mutate:normalrecommand ,data:recommandData} = useMutation<any>(
+    ['filtersogaeting'],
+    async () => {
+      const response = await api.post('sogaeting/recommend', SogaetingFilter);
+      console.log(response.data);
+      console.log(response.data.data.sogaetingMembers);
+      return response.data.data.sogaetingMembers;
+    }
+  );
+
+  const { mutate:locatereommand ,data:locateData} = useMutation<any>(
+    ['filtersogaeting'],
+    async () => {
+      const response = await api.post('sogaeting/recommend/locate', SogaetingFilter);
+      console.log(response.data);
+      console.log(response.data.data.sogaetingMembers);
+      return response.data.data.sogaetingMembers;
+    }
+  );
+    const fetechchange =async ()=>{
+      const recommand = await normalrecommand(); 
+      const locate=await locatereommand();
+    }
+  useEffect(() => {
+    const fetchInitialData = async () => {
+      try {
+        const recommand = await normalrecommand(); 
+        const locate=await locatereommand();
+      } catch (error) {
+        console.error('Mutation Error:', error);
+      }
+    };
+
+    fetchInitialData();
+  }, []);
 
   return (
     <div>
@@ -73,29 +116,26 @@ const SoagetingFilter = () => {
         </SelectSpace>
 
         <SelectPeople>
+        {recommandData && recommandData.length > 0 && (
+            <div>
+          {recommandData.map((member: SogaetingMember, index: number) => (
           <FilterComponent
-            name="이름"
-            age={25}
-            height={188}
-            location="대전"
-            selfPR="저는 김치볶음밥을 좋아합니다."
-            smoke={UserSmoke ? "흡연" : "비흡연"}
-            alchol={UserAlchol ? "술좋아" : "술싫어"}
-            mbti="infp"
-            profilePicture={UserProfile}
-          />
-
-          <ProfileContaine>
-            <DetailProfile></DetailProfile>
-            <Profile>
-              <UnderBar>
-                <Online>
-                  <OnlineBox></OnlineBox>
-                </Online>
-                <BtnBox></BtnBox>
-              </UnderBar>
-            </Profile>
-          </ProfileContaine>
+            name={member.id}
+            age={member.birth}
+            height={member.height}
+            location={member.sido}
+            selfPR={member.introduction}
+            smoke={member.isSmoke ? "흡연" : "비흡연"}
+            alchol={member.isDrink ? "술좋아" : "술싫어"}
+            mbti={member.mbti}
+            profilePicture={`https://i9b205.p.ssafy.io/img/${member.pictureURLs[0]}`}
+            isOnline={member.isOnline}
+            onApplicationClick={()=>handleOpenSogaeModal(member.id)}
+            onMessageClick={()=>handleNoteModal(member.id)}
+            onReportClick={()=>handleNoteModal(member.id)}
+          />                  ))}
+          </div>
+        )}
         </SelectPeople>
 
         <MidSpace>
@@ -106,64 +146,31 @@ const SoagetingFilter = () => {
               추천
             </p>
           </Font1>
-          <Btn1 />
+          <Btn1 ChangeFilter={()=>handleNoteModal}/>
         </MidSpace>
         <BtnContainer>
-          <StyledButton onClick={handleOpenSogaeModal}>
-            소개팅 신청
-          </StyledButton>
-          <StyledButton onClick={handleNoteModal}>일반 쪽지</StyledButton>
           {/* 임시 확인용 */}
         </BtnContainer>
-        <NearPeople>
+        {locateData && locateData.length > 0 && (
+            <NearPeople>
+          {locateData.map((member: SogaetingMember, index: number) => (
           <FilterComponent
-            name="이름"
-            age={25}
-            height={188}
-            location="대전"
-            selfPR="저는 김치볶음밥을 좋아합니다."
-            smoke={UserSmoke ? "흡연" : "비흡연"}
-            alchol={UserAlchol ? "술좋아" : "술싫어"}
-            mbti="infp"
-            profilePicture={UserProfile}
-          />
-
-          <ProfileContaine>
-            <DetailProfile></DetailProfile>
-            <Profile>
-              <UnderBar>
-                <Online>
-                  <OnlineBox></OnlineBox>
-                </Online>
-                <BtnBox />
-              </UnderBar>
-            </Profile>
-          </ProfileContaine>
-
-          <ProfileContaine>
-            <DetailProfile></DetailProfile>
-            <Profile>
-              <UnderBar>
-                <Online>
-                  <OnlineBox></OnlineBox>
-                </Online>
-                <BtnBox />
-              </UnderBar>
-            </Profile>
-          </ProfileContaine>
-
-          <ProfileContaine>
-            <DetailProfile></DetailProfile>
-            <Profile>
-              <UnderBar>
-                <Online>
-                  <OnlineBox></OnlineBox>
-                </Online>
-                <BtnBox />
-              </UnderBar>
-            </Profile>
-          </ProfileContaine>
-        </NearPeople>
+            name={member.id}
+            age={member.birth}
+            height={member.height}
+            location={member.sido}
+            selfPR={member.introduction}
+            smoke={member.isSmoke ? "흡연" : "비흡연"}
+            alchol={member.isDrink ? "술좋아" : "술싫어"}
+            mbti={member.mbti}
+            profilePicture={`https://i9b205.p.ssafy.io/img/${member.pictureURLs[0]}`}
+            isOnline={member.isOnline}
+            onApplicationClick={()=>handleOpenSogaeModal(member.id)}
+            onMessageClick={()=>handleNoteModal(member.id)}
+            onReportClick={()=>handleNoteModal(member.id)}
+          />                  ))}
+          </NearPeople>
+        )}
       </Back>
     </div>
   );

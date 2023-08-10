@@ -55,7 +55,7 @@ export interface ErrorResponse {
   export interface SogaetingMember {
     id: string;
     name: string;
-    birth: string;
+    birth: number;
     sido: string;
     mbti: string;
     religion: string;
@@ -63,6 +63,7 @@ export interface ErrorResponse {
     isSmoke: boolean;
     isDrink: boolean;
     isOnline: boolean;
+    height:number;
     pictureURLs: string[];
   }
 

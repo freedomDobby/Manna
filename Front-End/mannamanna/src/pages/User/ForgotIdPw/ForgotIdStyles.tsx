@@ -515,7 +515,7 @@ export const TrueNoteModal = () => {
   const [UserId] = useRecoilState(idAtom);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+  const [notereceiver, setReceiver] = useRecoilState(sendNoteReceiverAtom);
   let temp = { ...sendnote };
   let day: string = "";
   let time: string = "";
@@ -573,13 +573,9 @@ export const TrueNoteModal = () => {
               {UserId !== null ? (
                 <NoteQuestion question="보내는 이" Id={UserId} />
               ) : null}
-              <Question
-                question="받는 이"
-                Type="text"
-                Id="receiver"
-                placeholder="이름"
-                onChange={(e) => (temp.receiver = e.target.value)}
-              />
+                {notereceiver !== null ? (
+                <NoteQuestion question="받는 이" Id={notereceiver} />
+              ) : null}
               <Question
                 question="원하는 날짜"
                 Type="Date"

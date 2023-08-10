@@ -11,7 +11,7 @@ const ProfileContaine = styled.div`
 `;
 
 const Profile = styled.div`
-  background-image: url(${profile});
+  // background-image: url(${profile});
   height: 40vh;
   width: 18vw;
   // background-color: white;
