@@ -52,8 +52,7 @@ const SoagetingFilter = () => {
   //더미데이터
   const UserSmoke = true;
   const UserAlchol = true;
-
-  //
+  const UserProfile = "https://i9b205.p.ssafy.io/img/gyubo1_gong1.jpg";
 
   return (
     <div>
@@ -83,7 +82,7 @@ const SoagetingFilter = () => {
             smoke={UserSmoke ? "흡연" : "비흡연"}
             alchol={UserAlchol ? "술좋아" : "술싫어"}
             mbti="infp"
-            profilePicture="profile"
+            profilePicture={UserProfile}
           />
 
           <ProfileContaine>
@@ -126,8 +125,7 @@ const SoagetingFilter = () => {
             smoke={UserSmoke ? "흡연" : "비흡연"}
             alchol={UserAlchol ? "술좋아" : "술싫어"}
             mbti="infp"
-            profilePicture="    
-            https://i9b205.p.ssafy.io/img/jaeeitest_hyunjin.jpg"
+            profilePicture={UserProfile}
           />
 
           <ProfileContaine>

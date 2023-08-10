@@ -24,7 +24,7 @@ interface FilterProps {
   mbti: string;
   profilePicture: string;
 }
-
+// const UserProfile = "https://i9b205.p.ssafy.io/img/jaeeitest_hyunjin.jpg";
 const FilterComponent: React.FC<FilterProps> = ({
   name,
   age,
@@ -34,6 +34,7 @@ const FilterComponent: React.FC<FilterProps> = ({
   smoke,
   alchol,
   mbti,
+  profilePicture,
 }) => {
   return (
     <ProfileContaine>
@@ -55,7 +56,14 @@ const FilterComponent: React.FC<FilterProps> = ({
         </DetailText>
       </DetailProfile>
       {/* default로 보여지는 프로필 */}
-      <Profile style={{ backgroundImage: `url("{profilePicture}")` }}>
+      {/* <Profile style={{ backgroundImage: `url(${UserProfile})` }}> */}
+
+      <Profile style={{ backgroundImage: `url( ${profilePicture} )` }}>
+        {/* <Profile
+        style={{
+          backgroundImage: `url("https://i9b205.p.ssafy.io/img/jaeeitest_hyunjin.jpg")`,
+        }}
+      > */}
         <UnderBar>
           <Online>
             <OnlineBox />

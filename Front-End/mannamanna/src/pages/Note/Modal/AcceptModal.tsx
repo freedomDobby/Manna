@@ -7,7 +7,6 @@ import api from "../../../apis/Api";
 import {
   SogaeResultNoteAtom,
   idAtom,
-  nameAtom,
   sendNoteAtom,
   sendNoteIdAtom,
 } from "../../../Recoil/State";
@@ -28,7 +27,6 @@ import {
   MBTI,
   Job,
 } from "./NoteModalStyle";
-import { userJobState, userPrState } from "../../User/Register/RegisterState";
 
 interface CheckModalProps {
   profile: string; //프로필 사진 받아올건데, url 맞나?
