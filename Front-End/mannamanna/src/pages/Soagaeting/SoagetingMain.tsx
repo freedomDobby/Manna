@@ -1,4 +1,4 @@
-// import React from "react";
+import React, { useState, useEffect } from 'react';
 import Back from "../../components/common/Sogeting/SogetingMainBack";
 import Font1 from "../../components/common/Sogeting/SogetingFont1";
 import Btn1 from "../../components/common/Sogeting/button/NewPersonBtn";
@@ -31,11 +31,15 @@ import FilterComponent from "../../components/common/Sogeting/FilterComponents";
 
 const SoagetingFilter = () => {
   const [sogaeOpen, setSogaeOpen] = useRecoilState(SogaeNoteModalAtom);
+  const [page,setPage]=useState<number>();
   const [NoteOpen, setNoteOpen] = useRecoilState(SendNoteModalAtom);
+  const [userId, setId] = useRecoilState(idAtom);
+  const [usergender,setGender]=useRecoilState(genderAtom);
 
   const handleOpenSogaeModal = () => {
     setSogaeOpen(true);
   };
+
   const handleNoteModal = () => {
     setNoteOpen(true);
   };

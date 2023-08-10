@@ -41,6 +41,18 @@ export interface ErrorResponse {
 
   
   export interface SogaetingFilterRes {
+    data:{
+      result: boolean;
+      msg: string;
+      data: {
+        curPage: number;
+        sogaetingMembers: SogaetingMember[];
+        totalPage: number;
+      }
+    };
+  }
+  
+  export interface SogaetingMember {
     id: string;
     name: string;
     birth: string;
@@ -52,8 +64,7 @@ export interface ErrorResponse {
     isDrink: boolean;
     isOnline: boolean;
     pictureURLs: string[];
-}
-
+  }
 
   export interface SentNotesRes {
     SentNote: Array<{
