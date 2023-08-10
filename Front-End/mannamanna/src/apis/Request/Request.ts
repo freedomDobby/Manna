@@ -71,3 +71,10 @@ export interface SogaetingFilterReq {
   isSmoker: boolean | null;
   curPage:number
 }
+
+export interface SogaetingRecommandReq {
+  mbti: string | null;
+  religion: string | null;
+  isDrinker: boolean | null;
+  isSmoker: boolean | null;
+}

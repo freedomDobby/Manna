@@ -21,7 +21,7 @@ import {
 } from "./SoagaetinStyle";
 import { StyledButton } from "../User/Login/LoginStyle";
 import { useRecoilState } from "recoil";
-import { SendNoteModalAtom, SogaeNoteModalAtom, genderAtom, idAtom, sendNoteReceiverAtom } from "../../Recoil/State";
+import { SendNoteModalAtom, SogaeNoteModalAtom, SogaetingFilterAtom, genderAtom, idAtom, sendNoteReceiverAtom } from "../../Recoil/State";
 import {
   FalseNoteModal,
   TrueNoteModal,
@@ -35,7 +35,10 @@ import { SogaetingMember } from '../../apis/Response/Response';
 
 const SoagetingFilter = () => {
   const [sogaeOpen, setSogaeOpen] = useRecoilState(SogaeNoteModalAtom);
-  const [page, setPage] = useState<number>();
+  const [page, setPage] = useState<number>(0);
+  const [limitpage,SetLimitPage]=useState<number>(0);
+  const [locatelimitpage,SetLocateLimitPage]=useState<number>(0);
+  const [sogaetingFilter, setSogaetingFilter] = useRecoilState(SogaetingFilterAtom);
   const [NoteOpen, setNoteOpen] = useRecoilState(SendNoteModalAtom);
   const [userId, setId] = useRecoilState(idAtom);
   const [usergender, setGender] = useRecoilState(genderAtom);
@@ -53,19 +56,19 @@ const SoagetingFilter = () => {
   const SogaetingFilter: SogaetingFilterReq = {
     memberId: userId,
     gender: usergender,
-    mbti: null,
-    religion: null,
-    isDrinker: null,
-    isSmoker: null,
-    // curPage: page !== undefined ? page : 0,
-    curPage:0,
+    mbti: sogaetingFilter.mbti,
+    religion: sogaetingFilter.religion,
+    isDrinker: sogaetingFilter.isDrinker,
+    isSmoker: sogaetingFilter.isSmoker,
+    curPage:page,
   };
 
   const { mutate:normalrecommand ,data:recommandData} = useMutation<any>(
     ['filtersogaeting'],
     async () => {
+      console.log(page);
       const response = await api.post('sogaeting/recommend', SogaetingFilter);
-      console.log(response.data);
+      SetLimitPage(response.data.data.totalPage);
       console.log(response.data.data.sogaetingMembers);
       return response.data.data.sogaetingMembers;
     }
@@ -76,13 +79,20 @@ const SoagetingFilter = () => {
     async () => {
       const response = await api.post('sogaeting/recommend/locate', SogaetingFilter);
       console.log(response.data);
+      SetLocateLimitPage(response.data.data.totalPage);
       console.log(response.data.data.sogaetingMembers);
       return response.data.data.sogaetingMembers;
     }
   );
     const fetechchange =async ()=>{
-      const recommand = await normalrecommand(); 
-      const locate=await locatereommand();
+      if (page === limitpage - 1||page===locatelimitpage-1) {
+        // Display an alert when page is one less than limitpage
+        alert("이제 페이지가 없어요!");
+      }else{
+        await setPage(page+1);
+        const recommand = await normalrecommand(); 
+        const locate=await locatereommand();
+      }
     }
   useEffect(() => {
     const fetchInitialData = async () => {
@@ -146,10 +156,9 @@ const SoagetingFilter = () => {
               추천
             </p>
           </Font1>
-          <Btn1 ChangeFilter={()=>handleNoteModal}/>
+          <Btn1 ChangeFilter={()=>fetechchange()}/>
         </MidSpace>
         <BtnContainer>
-          {/* 임시 확인용 */}
         </BtnContainer>
         {locateData && locateData.length > 0 && (
             <NearPeople>
