@@ -51,6 +51,10 @@ const ResponseNote = () => {
     return response.data;
   });
 
+  // const request = api.get(`note/received/${receiver}`); // 이 부분에서 senderId 사용
+  // console.log(request.data);
+  // return request.data;
+
   if (isLoading) {
     return <p>Loading...</p>;
   }
@@ -58,6 +62,7 @@ const ResponseNote = () => {
   if (isError) {
     return <p>Error occurred while fetching data</p>;
   }
+
   return (
     <SendContainer>
       {receivedNoteList.reverse().map((note, index) => (
