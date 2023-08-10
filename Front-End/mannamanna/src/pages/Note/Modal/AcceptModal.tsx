@@ -110,14 +110,18 @@ export const CheckSogaeNoteModal: React.FC<CheckModalProps> = ({
               <NameInfo>
                 <Name>{name}</Name>
               </NameInfo>
+              <Info2>
+                <Job>직업: {job}</Job>
+              </Info2>
               <Info1>
                 <Height>키 : {height}</Height>
                 <Age>나이 : {age}</Age>
               </Info1>
+
               <Info2>
-                <Job>직업: {job}</Job>
                 <MBTI>MBTI : {mbti}</MBTI>
               </Info2>
+
               <SelfPrInfo>
                 <div>{selfPr}</div>
               </SelfPrInfo>

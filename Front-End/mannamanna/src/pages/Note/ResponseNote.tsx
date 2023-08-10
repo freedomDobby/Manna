@@ -16,6 +16,15 @@ import { ResponsetNoteBody } from "./NoteComponent/NoteBody";
 import { FalseNoteModal } from "../User/ForgotIdPw/ForgotIdStyles";
 import { CheckSogaeNoteModal } from "../Note/Modal/AcceptModal";
 import { DeleteNoteModal } from "./Modal/DeleteNoteModal";
+import {
+  SenderAgeState,
+  SenderHeightState,
+  SenderJobState,
+  SenderMbtiState,
+  SenderNameState,
+  SenderPrState,
+  SenderProfileState,
+} from "./NoteState";
 
 const ResponseNote = () => {
   const [userId, setId] = useRecoilState(idAtom);
@@ -24,6 +33,14 @@ const ResponseNote = () => {
   const [DeleteOpen, setDeleteOpen] = useRecoilState(DeleteNoteAtom);
   const [receiver, setReceiver] = useRecoilState(sendNoteReceiverAtom);
   const [noteId, setNoteId] = useRecoilState(sendNoteIdAtom);
+  const [SenderName, setSenderName] = useRecoilState(SenderNameState);
+  const [SenderHeight, setSenderHeight] = useRecoilState(SenderHeightState);
+  const [SendeAge, setSendeAge] = useRecoilState(SenderAgeState);
+  const [SenderJob, setSenderJob] = useRecoilState(SenderJobState);
+  const [SenderMbti, setSenderMbti] = useRecoilState(SenderMbtiState);
+  const [SenderPr, setSenderPr] = useRecoilState(SenderPrState);
+  const [SenderProfile, setSenderProfile] = useRecoilState(SenderProfileState);
+
   const handleRemove = (NoteId: number) => {
     setNoteId(NoteId);
     setDeleteOpen(true);
@@ -34,12 +51,34 @@ const ResponseNote = () => {
     setReceiver(senderId);
     setNoteId(NoteId);
     console.log(sogae);
-    if (sogae === true) {
-      setSogaeOpen(true);
-    } else {
-      setNoteOpen(true);
+
+    processSenderInfo(senderId, sogae);
+  };
+
+  const processSenderInfo = async (senderId: string, sogae: boolean) => {
+    try {
+      const SenderResponse = await api.get(`/user/mypage/${senderId}`);
+      const promiseResult = SenderResponse.data;
+      console.log(promiseResult.data);
+      setSenderName(promiseResult.data.name);
+      setSenderHeight(promiseResult.data.height);
+      // setSendeAge(promiseResult.data.name);
+      setSenderJob(promiseResult.data.job);
+      setSenderMbti(promiseResult.data.mbti);
+      setSenderPr(promiseResult.data.introduction);
+      setSenderProfile(promiseResult.data.profilePictures[0].path);
+
+      if (sogae === true) {
+        setSogaeOpen(true);
+      } else {
+        setNoteOpen(true);
+      }
+    } catch (error) {
+      console.error("API 요청 실패:", error);
+      throw error;
     }
   };
+
   // React Query 사용
   const {
     data: receivedNoteList,
@@ -50,10 +89,6 @@ const ResponseNote = () => {
     console.log(response.data);
     return response.data;
   });
-
-  // const request = api.get(`note/received/${receiver}`); // 이 부분에서 senderId 사용
-  // console.log(request.data);
-  // return request.data;
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -78,13 +113,13 @@ const ResponseNote = () => {
       ))}
       <FalseNoteModal />
       <CheckSogaeNoteModal
-        profile={"profile"}
-        name={"name"}
-        height={166}
-        age={25}
-        job={"job"}
-        mbti={"mbti"}
-        selfPr={"selfPR"}
+        profile={SenderProfile}
+        name={SenderName}
+        height={SenderHeight}
+        age={SendeAge}
+        job={SenderJob}
+        mbti={SenderMbti}
+        selfPr={SenderPr}
       />
       <DeleteNoteModal />
     </SendContainer>
