@@ -14,6 +14,7 @@ import { RecentNoteModal } from "../User/ForgotIdPw/ForgotIdStyles";
 import { DeleteNoteModal } from "./Modal/DeleteNoteModal";
 
 const RequestNote = () => {
+
   const [userId, setId] = useRecoilState(idAtom);
   const [DeleteOpen, setDeleteOpen] = useRecoilState(DeleteNoteAtom);
   const [noteId, setNoteId] = useRecoilState(sendNoteIdAtom);
