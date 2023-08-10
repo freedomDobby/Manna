@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import Back from "../../components/common/Sogeting/SogetingMainBack";
 import Font1 from "../../components/common/Sogeting/SogetingFont1";
 import Btn1 from "../../components/common/Sogeting/button/NewPersonBtn";
@@ -21,7 +21,12 @@ import {
 } from "./SoagaetinStyle";
 import { StyledButton } from "../User/Login/LoginStyle";
 import { useRecoilState } from "recoil";
-import { SendNoteModalAtom, SogaeNoteModalAtom } from "../../Recoil/State";
+import {
+  SendNoteModalAtom,
+  SogaeNoteModalAtom,
+  genderAtom,
+  idAtom,
+} from "../../Recoil/State";
 import {
   FalseNoteModal,
   TrueNoteModal,
@@ -31,10 +36,10 @@ import FilterComponent from "../../components/common/Sogeting/FilterComponents";
 
 const SoagetingFilter = () => {
   const [sogaeOpen, setSogaeOpen] = useRecoilState(SogaeNoteModalAtom);
-  const [page,setPage]=useState<number>();
+  const [page, setPage] = useState<number>();
   const [NoteOpen, setNoteOpen] = useRecoilState(SendNoteModalAtom);
   const [userId, setId] = useRecoilState(idAtom);
-  const [usergender,setGender]=useRecoilState(genderAtom);
+  const [usergender, setGender] = useRecoilState(genderAtom);
 
   const handleOpenSogaeModal = () => {
     setSogaeOpen(true);
@@ -121,7 +126,8 @@ const SoagetingFilter = () => {
             smoke={UserSmoke ? "흡연" : "비흡연"}
             alchol={UserAlchol ? "술좋아" : "술싫어"}
             mbti="infp"
-            profilePicture="profile"
+            profilePicture="    
+            https://i9b205.p.ssafy.io/img/jaeeitest_hyunjin.jpg"
           />
 
           <ProfileContaine>
