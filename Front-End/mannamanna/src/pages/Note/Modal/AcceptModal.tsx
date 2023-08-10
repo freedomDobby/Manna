@@ -7,21 +7,28 @@ import api from "../../../apis/Api";
 import {
   SogaeResultNoteAtom,
   idAtom,
+  nameAtom,
   sendNoteAtom,
   sendNoteIdAtom,
 } from "../../../Recoil/State";
 import {
   BtnContainer,
   Info1,
+  Height,
+  Age,
   Info2,
   InfoContainer,
   ModalContainer,
   ModalContent,
+  Name,
   NameInfo,
   ProfileBox,
   ProfileContainer,
   SelfPrInfo,
+  MBTI,
+  Job,
 } from "./NoteModalStyle";
+import { userJobState, userPrState } from "../../User/Register/RegisterState";
 
 interface CheckModalProps {
   profile: string; //프로필 사진 받아올건데, url 맞나?
@@ -103,18 +110,18 @@ export const CheckSogaeNoteModal: React.FC<CheckModalProps> = ({
             </ProfileContainer>
             <InfoContainer>
               <NameInfo>
-                <div>{name}</div>
+                <Name>{name}</Name>
               </NameInfo>
               <Info1>
-                <div>{height}</div>
-                <div>{age}</div>
+                <Height>키 : {height}</Height>
+                <Age>나이 : {age}</Age>
               </Info1>
               <Info2>
-                <div>{job}</div>
-                <div>{mbti}</div>
+                <Job>직업: {job}</Job>
+                <MBTI>MBTI : {mbti}</MBTI>
               </Info2>
               <SelfPrInfo>
-                <div>selfPr</div>
+                <div>{selfPr}</div>
               </SelfPrInfo>
             </InfoContainer>
             <BtnContainer>

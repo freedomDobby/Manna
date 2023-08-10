@@ -75,13 +75,13 @@ const Register = () => {
                   }}
                 >
                   <SmallInputBox>
+                    <Kakao />
+                  </SmallInputBox>
+                  <SmallInputBox>
                     <AnswerBox>
                       <Answer>프로필사진 등록</Answer>
                       <EnterImage>사진 등록하기</EnterImage>
                     </AnswerBox>
-                  </SmallInputBox>
-                  <SmallInputBox>
-                    <Kakao></Kakao>
                   </SmallInputBox>
                   <EnterName />
                   <EnterTel />
@@ -90,10 +90,9 @@ const Register = () => {
                   <EnterPwdCheck />
                   <SmallInputBox>
                     <AnswerBox>
-                      <Answer>사는 지역을 선택해주세요</Answer>
+                      <Answer> 지역을 선택해주세요</Answer>
                     </AnswerBox>
                     <EnterLocation />
-                    {/* <LocalApi /> */}
                   </SmallInputBox>
                 </div>
 

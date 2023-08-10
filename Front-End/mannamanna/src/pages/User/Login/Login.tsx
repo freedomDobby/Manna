@@ -105,7 +105,7 @@ const Login = () => {
             />
           </InputBox>
           <BtnBox>
-            <Kakao />
+            {/* <Kakao /> */}
             <ForgotPasswordLink onClick={GoFindId}>
               아이디 찾기
             </ForgotPasswordLink>
