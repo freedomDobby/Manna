@@ -63,6 +63,7 @@ export interface ErrorResponse {
     isSmoke: boolean;
     isDrink: boolean;
     isOnline: boolean;
+    height:number;
     pictureURLs: string[];
   }
 

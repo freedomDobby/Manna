@@ -21,7 +21,7 @@ import {
 } from "./SoagaetinStyle";
 import { StyledButton } from "../User/Login/LoginStyle";
 import { useRecoilState } from "recoil";
-import { SendNoteModalAtom, SogaeNoteModalAtom, genderAtom, idAtom } from "../../Recoil/State";
+import { SendNoteModalAtom, SogaeNoteModalAtom, genderAtom, idAtom, sendNoteReceiverAtom } from "../../Recoil/State";
 import {
   FalseNoteModal,
   TrueNoteModal,
@@ -39,34 +39,33 @@ const SoagetingFilter = () => {
   const [NoteOpen, setNoteOpen] = useRecoilState(SendNoteModalAtom);
   const [userId, setId] = useRecoilState(idAtom);
   const [usergender, setGender] = useRecoilState(genderAtom);
-
-  const handleOpenSogaeModal = () => {
+  const [notereceiver, setReceiver] = useRecoilState(sendNoteReceiverAtom);
+  const handleOpenSogaeModal = async (memberId:string) => {
+    await setReceiver(memberId);
     setSogaeOpen(true);
   };
 
-  const handleNoteModal = () => {
-    setNoteOpen(true);
+  const handleNoteModal = async(memberId:string) => {
+    await setReceiver(memberId);
+    setSogaeOpen(true);
   };
 
-  //더미데이터
-  const UserSmoke = true;
-  const UserAlchol = true;
-  const updatedSogaetingFilter: SogaetingFilterReq = {
+  const SogaetingFilter: SogaetingFilterReq = {
     memberId: userId,
     gender: usergender,
     mbti: null,
     religion: null,
     isDrinker: null,
     isSmoker: null,
-    curPage:0,
     // curPage: page !== undefined ? page : 0,
+    curPage:0,
   };
 
   const { mutate:normalrecommand ,data:recommandData} = useMutation<any>(
     ['filtersogaeting'],
     async () => {
-      const response = await api.post('sogaeting/recommend', updatedSogaetingFilter);
-      setPage(response.data.data.curPage+1);
+      const response = await api.post('sogaeting/recommend', SogaetingFilter);
+      console.log(response.data);
       console.log(response.data.data.sogaetingMembers);
       return response.data.data.sogaetingMembers;
     }
@@ -75,7 +74,8 @@ const SoagetingFilter = () => {
   const { mutate:locatereommand ,data:locateData} = useMutation<any>(
     ['filtersogaeting'],
     async () => {
-      const response = await api.post('sogaeting/recommend/locate', updatedSogaetingFilter);
+      const response = await api.post('sogaeting/recommend/locate', SogaetingFilter);
+      console.log(response.data);
       console.log(response.data.data.sogaetingMembers);
       return response.data.data.sogaetingMembers;
     }
@@ -96,7 +96,6 @@ const SoagetingFilter = () => {
 
     fetchInitialData();
   }, []);
-
 
   return (
     <div>
@@ -123,29 +122,20 @@ const SoagetingFilter = () => {
           <FilterComponent
             name={member.id}
             age={member.birth}
-            height={188}
+            height={member.height}
             location={member.sido}
-            selfPR="저는 김치볶음밥을 좋아합니다."
+            selfPR={member.introduction}
             smoke={member.isSmoke ? "흡연" : "비흡연"}
             alchol={member.isDrink ? "술좋아" : "술싫어"}
             mbti={member.mbti}
             profilePicture={`https://i9b205.p.ssafy.io/img/${member.pictureURLs[0]}`}
             isOnline={member.isOnline}
+            onApplicationClick={()=>handleOpenSogaeModal(member.id)}
+            onMessageClick={()=>handleNoteModal(member.id)}
+            onReportClick={()=>handleNoteModal(member.id)}
           />                  ))}
           </div>
         )}
-{/* 
-          <ProfileContaine>
-            <DetailProfile></DetailProfile>
-            <Profile>
-              <UnderBar>
-                <Online>
-                  <OnlineBox></OnlineBox>
-                </Online>
-                <BtnBox></BtnBox>
-              </UnderBar>
-            </Profile>
-          </ProfileContaine> */}
         </SelectPeople>
 
         <MidSpace>
@@ -156,13 +146,9 @@ const SoagetingFilter = () => {
               추천
             </p>
           </Font1>
-          <Btn1 />
+          <Btn1 ChangeFilter={()=>handleNoteModal}/>
         </MidSpace>
         <BtnContainer>
-          <StyledButton onClick={handleOpenSogaeModal}>
-            소개팅 신청
-          </StyledButton>
-          <StyledButton onClick={handleNoteModal}>일반 쪽지</StyledButton>
           {/* 임시 확인용 */}
         </BtnContainer>
         {locateData && locateData.length > 0 && (
@@ -171,15 +157,17 @@ const SoagetingFilter = () => {
           <FilterComponent
             name={member.id}
             age={member.birth}
-            height={188}
+            height={member.height}
             location={member.sido}
-            selfPR="저는 김치볶음밥을 좋아합니다."
+            selfPR={member.introduction}
             smoke={member.isSmoke ? "흡연" : "비흡연"}
             alchol={member.isDrink ? "술좋아" : "술싫어"}
             mbti={member.mbti}
             profilePicture={`https://i9b205.p.ssafy.io/img/${member.pictureURLs[0]}`}
             isOnline={member.isOnline}
-
+            onApplicationClick={()=>handleOpenSogaeModal(member.id)}
+            onMessageClick={()=>handleNoteModal(member.id)}
+            onReportClick={()=>handleNoteModal(member.id)}
           />                  ))}
           </NearPeople>
         )}
