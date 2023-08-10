@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import ChooseBtn from "../Sogeting/button/chooseBtn";
 
-const BtnContainer = styled.div`
+export const BtnContainer = styled.div`
   height: 5vh;
   width: 12vw;
   //   border: 1px solid red;
@@ -17,7 +17,7 @@ const ClickCheck = () => {
 const BtnBox = () => {
   return (
     <BtnContainer>
-      <ChooseBtn onClick={ClickCheck}>신청</ChooseBtn>
+      <ChooseBtn>신청</ChooseBtn>
       <ChooseBtn>신고</ChooseBtn>
       <ChooseBtn>쪽지</ChooseBtn>
     </BtnContainer>

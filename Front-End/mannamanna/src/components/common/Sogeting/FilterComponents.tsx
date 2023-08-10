@@ -11,7 +11,8 @@ import {
 } from "../../../pages/Soagaeting/SoagaetinStyle";
 import OfflineBox from "../OfflineBtn";
 import OnlineBox from "../OnlineBtn";
-import BtnBox from "./BtnBox";
+import BtnBox, { BtnContainer } from "./BtnBox";
+import ChooseBtn from './button/chooseBtn';
 
 interface FilterProps {
   name: string;
@@ -24,6 +25,9 @@ interface FilterProps {
   mbti: string;
   profilePicture: string;
   isOnline:boolean;
+  onApplicationClick: () => void;
+  onReportClick: () => void;
+  onMessageClick: () => void;
 }
 // const UserProfile = "https://i9b205.p.ssafy.io/img/jaeeitest_hyunjin.jpg";
 const FilterComponent: React.FC<FilterProps> = ({
@@ -37,6 +41,9 @@ const FilterComponent: React.FC<FilterProps> = ({
   mbti,
   profilePicture,
   isOnline,
+  onApplicationClick,
+  onReportClick,
+  onMessageClick,
 }) => {
   return (
     <ProfileContaine>
@@ -70,14 +77,21 @@ const FilterComponent: React.FC<FilterProps> = ({
           <UnderBar>
             <Online>
               <OnlineBox />
-              <OfflineBox />
             </Online>
-            <BtnBox />
+            <BtnContainer>
+            <ChooseBtn onClick={onApplicationClick}>신청</ChooseBtn>
+          <ChooseBtn onClick={onReportClick}>신고</ChooseBtn>
+          <ChooseBtn onClick={onMessageClick}>쪽지</ChooseBtn>
+    </BtnContainer>
           </UnderBar>
         ) : (
           <UnderBar>
             <OfflineBox />
-            <BtnBox />
+            <BtnContainer>
+         <ChooseBtn onClick={onApplicationClick}>신청</ChooseBtn>
+          <ChooseBtn onClick={onReportClick}>신고</ChooseBtn>
+          <ChooseBtn onClick={onMessageClick}>쪽지</ChooseBtn>
+    </BtnContainer>
           </UnderBar>
         )}
       </Profile>
