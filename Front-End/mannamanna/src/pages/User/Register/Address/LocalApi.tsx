@@ -7,7 +7,6 @@ import {
 } from "../RegisterState";
 import { useRecoilState } from "recoil";
 import { type } from "os";
-import { RestKey } from "../../Login/ApiKey";
 
 interface AddressSearchResult {
   documents: {
