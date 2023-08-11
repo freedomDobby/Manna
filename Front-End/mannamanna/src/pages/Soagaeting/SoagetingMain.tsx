@@ -50,7 +50,7 @@ const SoagetingFilter = () => {
 
   const handleNoteModal = async(memberId:string) => {
     await setReceiver(memberId);
-    setSogaeOpen(true);
+    setNoteOpen(true);
   };
 
   const SogaetingFilter: SogaetingFilterReq = {
