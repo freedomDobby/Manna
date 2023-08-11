@@ -50,21 +50,17 @@ const Save = () => {
   const userAddressDetail = useRecoilValue(userAddressDetailState);
   const [userInfo] = useRecoilState(RegisterDataState);
 
-  const [profilePicture1, setprofilePicture1] = useRecoilState(
-    profilePicture1State
-  );
-  const [profilePicture2, setprofilePicture2] = useRecoilState(
-    profilePicture2State
-  );
-  const [profilePicture3, setprofilePicture3] = useRecoilState(
-    profilePicture3State
-  );
+  const [profilePicture1, setprofilePicture1] =
+    useRecoilState(profilePicture1State);
+  const [profilePicture2, setprofilePicture2] =
+    useRecoilState(profilePicture2State);
+  const [profilePicture3, setprofilePicture3] =
+    useRecoilState(profilePicture3State);
   const [accountEmail] = useRecoilState(account_emailState);
-  const [UserEmailId, Userdomain] = accountEmail.split('@');
+  const [UserEmailId, Userdomain] = accountEmail.split("@");
   const [gender, setGender] = useRecoilState(genderState);
   const [latitude, setlatitude] = useRecoilState(latitudeState);
   const [longitude, setlongitude] = useRecoilState(longitudeState);
-  
 
   const RegisterUser: RegisterReq = {
     id: userId,
@@ -104,9 +100,6 @@ const Save = () => {
     console.log(gender);
     console.log(UserEmailId);
     console.log(gender);
-    
-    
-
 
     if (userPwd === userPwdCheck) {
       try {
@@ -149,3 +142,5 @@ const Save = () => {
 };
 
 export default Save;
+
+// 로그인 페이지로 이동
