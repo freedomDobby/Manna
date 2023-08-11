@@ -21,7 +21,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-# Ignored files
+# Ignored files (나중에 재발급 필요)
 apiKey.env
 ApiKey.ts
 APIKey.ts

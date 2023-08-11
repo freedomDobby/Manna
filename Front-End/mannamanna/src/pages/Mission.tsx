@@ -7,6 +7,7 @@ const Mission = () => {
   return (
     <div>
       <div style={{ height: "5vh" }}></div>
+      <p></p>
       <BackBox>
         <div style={{ height: "80vh" }}>
           <SidebarMission />
