@@ -67,6 +67,7 @@ const SoagetingFilter = () => {
     ['filtersogaeting'],
     async () => {
       console.log(page);
+      console.log(SogaetingFilter);
       const response = await api.post('sogaeting/recommend', SogaetingFilter);
       SetLimitPage(response.data.data.totalPage);
       console.log(response.data.data.sogaetingMembers);
@@ -84,15 +85,33 @@ const SoagetingFilter = () => {
       return response.data.data.sogaetingMembers;
     }
   );
-    const fetechchange =async ()=>{
-      if (page === limitpage - 1||page===locatelimitpage-1) {
-        // Display an alert when page is one less than limitpage
+    const fetechchangelocate =async ()=>{
+      if (page>locatelimitpage-2) {
+     
+        alert("이제 페이지가 없어요!");
+      }else{
+        await setPage(page+1);
+
+        const locate=await locatereommand();
+      }
+    }
+    const fetechchangerecommand =async ()=>{
+      if (page > limitpage-2) {
         alert("이제 페이지가 없어요!");
       }else{
         await setPage(page+1);
         const recommand = await normalrecommand(); 
-        const locate=await locatereommand();
       }
+    }
+    const refreshfetch =async ()=>{
+      await setPage(0);
+      try {
+        const recommand = await normalrecommand(); 
+        const locate=await locatereommand();
+      } catch (error) {
+        console.error('Mutation Error:', error);
+      }
+
     }
   useEffect(() => {
     const fetchInitialData = async () => {
@@ -119,6 +138,10 @@ const SoagetingFilter = () => {
               <br />
               추천
             </p>
+            <Btn1 ChangeFilter={()=>fetechchangerecommand()}
+            title="새로운 인원 추천"/>
+            <Btn1 ChangeFilter={()=>refreshfetch()}
+          title="필터 적용"/>
           </Font1>
           <FilterContainer>
             <FilterBody></FilterBody>
@@ -156,7 +179,8 @@ const SoagetingFilter = () => {
               추천
             </p>
           </Font1>
-          <Btn1 ChangeFilter={()=>fetechchange()}/>
+          <Btn1 ChangeFilter={()=>fetechchangelocate()}
+          title="다른 인원 추천"/>
         </MidSpace>
         <BtnContainer>
         </BtnContainer>

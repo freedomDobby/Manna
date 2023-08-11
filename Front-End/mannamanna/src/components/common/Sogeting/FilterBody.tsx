@@ -4,6 +4,7 @@ import SelectionObj1 from "./Selection/Selection1";
 import SelectionObj2 from "./Selection/Selection2";
 import SelectionObj3 from "./Selection/Selection3";
 import SelectionObj4 from "./Selection/Selection4";
+import { StyledButton } from "../../../pages/User/Login/LoginStyle";
 
 const FilterBody = styled.div`
   height: 55vh;
