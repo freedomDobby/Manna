@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Button from '@mui/material/Button';
 
 const NewPersonBtn = styled.div`
-  margin-top: 10vh;
+  margin-top: 2vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,9 +11,10 @@ const NewPersonBtn = styled.div`
 
 interface PersonBtnProps {
     ChangeFilter: () => void;
+    title:string;
 }
 
-const PersonBtn: React.FC<PersonBtnProps> = ({ ChangeFilter }) => {
+const PersonBtn: React.FC<PersonBtnProps> = ({ ChangeFilter,title }) => {
   return (
     <NewPersonBtn>
       <Button
@@ -33,7 +34,7 @@ const PersonBtn: React.FC<PersonBtnProps> = ({ ChangeFilter }) => {
         onClick={ChangeFilter}
       >
         <p style={{ fontSize: "2vh", color: "black", fontWeight: "bold" }}>
-          다른 인연 찾기
+          {title}
         </p>
         <p style={{ fontSize: "1.5vh", color: "black", fontWeight: "bold" }}>
           -5 마일리지
