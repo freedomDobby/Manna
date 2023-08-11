@@ -3,9 +3,9 @@ import styled from "styled-components";
 import Brightness1Icon from "@mui/icons-material/Brightness1";
 
 const OnlineBtn = styled.div`
+  // border: 1px solid black;
   height: 5vh;
   width: 6vw;
-  //   border: 1px solid black;
   display: flex;
   align-items: center;
   justify-content: space-around;

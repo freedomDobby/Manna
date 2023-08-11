@@ -5,12 +5,19 @@ import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { isNonNullExpression } from "typescript";
+import { useRecoilState } from "recoil";
+import { SogaetingFilterAtom } from "../../../../Recoil/State";
 
 export default function SelectionObj3() {
-  const [religion, setReligion] = React.useState("");
+  const [sogaetingFilter, setSogaetingFilter] = useRecoilState(SogaetingFilterAtom);
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setReligion(event.target.value);
+  const handleChange = async (event: SelectChangeEvent) => {
+    const newValue = event.target.value; 
+    console.log(newValue);
+    await setSogaetingFilter((prevFilter) => ({
+      ...prevFilter,
+      religion: newValue,
+    }));
   };
 
   return (
@@ -30,14 +37,14 @@ export default function SelectionObj3() {
       <Select
         labelId="demo-simple-select-helper-label"
         id="demo-simple-select-helper"
-        value={religion}
+        value={sogaetingFilter.religion || "무교"}
         label="종교"
         onChange={handleChange}
       >
-        <MenuItem value={0}>기독교</MenuItem>
-        <MenuItem value={1}>천주교</MenuItem>
-        <MenuItem value={2}>불교</MenuItem>
-        <MenuItem value={3}>무교</MenuItem>
+        <MenuItem value={"기독교"}>기독교</MenuItem>
+        <MenuItem value={"천주교"}>천주교</MenuItem>
+        <MenuItem value={"불교"}>불교</MenuItem>
+        <MenuItem value={"무교"}>무교</MenuItem>
       </Select>
     </FormControl>
   );

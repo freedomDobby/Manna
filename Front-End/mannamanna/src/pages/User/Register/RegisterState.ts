@@ -30,7 +30,7 @@ export const RegisterDataState = atom<RegisterDataType>({
     id: "unknownId",
     pwd: "unknownPw",
     name: "unknownName",
-    gender: "unknownGender",
+    gender: "F",
     tel: "unknownTel",
     birth: "unknownBirth",
     emailId: "unknownEmail",
@@ -49,6 +49,14 @@ export const RegisterDataState = atom<RegisterDataType>({
     longitude: 127.29,
     // blockingFriend: true,
   },
+});
+export const latitudeState = atom<number>({
+  key: "latitude",
+  default: 36.35,
+});
+export const longitudeState = atom<number>({
+  key: "longitude",
+  default: 127.29,
 });
 
 export const userNameState = atom<string>({
@@ -145,18 +153,19 @@ export const priority3State = atom<number>({
   default: 2,
 });
 
-export const profilePicture1State = atom<File | null>({
+export const profilePicture1State = atom<File>({
   key: "profilePicture1",
-  default: null,
+  default: new File([], "dummy.jpg"),
 });
 
-export const profilePicture2State = atom<File | null>({
+export const profilePicture2State = atom<File>({
   key: "profilePicture2",
-  default: null,
+  default: new File([], "dummy.jpg"),
 });
-export const profilePicture3State = atom<File | null>({
+
+export const profilePicture3State = atom<File>({
   key: "profilePicture3",
-  default: null,
+  default: new File([], "dummy.jpg"),
 });
 
 export const profile_nicknameState = atom<string>({

@@ -5,12 +5,19 @@ import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { isNonNullExpression } from "typescript";
+import { useRecoilState } from "recoil";
+import { SogaetingFilterAtom } from "../../../../Recoil/State";
 
 export default function SelectionObj2() {
-  const [alcohol, setAlcohol] = React.useState("");
+  const [sogaetingFilter, setSogaetingFilter] = useRecoilState(SogaetingFilterAtom);
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setAlcohol(event.target.value);
+  const handleChange = async (event: SelectChangeEvent) => {
+    const newValue = event.target.value === "true"; 
+    console.log(newValue);
+    await setSogaetingFilter((prevFilter) => ({
+      ...prevFilter,
+      isDrinker: newValue,
+    }));
   };
 
   return (
@@ -30,12 +37,12 @@ export default function SelectionObj2() {
       <Select
         labelId="demo-simple-select-helper-label"
         id="demo-simple-select-helper"
-        value={alcohol}
+        value={sogaetingFilter.isDrinker ? "true" : "false"}
         label="음주"
         onChange={handleChange}
       >
-        <MenuItem value={0}>음주</MenuItem>
-        <MenuItem value={1}>비음주</MenuItem>
+        <MenuItem  value={"true"}>음주</MenuItem>
+        <MenuItem value={"false"}>비음주</MenuItem>
       </Select>
     </FormControl>
   );

@@ -1,0 +1,2 @@
+// src/typings/react-kakao-maps.d.ts
+declare module "react-kakao-maps";

@@ -1,11 +1,11 @@
 
-import { useRecoilState } from 'recoil';
+// import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
-import { ForgotIdErrorModalAtom, LoginErrorModalAtom, findIdCheckIdAtom, findIdModalAtom, findPwModalAtom } from '../../../Recoil/State';
-import MacBookBox from '../../../components/common/macbookBox';
-import { MyPageButton } from '../MyPage/MyPageStyles';
-import Modal from '@mui/material/Modal';
-import { useNavigate } from 'react-router-dom';
+// import { ForgotIdErrorModalAtom, LoginErrorModalAtom, findIdCheckIdAtom, findIdModalAtom, findPwModalAtom } from '../../../Recoil/State';
+// import MacBookBox from '../../../components/common/macbookBox';
+// import { MyPageButton } from '../MyPage/MyPageStyles';
+// import Modal from '@mui/material/Modal';
+// import { useNavigate } from 'react-router-dom';
 
 
 

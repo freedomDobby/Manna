@@ -9,9 +9,10 @@ import {
   genderState,
   profile_nicknameState,
 } from "../Register/RegisterState";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { RegisterReq } from "../../../apis/Request/Request";
 import { RegisterMessageAtom, RegisterModalAtom } from "../../../Recoil/State";
+import { JavaScriptKey } from "./ApiKey";
 
 declare global {
   interface Window {
@@ -23,7 +24,7 @@ declare global {
 
 const Kakao: React.FC = () => {
   const [userInfo] = useRecoilState(RegisterDataState);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [open, setOpen] = useRecoilState(RegisterModalAtom);
   const [message, setMessage] = useRecoilState(RegisterMessageAtom);
@@ -39,9 +40,10 @@ const Kakao: React.FC = () => {
     const script = document.createElement("script");
     script.src = "https://developers.kakao.com/sdk/js/kakao.js";
     script.async = true;
+    const apiKey = JavaScriptKey;
 
     script.onload = () => {
-      window.Kakao.init("dd25fb1ab1355cc42fcc658c13182ed6"); // Replace with your Kakao App Key
+      window.Kakao.init(apiKey); // Replace with your Kakao App Key
       setIsKakaoInitialized(true);
     };
 
@@ -62,41 +64,15 @@ const Kakao: React.FC = () => {
             setProfileNickname(kakao_account.profile.nickname);
             setAccountEmail(kakao_account.email);
             setGender(kakao_account.gender);
+            console.log(gender);
+            console.log(profileNickname);
+            console.log(accountEmail);
+
             // console.log(gender);
             //로그인 정보 Post보내기
-            const RegisterUser: RegisterReq = {
-              id: profileNickname,
-              pwd: userInfo.pwd,
-              name: profileNickname,
-              gender: gender,
-              tel: userInfo.tel,
-              birth: userInfo.birth,
-              emailId: accountEmail,
-              emailDomain: userInfo.emailDomain,
-              height: userInfo.height,
-              job: userInfo.job,
-              isSmoker: userInfo.isSmoker,
-              isDrinker: userInfo.isDrinker,
-              mbti: userInfo.mbti,
-              religion: userInfo.religion,
-              introduction: userInfo.introduction,
-              sido: userInfo.sido,
-              gugun: userInfo.gugun,
-              detail: userInfo.detail,
-              latitude: userInfo.latitude,
-              longitude: userInfo.longitude,
-            };
             try {
-              // JSON.stringify(RegisterUser);
-              console.log(RegisterUser);
-              const response = api.post("/user/regist", RegisterUser);
-              console.log(response);
-              setOpen(true);
             } catch (error) {
-              console.log(RegisterUser);
               console.error(error);
-              setMessage("회원가입이 실패하였습니다.");
-              setOpen(true);
             }
             //   // 로그인이 끝나면 main으로 보내기
             //   // navigate("/main");
@@ -138,7 +114,7 @@ const Kakao: React.FC = () => {
         // border: "1px solid red",
       }}
     >
-      카카오 로그인
+      카카오 연동(두번 눌러주세요)
     </ForgotPasswordLink>
   );
 };

@@ -1,38 +1,37 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from "react";
+import { Map } from "react-kakao-maps-sdk"; // React Kakao 지도 라이브러리의 Map 컴포넌트를 가져옵니다.
+// import useInjectKakaoMapApi from "useInjectKakaoMapApi"; // useInjectKakaoMapApi hook을 가져옵니다.
+import { JavaScriptKey } from "../../pages/User/Login/ApiKey";
 
-const KakaoMap: React.FC = () => {
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=736dcc51f648222222f38b0181a46ab0&autoload=false`;
-    document.head.appendChild(script);
+const KakaoMap = () => {
+  // const [mapLoaded, setMapLoaded] = useState(false);
+  // console.log(mapLoaded);
 
-    script.onload = () => {
-      // Kakao 지도 API 스크립트 로드가 완료된 후에 지도 초기화를 수행합니다.
-      const container = document.getElementById('map');
-      if (container) {
-        const { kakao } = window as any; // 'kakao' 속성을 강제로 추가하여 사용
-        const latitude = 36.333834; // 대전 삼성화재연수원의 위도 값
-        const longitude = 127.392870; // 대전 삼성화재연수원의 경도 값
+  // useEffect(() => {
+  //   const script = document.createElement("script");
+  //   const apiKey = JavaScriptKey;
+  //   script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${apiKey}`;
+  //   script.async = true;
+  //   script.onload = () => {
+  //     setMapLoaded(true); // Kakao 지도 API 스크립트가 로드되면 상태 업데이트
+  //   };
+  //   document.head.appendChild(script);
 
-        const center = new kakao.maps.LatLng(latitude, longitude);
-        const options = {
-          center,
-          level: 3,
-        };
-        new kakao.maps.Map(container, options);
-      }
-    };
+  //   return () => {
+  //     // 컴포넌트가 언마운트될 때 스크립트 제거
+  //     document.head.removeChild(script);
+  //   };
+  // }, []);
 
-    return () => {
-      // 컴포넌트가 언마운트될 때 스크립트를 정리합니다.
-      if (script.parentNode) {
-        script.parentNode.removeChild(script);
-      }
-    };
-  }, []);
-
-  return <div id="map" style={{ width: '100%', height: '100%', backgroundColor: 'gold' }} />;
+  return (
+    <Map
+      center={{ lat: 36.354946759143, lng: 127.29980994578 }} // 지도의 중심 좌표
+      style={{ width: "100%", height: "100%", zIndex: "30000000" }} // 지도 크기
+      level={3} // 지도 확대 레벨
+    >
+      {/* MapMarker 컴포넌트를 여기에 추가하여 마커를 표시할 수 있습니다. */}
+    </Map>
+  );
 };
 
 export default KakaoMap;

@@ -11,8 +11,8 @@ import { useNavigate } from "react-router-dom";
 export const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
-    // "Content-type": "application/json",
-    "Content-type": "multipart/form-data",
+    "Content-type": "application/json",
+    // "Content-type": "multipart/form-data",
   },
 });
 

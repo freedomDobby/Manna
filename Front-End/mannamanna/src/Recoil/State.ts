@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
-import Register from './../pages/User/Register/Register';
-import { MessageReq, SogaetingReq } from '../apis/Request/Request';
+// import Register from './../pages/User/Register/Register';
+import { MessageReq, SogaetingRecommandReq, SogaetingReq } from '../apis/Request/Request';
 
 // Persist 설정을 위한 storage 설정
 const sessionStorage=
@@ -11,7 +11,6 @@ const { persistAtom } = recoilPersist({
     key: 'recoilPersistData',
     storage: sessionStorage,
   });
-
 
 // 사용할 타입 정의
 export interface LoginDataType {
@@ -78,6 +77,17 @@ export const genderAtom = atom<string | null>({
   },
 });
 
+export const sendNoteReceiverAtom = atom<string>({
+  key: 'sendNoteReceiverAtom', 
+  default:'',
+});
+
+export const sendNoteIdAtom = atom<number>({
+  key: 'sendNoteIdAtom', 
+  default:0,
+});
+
+
 export const sogaetingNoteAtom = atom<SogaetingReq>({
   key: 'sogaetingNoteAtom', 
   default: {
@@ -87,6 +97,10 @@ export const sogaetingNoteAtom = atom<SogaetingReq>({
   },
 });
 
+export const sogaetingNoteReceiverAtom = atom<string>({
+  key: 'sogaetingNoteReceiverAtom', 
+  default:'',
+});
   // 이메일 
   
   export const findEmailNameAtom = atom<string>({
@@ -146,7 +160,35 @@ export const sogaetingNoteAtom = atom<SogaetingReq>({
     default: false,
   });
 
+  export const SogaeNoteModalAtom=atom<boolean>({
+    key: 'SogaeNoteModalAtom',
+    default: false,
+  });
+
+  
+
   export const NoteAlarmAtom=atom<boolean>({
     key: 'NoteAlarmAtom',
     default: false,
+  });
+
+  export const SogaeResultNoteAtom=atom<boolean>({
+    key: 'SogaeResultNoteAtom',
+    default: false,
+  });
+
+
+  export const DeleteNoteAtom=atom<boolean>({
+    key: 'DeleteNoteAtom',
+    default: false,
+  });
+
+  export const SogaetingFilterAtom = atom<SogaetingRecommandReq>({
+    key: "SogaetingFilterAtom",
+    default: {
+      mbti: null,
+      religion: null,
+      isDrinker: null,
+      isSmoker: null,
+    },
   });

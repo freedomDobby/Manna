@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import { useNavigate } from "react-router-dom";
 import { CenteredDiv, Content } from "./LandingStyle";
 import Logo from "../../components/common/Logo";

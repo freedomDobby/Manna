@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import ChooseBtn from "../Sogeting/button/chooseBtn";
 
-const BtnContainer = styled.div`
+export const BtnContainer = styled.div`
   height: 5vh;
   width: 12vw;
   //   border: 1px solid red;
@@ -10,6 +10,9 @@ const BtnContainer = styled.div`
   justify-content: space-around;
   align-items: center;
 `;
+const ClickCheck = () => {
+  console.log("dd");
+};
 
 const BtnBox = () => {
   return (

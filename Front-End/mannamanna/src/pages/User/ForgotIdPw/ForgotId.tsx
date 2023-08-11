@@ -21,7 +21,7 @@ import {
 import { useRecoilState } from "recoil";
 import api from "../../../apis/Api";
 import { FindidReq } from "../../../apis/Request/Request";
-import axios from "axios";
+// import axios from "axios";
 import { FindidModal, ForgotIdErrorModal } from "./ForgotIdStyles";
 
 const ForgotId = () => {
