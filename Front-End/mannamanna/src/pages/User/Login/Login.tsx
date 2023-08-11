@@ -56,23 +56,36 @@ const Login = () => {
   const GoRegister = () => {
     navigate("/register");
   };
-  const accessToken = UseraccessToken; 
+
 
   // const client = new Client({
-  // brokerURL: 'ws://localhost:8080/api/ws',
-  // connectHeaders: {
-  //   ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
-  //   userName: name,
-  //   userId: userId,
-  //   gender: gender,
-  // },
-  // debug: (str: string) => {
-  //   console.log(str);
-  // },
-  // reconnectDelay: 5000,
-  // heartbeatIncoming: 4000,
-  // heartbeatOutgoing: 4000,
+  //   brokerURL: 'wss://19b205.p.ssafy.io/api/ws',
+  //   connectHeaders: {
+  //     ...(UseraccessToken ? { Authorization: `Bearer ${UseraccessToken}` } : {}),
+  //     ...(name ? { userName: `${name}` } : {}),
+  //     ...(id ? { userId: `${id}` } : {}),
+  //     ...(gender ? { gender: `${gender}` } : {}),
+  //   },
+  //   debug: (str: string) => {
+  //     console.log(str);
+  //   },
+  //   reconnectDelay: 5000,
+  //   heartbeatIncoming: 4000,
+  //   heartbeatOutgoing: 4000,
   // });
+
+
+  // client.onConnect = function (frame) {
+  //   console.log("연결됨")
+  // };
+  
+  // client.onStompError = function (frame) {
+  //   console.log('Broker reported error: ' + frame.headers['message']);
+  //   console.log('Additional details: ' + frame.body);
+  // };
+  // // client.activate();
+  // client.deactivate();
+
 
   const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

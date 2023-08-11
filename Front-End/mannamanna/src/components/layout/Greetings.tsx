@@ -51,9 +51,9 @@ function Greetings() {
     setName("null");
     navigate("/");
   };
-  console.log(name1);
-  console.log(gender);
-  console.log(accessToken);
+  // console.log(name1);
+  // console.log(gender);
+  // console.log(accessToken);
   // const { data: checkrecentnote } = useQuery<boolean>(
   //     ["checkrecentnote"],
   //     async () => {
