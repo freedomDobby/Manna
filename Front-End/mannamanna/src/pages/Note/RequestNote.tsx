@@ -15,7 +15,6 @@ import { DeleteNoteModal } from "./Modal/DeleteNoteModal";
 import { CheckSogaeNoteModal } from "./Modal/AcceptModal";
 
 const RequestNote = () => {
-
   const [userId, setId] = useRecoilState(idAtom);
   const [DeleteOpen, setDeleteOpen] = useRecoilState(DeleteNoteAtom);
   const [noteId, setNoteId] = useRecoilState(sendNoteIdAtom);

@@ -31,7 +31,7 @@ export const LocalApi = () => {
 
   const handleSearch = async (event: any) => {
     event.preventDefault();
-    const REST_API_KEY = RestKey; // 실제 키로 교체해야 합니다.
+    const REST_API_KEY = "24de74d8dfbf09eef0de147e26dd6747"; // 실제 키로 교체해야 합니다.
     try {
       const response = await api.get<AddressSearchResult>(
         "https://dapi.kakao.com/v2/local/search/address.json",
