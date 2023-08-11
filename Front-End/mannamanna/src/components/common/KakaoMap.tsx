@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Map } from "react-kakao-maps-sdk"; // React Kakao 지도 라이브러리의 Map 컴포넌트를 가져옵니다.
 // import useInjectKakaoMapApi from "useInjectKakaoMapApi"; // useInjectKakaoMapApi hook을 가져옵니다.
-import { JavaScriptKey } from "../../pages/User/Login/ApiKey";
 
 const KakaoMap = () => {
   // const [mapLoaded, setMapLoaded] = useState(false);

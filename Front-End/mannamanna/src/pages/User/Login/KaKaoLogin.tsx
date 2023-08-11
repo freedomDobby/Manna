@@ -12,7 +12,6 @@ import {
 // import { useNavigate } from "react-router-dom";
 import { RegisterReq } from "../../../apis/Request/Request";
 import { RegisterMessageAtom, RegisterModalAtom } from "../../../Recoil/State";
-import { JavaScriptKey } from "./ApiKey";
 
 declare global {
   interface Window {
@@ -40,7 +39,7 @@ const Kakao: React.FC = () => {
     const script = document.createElement("script");
     script.src = "https://developers.kakao.com/sdk/js/kakao.js";
     script.async = true;
-    const apiKey = JavaScriptKey;
+    const apiKey = "545883b1d8c45952d3fe010059bb3d4f";
 
     script.onload = () => {
       window.Kakao.init(apiKey); // Replace with your Kakao App Key
