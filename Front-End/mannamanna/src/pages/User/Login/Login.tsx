@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import GoBackIcon from "../../../components/common/GoBackIcon";
 import Logo from "../../../components/common/Logo";
+import * as Stomp from '@stomp/stompjs';
+import { Client, Message } from '@stomp/stompjs';
 import {
   CenterBox,
   BtnBox,
@@ -40,7 +42,7 @@ const Login = () => {
   const [gender, setGender] = useRecoilState(genderAtom);
   const [name, setName] = useRecoilState(nameAtom);
   const [id, setId] = useRecoilState(idAtom);
-  const [accessToken, setAccessToken] = useRecoilState(accessTokenAtom);
+  const [UseraccessToken, setUseraccessToken] = useRecoilState(accessTokenAtom);
   const [refreshToken, setRefreshToken] = useRecoilState(refreshTokenAtom);
 
   const GoFindId = () => {
@@ -54,6 +56,23 @@ const Login = () => {
   const GoRegister = () => {
     navigate("/register");
   };
+  const accessToken = UseraccessToken; 
+
+  // const client = new Client({
+  // brokerURL: 'ws://localhost:8080/api/ws',
+  // connectHeaders: {
+  //   ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
+  //   userName: name,
+  //   userId: userId,
+  //   gender: gender,
+  // },
+  // debug: (str: string) => {
+  //   console.log(str);
+  // },
+  // reconnectDelay: 5000,
+  // heartbeatIncoming: 4000,
+  // heartbeatOutgoing: 4000,
+  // });
 
   const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -64,11 +83,11 @@ const Login = () => {
     // console.log(userData);
     try {
       const response = await api.post("/user/login", userData);
-      // console.log(response.data);
+      console.log(response.data);
       setGender(response.data.gender);
       setName(response.data.userName);
       setId(response.data.id);
-      setAccessToken(response.data.accessToken);
+      setUseraccessToken(response.data.accessToken);
       setRefreshToken(response.data.refreshToken);
       navigate("/main");
     } catch (error) {
