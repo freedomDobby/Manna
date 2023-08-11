@@ -7,7 +7,6 @@ import {
 } from "../ModalStyle";
 import { useRecoilState } from "recoil";
 import {
-  priority3State,
   profilePicture1State,
   profilePicture2State,
   profilePicture3State,
@@ -70,7 +69,6 @@ export const EnterImage2: React.FC<EnterImage2Props> = ({ title, coment }) => {
 };
 
 export const EnterImage3: React.FC<EnterImage3Props> = ({ title, coment }) => {
-  const [priority3, setpriority3] = useRecoilState<number>(priority3State); // Set the type to number
   const [profilePicture3, setprofilePicture3] =
     useRecoilState<File>(profilePicture3State);
 
