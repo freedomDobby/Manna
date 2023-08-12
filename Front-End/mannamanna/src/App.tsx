@@ -19,7 +19,7 @@ import MeetingMakeRoom from "./pages/Meeting/MeetingMakeRoom";
 import MeetingWait from "./pages/Meeting/MeetingWait";
 import Meeting from "./pages/Meeting/Meeting";
 import Reserve from "./pages/Reserve/Reserve";
-import Mission from "./pages/Mission";
+import Mission from "./pages/Mission/Mission";
 import Note from "./pages/Note/Note";
 import RequestNote from "./pages/Note/RequestNote";
 import ResponseNote from "./pages/Note/ResponseNote";
