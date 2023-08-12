@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 
 const RadiusContainerBox = styled.div`
-border: solid 0.9vh black;
+border: solid 0.5vh black;
 background-color : white;
 width: 150vh;
 height: 80vh;

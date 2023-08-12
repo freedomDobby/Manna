@@ -31,6 +31,7 @@
     "moment": "^2.29.4",
     "openvidu-browser": "^2.28.0",
     "react": "^18.2.0",
+    "react-calendar": "^4.6.0",
     "react-dom": "^18.2.0",
     "react-kakao-maps": "^0.0.13",
     "react-kakao-maps-sdk": "^1.1.11",
