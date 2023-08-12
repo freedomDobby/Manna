@@ -62,7 +62,7 @@ const ResponseNote = () => {
       console.log(promiseResult.data);
       setSenderName(promiseResult.data.name);
       setSenderHeight(promiseResult.data.height);
-      // setSendeAge(promiseResult.data.name);
+      setSendeAge(promiseResult.data.age);
       setSenderJob(promiseResult.data.job);
       setSenderMbti(promiseResult.data.mbti);
       setSenderPr(promiseResult.data.introduction);
@@ -91,7 +91,7 @@ const ResponseNote = () => {
   });
 
   if (isLoading) {
-    return <p>로딩중입니다 ㅎㅎ</p>;
+    return <p>Loading...</p>;
   }
 
   if (isError) {

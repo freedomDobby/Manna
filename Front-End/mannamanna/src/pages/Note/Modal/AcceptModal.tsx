@@ -104,7 +104,12 @@ export const CheckSogaeNoteModal: React.FC<CheckModalProps> = ({
             alignItems="center"
           >
             <ProfileContainer>
-              <ProfileBox style={{ backgroundImage: `url(${profile})` }} />
+              <ProfileBox
+                style={{
+                  backgroundImage: `url(${profile})`,
+                  backgroundSize: "100%",
+                }}
+              />
             </ProfileContainer>
             <InfoContainer>
               <NameInfo>
