@@ -11,12 +11,6 @@ import {
   TitleBox,
 } from "../ModalStyle";
 import { EnterImage1, EnterImage2, EnterImage3 } from "./ImageInput";
-import { useRecoilValue } from "recoil";
-import {
-  profilePicture1State,
-  profilePicture2State,
-  profilePicture3State,
-} from "../RegisterState";
 
 type EnterImageProps = {
   children: string;

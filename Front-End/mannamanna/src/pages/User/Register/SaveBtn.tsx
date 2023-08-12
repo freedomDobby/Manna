@@ -30,6 +30,7 @@ import { RegisterReq } from "../../../apis/Request/Request";
 import api from "../../../apis/Api";
 import { RegisterMessageAtom, RegisterModalAtom } from "../../../Recoil/State";
 import { StyledButton } from "../Login/LoginStyle";
+import { useNavigate } from "react-router-dom";
 
 const Save = () => {
   const userName = useRecoilValue(userNameState);
@@ -95,11 +96,12 @@ const Save = () => {
 
   const [open, setOpen] = useRecoilState(RegisterModalAtom);
   const [message, setMessage] = useRecoilState(RegisterMessageAtom);
+  const navigate = useNavigate();
+  const GoLogin = () => {
+    navigate("/login");
+  };
   const SaveInfo = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    console.log(gender);
-    console.log(UserEmailId);
-    console.log(gender);
 
     if (userPwd === userPwdCheck) {
       try {
@@ -126,16 +128,21 @@ const Save = () => {
           },
         });
         console.log(response.data.data);
-        setOpen(true);
-      } catch (error) {
+        // setOpen(true);
+        alert("회원가입 성공");
+        GoLogin();
+      } catch (error: any) {
         console.error(error);
         await setMessage("회원가입이 실패하였습니다.");
+        alert(error.response.data);
         setOpen(true);
+        // GoLogin();
       }
     } else {
       await setMessage("비밀번호가 다릅니다.");
       setOpen(true);
     }
+    //navigate 추가
   };
 
   return <StyledButton onClick={SaveInfo}>저장</StyledButton>;

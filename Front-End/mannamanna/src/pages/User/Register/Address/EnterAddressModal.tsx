@@ -151,7 +151,6 @@ export const EnterLocation = () => {
                     </label>
                     <Sido />
                     <GuGun />
-                    <AddressDetail />
                   </div>
                 </ImageForm>
                 <EnterImageBtnBox>

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { unknown } from "../../../asset/image/unknown.png";
 
 const MostBiggestBox = styled.div`
   border-radius: 5%;
@@ -75,6 +76,7 @@ const ImageMirror = styled.div`
   border: 1px solid black;
   width: 80%;
   height: 50%;
+  background-image: url(${"unknown"});
   // align-itmes: center;
   // background-color: black;
 `;
