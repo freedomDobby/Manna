@@ -1,7 +1,6 @@
 package com.ssafy.manna.global.auth.repository;
 
 import com.ssafy.manna.global.auth.domain.RefreshToken;
-import com.ssafy.manna.global.auth.repository.RefreshTokenRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

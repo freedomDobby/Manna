@@ -1,15 +1,9 @@
 package com.ssafy.manna.member.dto.request;
 
-import com.ssafy.manna.global.common.dto.ProfilePictureDto;
-import jakarta.mail.Multipart;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 
 @Getter
@@ -46,11 +40,11 @@ public class MemberSignUpRequest {
     //회원 프로필 사진 3개
 //    private MultipartFile profilePicture1;
 //    private Integer priority1;
-////
-////    private MultipartFile profilePicture2;
+//
+//    private MultipartFile profilePicture2;
 //    private Integer priority2;
-////
-////    private MultipartFile profilePicture3;
+//
+//    private MultipartFile profilePicture3;
 //    private Integer priority3;
 //
 

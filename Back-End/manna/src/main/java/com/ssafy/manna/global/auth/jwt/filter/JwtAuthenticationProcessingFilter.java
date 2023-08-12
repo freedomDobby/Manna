@@ -9,7 +9,6 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,6 +19,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import java.io.IOException;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -35,7 +36,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-        FilterChain filterChain) throws ServletException, IOException {
+                                    FilterChain filterChain) throws ServletException, IOException {
         if (request.getRequestURI().equals(NO_CHECK_URL)) {
             filterChain.doFilter(request, response);
             return;
@@ -43,7 +44,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
 
         // 사용자 요청에서 RefreshToken 추출
         String refreshToken = jwtService.extractRefreshToken(request)
-            .filter(jwtService::isTokenValid).orElse(null);
+                .filter(jwtService::isTokenValid).orElse(null);
 
         // 리프레시 토큰이 있다면
         if (refreshToken != null) {
@@ -58,31 +59,31 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
     }
 
     private void checkRefreshTokenAndReIssueAccessToken(HttpServletResponse response,
-        String refreshToken) {
+                                                        String refreshToken) {
 
         refreshTokenRepository.findById(refreshToken)
-            .ifPresent(token -> {
-                String reIssuedRefreshToken = reIssueRefreshToken(token);
-                jwtService.sendAccessTokenAndRefreshToken(response,
-                    jwtService.createAccessToken(token.getMemberId()), reIssuedRefreshToken);
-            });
+                .ifPresent(token -> {
+                    String reIssuedRefreshToken = reIssueRefreshToken(token);
+                    jwtService.sendAccessTokenAndRefreshToken(response,
+                            jwtService.createAccessToken(token.getMemberId()), reIssuedRefreshToken);
+                });
     }
 
     private String reIssueRefreshToken(RefreshToken refreshToken) {
         String reIssuedRefreshToken = jwtService.createRefreshToken();
         refreshTokenRepository.save(
-            new RefreshToken(reIssuedRefreshToken, refreshToken.getMemberId()));
+                new RefreshToken(reIssuedRefreshToken, refreshToken.getMemberId()));
         return reIssuedRefreshToken;
     }
 
     private void checkAccessTokenAndAuthentication(HttpServletRequest request,
-        HttpServletResponse response, FilterChain filterChain)
-        throws ServletException, IOException {
+                                                   HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
 
         log.info("checkAccessTokenAndAuthentication() 호출");
         jwtService.extractAccessToken(request).filter(jwtService::isTokenValid).ifPresent(
-            accessToken -> jwtService.extractId(accessToken).ifPresent(
-                id -> memberRepository.findById(id).ifPresent(this::saveAuthentication)));
+                accessToken -> jwtService.extractId(accessToken).ifPresent(
+                        id -> memberRepository.findById(id).ifPresent(this::saveAuthentication)));
 
         filterChain.doFilter(request, response);
     }
@@ -95,10 +96,10 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
         }
 
         UserDetails userDetails = User.builder().username(myMember.getId()).password(password)
-            .roles(myMember.getRole().name()).build();
+                .roles(myMember.getRole().name()).build();
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null,
-            authoritiesMapper.mapAuthorities(userDetails.getAuthorities()));
+                authoritiesMapper.mapAuthorities(userDetails.getAuthorities()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }

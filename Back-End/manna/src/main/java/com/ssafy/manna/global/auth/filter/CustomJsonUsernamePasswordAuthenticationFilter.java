@@ -4,9 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.Map;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -15,16 +12,20 @@ import org.springframework.security.web.authentication.AbstractAuthenticationPro
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.util.StreamUtils;
 
-public class CustomJsonUsernamePasswordAuthenticationFilter extends
-    AbstractAuthenticationProcessingFilter {
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Map;
 
-    private static final String DEFAULT_LOGIN_REQUEST_URL = "/user/login";
+public class CustomJsonUsernamePasswordAuthenticationFilter extends
+        AbstractAuthenticationProcessingFilter {
+
+    private static final String DEFAULT_LOGIN_REQUEST_URL = "/api/user/login";
     private static final String HTTP_METHOD = "POST";
     private static final String CONTENT_TYPE = "application/json";
     private static final String USERNAME_KEY = "id";
     private static final String PASSWORD_KEY = "pwd";
     private static final AntPathRequestMatcher DEFAULT_LOGIN_PATH_REQUEST_MATCHER =
-        new AntPathRequestMatcher(DEFAULT_LOGIN_REQUEST_URL, HTTP_METHOD);
+            new AntPathRequestMatcher(DEFAULT_LOGIN_REQUEST_URL, HTTP_METHOD);
 
     private final ObjectMapper objectMapper;
 
@@ -35,24 +36,24 @@ public class CustomJsonUsernamePasswordAuthenticationFilter extends
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
-        HttpServletResponse response)
-        throws AuthenticationException, IOException, ServletException {
+                                                HttpServletResponse response)
+            throws AuthenticationException, IOException, ServletException {
 
         if (request.getContentType() == null || !request.getContentType().equals(CONTENT_TYPE)) {
             throw new AuthenticationServiceException("Authentication Content-Type not supported: ");
         }
 
         String messageBody = StreamUtils.copyToString(request.getInputStream(),
-            StandardCharsets.UTF_8);
+                StandardCharsets.UTF_8);
 
         Map<String, String> usernamePasswordMap = objectMapper.readValue(messageBody,
-            Map.class);
+                Map.class);
 
         String id = usernamePasswordMap.get(USERNAME_KEY);
         String password = usernamePasswordMap.get(PASSWORD_KEY);
 
         UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(
-            id, password);
+                id, password);
 
         return this.getAuthenticationManager().authenticate(authRequest);
     }

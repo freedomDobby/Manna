@@ -1,20 +1,15 @@
 package com.ssafy.manna.mission.domain;
 
-import com.ssafy.manna.mission.Enums.MissionCode;
 import com.ssafy.manna.global.common.domain.BaseStartEndEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import com.ssafy.manna.mission.Enums.MissionCode;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
+@Builder
+@AllArgsConstructor
 public class MissionQuestion extends BaseStartEndEntity {
 
     @Id
@@ -24,12 +19,33 @@ public class MissionQuestion extends BaseStartEndEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Mission mission;
 
-    private Integer no;
     private Boolean maleIsDone;
     private Boolean femaleIsDone;
 
     @Enumerated(EnumType.STRING)
     private MissionCode code;
 
+    private String content;
+
+    private String maleImagePath;
+
+    private String femaleImagePath;
+
+
+    public void updateMaleImgPath(String maleImagePath) {
+        this.maleImagePath = maleImagePath;
+    }
+
+    public void updateFemaleImgPath(String femaleImagePath) {
+        this.femaleImagePath = femaleImagePath;
+    }
+
+    public void updateMaleIsDone(Boolean maleIsDone) {
+        this.maleIsDone = maleIsDone;
+    }
+
+    public void updateFemaleIsDone(Boolean femaleIsDone) {
+        this.femaleIsDone = femaleIsDone;
+    }
 
 }

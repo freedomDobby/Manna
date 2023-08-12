@@ -1,18 +1,16 @@
 package com.ssafy.manna.messenger.domain;
 
 import com.ssafy.manna.member.domain.Member;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
+import lombok.*;
+
 import java.time.LocalDateTime;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 
 @Entity
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
+@AllArgsConstructor
 public class Note {
 
     @Id
@@ -27,7 +25,7 @@ public class Note {
 
     private String subject;
 
-    private String contennt;
+    private String content;
 
     private LocalDateTime date;
 
@@ -36,5 +34,20 @@ public class Note {
     private Boolean isCheck;
 
     private Boolean isReject;
+
+    private Boolean isDeleted;
+
+    public void updateIsCheck(boolean isCheck) {
+        this.isCheck = isCheck;
+    }
+
+    public void updateIsReject(boolean isReject) {
+        this.isReject = isReject;
+    }
+
+    public void updateDeleted(boolean isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+
 
 }

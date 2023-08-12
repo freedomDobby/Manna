@@ -1,7 +1,5 @@
 package com.ssafy.manna.global.config;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.manna.global.auth.filter.CustomJsonUsernamePasswordAuthenticationFilter;
 import com.ssafy.manna.global.auth.handler.LoginFailureHandler;
@@ -9,8 +7,8 @@ import com.ssafy.manna.global.auth.handler.LoginSuccessHandler;
 import com.ssafy.manna.global.auth.jwt.JwtService;
 import com.ssafy.manna.global.auth.jwt.filter.JwtAuthenticationProcessingFilter;
 import com.ssafy.manna.global.auth.repository.RefreshTokenRepository;
-import com.ssafy.manna.member.repository.MemberRepository;
 import com.ssafy.manna.global.auth.service.LoginService;
+import com.ssafy.manna.member.repository.MemberRepository;
 import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -25,6 +23,8 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
@@ -50,8 +50,8 @@ public class SecurityConfig {
 //                .requestMatchers("/user/login").permitAll()
 //                .requestMatchers("/user/regist").permitAll()
 //                .requestMatchers("/user/findId").permitAll()
-                .requestMatchers("/**").permitAll()
-                .anyRequest().authenticated()
+                        .requestMatchers("/**").permitAll()
+                        .anyRequest().authenticated()
 
         );
 

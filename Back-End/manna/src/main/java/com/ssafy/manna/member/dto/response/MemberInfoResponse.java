@@ -1,13 +1,17 @@
 package com.ssafy.manna.member.dto.response;
 
 import com.ssafy.manna.global.common.dto.ProfilePictureDto;
-import com.ssafy.manna.member.domain.ProfilePicture;
-import java.util.List;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class MemberInfoResponse {
     //마이페이지 - 조회 Response
 
@@ -34,7 +38,8 @@ public class MemberInfoResponse {
     private String introduction;
     // 마일리지
     private int mileage;
-
+    // 나이
+    private int age;
     private String sido;
     private String gugun;
     private String detailAddress;

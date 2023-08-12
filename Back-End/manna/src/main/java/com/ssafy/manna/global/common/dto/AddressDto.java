@@ -1,6 +1,5 @@
 package com.ssafy.manna.global.common.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
@@ -9,9 +8,9 @@ import lombok.Data;
 public class AddressDto {
 
     //시도 id
-    private int sidoId;
+    private String sido;
     //구군 id
-    private int gugunId;
+    private String gugun;
     //상세 주소
     private String detail;
     //위도

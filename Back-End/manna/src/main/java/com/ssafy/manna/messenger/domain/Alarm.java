@@ -1,16 +1,9 @@
 package com.ssafy.manna.messenger.domain;
 
-import com.ssafy.manna.member.Enums.AlarmCode;
 import com.ssafy.manna.global.common.domain.BaseCreateOnlyEntity;
+import com.ssafy.manna.member.Enums.AlarmCode;
 import com.ssafy.manna.member.domain.Member;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

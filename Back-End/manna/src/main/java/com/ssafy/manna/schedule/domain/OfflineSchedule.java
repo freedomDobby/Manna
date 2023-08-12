@@ -1,23 +1,30 @@
 package com.ssafy.manna.schedule.domain;
 
+import com.ssafy.manna.member.domain.Member;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
+@DiscriminatorValue("Offline")
 public class OfflineSchedule extends Schedule {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
     @OneToOne(fetch = FetchType.LAZY)
-    private ReserveAddress reserve;
+    private ReservePlace reserve;
+
+    @Builder
+    public OfflineSchedule(Member female, Member male, LocalDateTime date, ReservePlace reserve) {
+        super(female, male, date);
+        this.reserve = reserve;
+    }
 
 }

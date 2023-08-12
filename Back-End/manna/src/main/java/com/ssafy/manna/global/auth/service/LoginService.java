@@ -18,12 +18,12 @@ public class LoginService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
         Member member = memberRepository.findById(id)
-            .orElseThrow(() -> new UsernameNotFoundException("해당 아이디에 해당하는 회원이 존재하지 않습니다."));
+                .orElseThrow(() -> new UsernameNotFoundException("해당 아이디에 해당하는 회원이 존재하지 않습니다."));
 
         return User.builder()
-            .username(member.getId())
-            .password(member.getPwd())
-            .roles(member.getRole().name())
-            .build();
+                .username(member.getId())
+                .password(member.getPwd())
+                .roles(member.getRole().name())
+                .build();
     }
 }

@@ -1,10 +1,5 @@
 package com.ssafy.manna.member.service;
 
-import com.ssafy.manna.global.common.repository.GugunRepository;
-import com.ssafy.manna.global.common.repository.SidoRepository;
-import com.ssafy.manna.member.dto.request.MemberSignUpRequest;
-import com.ssafy.manna.member.repository.MemberRepository;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;

@@ -2,18 +2,8 @@ package com.ssafy.manna.member.domain;
 
 import com.ssafy.manna.global.common.domain.Address;
 import com.ssafy.manna.global.common.domain.BaseTimeEntity;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Getter
@@ -30,6 +20,7 @@ public class MemberDetail extends BaseTimeEntity {
     private Member member;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "member_address_id")
     private Address address;
 
     private String tel;                 //전화번호
@@ -48,34 +39,41 @@ public class MemberDetail extends BaseTimeEntity {
     private boolean isBlockingFriend;   //지인차단 여부
     private int mileage;                //현재마일리지
 
+
     // 정보 수정 (비밀번호, 키, 주소, 직업, 프로필 사진)
     public void updateHeight(int height) {
         this.height = height;
     }
+
     public void updateJob(String job) {
         this.job = job;
     }
-    public void updateIsSmoker(boolean isSmoker){
+
+    public void updateIsSmoker(boolean isSmoker) {
         this.isSmoker = isSmoker;
     }
-    public void updateIsDrinker(boolean isDrinker){
+
+    public void updateIsDrinker(boolean isDrinker) {
         this.isDrinker = isDrinker;
     }
-    public void updateMbti(String mbti){
+
+    public void updateMbti(String mbti) {
         this.mbti = mbti;
     }
-    public void updateReligion(String religion){
+
+    public void updateReligion(String religion) {
         this.religion = religion;
     }
-    public void updateIntroduction(String introduction){
+
+    public void updateIntroduction(String introduction) {
         this.introduction = introduction;
     }
 
-    public void updateIsBlockingFriend(boolean isBlockingFriend){
+    public void updateIsBlockingFriend(boolean isBlockingFriend) {
         this.isBlockingFriend = isBlockingFriend;
     }
 
-    public void updateMileage(int mileage){
+    public void updateMileage(int mileage) {
         this.mileage = mileage;
     }
 

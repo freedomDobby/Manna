@@ -4,11 +4,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
+@Builder
+@AllArgsConstructor
 public class CodeDetail {
 
     @Id
@@ -18,4 +20,12 @@ public class CodeDetail {
     private Code code;
     private String name;
 
+    @Override
+    public String toString() {
+        return "CodeDetail{" +
+                "id='" + id + '\'' +
+                ", code=" + code +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

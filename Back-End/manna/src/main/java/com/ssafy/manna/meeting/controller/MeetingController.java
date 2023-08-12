@@ -1,6 +1,7 @@
 package com.ssafy.manna.meeting.controller;
 
 import com.ssafy.manna.meeting.dto.request.MeetingMakeRoomRequest;
+import com.ssafy.manna.meeting.dto.request.MeetingReportRequest;
 import com.ssafy.manna.meeting.service.MeetingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +16,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @RequiredArgsConstructor
 @EnableWebMvc
 @Slf4j
-@RequestMapping("/meeting")
+@RequestMapping("/api/meeting")
 public class MeetingController {
 
     private final MeetingService meetingService;
@@ -26,6 +27,17 @@ public class MeetingController {
         try {
             meetingService.MakeRoom(meetingMakeRoomRequest);
             return ResponseEntity.ok("makeRoom success");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    // 신고하기
+    @PostMapping(value = "/report")
+    public ResponseEntity<?> report(@RequestBody MeetingReportRequest meetingReportRequest) {
+        try {
+            meetingService.Report(meetingReportRequest);
+            return ResponseEntity.ok("report success");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

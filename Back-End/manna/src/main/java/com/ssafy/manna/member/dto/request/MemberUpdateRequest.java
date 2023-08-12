@@ -1,7 +1,5 @@
 package com.ssafy.manna.member.dto.request;
 
-import com.ssafy.manna.global.common.dto.ProfilePictureDto;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,12 +26,8 @@ public class MemberUpdateRequest {
     private String religion;
     // mbti
     private String mbti;
-    // 프로필사진
-    private List<ProfilePictureDto> profilePictures;
     // 자기소개
     private String introduction;
-    // 마일리지
-    private Integer mileage;
 
     //주소
     private String sido;
@@ -42,4 +36,8 @@ public class MemberUpdateRequest {
     private Double latitude;
     private Double longitude;
 
+    //회원 프로필 3개
+//    private Integer priority1;
+//    private Integer priority2;
+//    private Integer priority3;
 }
