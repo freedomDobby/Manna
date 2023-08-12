@@ -17,6 +17,8 @@ import {
   SaveChangeButton,
   SmokeCustomSwitch,
 } from "./MyPageStyles";
+import { ModifyLocal } from "./MyPageModal/ModifyLocal";
+import { EnterImage } from "../Register/Image/EnterImageModal";
 
 const ModifyBox = styled.div`
   width: 90%;
@@ -74,7 +76,8 @@ function MyPageModify() {
             }}
           >
             <div style={{ width: "25%", height: "100%" }}>주소</div>
-            <div style={{ width: "75%", height: "100%" }}>입력입력</div>
+            {/* <div style={{ width: "75%", height: "100%" }}>입력입력</div> */}
+            <ModifyLocal />
           </div>
           <div
             style={{
@@ -158,17 +161,7 @@ function MyPageModify() {
       >
         <div style={{ width: "90%", margin: "1vh" }}>사진등록</div>
         <ModifyBox>
-          <ImageBox>
-            <Avatar src="/broken-image.jpg" />
-            <Avatar src="/broken-image.jpg" />
-            <Avatar src="/broken-image.jpg" />
-          </ImageBox>
-          <MypageInputBox>
-            <div>
-              <p>자신을 표현가능한 사진 3장을 입력해주세요.</p>
-            </div>
-            <OutboxIcon fontSize="large"></OutboxIcon>
-          </MypageInputBox>
+          <EnterImage>사진 등록하기</EnterImage>
         </ModifyBox>
       </div>
       <div

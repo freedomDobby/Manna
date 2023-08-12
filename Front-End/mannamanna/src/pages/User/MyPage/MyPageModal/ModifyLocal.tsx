@@ -1,7 +1,7 @@
 import { Button, Modal } from "@mui/material";
 import { useState } from "react";
 import MacBookBox from "../../../../components/common/macbookBox";
-import { MyPageButton } from "../../MyPage/MyPageStyles";
+import { MyPageButton, MyPagePassButton } from "../MyPageStyles";
 import {
   Contain,
   Container2,
@@ -9,11 +9,10 @@ import {
   ImageForm,
   MostBiggestBox,
   TitleBox,
-} from "../ModalStyle";
-import { Sido } from "../Selection";
-import { GuGun } from "./EnterGuGun";
+} from "../../Register/ModalStyle";
+import { Sido } from "../../Register/Selection";
+import { GuGun } from "../../Register/Address/EnterGuGun";
 import { useRecoilState } from "recoil";
-import api from "../../../../apis/Api";
 import {
   latitudeState,
   longitudeState,
@@ -21,7 +20,7 @@ import {
   userAddressDetailState,
   userGuGunState,
   userSidoState,
-} from "../RegisterState";
+} from "../../Register/RegisterState";
 
 interface AddressSearchResult {
   documents: {
@@ -31,78 +30,45 @@ interface AddressSearchResult {
   }[];
 }
 
-export const EnterLocation = () => {
+export const ModifyLocal = () => {
+  const [open, setOpen] = useState(false); // open 상태 초기화
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
   const [latitude, setlatitude] = useRecoilState(latitudeState);
   const [longitude, setlongitude] = useRecoilState(longitudeState);
   const [userInfo] = useRecoilState(RegisterDataState);
   const [sido] = useRecoilState(userSidoState);
   const [gugun] = useRecoilState(userGuGunState);
   const [detail] = useRecoilState(userAddressDetailState);
-  // const [searchQuery, setSearchQuery] = useState(""); // 주소 검색어 상태
+
   const [searchResults, setSearchResults] =
-    useState<AddressSearchResult | null>(null); // 검색 결과 상태
-  const [open, setOpen] = useState(false);
+    useState<AddressSearchResult | null>(null);
 
   const handleSearch = async () => {
-    // event.preventDefault(); // 폼 전송을 막음
-    const combinedString = `${sido} ${gugun} `;
-    const REST_API_KEY = "2502d7b7bd98ef898c9d2e3a10cfd6e3";
-    try {
-      const response = await api.get<AddressSearchResult>(
-        "https://dapi.kakao.com/v2/local/search/address.json",
-        {
-          headers: {
-            Authorization: `KakaoAK ${REST_API_KEY}`,
-          },
-          params: {
-            query: combinedString,
-          },
-        }
-      );
-      setSearchResults(response.data);
-      console.log(searchResults);
-      if (searchResults !== null) {
-        const xValue = parseFloat(response.data.documents[0].x);
-        const yValue = parseFloat(response.data.documents[0].y);
-        setlatitude(xValue);
-        setlongitude(yValue);
-      } else {
-        setlatitude(userInfo.latitude);
-        setlongitude(userInfo.longitude);
-      }
-    } catch (error) {
-      console.error("Error fetching address data:", error);
-    }
-    handleClose();
+    // 나머지 코드...
   };
 
   return (
     <div style={{ width: "30%" }}>
       <Button
         sx={{
-          margin: "1px",
-          width: "10vw",
-          height: " 7vh",
-          color: "#ffcced",
-          border: "solid 0.4vh",
-          borderColor: "#ffcced",
-          backgroundColor: "#ffffff",
-          borderRadius: "1.5vh",
-          fontSize: " 2.5vh",
-          // transition: " border-color 0.3s color 0.3s",
-          "&:hover": {
-            borderColor: "#d9cff4",
-            color: "#d9cff4",
-            border: "solid 0.3vh",
-            backgroundColor: "white",
-          },
+          width: "100%",
+          height: "5vh",
+          margin: "1vh",
+          backgroundColor: "#ffcced",
+          border: "0.3vw solid #000",
+          borderRadius: 3,
+          color: "common.black",
+          borderColor: "ffcced",
+          fontSize: "2.5vh",
+          fontFamily: "inherit",
+          "&:hover": { backgroundColor: "#f8e3ea" },
         }}
         variant="contained"
         onClick={handleOpen}
       >
-        지역검색
+        주소변경
       </Button>
       <Modal
         open={open}
