@@ -36,7 +36,7 @@ const Register = () => {
     <div>
       <LogoBox>
         <Logo />
-        <RegisterModal></RegisterModal>
+        <RegisterModal />
       </LogoBox>
       <InnerBox>
         <SideBox>
