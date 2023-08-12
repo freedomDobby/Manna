@@ -2,6 +2,7 @@ import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 // import Register from './../pages/User/Register/Register';
 import { MessageReq, SogaetingRecommandReq, SogaetingReq } from '../apis/Request/Request';
+import Schedule from './../pages/User/Schedule/Schedule';
 
 // Persist 설정을 위한 storage 설정
 const sessionStorage=
@@ -191,4 +192,16 @@ export const sogaetingNoteReceiverAtom = atom<string>({
       isDrinker: null,
       isSmoker: null,
     },
+  });
+
+  // 달력 
+
+  export const selectedDateAtom = atom<Date | null>({
+    key: 'selectedDate',
+    default: new Date(), // 현재 날짜로 초기화 또는 null로 초기화할 수 있습니다.
+  });
+
+  export const scheduleIdAtom = atom<number | null>({
+    key: 'scheduleIdAtom',
+    default: null, // 현재 날짜로 초기화 또는 null로 초기화할 수 있습니다.
   });

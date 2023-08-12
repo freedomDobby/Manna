@@ -1,122 +1,155 @@
-import * as React from 'react';
-import dayjs, { Dayjs } from 'dayjs';
-import Badge from '@mui/material/Badge';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { PickersDay, PickersDayProps } from '@mui/x-date-pickers/PickersDay';
-import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import { DayCalendarSkeleton } from '@mui/x-date-pickers/DayCalendarSkeleton';
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import Calendar from 'react-calendar';
+import moment from 'moment';
+import heart from "../../asset/image/calendarheart.png";
+import api from '../../apis/Api';
+import { idAtom, selectedDateAtom } from '../../Recoil/State';
+import { useRecoilState } from 'recoil';
+import { useQuery } from '@tanstack/react-query';
 
-const specificDate = dayjs();
+const CalendarContainer = styled.div`
+    
+  /* react-calendar__navigation 스타일 */
+  .react-calendar__navigation {
+    display: flex;
+    justify-content: center; /* 가로 가운데 정렬 */
+    align-items: center; /* 세로 가운데 정렬 */
+    background: pink;
+    border-bottom: 4px solid pink;
+    height: 80%;
 
-
-const abortController = new AbortController();
-const signal = abortController.signal;
-
-function fakeFetch(date: Dayjs, { signal }: { signal: AbortSignal }) {
-  return new Promise<{ daysToHighlight: number[] }>((resolve, reject) => {
-
-    const daysToHighlight = [1, 3, 5];
-    resolve({ daysToHighlight });
-  });
-}
-
-const initialValue = dayjs();
-
-function ServerDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[] }) {
-  const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
-  const handleDayClick = () => {
-    const nextDay = day.add(1, 'day'); 
-    console.log('Clicked Day:', nextDay.toString());
-  };
-  const isCurrentDate = dayjs().isSame(day, 'day'); 
-  const isSelected =
-    !props.outsideCurrentMonth && highlightedDays.indexOf(props.day.date()) >= 0;
-
-  return (
-    <Badge
-      key={props.day.toString()}
-      overlap="circular"
-      badgeContent={
-        <span style={{ display: 'flex', alignItems: 'center' }}>
-
-          {isSelected && '💛'} 
-        </span>
-      }
-      anchorOrigin={{
-        vertical: 'top', 
-        horizontal: 'left', 
-        
-      }}
-      style={{
-        zIndex: 1, 
-        border: isSelected ? '0.2vh solid orange' : 'none', 
-        borderRadius: '85%', 
-       
-      }}
-      onClick={handleDayClick}
-    >
-      <PickersDay {...other} outsideCurrentMonth={outsideCurrentMonth} day={day} />
-    </Badge>
-  );
-}
-
-export default function DateCalendarServerRequest() {
-  const requestAbortController = React.useRef<AbortController | null>(null);
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [highlightedDays, setHighlightedDays] = React.useState([1, 2, 15]);
-
-  const fetchHighlightedDays = (date: Dayjs) => {
-    const controller = new AbortController();
-    fakeFetch(date, {
-      signal: controller.signal,
-    })
-      .then(({ daysToHighlight }) => {
-        setHighlightedDays(daysToHighlight);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        if (error.name !== 'AbortError') {
-          throw error;
-        }
-      });
-
-    requestAbortController.current = controller;
-  };
-
-  React.useEffect(() => {
-    fetchHighlightedDays(initialValue);
-    return () => requestAbortController.current?.abort();
-  }, []);
-
-  const handleMonthChange = (date: Dayjs) => {
-    if (requestAbortController.current) {
-      requestAbortController.current.abort();
+    span {
+      font-size: 24px;
+      font-weight: 600;
+      color: pink;
     }
+  }
 
-    setIsLoading(true);
-    setHighlightedDays([]);
-    fetchHighlightedDays(date);
+  /* react-calendar__navigation 버튼 스타일 */
+  .react-calendar__navigation button:disabled,
+  .react-calendar__navigation button:enabled:hover,
+  .react-calendar__navigation button:enabled:focus {
+    background-color: pink;
+    border-radius: 20px 20px 0 0;
+  }
+
+  /* react-calendar__month-view 스타일 */
+  
+  .react-calendar__month-view {
+    padding: 1.2vh 3.2vh;
+    abbr {
+      color: brown;
+      font-size: 16px;
+      font-weight: 500;
+    }
+  }
+
+  /* react-calendar__month-view__weekdays 스타일 */
+  .react-calendar__month-view__weekdays abbr {
+    font-size: 2vh;
+    font-weight: 900;
+    margin-left: 2.5rem; /* 요일을 오른쪽으로 이동 */
+
+  }
+
+  /* react-calendar__tile 스타일 */
+  .react-calendar__tile {
+    text-align: center;
+    height: 6vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 14px;
+    margin-top:0.2rem;
+  }
+
+  /* react-calendar__tile 선택됐을 시 스타일 */
+  .react-calendar__tile:enabled:hover,
+  .react-calendar__tile:enabled:focus,
+  .react-calendar__tile--active {
+    background: pink;
+    border-radius: 14px;
+  }
+
+  /* 현재 날짜 스타일 */
+  .react-calendar__tile--now,
+  .react-calendar__tile--now:enabled:hover,
+  .react-calendar__tile--now:enabled:focus {
+    background: pink;
+    border-radius: 14px;
+  }
+
+`;
+
+
+const MyCalendar = () => {
+  const curDate = new Date(); 
+  const [selectedDate, setSelectedDate] = useRecoilState(selectedDateAtom); // recoil 상태 사용
+  const activeDate:any = moment(selectedDate).format('YYYY-MM-DD'); 
+  const [userId, setId] = useRecoilState(idAtom);
+ 
+  const {
+    data: scheduleList,
+    isLoading,
+    isError,
+  } = useQuery<any>(["scheduleList"], async () => {
+    const response = await api.get(`schedule/${userId}`);
+    return response.data;
+  });
+
+  const offlineDates = scheduleList?.data.offlineSchedule.map((item: any) => item.date) || [];
+  const onlineDates = scheduleList?.data.onlineSchedule.map((item: any) => item.date) || [];
+  const dayList = [...offlineDates, ...onlineDates];
+  const addContent = ({ date }: { date: Date }) => {
+    if (dayList.find((day) => day === moment(date).format('YYYY-MM-DD'))) {
+      return (
+        <div key={moment(date).format('YYYY-MM-DD')}>
+          <img
+            src={heart}
+            className="diaryImg"
+            width="26"
+            height="26"
+            alt="today is..."
+          />
+        </div>
+      );
+    }
+    return null;
+  };
+
+  const getActiveMonth = (activeStartDate: Date) => {
+    console.log('Active Start Date:', activeStartDate);
+  };
+
+  const handleDateChange = (value: any) => {
+    if (value instanceof Date) {
+      const date = value as Date;
+      setSelectedDate(date);
+    }
+  };
+  const handleActiveStartDateChange = ({ activeStartDate }: { activeStartDate: Date | null }) => {
+    if (activeStartDate) {
+      getActiveMonth(activeStartDate);
+    }
   };
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DateCalendar
-        defaultValue={initialValue}
-        loading={isLoading}
-        onMonthChange={handleMonthChange}
-        renderLoading={() => <DayCalendarSkeleton />}
-        slots={{
-          day: ServerDay,
-        }}
-        slotProps={{
-          day: {
-            highlightedDays,
-          } as any,
-        }}
-
+    <CalendarContainer style={{height:'100%'}}>
+      <Calendar
+        locale="kr"
+        onChange={(value, event) => handleDateChange(value)}
+        value={selectedDate}
+        next2Label={null}
+        prev2Label={null}
+        formatDay={(locale, date) => moment(date).format('D')}
+        tileContent={addContent}
+        showNeighboringMonth={false}
+        onActiveStartDateChange={handleActiveStartDateChange}
       />
-    </LocalizationProvider>
-
+    </CalendarContainer>
   );
-}
+};
+
+export default MyCalendar;

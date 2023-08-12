@@ -38,10 +38,10 @@ const Main = () => {
             <InnerBox>
               <MidBox>
                 <SmallBox>
-                  <CanlendarBox>
+                  <CanlendarBox style={{display:"flex",height:'100%',marginTop:'3vh'}}>
                     <UserCalendar />
-                    <StyledButton onClick={GoSchedule}>
-                      일정확인하기
+                    <StyledButton onClick={GoSchedule} style={{fontSize:'2vh'}}>
+                      일정확인
                     </StyledButton>
                   </CanlendarBox>
                 </SmallBox>

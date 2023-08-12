@@ -78,3 +78,8 @@ export interface SogaetingRecommandReq {
   isDrinker: boolean | null;
   isSmoker: boolean | null;
 }
+
+export interface DetailScheduleReq {
+  userId:string | null;
+  date:string | null;
+}

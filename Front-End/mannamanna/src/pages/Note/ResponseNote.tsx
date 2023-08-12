@@ -91,11 +91,11 @@ const ResponseNote = () => {
   });
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <p>로딩중입니다 ㅎㅎ</p>;
   }
 
   if (isError) {
-    return <p>Error occurred while fetching data</p>;
+    return <p>에러입니다.</p>;
   }
 
   return (
