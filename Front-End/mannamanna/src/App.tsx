@@ -10,7 +10,6 @@ import MainHome from "./pages/User/MainHome/MainHome";
 import Choice from "./pages/Choice";
 import Schedule from "./pages/User/Schedule/Schedule";
 import Mypage from "./pages/User/MyPage/Mypage";
-import Chatting from "./pages/Chatting/Chatting";
 import SoagetingMain from "./pages/Soagaeting/SoagetingMain";
 import SoagetingWait from "./pages/Soagaeting/SoagetingWait";
 import Soageting from "./pages/Soagaeting/Soageting";
@@ -34,7 +33,7 @@ import MyPageWithdrawal from "./pages/User/MyPage/MyPageWithdrawal";
 import StudyRecoil from "./pages/Study/StudyRecoil";
 import StudyRecoilResult from "./pages/Study/StudyRecoilResult";
 import Kakao from "./pages/User/Login/KaKaoLogin";
-
+import { Chatting } from "./pages/Chatting/Chatting";
 function App() {
   return (
     <>

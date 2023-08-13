@@ -96,3 +96,5 @@ export const ChatInputBox = styled.div`
     justify-content: space-around;
     height: 15%;
 `
+
+

@@ -205,3 +205,8 @@ export const sogaetingNoteReceiverAtom = atom<string>({
     key: 'scheduleIdAtom',
     default: null, // 현재 날짜로 초기화 또는 null로 초기화할 수 있습니다.
   });
+
+  export const inputValueState = atom({
+    key: 'inputValueState',
+    default: '',
+  });
