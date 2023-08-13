@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import GoBackIcon from "../../../components/common/GoBackIcon";
 import Logo from "../../../components/common/Logo";
-import * as Stomp from '@stomp/stompjs';
+import { Stomp } from "@stomp/stompjs";
 import { Client, Message } from '@stomp/stompjs';
 import {
   CenterBox,
@@ -44,7 +44,6 @@ const Login = () => {
   const [id, setId] = useRecoilState(idAtom);
   const [UseraccessToken, setUseraccessToken] = useRecoilState(accessTokenAtom);
   const [refreshToken, setRefreshToken] = useRecoilState(refreshTokenAtom);
-
   const GoFindId = () => {
     navigate("/ForgotId");
   };
@@ -56,37 +55,6 @@ const Login = () => {
   const GoRegister = () => {
     navigate("/register");
   };
-
-
-  const client = new Client({
-    brokerURL: 'wss://i9b205.p.ssafy.io/ws',
-    connectHeaders: {
-      ...(UseraccessToken ? { Authorization: `Bearer ${UseraccessToken}` } : {}),
-      ...(name ? { userName: `${name}` } : {}),
-      ...(id ? { userId: `${id}` } : {}),
-      ...(gender ? { gender: `${gender}` } : {}),
-    },
-    debug: (str: string) => {
-      console.log(str);
-    },
-    reconnectDelay: 5000,
-    heartbeatIncoming: 4000,
-    heartbeatOutgoing: 4000,
-  });
-
-
-  client.onConnect = function (frame) {
-    console.log("연결됨")
-  };
-  
-  client.onStompError = function (frame) {
-    console.log('Broker reported error: ' + frame.headers['message']);
-    console.log('Additional details: ' + frame.body);
-  };
-  // client.activate();
-  // client.deactivate();
-
-
   const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const userData: LoginReq = {
@@ -96,11 +64,11 @@ const Login = () => {
     try {
       const response = await api.post("/user/login", userData);
       console.log(response.data);
-      setGender(response.data.gender);
-      setName(response.data.userName);
-      setId(response.data.id);
-      setUseraccessToken(response.data.accessToken);
-      setRefreshToken(response.data.refreshToken);
+      await setGender(response.data.gender);
+      await setName(response.data.userName);
+      await setId(response.data.id);
+      await setUseraccessToken(response.data.accessToken);
+      await setRefreshToken(response.data.refreshToken);
       navigate("/main");
     } catch (error) {
       console.error(error);
