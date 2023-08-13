@@ -118,7 +118,7 @@ export const Chatting = () => {
                     note.id
                   )} />
                 ))}
-                                  <StyledButton onClick={() => console.log(inputValue)}>값좀보자씨발</StyledButton>
+                                  <StyledButton onClick={() => console.log(inputValue)}>값좀보자</StyledButton>
                 </ChatInBox>
               </ChatPeopleOutBox>
             </MacBookBox>
