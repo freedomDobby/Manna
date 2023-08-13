@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { OpenVidu, StreamManager, Session, SignalOptions} from 'openvidu-browser';
-import { dateName, isAudio, isVideo, sogaeUserName, userSessionId } from './SogaetingState';
+import { dateName, isAudio, isVideo, sogaeUserName, timerTime, userSessionId } from './SogaetingState';
 import { apiopen } from '../../apis/Api';
 import { OpenviduSecretKey } from '../User/Login/ApiKey';
 import { CenteredDiv } from '../Landing/LandingStyle';
@@ -10,7 +10,7 @@ import SmallMacBookProfile from '../../components/common/SmallMacBookProfile';
 import HeartAnimation from '../../components/animation/HeartAnimation';
 import MacBookBox from '../../components/common/macbookBox';
 import { BlindDateMyVideo, BlindDateParter } from '../../components/common/Openvidu/UserVideoCompo';
-import { HeartIconButton, MicVideoIconButton } from './SogaetingStyles';
+import { HeartIconButton, MicVideoIconButton, TimePlusIconButton, Timer } from './SogaetingStyles';
 import MicIcon from '@mui/icons-material/Mic';
 import MicOffIcon from '@mui/icons-material/MicOff';
 import VideocamIcon from '@mui/icons-material/Videocam';
@@ -28,7 +28,8 @@ const Sogaeting = () => {
     const [subscribers, setSubscribers] = useState<StreamManager[]>([]);
     const [myIsVideo, setMyIsVideo] = useRecoilState(isVideo);
     const [myIsAudio, setMyIsAudio] = useRecoilState(isAudio);
-
+    
+    const [timer, setTimer] = useRecoilState(timerTime);
     const [myBlur, setMyBlur] = useState<number>(10);
     const videoRef = useRef<HTMLVideoElement | null>(null);
     const videoRefTemp = useRef<HTMLVideoElement | null>(null);
@@ -133,6 +134,13 @@ const Sogaeting = () => {
         setSubscribers([]);
     }
     
+    const handleChangeTimer = async (event: React.MouseEvent<HTMLButtonElement>) => {
+        const newTimer = timer + 600;
+        const newData = {data: newTimer};
+        sendTimerChange(newData);
+        setTimer(newTimer);
+    }
+
     const sendTimerChange = (data: any) => {
         const signalOptions: SignalOptions = {
             data: JSON.stringify(data),
@@ -178,6 +186,7 @@ const Sogaeting = () => {
         newSession.on('signal:sendTimerChange', (event: any) => {
             const data = JSON.parse(event.data);
             const newTime = data.data;
+            setTimer(newTime);
         });
         
         const token = await getToken();
@@ -200,6 +209,7 @@ const Sogaeting = () => {
                 });
                 newSession.publish(newPublisher);
                 setPublisher(newPublisher);
+                sendTimerChange({data: timer});
             } else {
                 console.error("canvas is null");
             }
@@ -344,6 +354,12 @@ const Sogaeting = () => {
                                 </div>
                                 <div style={{border:'solid 2px blue', width: '100%', height: '50%'}}>
                                     채팅영역 
+                                </div>
+                                <div style={{width: '100%', height: '25%', flexDirection: 'row', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                                    <Timer/>
+                                    <div style={{width: '20%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                                        <TimePlusIconButton onClick={handleChangeTimer}><MoreTimeIcon/></TimePlusIconButton>
+                                    </div>
                                 </div>
                             </div>
                         </div>
