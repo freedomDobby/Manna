@@ -4,6 +4,20 @@ import { OpenVidu, StreamManager, Session, SignalOptions} from 'openvidu-browser
 import { dateName, isAudio, isVideo, sogaeUserName, userSessionId } from './SogaetingState';
 import { apiopen } from '../../apis/Api';
 import { OpenviduSecretKey } from '../User/Login/ApiKey';
+import { CenteredDiv } from '../Landing/LandingStyle';
+import { CenterBox, StyledButton } from '../User/Login/LoginStyle';
+import SmallMacBookProfile from '../../components/common/SmallMacBookProfile';
+import HeartAnimation from '../../components/animation/HeartAnimation';
+import MacBookBox from '../../components/common/macbookBox';
+import { BlindDateMyVideo, BlindDateParter } from '../../components/common/Openvidu/UserVideoCompo';
+import { HeartIconButton, MicVideoIconButton } from './SogaetingStyles';
+import MicIcon from '@mui/icons-material/Mic';
+import MicOffIcon from '@mui/icons-material/MicOff';
+import VideocamIcon from '@mui/icons-material/Videocam';
+import VideocamOffIcon from '@mui/icons-material/VideocamOff';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import CloseIcon from '@mui/icons-material/Close';
+import MoreTimeIcon from '@mui/icons-material/MoreTime';
 
 const Sogaeting = () => {
     const [myUserSessionId, setMyUserSessionId] = useRecoilState(userSessionId);
@@ -239,6 +253,103 @@ const Sogaeting = () => {
 
     return (
         <div>
+            {/* 세션에 들어가기 전 내 상태를 확인하고 입장하기를 누르기 전 화면 */}
+            {session === undefined ? (
+                <CenteredDiv style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <div style={{ fontSize: '3vw', color: 'white', marginTop: '6vh' }}>
+                        너와 내가 이어지는 중...
+                    </div>
+                    <CenterBox style={{display:'flex',justifyContent:'space-around',width:'90%'}}>
+                        <SmallMacBookProfile 
+                        width="25vw"
+                        height="45vh"
+                        color1="#bcd3ff"
+                        color2="#ffffff"
+                        alignItems="center"
+                        Username=""
+                        age="내 모습 확인하기"
+                        address=""
+                        >
+                        <video ref={videoRefTemp} autoPlay style={{width: '100%', height: '90%', marginTop:'2.5%'}}/>
+                        </SmallMacBookProfile>  
+
+                        <HeartAnimation></HeartAnimation>
+
+                        <SmallMacBookProfile
+                        width="25vw"
+                        height="45vh"
+                        color1="#F8E3EA"
+                        color2="#ffffff"
+                        alignItems="center"
+                        Username="이름"
+                        age="나이"
+                        address="지역"
+                        >
+                        </SmallMacBookProfile>
+                    </CenterBox>
+                    <StyledButton style={{ marginTop: '1vh', marginBottom: '5vh' }} onClick={joinSession}>입장하기</StyledButton>
+                </CenteredDiv>
+            ) : null}
+
+            {/* 오픈비두에 필터를 적용하기 위한 비디오 안보이게 처리한다.  */}
+            <div>
+                <video  ref={videoRef} autoPlay style = {{ display:'none' }}/>
+                <canvas id="mycanvas" ref={canvasRef} style = {{ display:'none' }}/>
+            </div>
+
+            {/* 입장하기를 누른 후 세션에 들어가있는 화면 */}
+            {session !== undefined ? (
+                <div>
+                    <div style={{width: '99.5vw', height: '99vh', display:'flex'}}>
+                        <div style={{width: '60%', height: '100%', flexDirection: 'column'}}>
+                            <div style={{width: '100%', height: '60%', display:'flex', justifyContent: 'right'}}>
+                                <div style={{width: '90%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                                    <MacBookBox width="95%" height="95%" color1="#ffcced" color2="#ffffff" alignItems="center">
+                                        <BlindDateParter streamManager={subscribers[0]} />
+                                    </MacBookBox>
+                                </div>
+                            </div>
+                            <div style={{width: '100%', height: '40%', display:'flex'}}>
+                                <div style={{width: '40%', height: '100%', marginLeft: '10%'}}>
+                                    <BlindDateMyVideo streamManager={publisher} />
+                                </div>
+                                <div style={{width: '50%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                                    <div style={{border:'solid 0.3rem black', borderRadius:'1rem', background:'#ffffff', width: '90%', height: '40%', flexDirection: 'column', display: 'flex', justifyContent: 'space-around', alignItems: 'center', marginLeft: '2.5%'}}>
+                                        <div style={{borderBottom:'solid 0.3rem black',borderTopRightRadius:'0.8rem', borderTopLeftRadius:'0.8rem', background:'#ffcced', width: '100%', height: '10%', flexDirection: 'column', display: 'flex', justifyContent: 'center', alignItems: 'center'}}/>
+                                        <div style={{width: '100%', height: '80%', flexDirection: 'row', display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
+                                            <MicVideoIconButton onClick={handleChangeMyIsVideo}>{myIsVideo ? (<VideocamIcon/>) : (<VideocamOffIcon/>)}</MicVideoIconButton>
+                                            <MicVideoIconButton onClick={handleChangeMyIsAudio}>{myIsAudio ? (<MicIcon/>) : (<MicOffIcon/>)}</MicVideoIconButton>
+                                            <HeartIconButton onClick={handleChangeBlur}><FavoriteIcon/></HeartIconButton>
+                                            <HeartIconButton onClick={leaveSession}><CloseIcon/></HeartIconButton>
+                                        </div>
+                                        <div style={{borderTop:'solid 0.3rem black', borderBottomRightRadius:'0.8rem', borderBottomLeftRadius:'0.8rem', background:'#ffcced', width: '100%', height: '10%', flexDirection: 'column', display: 'flex', justifyContent: 'center', alignItems: 'center'}}/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style={{width: '40%', height: '100%', flexDirection: 'column', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                            <div style={{border:'solid 0.3rem black', borderRadius:'1rem', width: '80%', height: '90%', flexDirection: 'column', background:'white'}}>
+                                <div style={{width: '100%', height: '25%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                                    <div style={{border:'solid 0.3rem black', borderRadius:'1rem', width: '80%', height: '80%', background:'#ffcced', flexDirection: 'row', display: 'flex'}}>
+                                        <div style={{width: '40%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                                            <div style={{border:'solid 0.2rem black', width: '80%', height: '80%'}}>
+                                                상대방사진
+                                            </div>
+                                        </div>
+                                        <div style={{width: '60%', height: '100%', flexDirection: 'column', display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>
+                                                <div style={{fontSize: '1.5rem'}}>상대이름</div>
+                                                <div style={{fontSize: '1rem'}}>나이 / 지역 / 직업 / MBTI</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style={{border:'solid 2px blue', width: '100%', height: '50%'}}>
+                                    채팅영역 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ) : null}
         </div>
     );
 
