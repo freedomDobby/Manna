@@ -250,13 +250,12 @@ export const Sido = () => {
     setSido(event.target.value);
   };
   return (
-    <SelectBoxWrapper
-      style={{
-        // border: "1px solid red",
-        marginRight: "2%",
-      }}
-    >
-      <select value={Sido} onChange={handleChange}>
+    <SelectBoxWrapper>
+      <select
+        value={Sido}
+        onChange={handleChange}
+        style={{ fontSize: "1.5rem" }}
+      >
         <option value="서울특별시"> 서울특별시</option>
         <option value="부산광역시"> 부산광역시</option>
         <option value="대구광역시"> 대구광역시</option>

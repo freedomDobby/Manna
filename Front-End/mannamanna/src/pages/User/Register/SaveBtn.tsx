@@ -49,7 +49,6 @@ const Save = () => {
   const userSido = useRecoilValue(userSidoState);
   const userGuGun = useRecoilValue(userGuGunState);
   const userAddressDetail = useRecoilValue(userAddressDetailState);
-  const [userInfo] = useRecoilState(RegisterDataState);
 
   const [profilePicture1, setprofilePicture1] =
     useRecoilState(profilePicture1State);
@@ -67,7 +66,7 @@ const Save = () => {
     id: userId,
     pwd: userPwd,
     name: userName,
-    gender: gender, //api => 자체회원가입땐 없어.
+    gender: gender, //api
     tel: userTel,
     birth: userAge,
     emailId: UserEmailId, //api
@@ -136,7 +135,6 @@ const Save = () => {
         await setMessage("회원가입이 실패하였습니다.");
         alert(error.response.data);
         setOpen(true);
-        // GoLogin();
       }
     } else {
       await setMessage("비밀번호가 다릅니다.");
@@ -149,5 +147,3 @@ const Save = () => {
 };
 
 export default Save;
-
-// 로그인 페이지로 이동

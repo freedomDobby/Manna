@@ -42,12 +42,6 @@ type MyPagePicturesProps = {
   name: string;
 };
 
-export const MyPagePictures = () => {
-  const myPageDataState = useRecoilValue(MyPageDataState);
-  const hello = myPageDataState.profilePictures[0].path;
-  return <img src={hello}></img>;
-};
-
 export const MyPageSmallButton = ({ children, onClick }: MyPageButtonProps) => {
   return (
     <Button
@@ -443,7 +437,7 @@ export const MyPagePassButton = ({ children }: MyPagePassButtonProps) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   return (
-    <div style={{ width: "30%" }}>
+    <div style={{ width: "50%" }}>
       <Button
         sx={{
           width: "100%",
@@ -674,16 +668,13 @@ export const JobSelectBox = () => {
         <option value="경영·사무·금융·보험직"> 경영·사무·금융·보험직</option>
         <option value="연구직 및 공학 기술직"> 연구직 및 공학 기술직</option>
         <option value="교육·법률·사회복지·경찰·소방직 및 군인">
-          {" "}
           교육·법률·사회복지·경찰·소방직 및 군인
         </option>
         <option value="보건·의료직"> 보건·의료직</option>
         <option value="예술·디자인·방송·스포츠직">
-          {" "}
           예술·디자인·방송·스포츠직
         </option>
         <option value="미용·여행·숙박·음식·경비·청소직">
-          {" "}
           미용·여행·숙박·음식·경비·청소직
         </option>
         <option value="영업·판매·운전·운송직"> 영업·판매·운전·운송직</option>

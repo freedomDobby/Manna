@@ -41,6 +41,9 @@ const TitleBox = styled.div`
   height: 10%;
   width: 100%;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ImageForm = styled.form`
@@ -50,6 +53,22 @@ const ImageForm = styled.form`
   display: flex;
   justify-content: space-around;
   align-content: center;
+`;
+
+export const EnterLocalBox = styled.div`
+  // border: 1px solid blue;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 60%;
+  width: 80%;
+  margin: 3%;
+`;
+export const LocalLabel = styled.label`
+  // border: 1px solid purple;
+  text-align: center;
+  width: 30%;
+  font-size: 2.5rem;
 `;
 
 const ImageContainer = styled.div`

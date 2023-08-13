@@ -1,12 +1,14 @@
 import { Button, Modal } from "@mui/material";
 import { useState } from "react";
 import MacBookBox from "../../../../components/common/macbookBox";
-import { MyPageButton, MyPagePassButton } from "../MyPageStyles";
+import { MyPageButton } from "../MyPageStyles";
 import {
   Contain,
   Container2,
   EnterImageBtnBox,
+  EnterLocalBox,
   ImageForm,
+  LocalLabel,
   MostBiggestBox,
   TitleBox,
 } from "../../Register/ModalStyle";
@@ -50,7 +52,7 @@ export const ModifyLocal = () => {
   };
 
   return (
-    <div style={{ width: "30%" }}>
+    <div style={{ width: "50%" }}>
       <Button
         sx={{
           width: "100%",
@@ -76,7 +78,7 @@ export const ModifyLocal = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <MostBiggestBox>
+        <MostBiggestBox style={{ height: "50%", borderRadius: "7%" }}>
           <MacBookBox
             width="100%"
             height="100%"
@@ -85,35 +87,20 @@ export const ModifyLocal = () => {
             alignItems="center"
           >
             <Contain>
-              {/* 이미지 입력받기 */}
               <Container2>
                 <TitleBox>예약하기 서비스를 위한 주소를 입력해주세요.</TitleBox>
                 <ImageForm
-                  style={{ justifyContent: "center", alignContent: "center" }}
+                  style={{
+                    // border: "1px solid red",
+                    justifyContent: "center",
+                    alignContent: "center",
+                  }}
                 >
-                  <div
-                    style={{
-                      // border: "1px solid blue",
-                      display: "flex",
-                      justifyContent: "space-around",
-                      alignItems: "center" /* 수직 중앙 정렬 설정 */,
-                      height: "60%",
-                      width: "80%",
-                      margin: "3%",
-                    }}
-                  >
-                    <label
-                      style={{
-                        // border: "1px solid red",
-                        textAlign: "center",
-                        width: "30%" /* 라벨 너비 설정 */,
-                      }}
-                    >
-                      주소
-                    </label>
+                  <EnterLocalBox>
+                    <LocalLabel>주소</LocalLabel>
                     <Sido />
                     <GuGun />
-                  </div>
+                  </EnterLocalBox>
                 </ImageForm>
                 <EnterImageBtnBox>
                   <MyPageButton onClick={handleSearch}>확인</MyPageButton>
