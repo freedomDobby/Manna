@@ -72,8 +72,8 @@ const MyPageSideTab: React.FC<SidebarProps> = ({ menu, bg }) => {
         sido: response.data.data.sido,
         gugun: response.data.data.gugun,
         detail: response.data.data.detailAddress,
-        latitude: 0,
-        longitude: 0,
+        latitude: response.data.data.latitude,
+        longitude: response.data.data.longitude,
       }));
       setMyPageUserHeight(response.data.data.height);
       setMySelfIntro(response.data.data.introduction);
