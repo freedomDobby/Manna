@@ -101,105 +101,114 @@ export const sogaetingNoteAtom = atom<SogaetingReq>({
 });
 
 export const sogaetingNoteReceiverAtom = atom<string>({
-  key: "sogaetingNoteReceiverAtom",
-  default: "",
+  key: 'sogaetingNoteReceiverAtom', 
+  default:'',
 });
-// 이메일
+  // 이메일 
+  
+  export const findEmailNameAtom = atom<string>({
+    key: 'findEmailNameAtom',
+    default: '',
+  });
+  
 
-export const findEmailNameAtom = atom<string>({
-  key: "findEmailNameAtom",
-  default: "",
-});
+  export const findEmailDomainAtom = atom<string>({
+    key: 'findEmailDomainAtom',
+    default: '',
+  });
 
-export const findEmailDomainAtom = atom<string>({
-  key: "findEmailDomainAtom",
-  default: "",
-});
+  export const findIdModalAtom = atom<boolean>({
+    key: 'findIdModalAtom',
+    default: false,
+  });
 
-export const findIdModalAtom = atom<boolean>({
-  key: "findIdModalAtom",
-  default: false,
-});
+  export const findIdCheckIdAtom = atom<string>({
+    key: 'findIdCheckIdAtom',
+    default: "떴냐아아",
+  });
+  
+  export const findPwModalAtom = atom<boolean>({
+    key: 'findPwModalAtom',
+    default: false,
+  });
 
-export const findIdCheckIdAtom = atom<string>({
-  key: "findIdCheckIdAtom",
-  default: "떴냐아아",
-});
+  
+  
 
-export const findPwModalAtom = atom<boolean>({
-  key: "findPwModalAtom",
-  default: false,
-});
+  // Modal 모음 
+  export const LoginErrorModalAtom = atom<boolean>({
+    key: 'LoginErrorModalAtom',
+    default: false,
+  });
 
-// Modal 모음
-export const LoginErrorModalAtom = atom<boolean>({
-  key: "LoginErrorModalAtom",
-  default: false,
-});
+  export const ForgotIdErrorModalAtom = atom<boolean>({
+    key: 'ForgotIdErrorModalAtom',
+    default: false,
+  });
 
-export const ForgotIdErrorModalAtom = atom<boolean>({
-  key: "ForgotIdErrorModalAtom",
-  default: false,
-});
 
-export const RegisterModalAtom = atom<boolean>({
-  key: "RegisterModalAtom",
-  default: false,
-});
 
-export const RegisterMessageAtom = atom<string>({
-  key: "RegisterMessageAtom",
-  default: "회원가입이 성공하였습니다.",
-});
+  export const RegisterModalAtom = atom<boolean>({
+    key: 'RegisterModalAtom',
+    default: false,
+  });
 
-export const SendNoteModalAtom = atom<boolean>({
-  key: "SendNoteModalAtom",
-  default: false,
-});
+  export const RegisterMessageAtom = atom<string>({
+    key: 'RegisterMessageAtom',
+    default: '회원가입이 성공하였습니다.',
+  });
 
-export const SogaeNoteModalAtom = atom<boolean>({
-  key: "SogaeNoteModalAtom",
-  default: false,
-});
+  export const SendNoteModalAtom=atom<boolean>({
+    key: 'SendNoteModalAtom',
+    default: false,
+  });
 
-export const NoteAlarmAtom = atom<boolean>({
-  key: "NoteAlarmAtom",
-  default: false,
-});
+  export const SogaeNoteModalAtom=atom<boolean>({
+    key: 'SogaeNoteModalAtom',
+    default: false,
+  });
 
-export const SogaeResultNoteAtom = atom<boolean>({
-  key: "SogaeResultNoteAtom",
-  default: false,
-});
+  
 
-export const DeleteNoteAtom = atom<boolean>({
-  key: "DeleteNoteAtom",
-  default: false,
-});
+  export const NoteAlarmAtom=atom<boolean>({
+    key: 'NoteAlarmAtom',
+    default: false,
+  });
 
-export const ChangePicAtom = atom<boolean>({
-  key: "ChangePicAtom",
-  default: false,
-});
+  export const SogaeResultNoteAtom=atom<boolean>({
+    key: 'SogaeResultNoteAtom',
+    default: false,
+  });
 
-export const SogaetingFilterAtom = atom<SogaetingRecommandReq>({
-  key: "SogaetingFilterAtom",
-  default: {
-    mbti: null,
-    religion: null,
-    isDrinker: null,
-    isSmoker: null,
-  },
-});
 
-// 달력
+  export const DeleteNoteAtom=atom<boolean>({
+    key: 'DeleteNoteAtom',
+    default: false,
+  });
 
-export const selectedDateAtom = atom<Date | null>({
-  key: "selectedDate",
-  default: new Date(), // 현재 날짜로 초기화 또는 null로 초기화할 수 있습니다.
-});
+  export const SogaetingFilterAtom = atom<SogaetingRecommandReq>({
+    key: "SogaetingFilterAtom",
+    default: {
+      mbti: null,
+      religion: null,
+      isDrinker: null,
+      isSmoker: null,
+    },
+  });
 
-export const scheduleIdAtom = atom<number | null>({
-  key: "scheduleIdAtom",
-  default: null, // 현재 날짜로 초기화 또는 null로 초기화할 수 있습니다.
-});
+  // 달력 
+
+  export const selectedDateAtom = atom<Date | null>({
+    key: 'selectedDate',
+    default: new Date(), // 현재 날짜로 초기화 또는 null로 초기화할 수 있습니다.
+  });
+
+  export const scheduleIdAtom = atom<number | null>({
+    key: 'scheduleIdAtom',
+    default: null, // 현재 날짜로 초기화 또는 null로 초기화할 수 있습니다.
+  });
+
+  export const inputValueState = atom({
+    key: 'inputValueState',
+    default: '',
+  });

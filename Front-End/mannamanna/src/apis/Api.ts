@@ -4,7 +4,7 @@ import {
   getLocalStorageItem,
   removeLocalStorageItem,
 } from "./utils/LocalStrorage";
-import { API_BASE_URL, API_LOGIN_URL, TEST_URL } from "./Url";
+import { API_BASE_URL, API_LOGIN_URL, OPENVIDU_SERVER_URL, TEST_URL } from "./Url";
 import { ErrorResponse } from "./Response/Response";
 import { useNavigate } from "react-router-dom";
 
@@ -21,6 +21,10 @@ export const apilogin = axios.create({
   // headers: {
   //   'Content-type': 'application/json',
   // },
+});
+
+export const apiopen = axios.create({
+  baseURL: OPENVIDU_SERVER_URL
 });
 
 // api.interceptors.request.use(

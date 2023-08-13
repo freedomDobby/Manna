@@ -20,6 +20,7 @@ import { useQuery } from "@tanstack/react-query";
 import api from "../../apis/Api";
 import { checkNote } from "../../apis/Response/Response";
 import { userNameState } from "../../pages/User/Register/RegisterState";
+import CreateChattingClient from "../../pages/User/Login/Clinet";
 
 const HeaderBack = styled.div`
   width: 100%;
@@ -30,7 +31,6 @@ const HeaderBack = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
-
 function Greetings() {
   const [gender, setGender] = useRecoilState(genderAtom);
   const [accessToken, setAccessToken] = useRecoilState(accessTokenAtom);
@@ -43,14 +43,16 @@ function Greetings() {
   const GoResponseNote = () => {
     navigate("/note");
   };
-  const GoLogOut = () => {
-    setGender(null);
-    setAccessToken(null);
-    setRefreshToken(null);
-    setId(null);
-    setName("null");
+  const GoLogOut = async () => {
+    await setGender(null);
+    await  setAccessToken(null);
+    await  setRefreshToken(null);
+    await  setId(null);
+    await setName(null);
     navigate("/");
   };
+
+  // 노트 알람
   // console.log(name1);
   // console.log(gender);
   // console.log(accessToken);
