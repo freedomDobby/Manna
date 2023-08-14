@@ -25,12 +25,12 @@ const MicVideoIconButtonStyle = styled(IconButton)`
 `;
 
 const TimePlusIconButtonStyle = styled(IconButton)`
-  color: black;
-  background-color: #ffffff;
+  color: red;
+  background-color: #d9cff4;
   border: solid 0.2rem black;
   border-radius: 50%;
   &:hover {
-    background-color: #ffcced;
+    background-color: #ffffff;
   }
 `;
 
@@ -41,7 +41,7 @@ interface SogaeIconButtonProps {
 
 export const HeartIconButton: React.FC<SogaeIconButtonProps> = ({ children, onClick }) => {
   return (
-    <HeartIconButtonStyle onClick={onClick} size="large">
+    <HeartIconButtonStyle onClick={onClick} size="large" sx={{width:'9vh',height:'9vh'}}>
       {children}
     </HeartIconButtonStyle>
   );
@@ -49,7 +49,7 @@ export const HeartIconButton: React.FC<SogaeIconButtonProps> = ({ children, onCl
 
 export const MicVideoIconButton: React.FC<SogaeIconButtonProps> = ({ children, onClick }) => {
   return (
-    <MicVideoIconButtonStyle onClick={onClick} size="large">
+    <MicVideoIconButtonStyle onClick={onClick} size="large" sx={{width:'9vh',height:'9vh'}}>
       {children}
     </MicVideoIconButtonStyle>
   );
@@ -57,7 +57,7 @@ export const MicVideoIconButton: React.FC<SogaeIconButtonProps> = ({ children, o
 
 export const TimePlusIconButton: React.FC<SogaeIconButtonProps> = ({ children, onClick }) => {
   return (
-    <TimePlusIconButtonStyle onClick={onClick} size="large">
+    <TimePlusIconButtonStyle onClick={onClick} size="large" sx={{width:'9vh',height:'9vh'}}>
       {children}
     </TimePlusIconButtonStyle>
   );
