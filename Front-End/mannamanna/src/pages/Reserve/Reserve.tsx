@@ -23,42 +23,44 @@ import {
   Board,
   Select,
 } from "./ReserveStyle";
+import ReserveComp from "./ReserveComp";
 
 const Reserve = () => {
   return (
-    <BigContainer>
-      <TopContainer>
-        <TopSide>
-          <LogoBox>
-            <Logo />
-            <LogoFont>예약하기</LogoFont>
-          </LogoBox>
-        </TopSide>
-        <UserContainer>User1 {/* <SmallMacBookProfile/> */}</UserContainer>
-        <TimerContainer>
-          <Hart />
-          <TenMinuteTimer />
-        </TimerContainer>
-        <UserContainer>User2</UserContainer>
-        <TopSide></TopSide>
-      </TopContainer>
-      <MidContainer></MidContainer>
-      <BottomContainer>
-        <MapBox>
-          <Select>
-            <Selection1 />
-            <Selection2 />
-            <Selection3 />
-          </Select>
-          <FlexBox>
-            <NotMap>
-              <KakaoMap />
-            </NotMap>
-            <Board>장소 리스트</Board>
-          </FlexBox>
-        </MapBox>
-      </BottomContainer>
-    </BigContainer>
+      <ReserveComp userId="test11" opponentId="test12"/>
+    // <BigContainer>
+    //   <TopContainer>
+    //     <TopSide>
+    //       <LogoBox>
+    //         <Logo />
+    //         <LogoFont>예약하기</LogoFont>
+    //       </LogoBox>
+    //     </TopSide>
+    //     <UserContainer>User1 {/* <SmallMacBookProfile/> */}</UserContainer>
+    //     <TimerContainer>
+    //       <Hart />
+    //       <TenMinuteTimer />
+    //     </TimerContainer>
+    //     <UserContainer>User2</UserContainer>
+    //     <TopSide></TopSide>
+    //   </TopContainer>
+    //   <MidContainer></MidContainer>
+    //   <BottomContainer>
+    //     <MapBox>
+    //       <Select>
+    //         <Selection1 />
+    //         <Selection2 />
+    //         <Selection3 />
+    //       </Select>
+    //       <FlexBox>
+    //         <NotMap>
+    //           <KakaoMap />
+    //         </NotMap>
+    //         <Board>장소 리스트</Board>
+    //       </FlexBox>
+    //     </MapBox>
+    //   </BottomContainer>
+    // </BigContainer>
   );
 };
 

@@ -13,7 +13,7 @@ export default function Select3() {
 
   return (
     <div>
-      <FormControl sx={{ m: 1, minWidth: 80 }}>
+      <FormControl sx={{ minWidth: 80 }}>
         <InputLabel id="demo-simple-select-autowidth-label">구/군</InputLabel>
         <Select
           labelId="demo-simple-select-autowidth-label"

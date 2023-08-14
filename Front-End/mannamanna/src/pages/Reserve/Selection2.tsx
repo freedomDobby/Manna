@@ -13,7 +13,7 @@ export default function Select2() {
 
   return (
     <div>
-      <FormControl sx={{ m: 1, minWidth: 80 }}>
+      <FormControl sx={{ minWidth: 80 }}>
         <InputLabel id="demo-simple-select-autowidth-label">시/도</InputLabel>
         <Select
           labelId="demo-simple-select-autowidth-label"
