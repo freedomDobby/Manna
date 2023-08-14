@@ -2,6 +2,7 @@ import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
 // import Register from './../pages/User/Register/Register';
 import {
+  ChatMessage,
   MessageReq,
   SogaetingRecommandReq,
   SogaetingReq,
@@ -207,4 +208,15 @@ export const scheduleIdAtom = atom<number | null>({
 export const inputValueState = atom({
   key: "inputValueState",
   default: "",
+});
+
+export const ChattingRoomState=atom({
+  key:"ChattingRoom",
+  default:0,
+})
+
+
+export const chatListState = atom<ChatMessage[]>({
+  key: 'chatListState',
+  default: [],
 });
