@@ -182,6 +182,11 @@ export const ChangePicAtom = atom<boolean>({
   default: false,
 });
 
+export const ChangePicIndexAtom = atom<number>({
+  key: "ChangePicIndexAtom",
+  default: 0,
+});
+
 export const SogaetingFilterAtom = atom<SogaetingRecommandReq>({
   key: "SogaetingFilterAtom",
   default: {
