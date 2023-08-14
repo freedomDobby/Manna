@@ -6,23 +6,25 @@ import {
   PictureContainer,
 } from "../../pages/User/MyPage/MyPageStyle";
 import { ChangePicModal } from "../../pages/User/MyPage/MyPageModal/ChangePicModal";
-import { ChangePicAtom } from "../../Recoil/State";
+import { ChangePicAtom, ChangePicIndexAtom } from "../../Recoil/State";
 
-const Profile = () => {
+export const Profile = () => {
   const myPageDataState = useRecoilValue(MyPageDataState);
   const hello = myPageDataState.profilePictures[0].path;
   return <ProFileStyle style={{ backgroundImage: `url(${hello})` }} />;
 };
 
-export default Profile;
-
 export const ModifyProfile = () => {
   const myPageDataState = useRecoilValue(MyPageDataState);
   const profilePictures = myPageDataState.profilePictures;
   const [ChangeOpen, setChangeOpen] = useRecoilState(ChangePicAtom);
-
-  const ChangePic = () => {
+  const [ChangePicIndex, setChangePicIndex] =
+    useRecoilState(ChangePicIndexAtom);
+  const ChangePic = (index: any) => {
+    // index 매개변수 추가
     setChangeOpen(!ChangeOpen);
+    setChangePicIndex(index);
+    console.log(index); // 전달받은 index 출력
   };
 
   return (
@@ -30,7 +32,7 @@ export const ModifyProfile = () => {
       {profilePictures.map((picture, index) => (
         <PictureBox
           key={index}
-          onClick={ChangePic}
+          onClick={() => ChangePic(index)} // ChangePic 함수에 index 전달
           style={{ backgroundImage: `url(${picture.path})` }}
         />
       ))}

@@ -62,7 +62,7 @@ export const PictureBox = styled.div`
 `;
 
 export const PictureContainer = styled.div`
-  //   border: 1px solid red;
+  // border: 1px solid red;
   width: 100%;
   height: 100%;
   display: flex;

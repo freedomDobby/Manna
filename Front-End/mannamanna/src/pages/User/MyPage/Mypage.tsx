@@ -1,4 +1,4 @@
-import Profile from "../../../components/common/Profile";
+import { Profile } from "../../../components/common/Profile";
 import { useNavigate, Outlet } from "react-router-dom";
 import MacBookBox from "../../../components/common/macbookBox";
 import BackBox from "../../../components/common/Back";
