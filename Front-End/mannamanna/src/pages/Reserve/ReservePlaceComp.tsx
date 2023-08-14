@@ -63,26 +63,39 @@ const ReservePlaceComp = (props: IReservePlaceProps) => {
         <PlacePageButton key={3} onClick={() => {ItemList(3)}}>{3}</PlacePageButton>,
         <PlacePageButton key={4} onClick={() => {ItemList(4)}}>{4}</PlacePageButton>,
         <PlacePageButton key={5} onClick={() => {ItemList(5)}}>{5}</PlacePageButton>])
-    const [placeBox, setPlaceBox] = useState<any>(getPlaceBox(data));
+    const [placeComponent, setPlaceComponent] = useState<any>(makePlaceComponent(data));
 
+    const maxIndex = props.data.length / 10;
     const ItemList = (curIndex: number) => {
-        console.log(curIndex)
+        if (curIndex > maxIndex || curIndex <= 0){
+            return;
+        }
+
         setIndex(curIndex);
-        setData(props.data.slice(curIndex * 10, curIndex * 10 + 10));
-        setPlaceBox(getPlaceBox(data));
+        const newData = props.data.slice(curIndex * 10, curIndex * 10 + 10);
+        setData(newData);
+        setPlaceComponent(makePlaceComponent(newData));
 
         const itemElements = [];
 
-        if (curIndex < 3) {
-            curIndex = 3;
+        let targetIndex = curIndex + 2;
+        let startIndex = curIndex - 3;
+
+        if (curIndex <= 3) {
+             startIndex = 1;
         }
-        for (let i = curIndex - 2; i < curIndex + 3; i++) {
+
+        if (startIndex + 6 > maxIndex){
+            targetIndex = maxIndex;
+        }
+
+        for (let i = startIndex; i < targetIndex; i++) {
             itemElements.push(<PlacePageButton key={i} onClick={() => ItemList(i)}>{i}</PlacePageButton>);
         }
         setItemElements(itemElements);
     }
 
-    function getPlaceBox(item: IReservePlace[]) {
+    function makePlaceComponent(item: IReservePlace[]) {
         return <>
             {item.map((item: IReservePlace, index: number) => (
                 <PlaceElement key={index}>
@@ -98,7 +111,7 @@ const ReservePlaceComp = (props: IReservePlaceProps) => {
     return (
         <PlaceContainer>
             <PlaceBox>
-                {placeBox}
+                {placeComponent}
             </PlaceBox>
             <PlacePagingButtonBox>
                 <PlacePageButton onClick={() => ItemList(index - 1)}>
