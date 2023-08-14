@@ -27,6 +27,8 @@ import { LoginReq } from "../../../apis/Request/Request";
 import api from "../../../apis/Api";
 import { LoginErrorModal } from "../ForgotIdPw/ForgotIdStyles";
 import Kakao from "./KaKaoLogin";
+import CreateChattingClient from "./Clinet";
+import { SOCET_URL } from './../../../apis/Url';
 declare global {
   interface Window {
     Kakao: any;
@@ -55,6 +57,24 @@ const Login = () => {
   const GoRegister = () => {
     navigate("/register");
   };
+  const Chatting=CreateChattingClient();
+
+  //   function connect() {
+  //     Chatting.client.current = new Client({
+  //     connectHeaders:{
+  //       ...(UseraccessToken ? { Authorization: `Bearer ${UseraccessToken}` } : {}),
+  //       ...(name ? { userName: `${name}` } : {}),
+  //       ...(id ? { userId: `${id}` } : {}),
+  //       ...(gender ? { gender: `${gender}` } : {}),
+  //     },
+  //     brokerURL: SOCET_URL,
+  //     onConnect: () => {
+  //       console.log("연결");
+  //     },
+  //   });
+  //   Chatting.client.current.activate();
+  // }
+
   const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const userData: LoginReq = {
@@ -75,6 +95,8 @@ const Login = () => {
       setOpen(true);
     }
   };
+
+
 
   return (
     <div>

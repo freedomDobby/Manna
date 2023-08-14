@@ -29,6 +29,7 @@ import {
   Job,
 } from "../../Note/Modal/NoteModalStyle";
 import { useNavigate } from "react-router-dom";
+import { userSessionId } from "../../Soagaeting/SogaetingState";
 
 interface CheckModalProps {
   profile: string; //프로필 사진 받아올건데, url 맞나?
@@ -55,11 +56,14 @@ export const CheckSchduleModal: React.FC<CheckModalProps> = ({
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [scheduleId, SetScheduleId] = useRecoilState(scheduleIdAtom);
+  const [myUserSessionId, setMyUserSessionId] = useRecoilState(userSessionId);
   const navigate = useNavigate();
   const GoSogaetingWait = () => {
-    navigate('/sogaetingWait');
+    navigate('/sogaeting');
   }
   const GoScheduleVideo = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const newSessionId = `session${scheduleId}`;
+    setMyUserSessionId(newSessionId);
     GoSogaetingWait();
     handleClose();
   };
@@ -98,7 +102,7 @@ export const CheckSchduleModal: React.FC<CheckModalProps> = ({
             alignItems="center"
           >
             <ProfileContainer>
-              <ProfileBox style={{ backgroundImage: `url(${profile})` }} />
+              <ProfileBox style={{ backgroundImage: `url(${profile})`, backgroundSize:'100%' }} />
             </ProfileContainer>
             <InfoContainer>
               <NameInfo>

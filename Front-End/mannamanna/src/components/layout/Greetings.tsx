@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Logo from "../common/Logo";
-import Profile from "../common/Profile";
+// import { Profile } from "../common/Profile";
 import IconButton from "@mui/material/IconButton";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
@@ -16,11 +16,11 @@ import {
 } from "../../Recoil/State";
 import { useNavigate } from "react-router-dom";
 import { RecentNoteModal } from "../../pages/User/ForgotIdPw/ForgotIdStyles";
-import { useQuery } from "@tanstack/react-query";
-import api from "../../apis/Api";
-import { checkNote } from "../../apis/Response/Response";
+// import { useQuery } from "@tanstack/react-query";
+// import api from "../../apis/Api";
+// import { checkNote } from "../../apis/Response/Response";
 import { userNameState } from "../../pages/User/Register/RegisterState";
-import CreateChattingClient from "../../pages/User/Login/Clinet";
+// import CreateChattingClient from "../../pages/User/Login/Clinet";
 
 const HeaderBack = styled.div`
   width: 100%;
@@ -45,9 +45,9 @@ function Greetings() {
   };
   const GoLogOut = async () => {
     await setGender(null);
-    await  setAccessToken(null);
-    await  setRefreshToken(null);
-    await  setId(null);
+    await setAccessToken(null);
+    await setRefreshToken(null);
+    await setId(null);
     await setName(null);
     navigate("/");
   };
