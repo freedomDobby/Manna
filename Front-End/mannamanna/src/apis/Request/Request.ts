@@ -87,6 +87,7 @@ export interface DetailScheduleReq {
 export interface ChatMessage{
   MessageType: string|null;
   roomId:number|null;
-  sender:string|null;
+  senderId:string|null;
+  senderName:string|null;
   message:string|null;
 }

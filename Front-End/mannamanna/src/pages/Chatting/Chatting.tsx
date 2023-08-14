@@ -19,12 +19,12 @@ import {
 import SidebarChat from "../../components/layout/Sidebar/SidebarChat";
 import { MyPageContainerBox } from "../User/MyPage/MyPageStyle";
 import { useRecoilState } from "recoil";
-import { ChattingRoomState, chatListState, genderAtom, idAtom, inputValueState } from "../../Recoil/State";
+import { ChattingRoomState, chatListState, genderAtom, idAtom, inputValueState, nameAtom } from "../../Recoil/State";
 import CreateChattingClient from "../User/Login/Clinet";
 import { useQuery } from "@tanstack/react-query";
 import api from "../../apis/Api";
 import { StyledButton } from "../User/Login/LoginStyle";
-import { ChatPeople, GetChat, SendChat } from "./ChattingComponent";
+import { ChatPeople, ChattingInput, GetChat, SendChat } from "./ChattingComponent";
 import { ChatMessage } from "../../apis/Request/Request";
 import { Client, Message } from "@stomp/stompjs";
 import { SOCET_URL } from "../../apis/Url";
@@ -37,14 +37,13 @@ export const Chatting = () => {
   const [RoomId, setRoomId] = useRecoilState(ChattingRoomState);
   const [inputValue, setInputValue] = useRecoilState(inputValueState); 
   const [chatList, setChatList] = useRecoilState(chatListState);
-
+  const [name, setName] = useRecoilState(nameAtom);
   const { data: ChattingInfo, isLoading, isError } = useQuery<any>(["ChattingInfo"], async () => {
     const response = await api.get(`chat/room/${Userid}`);
     console.log(response.data);
+    setRoomId(response.data.data[0].id);
     return response.data.data;
   });
-  // Handle input value change
-
   const EnterRoom = (ChattingRoom: number) => {
     console.log(ChattingRoom);
     setRoomId(ChattingRoom);
@@ -74,29 +73,28 @@ export const Chatting = () => {
         body: JSON.stringify(chat),
       });
     }
-    const handleInputChange = (message:string) => {
-      messageContent=message;
-    };
-    function sendMessage() {
+    
+    const sendMessage=(message:string)=>{
       const newChat: ChatMessage = {
         MessageType: "TALK",
         roomId:RoomId,
-        sender:Userid,
-        message:inputValue,
+        senderId:Userid,
+        senderName:name,
+        message:message,
+        
     };
+    console.log(newChat);
       publish(newChat);
+      setInputValue("");
     }
 
 
-     function handleSubmit(event: any) {
-      event.preventDefault();
-      setInputValue(messageContent); // 상태 업데이트
-      if (inputValue === "") {
+     function handleSubmit(event: FormEvent) {
+      if(inputValue===""){
         return;
       }
-      sendMessage();
-      setInputValue("");
-
+      sendMessage(inputValue);
+      setInputValue(""); 
     }
 
   
@@ -156,23 +154,7 @@ export const Chatting = () => {
                 </ChatInBox>
               </ChatOutBox>
               <ChatInputBox>
-              <TextField
-                  variant="filled"
-                  color="secondary"
-                  onChange={(e)=>handleInputChange(e.target.value)}
-                  sx={{
-                    width: "70%",
-                    backgroundColor: "#ffcced",
-                    borderRadius: "0.5vw",
-                  }}
-                />
-                <Button
-                  variant="contained"
-                  sx={{ backgroundColor: "#ffcced" }}
-                  onClick={handleSubmit}
-                >
-                  <SendIcon />
-                </Button>
+              <ChattingInput></ChattingInput>
               </ChatInputBox>
             </MacBookBox>
           </MyPageContainerBox>
