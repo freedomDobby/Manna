@@ -1,5 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
+
 import React from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useRecoilState } from "recoil";
 import {
   DeleteNoteAtom,
@@ -86,8 +87,8 @@ const ResponseNote = () => {
     isError,
   } = useQuery<ReceivedNotesRes[]>(["receivedNote"], async () => {
     const response = await api.get(`note/received/${userId}`);
-    console.log(response.data);
-    return response.data;
+    console.log(response.data.data);
+    return response.data.data;
   });
 
   if (isLoading) {
@@ -97,7 +98,7 @@ const ResponseNote = () => {
   if (isError) {
     return <p>에러입니다.</p>;
   }
-
+  
   return (
     <SendContainer>
       {receivedNoteList.reverse().map((note, index) => (
