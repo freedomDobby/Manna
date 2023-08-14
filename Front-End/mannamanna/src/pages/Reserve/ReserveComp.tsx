@@ -83,11 +83,14 @@ const ReserveComp = (props: IReserveCompProps) => {
                     </KaKaoMapBox>
                     <ReservePlaceBox>
                         {isLoading ? <span>now loading...</span> :
-                            <ReservePlaceComp data={data.data} index={0}/>}
+                            <ReservePlaceComp data={data.data}
+                                              femaleId={props.userId == "male" ? props.opponentId : props.userId}
+                                              maleId={props.userId == "male" ? props.userId : props.opponentId}
+                                              index={0}/>}
                     </ReservePlaceBox>
                 </ReserveMainBox>
             </InnerBox>
-        </MacBookBox>)
+        </MacBookBox>);
 }
 
 export default ReserveComp;
