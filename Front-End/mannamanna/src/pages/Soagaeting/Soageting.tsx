@@ -3,7 +3,6 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { OpenVidu, StreamManager, Session, SignalOptions} from 'openvidu-browser';
 import { dateName, isAudio, isVideo, sogaeUserName, timerTime, userSessionId } from './SogaetingState';
 import { apiopen } from '../../apis/Api';
-import { OpenviduSecretKey } from '../User/Login/ApiKey';
 import { CenteredDiv } from '../Landing/LandingStyle';
 import { CenterBox, StyledButton } from '../User/Login/LoginStyle';
 import SmallMacBookProfile from '../../components/common/SmallMacBookProfile';
@@ -240,7 +239,7 @@ const Sogaeting = () => {
     const createSession = async (newsessionId: string) => {
         try {
             const response = await apiopen.post('openvidu/api/sessions/', { customSessionId: newsessionId }, {
-            headers: { Authorization: 'Basic ' + btoa(`OPENVIDUAPP:${OpenviduSecretKey}`), 'Content-Type': 'application/json' },
+            headers: { Authorization: 'Basic ' + btoa(`OPENVIDUAPP:1234`), 'Content-Type': 'application/json' },
             });
             return response.data.sessionId;
         } catch (error: any) {
@@ -255,7 +254,7 @@ const Sogaeting = () => {
     const createToken = async (newsessionId: string) => {
         const response = await apiopen
         .post('openvidu/api/sessions/' + newsessionId + '/connection', {}, {
-            headers: {  Authorization: 'Basic ' + btoa(`OPENVIDUAPP:${OpenviduSecretKey}`), 'Content-Type': 'application/json' },
+            headers: {  Authorization: 'Basic ' + btoa(`OPENVIDUAPP:1234`), 'Content-Type': 'application/json' },
         });
         console.log(response.data);
         return response.data.token; // The token
