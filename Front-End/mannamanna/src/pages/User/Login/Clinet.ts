@@ -1,14 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRecoilState } from "recoil";
-import { Client, Stomp } from "@stomp/stompjs";
+import { Client, Message, Stomp } from "@stomp/stompjs";
 import {
+  ChattingRoomState,
   LoginErrorModalAtom,
   accessTokenAtom,
+  chatListState,
   genderAtom,
   idAtom,
+  inputValueState,
   nameAtom,
   refreshTokenAtom,
 } from "../../../Recoil/State";
+import { ChatMessage } from "../../../apis/Request/Request";
+import { SOCET_URL } from "../../../apis/Url";
 
 const CreateChattingClient = () => {
   const [gender, setGender] = useRecoilState(genderAtom);
@@ -17,29 +22,23 @@ const CreateChattingClient = () => {
   const [UseraccessToken, setUseraccessToken] = useRecoilState(
     accessTokenAtom
   );
+  const [chatList, setChatList] = useRecoilState(chatListState);
   const [refreshToken, setRefreshToken] = useRecoilState(refreshTokenAtom);
+  const [inputValue, setInputValue] = useRecoilState(inputValueState); 
+  const [RoomId, setRoomId] = useRecoilState(ChattingRoomState);
+  const client = new Client({
+    connectHeaders:{
+      ...(UseraccessToken ? { Authorization: `Bearer ${UseraccessToken}` } : {}),
+      ...(name ? { userName: `${name}` } : {}),
+      ...(id ? { userId: `${id}` } : {}),
+      ...(gender ? { gender: `${gender}` } : {}),
+    },
+    brokerURL: SOCET_URL,
+    // ... other configuration options ...
+  });
 
-  const ws = new WebSocket("wss://i9b205.p.ssafy.io/ws");
-  const client = Stomp.over(ws);
 
-  const headers = {
-    ...(UseraccessToken ? { Authorization: `Bearer ${UseraccessToken}` } : {}),
-    ...(name ? { userName: `${name}` } : {}),
-    ...(id ? { userId: `${id}` } : {}),
-    ...(gender ? { gender: `${gender}` } : {}),
-  };
-
-
-  // client.onStompError = (frame) => {
-  //   console.error("에러남: " + frame.headers["message"]);
-  //   console.error("상세한 에러 " + frame.body);
-  // };
-
-  // client.reconnectDelay = 5000;
-  // client.heartbeatIncoming = 4000;
-  // client.heartbeatOutgoing = 4000;
-
-  return {client,headers};
+  return {client};
 };
 
 export default CreateChattingClient;

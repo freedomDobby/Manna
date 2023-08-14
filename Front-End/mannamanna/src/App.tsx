@@ -34,7 +34,59 @@ import StudyRecoil from "./pages/Study/StudyRecoil";
 import StudyRecoilResult from "./pages/Study/StudyRecoilResult";
 import Kakao from "./pages/User/Login/KaKaoLogin";
 import { Chatting } from "./pages/Chatting/Chatting";
+import { useRecoilState } from "recoil";
+import { ChattingRoomState, accessTokenAtom, chatListState, genderAtom, idAtom, nameAtom, refreshTokenAtom } from "./Recoil/State";
+import { Client, Message } from "@stomp/stompjs";
+import CreateChattingClient from "./pages/User/Login/Clinet";
+import { SOCET_URL } from "./apis/Url";
+import { useEffect, useState } from "react";
+import { ChatMessage } from "./apis/Request/Request";
+
 function App() {
+  const [name, setName] = useRecoilState(nameAtom);
+  const [id, setId] = useRecoilState(idAtom);
+  const [UseraccessToken, setUseraccessToken] = useRecoilState(accessTokenAtom);
+  const [refreshToken, setRefreshToken] = useRecoilState(refreshTokenAtom);
+  const [gender, setGender] = useRecoilState(genderAtom);
+  const [Isconnect, setIsconnect] = useState(false);
+  const Chattingx=CreateChattingClient();
+  const [chatList, setChatList] = useRecoilState(chatListState);
+  const [RoomId, setRoomId] = useRecoilState(ChattingRoomState);
+
+
+
+  function Connect() {
+    function getMessage() {
+      Chattingx.client.subscribe(`/sub/chat/room/${RoomId}`, (body:Message) => {
+        const message = JSON.parse(body.body) as ChatMessage;
+        console.log(message);
+        setChatList((chat_list) => [...chat_list, message]);
+      });
+    }
+    Chattingx.client = new Client({
+    connectHeaders:{
+      ...(UseraccessToken ? { Authorization: `Bearer ${UseraccessToken}` } : {}),
+      ...(name ? { userName: `${name}` } : {}),
+      ...(id ? { userId: `${id}` } : {}),
+      ...(gender ? { gender: `${gender}` } : {}),
+    },
+    brokerURL: SOCET_URL,
+    onConnect: () => {
+      console.log("연결");
+      getMessage();
+    },
+  });
+
+  Chattingx.client.activate();
+}
+useEffect(() => {
+  if (id == null){
+    setIsconnect(!Isconnect);
+  }else{
+    Connect()
+  }
+},[id])
+
   return (
     <>
       <GlobalFont />
