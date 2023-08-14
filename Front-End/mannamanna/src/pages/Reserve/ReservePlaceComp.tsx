@@ -72,7 +72,7 @@ const ReservePlaceComp = (props: IReservePlaceProps) => {
         }
 
         setIndex(curIndex);
-        const newData = props.data.slice(curIndex * 10, curIndex * 10 + 10);
+        const newData = props.data.slice((curIndex - 1) * 10, (curIndex - 1) * 10 + 10);
         setData(newData);
         setPlaceComponent(makePlaceComponent(newData));
 
@@ -83,9 +83,10 @@ const ReservePlaceComp = (props: IReservePlaceProps) => {
 
         if (curIndex <= 3) {
              startIndex = 1;
+            targetIndex = startIndex + 5;
         }
 
-        if (startIndex + 6 > maxIndex){
+        if (startIndex + 5 > maxIndex){
             targetIndex = maxIndex;
         }
 
