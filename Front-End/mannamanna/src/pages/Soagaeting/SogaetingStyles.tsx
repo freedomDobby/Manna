@@ -6,7 +6,7 @@ import { timerTime } from './SogaetingState';
 
 const HeartIconButtonStyle = styled(IconButton)`
   color: red;
-  background-color: #d9cff4;
+  background-color: #f8e3ea;
   border: solid 0.2rem black;
   border-radius: 50%;
   &:hover {
@@ -16,7 +16,7 @@ const HeartIconButtonStyle = styled(IconButton)`
 
 const MicVideoIconButtonStyle = styled(IconButton)`
   color: black;
-  background-color: #d9cff4;
+  background-color: #f8e3ea;
   border: solid 0.2rem black;
   border-radius: 50%;
   &:hover {
@@ -25,8 +25,8 @@ const MicVideoIconButtonStyle = styled(IconButton)`
 `;
 
 const TimePlusIconButtonStyle = styled(IconButton)`
-  color: red;
-  background-color: #d9cff4;
+  color: black;
+  background-color: #f8e3ea;
   border: solid 0.2rem black;
   border-radius: 50%;
   &:hover {
@@ -91,13 +91,13 @@ export const Timer: React.FC = () => {
 
   return (
     <div style={{width: '80%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-      <div style={{border:'solid 0.3rem black', borderRadius:'1rem', background: '#ffffff', width: '85%', height: '70%', flexDirection: 'column', display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
+      <div style={{border:'solid 0.3rem black', borderRadius:'1rem', background: 'rgba(255, 255, 255, 0.5);', width: '85%', height: '70%', flexDirection: 'column', display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
         <div style={{width: '100%', height: '90%', flexDirection: 'row', display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>
-          <div style={{border:'solid 0.2rem #d9cff4', borderRadius:'1rem', background: '#ffffff', width: '13%', height: '60%', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '3rem'}}>{Math.floor(seconds/60/10)}</div>
-          <div style={{border:'solid 0.2rem #d9cff4', borderRadius:'1rem', background: '#ffffff', width: '13%', height: '60%', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '3rem'}}>{Math.floor(seconds/60%10)}</div>
-          <div style={{width: '10%', height: '60%', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '5rem', color: '#d9cff4'}}>:</div>
-          <div style={{border:'solid 0.2rem #d9cff4', borderRadius:'1rem', background: '#ffffff', width: '13%', height: '60%', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '3rem'}}>{Math.floor(seconds%60/10)}</div>
-          <div style={{border:'solid 0.2rem #d9cff4', borderRadius:'1rem', background: '#ffffff', width: '13%', height: '60%', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '3rem'}}>{Math.floor(seconds%60%10)}</div>
+          <div style={{border:'solid 0.2rem #ffcced', borderRadius:'1rem', background: '#ffffff', width: '13%', height: '60%', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '3rem'}}>{Math.floor(seconds/60/10)}</div>
+          <div style={{border:'solid 0.2rem #ffcced', borderRadius:'1rem', background: '#ffffff', width: '13%', height: '60%', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '3rem'}}>{Math.floor(seconds/60%10)}</div>
+          <div style={{width: '10%', height: '60%', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '5rem', color: '#ffcced'}}>:</div>
+          <div style={{border:'solid 0.2rem #ffcced', borderRadius:'1rem', background: '#ffffff', width: '13%', height: '60%', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '3rem'}}>{Math.floor(seconds%60/10)}</div>
+          <div style={{border:'solid 0.2rem #ffcced', borderRadius:'1rem', background: '#ffffff', width: '13%', height: '60%', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '3rem'}}>{Math.floor(seconds%60%10)}</div>
         </div>
         <div style={{borderTop:'solid 0.3rem black', borderBottomRightRadius:'0.8rem', borderBottomLeftRadius:'0.8rem', background:'#ffcced', width: '100%', height: '10%', flexDirection: 'column', display: 'flex', justifyContent: 'center', alignItems: 'center'}}/>
       </div>
