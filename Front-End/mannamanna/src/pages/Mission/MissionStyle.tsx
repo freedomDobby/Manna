@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Card_A from "../../asset/image/Card_A.png";
 
 export const MissionContainerBox = styled.div`
   border: solid 5px black;
@@ -22,11 +21,11 @@ export const MissionBox = styled.div`
 `;
 
 interface MissionCardProps {
-  image: string;
+  image: any;
 }
 
 export const MissionCard = styled.div<MissionCardProps>`
-  // border: 1px solid black;
+  border: 1px solid black;
   width: 25%;
   height: 90%;
   background-image: url(${(props) =>
