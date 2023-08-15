@@ -8,6 +8,7 @@ import {
   SogaetingReq,
 } from "../apis/Request/Request";
 import Schedule from "./../pages/User/Schedule/Schedule";
+import { ChatOutputRes } from "../apis/Response/Response";
 
 // Persist 설정을 위한 storage 설정
 const sessionStorage =
@@ -221,7 +222,7 @@ export const ChattingRoomState=atom({
 })
 
 
-export const chatListState = atom<ChatMessage[]>({
+export const chatListState = atom<ChatOutputRes[]>({
   key: 'chatListState',
   default: [],
 });

@@ -56,6 +56,7 @@ export const CheckSogaeNoteModal: React.FC<CheckModalProps> = ({
   let temp = { ...sendnote };
 
   const sendAccept = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log(noteId);
     e.preventDefault();
     try {
       const response = await api.get(`note/sogae/accept/${noteId}`);

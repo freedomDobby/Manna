@@ -24,10 +24,11 @@ import CreateChattingClient from "../User/Login/Clinet";
 import { useQuery } from "@tanstack/react-query";
 import api from "../../apis/Api";
 import { StyledButton } from "../User/Login/LoginStyle";
-import { ChatPeople, ChattingInput, GetChat, SendChat } from "./ChattingComponent";
+import { ChatPeople, ChattingComponent, GetChat, SendChat } from "./ChattingComponent";
 import { ChatMessage } from "../../apis/Request/Request";
 import { Client, Message } from "@stomp/stompjs";
 import { SOCET_URL } from "../../apis/Url";
+import { ChatOutputRes } from "../../apis/Response/Response";
 
 
 
@@ -38,64 +39,22 @@ export const Chatting = () => {
   const [inputValue, setInputValue] = useRecoilState(inputValueState); 
   const [chatList, setChatList] = useRecoilState(chatListState);
   const [name, setName] = useRecoilState(nameAtom);
+
+
   const { data: ChattingInfo, isLoading, isError } = useQuery<any>(["ChattingInfo"], async () => {
     const response = await api.get(`chat/room/${Userid}`);
     console.log(response.data);
-    setRoomId(response.data.data[0].id);
+    // setRoomId(response.data.data[0].id);
     return response.data.data;
   });
+
+  
   const EnterRoom = (ChattingRoom: number) => {
     console.log(ChattingRoom);
     setRoomId(ChattingRoom);
   };
 
     const Chat=CreateChattingClient();
-
-    let messageContent = "";
-  
-    // }
-    function getMessage() {
-      Chat.client.subscribe(`/sub/chat/room/${RoomId}`, (body:Message) => {
-        const message = JSON.parse(body.body) as ChatMessage;
-        console.log(message);
-        setChatList((chat_list) => [...chat_list, message]);
-      });
-    }
-
-    Chat.client.activate();
-    function publish(chat: ChatMessage) {
-      console.log(chat.message);
-      if (!Chat.client.connected) {
-        return;
-      }
-      Chat.client.publish({
-        destination: `/sub/chat/room${RoomId}`,
-        body: JSON.stringify(chat),
-      });
-    }
-    
-    const sendMessage=(message:string)=>{
-      const newChat: ChatMessage = {
-        MessageType: "TALK",
-        roomId:RoomId,
-        senderId:Userid,
-        senderName:name,
-        message:message,
-        
-    };
-    console.log(newChat);
-      publish(newChat);
-      setInputValue("");
-    }
-
-
-     function handleSubmit(event: FormEvent) {
-      if(inputValue===""){
-        return;
-      }
-      sendMessage(inputValue);
-      setInputValue(""); 
-    }
 
   
 
@@ -147,15 +106,7 @@ export const Chatting = () => {
               alignItems="center"
             >
               {/* 스크롤바 디자인 추가해야함 */}
-              <ChatOutBox>
-                <ChatInBox>
-                  <GetChat />
-                  <SendChat />
-                </ChatInBox>
-              </ChatOutBox>
-              <ChatInputBox>
-              <ChattingInput></ChattingInput>
-              </ChatInputBox>
+              <ChattingComponent></ChattingComponent>
             </MacBookBox>
           </MyPageContainerBox>
         </div>

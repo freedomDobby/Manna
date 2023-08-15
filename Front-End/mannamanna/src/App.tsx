@@ -41,6 +41,7 @@ import CreateChattingClient from "./pages/User/Login/Clinet";
 import { SOCET_URL } from "./apis/Url";
 import { useEffect, useState } from "react";
 import { ChatMessage } from "./apis/Request/Request";
+import { ChatOutputRes } from "./apis/Response/Response";
 
 function App() {
   const [name, setName] = useRecoilState(nameAtom);
@@ -56,13 +57,6 @@ function App() {
 
 
   function Connect() {
-    function getMessage() {
-      Chattingx.client.subscribe(`/sub/chat/room/${RoomId}`, (body:Message) => {
-        const message = JSON.parse(body.body) as ChatMessage;
-        console.log(message);
-        setChatList((chat_list) => [...chat_list, message]);
-      });
-    }
     Chattingx.client = new Client({
     connectHeaders:{
       ...(UseraccessToken ? { Authorization: `Bearer ${UseraccessToken}` } : {}),
@@ -71,10 +65,6 @@ function App() {
       ...(gender ? { gender: `${gender}` } : {}),
     },
     brokerURL: SOCET_URL,
-    onConnect: () => {
-      console.log("연결");
-      getMessage();
-    },
   });
 
   Chattingx.client.activate();
