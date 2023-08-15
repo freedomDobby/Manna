@@ -25,7 +25,7 @@ interface MissionCardProps {
 }
 
 export const MissionCard = styled.div<MissionCardProps>`
-  border: 1px solid black;
+  // border: 1px solid black;
   width: 25%;
   height: 90%;
   background-image: url(${(props) =>
