@@ -20,6 +20,7 @@ const RequestNote = () => {
   const [noteId, setNoteId] = useRecoilState(sendNoteIdAtom);
   const handleRemove = (NoteId: number) => {
     setNoteId(NoteId);
+    console.log(NoteId);
     setDeleteOpen(true);
   };
 
@@ -33,7 +34,7 @@ const RequestNote = () => {
     isError,
   } = useQuery<ReceivedNotesRes[]>(["receivedNote"], async () => {
     const response = await api.get(`note/sent/${userId}`);
-    return response.data;
+    return response.data.data;
   });
 
   if (isLoading) {

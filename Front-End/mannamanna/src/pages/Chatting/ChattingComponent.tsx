@@ -27,20 +27,21 @@ import { StyledButton } from "../User/Login/LoginStyle";
 import { ChatMessage } from "../../apis/Request/Request";
 import { Client, Message } from "@stomp/stompjs";
 import { SOCET_URL } from "../../apis/Url";
+import { ChatOutputRes } from "../../apis/Response/Response";
 
-export function GetChat() {
-    return (
-      <ChatLeftStyle>
-        <ChatProFile />
-        <LeftChatBox>-50 Point 쪽지 보내기</LeftChatBox>
-      </ChatLeftStyle>
-    );
-  }
+export function GetChat({ message }: { message: string|null }) {
+  return (
+    <ChatLeftStyle>
+      <ChatProFile />
+      <LeftChatBox>{message}</LeftChatBox>
+    </ChatLeftStyle>
+  );
+}
   
-  export function SendChat() {
+  export function SendChat({ message }: { message: string|null }) {
     return (
       <ChatRightStyle>
-        <RightChatBox>+50 Point 미션 참여</RightChatBox>
+        <RightChatBox>{message}</RightChatBox>
         <ChatProFile />
       </ChatRightStyle>
     );
@@ -65,32 +66,40 @@ export function GetChat() {
     );
   }
 
-  export const ChattingInput = () => {
+  export const ChattingComponent = () => {
     const [Userid, setId] = useRecoilState(idAtom);
     const [gender, setGender] = useRecoilState(genderAtom);
     const [RoomId, setRoomId] = useRecoilState(ChattingRoomState);
-    const [chatList, setChatList] = useRecoilState(chatListState);
+    const [chatList, setChatList] = useState<ChatOutputRes[]>([]);
     const [name, setName] = useRecoilState(nameAtom);
-    const [inputValue, setInputValue] = useState(""); 
+    const [inputValue, setInputValue] = useState("");
+    const [chatCheck,seteChatCheck]=useState("")
+  
+    const Chat = CreateChattingClient();
+      
+    Chat.client.activate();
+  
+    function getMessage() {
+      Chat.client.subscribe(`/sub/chat/room${RoomId}`, (body: Message) => {
+        const message = JSON.parse(body.body) as ChatMessage;
+        console.log(message);
+        const addChat:ChatOutputRes={
+          senderId: message.senderId,
+          senderName: message.senderName,
+          message: message.message,
+          time: new Date(),
+        }
+        setChatList((chat_list) => [...chat_list, addChat]);
+      });
+    }
+    Chat.client.onConnect = () => {
+      getMessage();
+    };
+
     function handleChange(event: ChangeEvent<HTMLInputElement>) {
       setInputValue(event.target.value);
     }
-
-    
-    const Chat=CreateChattingClient();
-
-    let messageContent = "";
   
-    // }
-    function getMessage() {
-      Chat.client.subscribe(`/sub/chat/room/${RoomId}`, (body:Message) => {
-        const message = JSON.parse(body.body) as ChatMessage;
-        console.log(message);
-        setChatList((chat_list) => [...chat_list, message]);
-      });
-    }
-
-    Chat.client.activate();
     function publish(chat: ChatMessage) {
       console.log(chat.message);
       if (!Chat.client.connected) {
@@ -101,49 +110,85 @@ export function GetChat() {
         body: JSON.stringify(chat),
       });
     }
-    
-    const sendMessage=(message:string)=>{
+  
+    const sendMessage = (message: string) => {
       const newChat: ChatMessage = {
         MessageType: "TALK",
-        roomId:RoomId,
-        senderId:Userid,
-        senderName:name,
-        message:message,
-        
-    };
-    console.log(newChat);
+        roomId: RoomId,
+        senderId: Userid,
+        senderName: name,
+        message: message,
+      };
+      console.log(newChat);
       publish(newChat);
+      setInputValue("");
+    };
+  
+    function handleSubmit(event: FormEvent) {
+      if (inputValue === "") {
+        return;
+      }
+      sendMessage(inputValue);
       setInputValue("");
     }
 
 
-     function handleSubmit(event: FormEvent) {
-      if(inputValue===""){
+    const { data: ChattingHistory } = useQuery<ChatOutputRes[]>(["ChattingHistory"], async () => {
+      if(RoomId===0){
         return;
       }
-      sendMessage(inputValue);
-      setInputValue(""); 
-    }
+      const response = await api.get(`chat/${RoomId}`);
+      setChatList(response.data.data);
+      return response.data.data;
+    });
+
+    const renderChatComponents = (chatList:ChatOutputRes[]) => {
+      return chatList.map((item, index) => {
+        if (item.senderId === Userid) {
+          return <SendChat key={index} message={item.message} />;
+        } else {
+          return <GetChat key={index} message={item.message} />;
+        }
+      });
+    };
+
+
+  
     return (
-          <>
-                        <input
-    placeholder="메시지를 입력하세요" type={'text'} onChange={handleChange} value={inputValue}
-    style={{
-      width: "70%",
-      backgroundColor: "#ffcced",
-      borderRadius: "0.5vw",
-    }}
-    autoFocus 
-  />
-                  <Button
-                  variant="contained"
-                  sx={{ backgroundColor: "#ffcced" }}
-                  onClick={handleSubmit}
-                >
-                  <SendIcon />
-                </Button>
-          </>
+      <>           
+              <ChatOutBox>
+                <ChatInBox>
+                {chatList?.map((item, index) => {
+            if (item.senderId === Userid) {
+              return <SendChat key={index} message={item.message} />;
+            } else {
+              return <GetChat key={index} message={item.message} />;
+            }
+          })}
+                </ChatInBox>
+              </ChatOutBox>
+      <ChatInputBox>
+        <input
+          placeholder="메시지를 입력하세요"
+          type={"text"}
+          onChange={handleChange}
+          value={inputValue}
+          style={{
+            width: "70%",
+            backgroundColor: "#ffcced",
+            borderRadius: "0.5vw",
+          }}
+          autoFocus
+        />
+        <Button
+          variant="contained"
+          sx={{ backgroundColor: "#ffcced" }}
+          onClick={handleSubmit}
+        >
+          <SendIcon />
+        </Button>
+        </ChatInputBox>
+      </>
     );
   };
   
-
