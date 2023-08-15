@@ -5,35 +5,31 @@ import axios from "axios";
 import {IReserveCompProps, IReservePlaceRequest} from "./Interfaces";
 import {useQuery} from "@tanstack/react-query";
 import ReservePlaceComp from "./ReservePlaceComp";
-import Select1 from "./Selection1";
-import Select2 from "./Selection2";
-import Select3 from "./Selection3";
-
+import {LocateAddress} from "./LocateObject";
+import {useState} from "react";
 
 const LocateSelectBox = styled.div`
   display: flex;
-  height: 10%;
+  height: 8%;
   padding-left: 3%;
-  border: 1px solid red;
+  padding-bottom: 1%;
+  padding-top: 1%;
 `
 
 const ReserveMainBox = styled.div`
-  height: 90%;
+  height: 87%;
   display: flex;
   justify-content: space-between;
-  border: 1px solid red;
   padding-left: 3%;
   padding-right: 3%;
 `
 
 const KaKaoMapBox = styled.div`
   width: 49%;
-  border: 1px solid red;
 `
 
 const ReservePlaceBox = styled.div`
   width: 49%;
-  border: 1px solid red;
 `;
 
 const InnerBox = styled.div`
@@ -45,6 +41,33 @@ const InnerBox = styled.div`
 const SelectBox = styled.div`
   height: 100%;
   margin-right: 3%;
+  width: 30%;
+  border: 2px solid black;
+  display: flex;
+  border-radius: 5px;
+`
+
+const SelectLocate = styled.select`
+  /* Remove default appearance */
+  //appearance: none;
+  //-webkit-appearance: none;
+  //-moz-appearance: none;
+
+  /* Remove the arrow or any browser's default styles */
+  background: none;
+  border: none;
+  border-left: 1px solid black;
+
+  height: 100%;
+  width: 30%;
+`
+
+const LocateDiv = styled.div`
+  width: 40%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 const getPlaceByLocate = (ReservePlaceRequest: IReservePlaceRequest) => {
@@ -69,13 +92,36 @@ const ReserveComp = (props: IReserveCompProps) => {
         isLoading,
         data
     } = useQuery(["placeData"], () => getPlaceByMember(props.userId, props.opponentId).then(response => response.data))
+    const [sido, setSido] = useState("");
+    const [gugun, setGuugn] = useState("");
+    const [guguns, setGuguns] = useState<string[]>([]);
+
     return (
         <MacBookBox width={"80vw"} height={"70vh"} color1={"#bcd3ff"} color2={"#ffffff"} alignItems={"center"}>
             <InnerBox>
                 <LocateSelectBox>
-                    <SelectBox><Select1/></SelectBox>
-                    <SelectBox><Select2/></SelectBox>
-                    <SelectBox><Select3/></SelectBox>
+                    <SelectBox>
+                        <LocateDiv>지역선택</LocateDiv>
+                        <SelectLocate value={sido} onChange={(event) => {
+                            setSido(event.target.value);
+                            setGuguns(LocateAddress[event.target.value])
+                        }}>
+                            <option> 시도 선택</option>
+                            {
+                                Object.keys(LocateAddress).map((sido) => (
+                                    <option key={sido} value={sido}>{sido}</option>
+                                ))
+                            }
+                        </SelectLocate>
+                        <SelectLocate value={gugun} onChange={(event) => setGuugn(event.target.value)}>
+                            <option> 구군 선택</option>
+                            {
+                                guguns.map((gugun) => (
+                                    <option key={gugun} value={gugun}>{gugun}</option>
+                                ))
+                            }
+                        </SelectLocate>
+                    </SelectBox>
                 </LocateSelectBox>
                 <ReserveMainBox>
                     <KaKaoMapBox>

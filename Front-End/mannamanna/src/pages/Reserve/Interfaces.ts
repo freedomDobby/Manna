@@ -40,3 +40,7 @@ export interface IReserveCompProps {
     userId: string;
     opponentId: string;
 }
+
+export interface ILocateObject {
+    [key: string]: string[];
+}
