@@ -12,7 +12,7 @@ import Card_F from "../../asset/image/Card_F.png";
 
 import { MissionCardBox } from "./MissionModal";
 import { useRecoilState } from "recoil";
-import { MissionCardAtom } from "../../Recoil/State"; // 이 부분을 적절한 경로로 수정하세요
+import { MissionCardAtom, MissionTitle } from "../../Recoil/State"; // 이 부분을 적절한 경로로 수정하세요
 
 const Mission = () => {
   const missionQuestion = [
@@ -35,6 +35,8 @@ const Mission = () => {
     null
   );
 
+  const [missionTitle,setMissionTitle] = useRecoilState(MissionTitle);
+  
   // Modal 열기 함수
   const handleOpen = (id: number) => {
     setSelectedMissionId(id);
@@ -46,6 +48,8 @@ const Mission = () => {
     setSelectedMissionId(null);
     setOpen(false);
   };
+  
+
 
   return (
     <div>
