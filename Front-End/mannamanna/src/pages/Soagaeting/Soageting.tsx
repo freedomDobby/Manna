@@ -15,8 +15,10 @@ import MicOffIcon from '@mui/icons-material/MicOff';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import VideocamOffIcon from '@mui/icons-material/VideocamOff';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import CloseIcon from '@mui/icons-material/Close';
+import PersonOffIcon from '@mui/icons-material/PersonOff';
 import MoreTimeIcon from '@mui/icons-material/MoreTime';
+import BlurOffIcon from '@mui/icons-material/BlurOff';
+import UndoIcon from '@mui/icons-material/Undo';
 import { SenderAgeState, SenderHeightState, SenderJobState, SenderMbtiState, SenderNameState, SenderPrState, SenderProfileState } from '../Note/NoteState';
 import { Age, Height, Info1, Info2, InfoContainer, Job, MBTI, Name, NameInfo, ProfileContainer, SelfPrInfo } from '../Note/Modal/NoteModalStyle';
 import { ProfileBox } from '../User/MyPage/MyPageModifyStyle';
@@ -38,7 +40,6 @@ const Sogaeting = () => {
     const [SenderPr, setSenderPr] = useRecoilState(SenderPrState);
     const [SenderProfile, setSenderProfile] = useRecoilState(SenderProfileState);
 
-    const [myRegister, setMyRegister] = useState<boolean>(false);
     const [openRegister, setOpenRegister] = useState<boolean>(false);
 
     const [timer, setTimer] = useRecoilState(timerTime);
@@ -161,29 +162,18 @@ const Sogaeting = () => {
         session.signal(signalOptions);
     }
 
-
-    const handleChangeRegister = async (event: React.MouseEvent<HTMLButtonElement>) => {
-        const newRegister = myRegister ?  false : true;
-        const newData = {data: newRegister};
-        setMyRegister(newRegister);
-        sendRegister(newData);
-    }
-
-    const sendRegister = (data: any) => {
-        const signalOptions: SignalOptions = {
-            data: JSON.stringify(data),
-            type: 'sendRegister',
-        };
-        session.signal(signalOptions);
-    }
-
     const handleChangeOpenRegister = async () => {
         const newOpenRegister = openRegister ? false : true;
-        const newData = {data: newOpenRegister};
         setOpenRegister(newOpenRegister);
-        sendOpenRegister(newData);
     }
 
+    useEffect(() => {
+        if(session !== undefined){
+            const newData = {data: openRegister};
+            sendOpenRegister(newData);
+        }
+    }, [openRegister]);
+    
     const sendOpenRegister = (data: any) => {
         const signalOptions: SignalOptions = {
             data: JSON.stringify(data),
@@ -218,34 +208,10 @@ const Sogaeting = () => {
             console.warn(exception);
         });
 
-        newSession.on('signal:sendRegister', (event: any) => {
-            const data = JSON.parse(event.data);
-            const newRegister = data.data;
-            if(newRegister){
-                if(myRegister){
-                    handleChangeOpenRegister();
-                }
-            }
-            console.log(111111111);
-            console.log(newRegister);
-            console.log(myRegister);
-            console.log(openRegister);
-        });
-
         newSession.on('signal:sendOpenRegister', (event: any) => {
             const data = JSON.parse(event.data);
-            const newRegister = data.data;
-            if(newRegister){
-                if(!openRegister){
-                    const newOpenRegister = !openRegister;
-                    setOpenRegister(newOpenRegister);
-                }
-            }
-
-            console.log(22222222);
-            console.log(newRegister);
-            console.log(myRegister);
-            console.log(openRegister);
+            const newOpenRegister = data.data;
+            setOpenRegister(newOpenRegister);
         });
 
         newSession.on('signal:sendTimerChange', (event: any) => {
@@ -286,6 +252,8 @@ const Sogaeting = () => {
 
         
     }//endjoinsession
+
+    
 
     const leaveSession = () => {
         setSession(undefined);
@@ -328,6 +296,7 @@ const Sogaeting = () => {
 
     return (
         <div>
+
             {/* 세션에 들어가기 전 내 상태를 확인하고 입장하기를 누르기 전 화면 */}
             {session === undefined ? (
                 <CenteredDiv style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -378,65 +347,102 @@ const Sogaeting = () => {
             </div>
 
             {/* 입장하기를 누른 후 세션에 들어가있는 화면 */}
-            {session !== undefined ? (
-                <div>
-                    <div style={{width: '99.5vw', height: '99vh', display:'flex'}}>
-                        <div style={{width: '60%', height: '100%', flexDirection: 'column'}}>
-                            <div style={{width: '100%', height: '60%', display:'flex', justifyContent: 'right'}}>
-                                <div style={{width: '90%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                                    <MacBookBox width="95%" height="95%" color1="#ffcced" color2="#ffffff" alignItems="center">
-                                        <BlindDateParter streamManager={subscribers[0]} />
-                                    </MacBookBox>
-                                </div>
-                            </div>
-                            <div style={{width: '100%', height: '40%', display:'flex'}}>
-                                <div style={{width: '40%', height: '100%', marginLeft: '10%'}}>
+            {session !== undefined ? (<div>
+                {openRegister === true ? (
+                    <div style={{ width: '99vw', height: '99vh'}}>
+                        <div style={{ width: '100%', height: '30%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                            <div style={{ width: '80%', height: '100%', display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
+                                <div style={{ width: '30%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                                     <BlindDateMyVideo streamManager={publisher} />
                                 </div>
-                                <div style={{width: '50%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                                    <div style={{border:'solid 0.3rem black', borderRadius:'1rem', background:'#ffffff', width: '90%', height: '65%', flexDirection: 'column', display: 'flex', justifyContent: 'space-around', alignItems: 'center', marginLeft: '2.5%'}}>
-                                        <div style={{borderBottom:'solid 0.3rem black',borderTopRightRadius:'0.8rem', borderTopLeftRadius:'0.8rem', background:'#ffcced', width: '100%', height: '10%', flexDirection: 'column', display: 'flex', justifyContent: 'center', alignItems: 'center'}}/>
-                                        <div style={{width: '100%', height: '80%', flexDirection: 'row', display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
-                                            <MicVideoIconButton onClick={handleChangeMyIsVideo}>{myIsVideo ? (<VideocamIcon/>) : (<VideocamOffIcon/>)}</MicVideoIconButton>
-                                            <MicVideoIconButton onClick={handleChangeMyIsAudio}>{myIsAudio ? (<MicIcon/>) : (<MicOffIcon/>)}</MicVideoIconButton>
-                                            {myBlur > -1 ? (<HeartIconButton onClick={handleChangeBlur}><FavoriteIcon/></HeartIconButton>) : (<HeartIconButton onClick={handleChangeRegister}><CloseIcon/></HeartIconButton>)}
-                                            <HeartIconButton onClick={leaveSession}><CloseIcon/></HeartIconButton>
-                                        </div>
-                                        <div style={{borderTop:'solid 0.3rem black', borderBottomRightRadius:'0.8rem', borderBottomLeftRadius:'0.8rem', background:'#ffcced', width: '100%', height: '10%', flexDirection: 'column', display: 'flex', justifyContent: 'center', alignItems: 'center'}}/>
-                                    </div>
+                                <div style={{ width: '30%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                                    <Timer/>
+                                </div>
+                                <div style={{ width: '30%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                                    <BlindDateMyVideo streamManager={subscribers[0]} />
                                 </div>
                             </div>
                         </div>
-                        <div style={{width: '40%', height: '100%', flexDirection: 'column', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                            <div style={{border:'solid 0.3rem black', borderRadius:'1rem', width: '80%', height: '90%', flexDirection: 'column', background:'white'}}>
-                                <div style={{width: '100%', height: '25%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                                    <div style={{border:'solid 0.3rem black', borderRadius:'1rem', width: '80%', height: '80%', background:'#ffcced', flexDirection: 'row', display: 'flex'}}>
-                                        <div style={{width: '40%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                                            <div style={{border:'solid 0.2rem black', width: '80%', height: '80%'}}>
-                                                <img src= {SenderProfile} width= "100%" height= "100%"/>
-                                            </div>
-                                        </div>
-                                        <div style={{width: '60%', height: '100%', flexDirection: 'column', display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>
-                                                <div style={{fontSize: '1.5rem'}}>{SenderName}</div>
-                                                <div style={{fontSize: '1rem'}}>{SendeAge}살 / {SenderHeight}cm <br/> {SenderJob} / {SenderMbti}</div>
-                                        </div>
-                                    </div>
+                        <div style={{ width: '100%', height: '70%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                            <div style={{ width: '80%', height: '100%', display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
+                                <div style={{ width: '10%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}/>
+                                <div style={{ border:'solid 1px orange', width: '80%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                                    예약하기 영역 
                                 </div>
-                                <div style={{border:'solid 2px blue', width: '100%', height: '50%'}}>
-                                    채팅영역 
-                                    {openRegister ? (<div>안녕안녕</div>) : (<div>아직아님</div>)}
-                                </div>
-                                <div style={{width: '100%', height: '25%', flexDirection: 'row', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                                    <Timer/>
-                                    <div style={{width: '20%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                                        <TimePlusIconButton onClick={handleChangeTimer}><MoreTimeIcon/></TimePlusIconButton>
+                                <div style={{ border:'solid 0.2rem black', borderRadius: '1rem', width: '10%', height: '90%', display: 'flex', justifyContent: 'center', alignItems: 'flex-end'}}>
+                                    <div style={{width: '80%', height: '100%', flexDirection: 'column', display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
+                                        <MicVideoIconButton onClick={handleChangeMyIsVideo}>{myIsVideo ? (<VideocamIcon/>) : (<VideocamOffIcon/>)}</MicVideoIconButton>
+                                        <MicVideoIconButton onClick={handleChangeMyIsAudio}>{myIsAudio ? (<MicIcon/>) : (<MicOffIcon/>)}</MicVideoIconButton>
+                                        <MicVideoIconButton onClick={handleChangeBlur}><BlurOffIcon/></MicVideoIconButton>
+                                        <HeartIconButton onClick={handleChangeOpenRegister}><UndoIcon/></HeartIconButton>
+                                        <MicVideoIconButton onClick={leaveSession}><PersonOffIcon/></MicVideoIconButton>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            ) : null}
+                ) : (
+                    <div>
+                        <div style={{width: '99.5vw', height: '99vh', display:'flex'}}>
+                            <div style={{width: '60%', height: '100%', flexDirection: 'column'}}>
+                                <div style={{width: '100%', height: '60%', display:'flex', justifyContent: 'right'}}>
+                                    <div style={{width: '90%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                                        <MacBookBox width="95%" height="95%" color1="#ffcced" color2="#ffffff" alignItems="center">
+                                            <BlindDateParter streamManager={subscribers[0]} />
+                                        </MacBookBox>
+                                    </div>
+                                </div>
+                                <div style={{width: '100%', height: '40%', display:'flex'}}>
+                                    <div style={{width: '40%', height: '100%', marginLeft: '10%'}}>
+                                        <BlindDateMyVideo streamManager={publisher} />
+                                    </div>
+                                    <div style={{width: '50%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                                        <div style={{border:'solid 0.3rem black', borderRadius:'1rem', background:'#ffffff', width: '90%', height: '65%', flexDirection: 'column', display: 'flex', justifyContent: 'space-around', alignItems: 'center', marginLeft: '2.5%'}}>
+                                            <div style={{borderBottom:'solid 0.3rem black',borderTopRightRadius:'0.8rem', borderTopLeftRadius:'0.8rem', background:'#ffcced', width: '100%', height: '10%', flexDirection: 'column', display: 'flex', justifyContent: 'center', alignItems: 'center'}}/>
+                                            <div style={{width: '100%', height: '80%', flexDirection: 'row', display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
+                                                <MicVideoIconButton onClick={handleChangeMyIsVideo}>{myIsVideo ? (<VideocamIcon/>) : (<VideocamOffIcon/>)}</MicVideoIconButton>
+                                                <MicVideoIconButton onClick={handleChangeMyIsAudio}>{myIsAudio ? (<MicIcon/>) : (<MicOffIcon/>)}</MicVideoIconButton>
+                                                <MicVideoIconButton onClick={handleChangeBlur}><BlurOffIcon/></MicVideoIconButton>
+                                                <HeartIconButton onClick={handleChangeOpenRegister}><FavoriteIcon/></HeartIconButton>
+                                                <MicVideoIconButton onClick={leaveSession}><PersonOffIcon/></MicVideoIconButton>
+                                            </div>
+                                            <div style={{borderTop:'solid 0.3rem black', borderBottomRightRadius:'0.8rem', borderBottomLeftRadius:'0.8rem', background:'#ffcced', width: '100%', height: '10%', flexDirection: 'column', display: 'flex', justifyContent: 'center', alignItems: 'center'}}/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style={{width: '40%', height: '100%', flexDirection: 'column', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                                <div style={{border:'solid 0.3rem black', borderRadius:'1rem', width: '80%', height: '90%', flexDirection: 'column', background:'white'}}>
+                                    <div style={{width: '100%', height: '25%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                                        <div style={{border:'solid 0.3rem black', borderRadius:'1rem', width: '80%', height: '80%', background:'#ffcced', flexDirection: 'row', display: 'flex'}}>
+                                            <div style={{width: '40%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                                                <div style={{border:'solid 0.2rem black', width: '80%', height: '80%'}}>
+                                                    <img src= {SenderProfile} width= "100%" height= "100%"/>
+                                                </div>
+                                            </div>
+                                            <div style={{width: '60%', height: '100%', flexDirection: 'column', display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>
+                                                    <div style={{fontSize: '1.5rem'}}>{SenderName}</div>
+                                                    <div style={{fontSize: '1rem'}}>{SendeAge}살 / {SenderHeight}cm <br/> {SenderJob} / {SenderMbti}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style={{border:'solid 2px blue', width: '100%', height: '50%'}}>
+                                        채팅영역 
+                                        
+                                    </div>
+                                    <div style={{width: '100%', height: '25%', flexDirection: 'row', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                                        <Timer/>
+                                        <div style={{width: '20%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                                            <TimePlusIconButton onClick={handleChangeTimer}><MoreTimeIcon/></TimePlusIconButton>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}</div>)
+            : null}
+
         </div>
     );
 
