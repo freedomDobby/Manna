@@ -88,12 +88,23 @@ const getPlaceByMember = (userId: string, opponentId: string) => {
 }
 
 const ReserveComp = (props: IReserveCompProps) => {
+    const [queryType, setQueryType] = useState('member'); // 'posts' 또는 'comments'
+
+    const fetchData = async () => {
+        if (queryType === 'member') {
+            return await getPlaceByMember(props.userId, props.opponentId).then(response => response.data);
+        } else {
+            return await getPlaceByLocate({sido, gugun, category}).then(response => response.data);
+        }
+    };
+
     const {
         isLoading,
         data
-    } = useQuery(["placeData"], () => getPlaceByMember(props.userId, props.opponentId).then(response => response.data))
+    } = useQuery(["placeData"], fetchData);
     const [sido, setSido] = useState("");
     const [gugun, setGuugn] = useState("");
+    const [category, setCategory] = useState("");
     const [guguns, setGuguns] = useState<string[]>([]);
 
     return (
@@ -113,7 +124,11 @@ const ReserveComp = (props: IReserveCompProps) => {
                                 ))
                             }
                         </SelectLocate>
-                        <SelectLocate value={gugun} onChange={(event) => setGuugn(event.target.value)}>
+                        <SelectLocate value={gugun} onChange={(event) => {
+                            console.log(22)
+                            setGuugn(event.target.value);
+                            setQueryType("locate");
+                        }}>
                             <option> 구군 선택</option>
                             {
                                 guguns.map((gugun) => (
