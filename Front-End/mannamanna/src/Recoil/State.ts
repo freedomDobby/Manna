@@ -179,6 +179,11 @@ export const DeleteNoteAtom = atom<boolean>({
   default: false,
 });
 
+export const MissionCardAtom = atom<boolean>({
+  key: "MissionCardAtom",
+  default: false,
+});
+
 export const ChangePicAtom = atom<boolean>({
   key: "ChangePicAtom",
   default: false,
@@ -216,13 +221,12 @@ export const inputValueState = atom({
   default: "",
 });
 
-export const ChattingRoomState=atom({
-  key:"ChattingRoom",
-  default:0,
-})
-
+export const ChattingRoomState = atom({
+  key: "ChattingRoom",
+  default: 0,
+});
 
 export const chatListState = atom<ChatOutputRes[]>({
-  key: 'chatListState',
+  key: "chatListState",
   default: [],
 });

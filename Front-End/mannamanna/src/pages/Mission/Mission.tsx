@@ -1,57 +1,56 @@
-// import React from "react";
+import React, { useState } from "react";
 import { Modal } from "@mui/material";
-// import React from "react";
 import BackBox from "../../components/common/Back";
 import SidebarMission from "../../components/layout/Sidebar/SidebarMission";
 import { MissionBox, MissionCard, MissionContainerBox } from "./MissionStyle";
-
 import Card_A from "../../asset/image/Card_A.png";
 import Card_B from "../../asset/image/Card_B.png";
 import Card_C from "../../asset/image/Card_C.png";
 import Card_D from "../../asset/image/Card_D.png";
 import Card_E from "../../asset/image/Card_E.png";
 import Card_F from "../../asset/image/Card_F.png";
+
 import { MissionCardBox } from "./MissionModal";
+import { useRecoilState } from "recoil";
+import { MissionCardAtom } from "../../Recoil/State"; // 이 부분을 적절한 경로로 수정하세요
 
 const Mission = () => {
+  const [open, setOpen] = useRecoilState(MissionCardAtom);
+
+  // Modal 열기 함수
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  // Modal 닫기 함수
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
-    <div>
-      {/* 헤더 밑 공간 */}
-      <div style={{ height: "5vh" }} />
+    <div style={{ border: "3px solid red" }}>
+      <div style={{ height: "5vh", border: "1px solid red" }} />
 
       <BackBox>
-        {/* 사이드바 공간 */}
-        <div style={{ height: "80vh" }}>
+        <div style={{ height: "80vh", border: "1px solid red" }}>
           <SidebarMission />
         </div>
-        {/* 실질적 미션보드 공간 */}
-        <div style={{ height: "80vh" }}>
-          <MissionContainerBox>
-            <MissionBox>
-              <MissionCardBox card={Card_A} mission="저녁 메뉴 공유하기" />
-              <MissionCardBox
-                card={Card_B}
-                mission="같은 색 아이템 착용 인증하기"
-              />
-              <MissionCardBox
-                card={Card_C}
-                mission="같은 시간 하늘 찍어서 공유하기"
-              />
-            </MissionBox>
-            <MissionBox>
-              <MissionCardBox card={Card_D} mission="어린 시절 사진 공유하기" />
-              <MissionCardBox
-                card={Card_E}
-                mission="일상 속 상대방 이름 찾아 찍어서 공유하기"
-              />
-              <MissionCardBox
-                card={Card_F}
-                mission="일상 속 하트 찾아 사진 찍어 공유하기"
-              />
-            </MissionBox>
-          </MissionContainerBox>
-        </div>
+        <MissionContainerBox>
+          <MissionBox style={{ border: "1px solid red" }}>
+            <MissionCard image={Card_A} onClick={handleOpen} />
+            <MissionCard image={Card_B} onClick={handleOpen} />
+            <MissionCard image={Card_C} onClick={handleOpen} />
+          </MissionBox>
+          <MissionBox style={{ border: "1px solid red" }}>
+            <MissionCard image={Card_D} onClick={handleOpen} />
+            <MissionCard image={Card_E} onClick={handleOpen} />
+            <MissionCard image={Card_F} onClick={handleOpen} />
+          </MissionBox>
+        </MissionContainerBox>
       </BackBox>
+      {/* MissionCardBox 컴포넌트에 mission prop을 전달 */}
+
+      <MissionCardBox mission={"dd"} />
     </div>
   );
 };
