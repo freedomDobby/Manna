@@ -26,11 +26,11 @@ const HeaderBack = styled.div`
   width: 100%;
   height: 10vh;
   background-color: rgba(255, 255, 255, 0.35);
-  // opacity:0.35;
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
+
 function Greetings() {
   const [gender, setGender] = useRecoilState(genderAtom);
   const [accessToken, setAccessToken] = useRecoilState(accessTokenAtom);
@@ -39,10 +39,17 @@ function Greetings() {
   const [name1, setName1] = useRecoilState(userNameState);
   const [name, setName] = useRecoilState(nameAtom);
   const [userId, setId] = useRecoilState(idAtom);
+
   const navigate = useNavigate();
+
   const GoResponseNote = () => {
     navigate("/note");
   };
+
+  const GoAlarm = () => {
+    alert("서비스 준비 중입니다.")
+  };
+
   const GoLogOut = async () => {
     await setGender(null);
     await setAccessToken(null);
@@ -71,19 +78,22 @@ function Greetings() {
     <div>
       <RecentNoteModal></RecentNoteModal>
       <HeaderBack>
-        <Logo />
         <div style={{ display: "flex", alignItems: "center" }}>
-          {/* <Profile></Profile> */}
-          <div style={{ fontSize: "large" }}>{name}님</div>
-          <IconButton color="primary" size="large" onClick={GoResponseNote}>
-            <EmailOutlinedIcon fontSize="large" />
-          </IconButton>
-          <IconButton color="primary" size="large">
-            <NotificationsNoneOutlinedIcon fontSize="large" />
-          </IconButton>
-          <IconButton color="primary" size="large" onClick={GoLogOut}>
-            <LogoutOutlinedIcon fontSize="large" />
-          </IconButton>
+          <Logo />
+        </div>
+        <div style={{ display: "flex", justifyContent: 'space-around', alignItems: "center" }}>
+          <p style={{ marginRight: '1vw', fontSize: "large" }}>{name} 님</p>
+          <div>
+            <IconButton color="inherit" size="medium" onClick={GoResponseNote}>
+              <EmailOutlinedIcon fontSize="large" />
+            </IconButton>
+            <IconButton color="inherit" size="medium" onClick={GoAlarm}>
+              <NotificationsNoneOutlinedIcon fontSize="large" />
+            </IconButton>
+            <IconButton color="inherit" size="medium" onClick={GoLogOut}>
+              <LogoutOutlinedIcon fontSize="large" />
+            </IconButton>
+          </div>
         </div>
       </HeaderBack>
     </div>
