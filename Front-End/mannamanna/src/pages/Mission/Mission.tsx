@@ -15,42 +15,62 @@ import { useRecoilState } from "recoil";
 import { MissionCardAtom } from "../../Recoil/State"; // 이 부분을 적절한 경로로 수정하세요
 
 const Mission = () => {
+  const missionQuestion = [
+    { id: 1, text: "저녁 메뉴 공유하기" },
+    { id: 2, text: "같은 색 아이템 착용 인증하기" },
+    { id: 3, text: "같은 시간 하늘 찍어서 공유하기" },
+    { id: 4, text: "어린 시절 사진 공유하기" },
+    { id: 5, text: "일상 속 상대방 이름 찾아 찍어서 공유하기" },
+    { id: 6, text: "일상 속 하트 찾아 사진 찍어 공유하기" },
+  ];
+
+  // missionQuestion 배열의 타입 정의
+  type MissionQuestion = {
+    id: number;
+    text: string;
+  };
+
   const [open, setOpen] = useRecoilState(MissionCardAtom);
+  const [selectedMissionId, setSelectedMissionId] = useState<number | null>(
+    null
+  );
 
   // Modal 열기 함수
-  const handleOpen = () => {
+  const handleOpen = (id: number) => {
+    setSelectedMissionId(id);
     setOpen(true);
   };
 
   // Modal 닫기 함수
   const handleClose = () => {
+    setSelectedMissionId(null);
     setOpen(false);
   };
 
   return (
-    <div style={{ border: "3px solid red" }}>
-      <div style={{ height: "5vh", border: "1px solid red" }} />
+    <div>
+      <div style={{ height: "5vh" }} />
 
       <BackBox>
-        <div style={{ height: "80vh", border: "1px solid red" }}>
+        <div style={{ height: "80vh" }}>
           <SidebarMission />
         </div>
         <MissionContainerBox>
-          <MissionBox style={{ border: "1px solid red" }}>
-            <MissionCard image={Card_A} onClick={handleOpen} />
-            <MissionCard image={Card_B} onClick={handleOpen} />
-            <MissionCard image={Card_C} onClick={handleOpen} />
+          <MissionBox>
+            <MissionCard image={Card_A} onClick={() => handleOpen(1)} />
+            <MissionCard image={Card_B} onClick={() => handleOpen(2)} />
+            <MissionCard image={Card_C} onClick={() => handleOpen(3)} />
           </MissionBox>
-          <MissionBox style={{ border: "1px solid red" }}>
-            <MissionCard image={Card_D} onClick={handleOpen} />
-            <MissionCard image={Card_E} onClick={handleOpen} />
-            <MissionCard image={Card_F} onClick={handleOpen} />
+          <MissionBox>
+            <MissionCard image={Card_D} onClick={() => handleOpen(4)} />
+            <MissionCard image={Card_E} onClick={() => handleOpen(5)} />
+            <MissionCard image={Card_F} onClick={() => handleOpen(6)} />
           </MissionBox>
         </MissionContainerBox>
       </BackBox>
-      {/* MissionCardBox 컴포넌트에 mission prop을 전달 */}
-
-      <MissionCardBox mission={"dd"} />
+      {selectedMissionId !== null && (
+        <MissionCardBox mission={missionQuestion[selectedMissionId - 1].text} />
+      )}
     </div>
   );
 };
