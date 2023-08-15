@@ -12,13 +12,16 @@ import Card_F from "../../asset/image/Card_F.png";
 
 import { MissionCardBox } from "./MissionModal";
 import { useRecoilState } from "recoil";
-import { MissionCardAtom } from "../../Recoil/State"; // 이 부분을 적절한 경로로 수정하세요
+import { MissionCardAtom, MissionTitle } from "../../Recoil/State"; // 이 부분을 적절한 경로로 수정하세요
 
 const Mission = () => {
   const [open, setOpen] = useRecoilState(MissionCardAtom);
 
+  const [missionTitle,setMissionTitle] = useRecoilState(MissionTitle);
+  
   // Modal 열기 함수
-  const handleOpen = () => {
+  const handleOpen = (title:string) => {
+    setMissionTitle(title);
     setOpen(true);
   };
 
@@ -26,6 +29,8 @@ const Mission = () => {
   const handleClose = () => {
     setOpen(false);
   };
+  
+
 
   return (
     <div style={{ border: "3px solid red" }}>
@@ -37,20 +42,32 @@ const Mission = () => {
         </div>
         <MissionContainerBox>
           <MissionBox style={{ border: "1px solid red" }}>
-            <MissionCard image={Card_A} onClick={handleOpen} />
-            <MissionCard image={Card_B} onClick={handleOpen} />
-            <MissionCard image={Card_C} onClick={handleOpen} />
+            <MissionCard image={Card_A} onClick={()=>{
+              handleOpen("A미션");
+            } }/>
+            <MissionCard image={Card_B} onClick={()=>{
+              handleOpen("B미션");
+            } } />
+            <MissionCard image={Card_C} onClick = {()=>{
+              handleOpen("C미션");
+            } } />
           </MissionBox>
           <MissionBox style={{ border: "1px solid red" }}>
-            <MissionCard image={Card_D} onClick={handleOpen} />
-            <MissionCard image={Card_E} onClick={handleOpen} />
-            <MissionCard image={Card_F} onClick={handleOpen} />
+            <MissionCard image={Card_D} onClick = {()=>{
+              handleOpen("D미션");
+            } } />
+            <MissionCard image={Card_E} onClick = {()=>{
+              handleOpen("E미션");
+            } }/>
+            <MissionCard image={Card_F} onClick = {()=>{
+              handleOpen("F미션");
+            } } />
           </MissionBox>
         </MissionContainerBox>
       </BackBox>
       {/* MissionCardBox 컴포넌트에 mission prop을 전달 */}
 
-      <MissionCardBox mission={"dd"} />
+      <MissionCardBox mission={missionTitle} />
     </div>
   );
 };

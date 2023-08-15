@@ -230,3 +230,9 @@ export const chatListState = atom<ChatOutputRes[]>({
   key: "chatListState",
   default: [],
 });
+
+
+export const MissionTitle = atom<string>({
+  key:"MissionTitle",
+  default:"",
+});
