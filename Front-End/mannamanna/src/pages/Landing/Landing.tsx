@@ -12,7 +12,7 @@ const LandingPage = () => {
   };
   return (
     <div>
-      <div style={{ height: "10vh", alignItems: "center" }}>
+      <div style={{ height: "10vh"}}>
         <Logo />
       </div>
       <CenteredDiv
