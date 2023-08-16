@@ -164,13 +164,7 @@ export function GetChat({ message }: { message: string|null }) {
     
     return (
     <>
-      <div
-        id="rapperDiv"
-        style={{
-          overflow: "auto",
-          maxHeight: "55vh", // Firefox용 스크롤바 숨김 스타일
-        }}
-      >
+      <div id="rapperDiv" style={{ overflow: "auto", minHeight:'84%', maxHeight: "84%",}}>
               <ChatOutBox>
                 <ChatInBox>
                 {chatList?.map((item, index) => {
@@ -182,7 +176,7 @@ export function GetChat({ message }: { message: string|null }) {
           })}
                 </ChatInBox>
               </ChatOutBox>
-        </div>
+      </div>
         <ChatInputBox>
         <input
           placeholder="메시지를 입력하세요"

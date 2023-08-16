@@ -5,8 +5,10 @@ import MacBookBox from "../../../components/common/macbookBox";
 import Modal from "@mui/material/Modal";
 import api from "../../../apis/Api";
 import {
+  ChattingRoomState,
   SogaeResultNoteAtom,
   idAtom,
+  opponentIdAtom,
   scheduleIdAtom,
   sendNoteAtom,
   sendNoteIdAtom,
@@ -30,6 +32,7 @@ import {
 } from "../../Note/Modal/NoteModalStyle";
 import { useNavigate } from "react-router-dom";
 import { userSessionId } from "../../Soagaeting/SogaetingState";
+import { MakeChatRoom } from "../../../apis/Request/Request";
 
 interface CheckModalProps {
   profile: string; //프로필 사진 받아올건데, url 맞나?
@@ -53,9 +56,11 @@ export const CheckSchduleModal: React.FC<CheckModalProps> = ({
   const [open, setOpen] = useRecoilState(SogaeResultNoteAtom);
   const [sendnote, Setsendnote] = useRecoilState(sendNoteAtom);
   const [UserId] = useRecoilState(idAtom);
+  const [opponentId,setOpponentId]=useRecoilState(opponentIdAtom);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [scheduleId, SetScheduleId] = useRecoilState(scheduleIdAtom);
+  const [RoomId, setRoomId] = useRecoilState(ChattingRoomState);
   const [myUserSessionId, setMyUserSessionId] = useRecoilState(userSessionId);
   const navigate = useNavigate();
   const GoSogaetingWait = () => {
@@ -64,8 +69,16 @@ export const CheckSchduleModal: React.FC<CheckModalProps> = ({
   const GoScheduleVideo = async (e: React.MouseEvent<HTMLButtonElement>) => {
     const newSessionId = `session${scheduleId}`;
     setMyUserSessionId(newSessionId);
-    GoSogaetingWait();
+    const ChatRommData:MakeChatRoom={
+    maleId:UserId,
+    femaleId:opponentId,
+    }
+    console.log(ChatRommData);
+    const response = await api.post('chat/room', ChatRommData);
+    console.log("나와라@@@@@@@@@@@@@@@@@@@@@@@"+response.data.roomId);
+    setRoomId(response.data.roomId);
     handleClose();
+    GoSogaetingWait();
   };
   const deleteScheduel = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
