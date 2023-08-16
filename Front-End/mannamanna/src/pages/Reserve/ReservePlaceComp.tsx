@@ -22,6 +22,14 @@ const PlacePagingButtonBox = styled.div`
   justify-content: center;
 `
 
+const PlaceNameBox = styled.div`
+  width: 70%;
+  height: 100%;
+  white-space: nowrap; /* 텍스트가 줄바꿈되지 않도록 설정 */
+  overflow: hidden; /* 넘치는 내용을 숨김 */
+  text-overflow: ellipsis; /* 넘치는 내용에 ... 표시 */
+`
+
 const PlaceElement = styled.div`
   padding-top: 1%;
   padding-bottom: 1%;
@@ -55,6 +63,7 @@ const NumberBox = styled.div`
 `
 
 const ReserveButton = styled.button`
+  width: 30%;
   background: none;
   border: none;
   padding: 0;
@@ -147,7 +156,9 @@ const ReservePlaceComp = (props: IReservePlaceProps) => {
         return <>
             {item.map((item: IReservePlace, index: number) => (
                 <PlaceElement key={index}>
-                    {item.name}
+                    <PlaceNameBox>
+                        {item.name}
+                    </PlaceNameBox>
                     <ReserveButton
                         onClick={() => insertReservation(makeRequestJSON(item))
                             .then((response) => alert(response.data.msg))

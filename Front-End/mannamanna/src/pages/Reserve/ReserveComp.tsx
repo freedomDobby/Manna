@@ -2,11 +2,11 @@ import MacBookBox from "../../components/common/macbookBox";
 import styled from "styled-components";
 import KakaoMap from "../../components/common/KakaoMap";
 import axios from "axios";
-import {IReserveCompProps, IReservePlaceRequest} from "./Interfaces";
-import {useQuery} from "@tanstack/react-query";
+import {IMiddleReservePlace, IReserveCompProps, IReservePlaceRequest} from "./Interfaces";
+import {useQuery, useQueryClient} from "@tanstack/react-query";
 import ReservePlaceComp from "./ReservePlaceComp";
 import {LocateAddress} from "./LocateObject";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 const LocateSelectBox = styled.div`
   display: flex;
@@ -107,26 +107,36 @@ const getPlaceByLocate = (ReservePlaceRequest: IReservePlaceRequest) => {
         method: "POST",
         url: "https://i9b205.p.ssafy.io/api/reserve/placeList",
         headers: {"Content-Type": "application/json"},
-        data: {ReservePlaceRequest},
+        data: ReservePlaceRequest,
     })
 }
 
-const getPlaceByMember = (userId: string, opponentId: string) => {
+const getPlaceByMember = (MiddleReservePlace: IMiddleReservePlace) => {
     return axios({
-        method: "GET",
-        url: `https://i9b205.p.ssafy.io/api/reserve/${userId}/${opponentId}`,
-        headers: {"Content-Type": "application/json"}
+        method: "POST",
+        url: `https://i9b205.p.ssafy.io/api/reserve/middlePlaceList`,
+        headers: {"Content-Type": "application/json"},
+        data: MiddleReservePlace
     })
 }
 
 const ReserveComp = (props: IReserveCompProps) => {
     const [queryType, setQueryType] = useState('member'); // 'posts' 또는 'comments'
+    const queryClient = useQueryClient();
 
     const fetchData = async () => {
         if (queryType === 'member') {
-            return await getPlaceByMember(props.userId, props.opponentId).then(response => response.data);
+            return await getPlaceByMember({
+                userId: props.userId,
+                opponentId: props.opponentId,
+                category: category
+            }).then(response => response.data);
         } else {
-            return await getPlaceByLocate({sido, gugun, category}).then(response => response.data);
+            return await getPlaceByLocate({
+                sido: sido,
+                gugun: gugun,
+                category: category
+            }).then(response => response.data);
         }
     };
 
@@ -138,6 +148,14 @@ const ReserveComp = (props: IReserveCompProps) => {
     const [gugun, setGuugn] = useState("");
     const [category, setCategory] = useState("");
     const [guguns, setGuguns] = useState<string[]>([]);
+
+    useEffect(() => {
+        console.log("num : " + gugun);
+        console.log("num : " + category);
+        fetchData().then(data => {
+            queryClient.setQueryData(["placeData"], data);
+        });
+    }, [category, gugun]);
 
     return (
         <MacBookBox width={"80vw"} height={"70vh"} color1={"#bcd3ff"} color2={"#ffffff"} alignItems={"center"}>
@@ -157,8 +175,8 @@ const ReserveComp = (props: IReserveCompProps) => {
                             }
                         </SelectLocate>
                         <SelectLocate value={gugun} onChange={(event) => {
-                            setGuugn(event.target.value);
                             setQueryType("locate");
+                            setGuugn(event.target.value);
                         }}>
                             <option> 구군</option>
                             {
@@ -169,17 +187,25 @@ const ReserveComp = (props: IReserveCompProps) => {
                         </SelectLocate>
                     </SelectBox>
                     <PlaceFilterBox>
-                        <PlaceFilterButton onClick={() => setCategory("")}>
+                        <PlaceFilterButton onClick={() => {
+                            setCategory("")
+                        }}>
                             전체
                         </PlaceFilterButton>
-                        <PlaceFilterButton onClick={() => setCategory("카페")}>
+                        <PlaceFilterButton onClick={() => {
+                            setCategory("카페")
+                        }}>
                             카페
                         </PlaceFilterButton>
-                        <PlaceFilterButton onClick={() => setCategory("음식점")}>
+                        <PlaceFilterButton onClick={() => {
+                            setCategory("음식점");
+                        }}>
                             음식점
                         </PlaceFilterButton>
-                        <PlaceFilterButton onClick={() => setCategory("공원")} style={{borderRight: "none"}}>
-                            공원
+                        <PlaceFilterButton onClick={() => {
+                            setCategory("숙박")
+                        }} style={{borderRight: "none"}}>
+                            숙박
                         </PlaceFilterButton>
                     </PlaceFilterBox>
                 </LocateSelectBox>

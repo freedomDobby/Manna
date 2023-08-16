@@ -44,3 +44,14 @@ export interface IReserveCompProps {
 export interface ILocateObject {
     [key: string]: string[];
 }
+
+export interface IModalProps {
+    isOpen: boolean;
+    onClose: boolean
+}
+
+export interface IMiddleReservePlace {
+    userId: string;
+    opponentId: string;
+    category: string;
+}
