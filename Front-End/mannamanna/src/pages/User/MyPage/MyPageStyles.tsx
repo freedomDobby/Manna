@@ -37,6 +37,7 @@ import { profilePicture1State, profilePicture2State, profilePicture3State } from
 import { Contain, Container2, EnterImageBtnBox, ImageForm, MostBiggestBox, TitleBox } from "../Register/ModalStyle";
 import { EnterImage1 } from "../Register/Image/ImageInput";
 import { useNavigate } from "react-router-dom";
+import { AxiosRequestConfig } from "axios";
 
 // 마이페이지 구군
 export const MyPageGuGun = () => {
@@ -771,6 +772,7 @@ export const WithdrawalButton = ({ children }: WithdrawalButtonProps) => {
     pwd: withdrawalPass,
   };
   const CheckPassword = async () => {
+    console.log(WithdrawalData);
     try {
       const response = await api.post("/user/mypage/checkPwd", WithdrawalData);
       if (response.data.result) {
@@ -786,8 +788,13 @@ export const WithdrawalButton = ({ children }: WithdrawalButtonProps) => {
 
   const withdarwal = async () => {
     try {
-      const response = await api.post(`/user/mypage/${userId}`, WithdrawalData);
+      const axiosConfig: AxiosRequestConfig = {
+        data: WithdrawalData, 
+      };
+      const response = await api.delete(`/user/delete`, axiosConfig);
+      console.log(response);
       alert("회원 탈퇴가 완료 되었습니다.");
+      setOpen(false)
     } catch (error) {
       console.error(error);
       alert("오류가 발생했습니다.");
@@ -862,10 +869,10 @@ export const WithdrawalButton = ({ children }: WithdrawalButtonProps) => {
             >
               <div style={{ fontSize: "3vh" }}>정말 탈퇴하시겠습니까?</div>
               <div>
-                {/* <MyPageSmallButton onClick={CheckPassword}>확인</MyPageSmallButton> */}
-                <MyPageSmallButton onClick={handleClose}>
+                <MyPageSmallButton onClick={CheckPassword}>확인</MyPageSmallButton>
+                {/* <MyPageSmallButton onClick={handleClose}>
                   확인
-                </MyPageSmallButton>
+                </MyPageSmallButton> */}
                 <MyPageSmallButton onClick={handleClose}>
                   취소
                 </MyPageSmallButton>

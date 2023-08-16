@@ -7,6 +7,7 @@ import api from "../../../apis/Api";
 import {
   ChattingRoomState,
   SogaeResultNoteAtom,
+  genderAtom,
   idAtom,
   opponentIdAtom,
   scheduleIdAtom,
@@ -58,6 +59,7 @@ export const CheckSchduleModal: React.FC<CheckModalProps> = ({
   const [UserId] = useRecoilState(idAtom);
   const [opponentId,setOpponentId]=useRecoilState(opponentIdAtom);
   const handleOpen = () => setOpen(true);
+  const [gender,setGender]=useRecoilState(genderAtom);
   const handleClose = () => setOpen(false);
   const [scheduleId, SetScheduleId] = useRecoilState(scheduleIdAtom);
   const [RoomId, setRoomId] = useRecoilState(ChattingRoomState);
@@ -71,19 +73,52 @@ export const CheckSchduleModal: React.FC<CheckModalProps> = ({
   const GoScheduleVideo = async (e: React.MouseEvent<HTMLButtonElement>) => {
     const newSessionId = `session${scheduleId}`;
     setMyUserSessionId(newSessionId);
-    const ChatRommData:MakeChatRoom={
-    maleId:UserId,
-    femaleId:opponentId,
-    }
-    if(UserId){
-      const myuser = UserId;
-      setMyUserName(myuser);
-    }
+    const ChatRommData: MakeChatRoom = {
+      maleId: gender === 'male' ? UserId : opponentId,
+      femaleId: gender == 'female' ? UserId : opponentId,
+    };
     console.log(ChatRommData);
-    // const response = await api.post('chat/room', ChatRommData);
-    // console.log("나와라@@@@@@@@@@@@@@@@@@@@@@@"+response.data.roomId);
-    // setRoomId(response.data.roomId);
-    setMyDateName(opponentId)
+    api.post('chat/room', ChatRommData)
+    .then(res => {
+      setRoomId(res.data.roomId);
+    })
+    .catch(error => {
+      if (error.response) {
+        console.error("Error status:", error.response.status);
+        console.error("Error data:", error.response.data);
+  
+
+        const errorMessage = error.response.data.msg;
+        console.error("Error message:", errorMessage);
+  
+   
+        if (errorMessage === "ChatRoomDuplicateException") {
+          api.get(`chat/room/${UserId}`)
+          .then(res => {
+            
+            const findmychat:any=res.data.data;
+            const foundChatRoom = findmychat.find((chatRoom: any) => {
+              return chatRoom.maleId === (gender === 'male' ? UserId : opponentId) &&
+                     chatRoom.femaleId === (gender === 'female' ? UserId : opponentId);
+            });
+            
+            if (foundChatRoom) {
+              const chatRoomId = foundChatRoom.id;
+              setRoomId(chatRoomId);
+            } else {
+
+            }
+            console.log(findmychat);
+           
+          })
+          .catch(e => {
+            console.error(e);
+          });
+        }
+      } else {
+        console.error("Error:", error.message);
+      }
+    });
     handleClose();
     GoSogaetingWait();
   };

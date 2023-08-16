@@ -3,6 +3,7 @@ import BackBox from "../../components/common/Back";
 import MacBookBox from "../../components/common/macbookBox";
 import { TextField, Button } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
+import QuizIcon from '@mui/icons-material/Quiz';
 import {
   ChatPeopleBox,
   LeftChatBox,
@@ -34,7 +35,11 @@ export function GetChat({ message }: { message: string|null }) {
   return (
     <ChatLeftStyle>
       <ChatProFile />
-      <LeftChatBox>{message}</LeftChatBox>
+      <LeftChatBox>
+      <div style={{width:'90%',height:'90%'}}>
+          {message}
+        </div>
+      </LeftChatBox>
     </ChatLeftStyle>
   );
 }
@@ -42,7 +47,11 @@ export function GetChat({ message }: { message: string|null }) {
   export function SendChat({ message }: { message: string|null }) {
     return (
       <ChatRightStyle>
-        <RightChatBox>{message}</RightChatBox>
+        <RightChatBox>
+          <div style={{width:'90%',height:'90%'}}>
+            {message}
+          </div>
+        </RightChatBox>
         <ChatProFile />
       </ChatRightStyle>
     );
@@ -74,7 +83,15 @@ export function GetChat({ message }: { message: string|null }) {
     const [chatList, setChatList] = useState<ChatOutputRes[]>([]);
     const [name, setName] = useRecoilState(nameAtom);
     const [inputValue, setInputValue] = useState("");
+    const [showMessage, setShowMessage] = useState(false);
 
+    const handleMouseEnter = () => {
+      setShowMessage(true);
+    };
+  
+    const handleMouseLeave = () => {
+      setShowMessage(false);
+    };
     const client = useRef<CompatClient>();
 
     // 웹소켓 연결
@@ -135,6 +152,19 @@ export function GetChat({ message }: { message: string|null }) {
       SendMessage(inputValue);
       setInputValue("");
     }
+
+    const handleQuiz=()=> {
+      api.get('sogaeting/chatRecommend')
+      .then(res => {
+        SendMessage("😍밸런스 게임 시작😍");
+        SendMessage(res.data.data.name);
+        SendMessage("당신의 선택은?!");
+      })
+      .catch(error => {
+        console.error("Error:", error.message);
+      });
+    }
+
     useEffect(() => {
       if(RoomId===0){
         return;
@@ -159,7 +189,7 @@ export function GetChat({ message }: { message: string|null }) {
       }
     }, [chatList]);
  
-    const color2 = "#ffcced";
+  
 
     
     return (
@@ -194,6 +224,15 @@ export function GetChat({ message }: { message: string|null }) {
           }}
           autoFocus
         />
+        <div  style={{
+            backgroundColor: "#ffcced",
+            height: '5vh',
+            width: '13vh',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'space-around',
+            borderRadius:'2vh'
+          }}>
         <div
           style={{
             backgroundColor: "#ffcced",
@@ -208,6 +247,43 @@ export function GetChat({ message }: { message: string|null }) {
         >
           <SendIcon style={{ width: '90%', height: '90%' }} />
         </div>
+        <div
+      style={{
+        backgroundColor: "#ffcced",
+        height: '5vh',
+        width: '5vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: '2vh',
+        position: 'relative', // 필수: 메시지를 상대 위치로 표시하기 위해
+      }}
+      onClick={handleQuiz}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <QuizIcon style={{ width: '90%', height: '90%' }} />
+      {showMessage && (
+        <div
+          style={{
+            position: 'absolute',
+            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+            color: 'white',
+            borderRadius: '4px',
+            padding: '4px',
+            fontSize: '1.2rem',
+            bottom: '100%',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 1,
+          }}
+        >
+          누르면 밸런스 게임을 보내요  😖
+        </div>
+      )}
+    </div>
+        </div>
+
         </ChatInputBox>
         </>
     );
