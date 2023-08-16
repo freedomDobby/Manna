@@ -200,20 +200,20 @@ export function GetChat({ message }: { message: string|null }) {
           }}
           autoFocus
         />
-<div
-  style={{
-    backgroundColor: "#ffcced",
-    height: '5vh',
-    width: '5vh',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius:'2vh'
-  }}
-  onClick={handleSubmit}
->
-  <SendIcon style={{ width: '90%', height: '90%' }} />
-</div>
+        <div
+          style={{
+            backgroundColor: "#ffcced",
+            height: '5vh',
+            width: '5vh',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius:'2vh'
+          }}
+          onClick={handleSubmit}
+        >
+          <SendIcon style={{ width: '90%', height: '90%' }} />
+        </div>
         </ChatInputBox>
         </>
     );
