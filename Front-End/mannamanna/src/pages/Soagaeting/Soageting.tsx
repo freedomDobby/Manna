@@ -3,7 +3,6 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { OpenVidu, StreamManager, Session, SignalOptions} from 'openvidu-browser';
 import { dateName, isAudio, isVideo, sogaeUserName, timerTime, userSessionId } from './SogaetingState';
 import { apiopen } from '../../apis/Api';
-import { OpenviduSecretKey } from '../User/Login/ApiKey';
 import { CenteredDiv } from '../Landing/LandingStyle';
 import { CenterBox, StyledButton } from '../User/Login/LoginStyle';
 import SmallMacBookProfile from '../../components/common/SmallMacBookProfile';
@@ -18,6 +17,9 @@ import VideocamOffIcon from '@mui/icons-material/VideocamOff';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import CloseIcon from '@mui/icons-material/Close';
 import MoreTimeIcon from '@mui/icons-material/MoreTime';
+import { SenderAgeState, SenderHeightState, SenderJobState, SenderMbtiState, SenderNameState, SenderPrState, SenderProfileState } from '../Note/NoteState';
+import { Age, Height, Info1, Info2, InfoContainer, Job, MBTI, Name, NameInfo, ProfileContainer, SelfPrInfo } from '../Note/Modal/NoteModalStyle';
+import { ProfileBox } from '../User/MyPage/MyPageModifyStyle';
 
 const Sogaeting = () => {
     const [myUserSessionId, setMyUserSessionId] = useRecoilState(userSessionId);
@@ -28,7 +30,17 @@ const Sogaeting = () => {
     const [subscribers, setSubscribers] = useState<StreamManager[]>([]);
     const [myIsVideo, setMyIsVideo] = useRecoilState(isVideo);
     const [myIsAudio, setMyIsAudio] = useRecoilState(isAudio);
-    
+    const [SenderName, setSenderName] = useRecoilState(SenderNameState);
+    const [SenderHeight, setSenderHeight] = useRecoilState(SenderHeightState);
+    const [SendeAge, setSendeAge] = useRecoilState(SenderAgeState);
+    const [SenderJob, setSenderJob] = useRecoilState(SenderJobState);
+    const [SenderMbti, setSenderMbti] = useRecoilState(SenderMbtiState);
+    const [SenderPr, setSenderPr] = useRecoilState(SenderPrState);
+    const [SenderProfile, setSenderProfile] = useRecoilState(SenderProfileState);
+
+    const [myRegister, setMyRegister] = useState<boolean>(false);
+    const [openRegister, setOpenRegister] = useState<boolean>(false);
+
     const [timer, setTimer] = useRecoilState(timerTime);
     const [myBlur, setMyBlur] = useState<number>(10);
     const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -149,20 +161,43 @@ const Sogaeting = () => {
         session.signal(signalOptions);
     }
 
+
+    const handleChangeRegister = async (event: React.MouseEvent<HTMLButtonElement>) => {
+        const newRegister = myRegister ?  false : true;
+        const newData = {data: newRegister};
+        setMyRegister(newRegister);
+        sendRegister(newData);
+    }
+
+    const sendRegister = (data: any) => {
+        const signalOptions: SignalOptions = {
+            data: JSON.stringify(data),
+            type: 'sendRegister',
+        };
+        session.signal(signalOptions);
+    }
+
+    const handleChangeOpenRegister = async () => {
+        const newOpenRegister = openRegister ? false : true;
+        const newData = {data: newOpenRegister};
+        setOpenRegister(newOpenRegister);
+        sendOpenRegister(newData);
+    }
+
+    const sendOpenRegister = (data: any) => {
+        const signalOptions: SignalOptions = {
+            data: JSON.stringify(data),
+            type: 'sendOpenRegister',
+        };
+        session.signal(signalOptions);
+    }
+
     // Session에 참여할 때 
     const joinSession = async () => {
-        
-        // 성별에 따라 SessionId를 통일하기 위해 남자는 본인+상대 여자는 상대+본인으로 설정하는 것이 필요하다. 
-        setMyUserSessionId(myUserName + myDateName);
-
-        // 새로운 OpenVidu를 하나 생성한다. 
-        
 
         // Session을 초기화 해준다. 
         const newSession = OV.initSession();
         setSession(newSession);
-
-        
         
         // 새로운 참가자가 생기게 될 경우.. 우리는 한명이긴 한데 일단 여러명 받을 수 있는 걸로.. 
         newSession.on('streamCreated', (event: any) => {
@@ -181,6 +216,36 @@ const Sogaeting = () => {
         // 예외가 발생하는 경우
         newSession.on('exception', (exception: any) => {
             console.warn(exception);
+        });
+
+        newSession.on('signal:sendRegister', (event: any) => {
+            const data = JSON.parse(event.data);
+            const newRegister = data.data;
+            if(newRegister){
+                if(myRegister){
+                    handleChangeOpenRegister();
+                }
+            }
+            console.log(111111111);
+            console.log(newRegister);
+            console.log(myRegister);
+            console.log(openRegister);
+        });
+
+        newSession.on('signal:sendOpenRegister', (event: any) => {
+            const data = JSON.parse(event.data);
+            const newRegister = data.data;
+            if(newRegister){
+                if(!openRegister){
+                    const newOpenRegister = !openRegister;
+                    setOpenRegister(newOpenRegister);
+                }
+            }
+
+            console.log(22222222);
+            console.log(newRegister);
+            console.log(myRegister);
+            console.log(openRegister);
         });
 
         newSession.on('signal:sendTimerChange', (event: any) => {
@@ -240,7 +305,7 @@ const Sogaeting = () => {
     const createSession = async (newsessionId: string) => {
         try {
             const response = await apiopen.post('openvidu/api/sessions/', { customSessionId: newsessionId }, {
-            headers: { Authorization: 'Basic ' + btoa(`OPENVIDUAPP:${OpenviduSecretKey}`), 'Content-Type': 'application/json' },
+            headers: { Authorization: 'Basic ' + btoa(`OPENVIDUAPP:1234`), 'Content-Type': 'application/json' },
             });
             return response.data.sessionId;
         } catch (error: any) {
@@ -255,7 +320,7 @@ const Sogaeting = () => {
     const createToken = async (newsessionId: string) => {
         const response = await apiopen
         .post('openvidu/api/sessions/' + newsessionId + '/connection', {}, {
-            headers: {  Authorization: 'Basic ' + btoa(`OPENVIDUAPP:${OpenviduSecretKey}`), 'Content-Type': 'application/json' },
+            headers: {  Authorization: 'Basic ' + btoa(`OPENVIDUAPP:1234`), 'Content-Type': 'application/json' },
         });
         console.log(response.data);
         return response.data.token; // The token
@@ -266,9 +331,11 @@ const Sogaeting = () => {
             {/* 세션에 들어가기 전 내 상태를 확인하고 입장하기를 누르기 전 화면 */}
             {session === undefined ? (
                 <CenteredDiv style={{ justifyContent: 'center', alignItems: 'center' }}>
+
                     <div style={{ fontSize: '3vw', color: 'white', marginTop: '6vh' }}>
                         너와 내가 이어지는 중...
                     </div>
+
                     <CenterBox style={{display:'flex',justifyContent:'space-around',width:'90%'}}>
                         <SmallMacBookProfile 
                         width="25vw"
@@ -285,19 +352,22 @@ const Sogaeting = () => {
 
                         <HeartAnimation></HeartAnimation>
 
-                        <SmallMacBookProfile
+                        <SmallMacBookProfile 
                         width="25vw"
                         height="45vh"
-                        color1="#F8E3EA"
+                        color1="#ffcced"
                         color2="#ffffff"
                         alignItems="center"
-                        Username="이름"
-                        age="나이"
-                        address="지역"
+                        Username=""
+                        age= "상대방 정보"
+                        address=""
                         >
-                        </SmallMacBookProfile>
+                            <img src= {SenderProfile} width= "100%" height= "98%"/>
+                        </SmallMacBookProfile>  
                     </CenterBox>
+
                     <StyledButton style={{ marginTop: '1vh', marginBottom: '5vh' }} onClick={joinSession}>입장하기</StyledButton>
+
                 </CenteredDiv>
             ) : null}
 
@@ -324,12 +394,12 @@ const Sogaeting = () => {
                                     <BlindDateMyVideo streamManager={publisher} />
                                 </div>
                                 <div style={{width: '50%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                                    <div style={{border:'solid 0.3rem black', borderRadius:'1rem', background:'#ffffff', width: '90%', height: '40%', flexDirection: 'column', display: 'flex', justifyContent: 'space-around', alignItems: 'center', marginLeft: '2.5%'}}>
+                                    <div style={{border:'solid 0.3rem black', borderRadius:'1rem', background:'#ffffff', width: '90%', height: '65%', flexDirection: 'column', display: 'flex', justifyContent: 'space-around', alignItems: 'center', marginLeft: '2.5%'}}>
                                         <div style={{borderBottom:'solid 0.3rem black',borderTopRightRadius:'0.8rem', borderTopLeftRadius:'0.8rem', background:'#ffcced', width: '100%', height: '10%', flexDirection: 'column', display: 'flex', justifyContent: 'center', alignItems: 'center'}}/>
                                         <div style={{width: '100%', height: '80%', flexDirection: 'row', display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
                                             <MicVideoIconButton onClick={handleChangeMyIsVideo}>{myIsVideo ? (<VideocamIcon/>) : (<VideocamOffIcon/>)}</MicVideoIconButton>
                                             <MicVideoIconButton onClick={handleChangeMyIsAudio}>{myIsAudio ? (<MicIcon/>) : (<MicOffIcon/>)}</MicVideoIconButton>
-                                            <HeartIconButton onClick={handleChangeBlur}><FavoriteIcon/></HeartIconButton>
+                                            {myBlur > -1 ? (<HeartIconButton onClick={handleChangeBlur}><FavoriteIcon/></HeartIconButton>) : (<HeartIconButton onClick={handleChangeRegister}><CloseIcon/></HeartIconButton>)}
                                             <HeartIconButton onClick={leaveSession}><CloseIcon/></HeartIconButton>
                                         </div>
                                         <div style={{borderTop:'solid 0.3rem black', borderBottomRightRadius:'0.8rem', borderBottomLeftRadius:'0.8rem', background:'#ffcced', width: '100%', height: '10%', flexDirection: 'column', display: 'flex', justifyContent: 'center', alignItems: 'center'}}/>
@@ -343,17 +413,18 @@ const Sogaeting = () => {
                                     <div style={{border:'solid 0.3rem black', borderRadius:'1rem', width: '80%', height: '80%', background:'#ffcced', flexDirection: 'row', display: 'flex'}}>
                                         <div style={{width: '40%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                                             <div style={{border:'solid 0.2rem black', width: '80%', height: '80%'}}>
-                                                상대방사진
+                                                <img src= {SenderProfile} width= "100%" height= "100%"/>
                                             </div>
                                         </div>
                                         <div style={{width: '60%', height: '100%', flexDirection: 'column', display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>
-                                                <div style={{fontSize: '1.5rem'}}>상대이름</div>
-                                                <div style={{fontSize: '1rem'}}>나이 / 지역 / 직업 / MBTI</div>
+                                                <div style={{fontSize: '1.5rem'}}>{SenderName}</div>
+                                                <div style={{fontSize: '1rem'}}>{SendeAge}살 / {SenderHeight}cm <br/> {SenderJob} / {SenderMbti}</div>
                                         </div>
                                     </div>
                                 </div>
                                 <div style={{border:'solid 2px blue', width: '100%', height: '50%'}}>
                                     채팅영역 
+                                    {openRegister ? (<div>안녕안녕</div>) : (<div>아직아님</div>)}
                                 </div>
                                 <div style={{width: '100%', height: '25%', flexDirection: 'row', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                                     <Timer/>

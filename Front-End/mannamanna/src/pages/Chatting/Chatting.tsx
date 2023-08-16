@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import BackBox from "../../components/common/Back";
 import MacBookBox from "../../components/common/macbookBox";
 import { TextField, Button } from "@mui/material";
@@ -19,79 +19,98 @@ import {
 import SidebarChat from "../../components/layout/Sidebar/SidebarChat";
 import { MyPageContainerBox } from "../User/MyPage/MyPageStyle";
 import { useRecoilState } from "recoil";
-import { genderAtom, idAtom, inputValueState } from "../../Recoil/State";
+import { ChattingRoomState, chatListState, genderAtom, idAtom, inputValueState } from "../../Recoil/State";
 import CreateChattingClient from "../User/Login/Clinet";
 import { useQuery } from "@tanstack/react-query";
 import api from "../../apis/Api";
 import { StyledButton } from "../User/Login/LoginStyle";
 import { ChatPeople, GetChat, SendChat } from "./ChattingComponent";
+import { ChatMessage } from "../../apis/Request/Request";
+import { Client, Message } from "@stomp/stompjs";
+import { SOCET_URL } from "../../apis/Url";
 
 
 
 export const Chatting = () => {
-  const [id, setId] = useRecoilState(idAtom);
+  const [Userid, setId] = useRecoilState(idAtom);
   const [gender, setGender] = useRecoilState(genderAtom);
-  const [RoomId, setRoomId] = useState(0);
-  const [inputValue, setInputValue] = useRecoilState(inputValueState); // 상태 초기화
-
+  const [RoomId, setRoomId] = useRecoilState(ChattingRoomState);
+  const [inputValue, setInputValue] = useRecoilState(inputValueState); 
+  const [chatList, setChatList] = useRecoilState(chatListState);
 
   const { data: ChattingInfo, isLoading, isError } = useQuery<any>(["ChattingInfo"], async () => {
-    const response = await api.get(`chat/room/${id}`);
+    const response = await api.get(`chat/room/${Userid}`);
     console.log(response.data);
     return response.data.data;
   });
-
-  const Chatting = CreateChattingClient();
+  // Handle input value change
 
   const EnterRoom = (ChattingRoom: number) => {
     console.log(ChattingRoom);
     setRoomId(ChattingRoom);
   };
 
-  useEffect(() => {
-    Chatting.client.connect(Chatting.headers, () => {
-      console.log("연결됨");
-    }, (error: any) => {
-      console.error("에러 발생:", error);
-    });
-  }, []);
+    const Chat=CreateChattingClient();
 
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
-
-  if (isError) {
-    return <p>에러입니다.</p>;
-  }
-
-  const sendMessage = () => {
-    const message = {
-      sender: id, 
-      content: inputValue, 
-      room: {RoomId}, 
-    };
-  
-    Chatting.client.send('/sub/chat/room/', {}, JSON.stringify(message));
-  };
-
-
-    // return () => {
-    //   // 컴포넌트가 언마운트될 때, client를 비활성화
-    //   client.deactivate();
-    // };
-  
     let messageContent = "";
+  
+    // }
+    function getMessage() {
+      Chat.client.subscribe(`/sub/chat/room/${RoomId}`, (body:Message) => {
+        const message = JSON.parse(body.body) as ChatMessage;
+        console.log(message);
+        setChatList((chat_list) => [...chat_list, message]);
+      });
+    }
 
-    // Handle input value change
+    Chat.client.activate();
+    function publish(chat: ChatMessage) {
+      console.log(chat.message);
+      if (!Chat.client.connected) {
+        return;
+      }
+      Chat.client.publish({
+        destination: `/sub/chat/room${RoomId}`,
+        body: JSON.stringify(chat),
+      });
+    }
     const handleInputChange = (message:string) => {
       messageContent=message;
     };
+    function sendMessage() {
+      const newChat: ChatMessage = {
+        MessageType: "TALK",
+        roomId:RoomId,
+        sender:Userid,
+        message:inputValue,
+    };
+      publish(newChat);
+    }
 
-    const handleSubmit = () => {
-      console.log(messageContent); // 상태 업데이트 전의 값 출력
+
+     function handleSubmit(event: any) {
+      event.preventDefault();
       setInputValue(messageContent); // 상태 업데이트
-      console.log(inputValue); // 업데이트된 상태 값 출력
-     };
+      if (inputValue === "") {
+        return;
+      }
+      sendMessage();
+      setInputValue("");
+
+    }
+
+  
+
+
+    if (isLoading) {
+      return <p>Loading...</p>;
+    }
+  
+    if (isError) {
+      return <p>에러입니다.</p>;
+    }
+  
+
   return (
     <div>
       <div style={{ height: "5vh" }}></div>
@@ -118,7 +137,7 @@ export const Chatting = () => {
                     note.id
                   )} />
                 ))}
-                                  <StyledButton onClick={() => console.log(inputValue)}>값좀보자</StyledButton>
+                <StyledButton onClick={() => console.log(inputValue)}>값좀보자</StyledButton>
                 </ChatInBox>
               </ChatPeopleOutBox>
             </MacBookBox>

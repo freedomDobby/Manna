@@ -1,8 +1,5 @@
 import TenMinuteTimer from "../../components/common/Timer";
 // import SmallMacBookProfile from
-import Selection1 from "./Selection1";
-import Selection2 from "./Selection2";
-import Selection3 from "./Selection3";
 import KakaoMap from "../../components/common/KakaoMap";
 
 import {

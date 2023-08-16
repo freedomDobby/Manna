@@ -166,7 +166,7 @@ export const ChangePictureModal = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   width: 30vw;
-  height: 50%;
+  height: 60vh;
   flex-direction: column;
   display: flex;
   justify-content: center;
@@ -185,7 +185,7 @@ export const ChangeBox = styled.div`
 
 export const MyPageImageForm = styled.form`
   // border: 1px solid gold;
-  height: 70%;
+  height: 60%;
   width: 100%;
   display: flex;
   justify-content: space-around;
