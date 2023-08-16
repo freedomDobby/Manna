@@ -73,6 +73,10 @@ export const CheckSchduleModal: React.FC<CheckModalProps> = ({
   const GoScheduleVideo = async (e: React.MouseEvent<HTMLButtonElement>) => {
     const newSessionId = `session${scheduleId}`;
     setMyUserSessionId(newSessionId);
+    if(UserId){
+      setMyUserName(UserId);
+    };
+    setMyDateName(opponentId);
     const ChatRommData: MakeChatRoom = {
       maleId: gender === 'male' ? UserId : opponentId,
       femaleId: gender == 'female' ? UserId : opponentId,

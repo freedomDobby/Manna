@@ -15,6 +15,8 @@ import {
     SelectBox,
     SelectLocate
 } from "./ReserveCompStyle";
+import { useRecoilValue } from "recoil";
+import { genderAtom } from "../../Recoil/State";
 
 const getPlaceByLocate = (ReservePlaceRequest: IReservePlaceRequest) => {
     return axios({
@@ -37,6 +39,7 @@ const getPlaceByMember = (MiddleReservePlace: IMiddleReservePlace) => {
 const ReserveComp = (props: IReserveCompProps) => {
     const [queryType, setQueryType] = useState('member'); // 'posts' 또는 'comments'
     const queryClient = useQueryClient();
+    const gender = useRecoilValue(genderAtom);
 
     const fetchData = async () => {
         if (queryType === 'member') {
@@ -128,8 +131,8 @@ const ReserveComp = (props: IReserveCompProps) => {
                     <ReservePlaceBox>
                         {isLoading ? <span>now loading...</span> :
                             <ReservePlaceComp data={data.data}
-                                              maleId={props.userId == "male" ? props.opponentId : props.userId}
-                                              femaleId={props.userId == "male" ? props.userId : props.opponentId}
+                                              maleId={gender == "female" ? props.opponentId : props.userId}
+                                              femaleId={gender == "female" ? props.userId : props.opponentId}
                                               index={0}/>}
                     </ReservePlaceBox>
                 </ReserveMainBox>

@@ -147,10 +147,10 @@ const Sogaeting = () => {
     }
 
     const openRegisterOK = () => {
+        setOpenRegisterModal(false);
         setOpenRegister(true);
         const newData = {data: true};
         sendOpenRegister(newData);
-        setOpenRegisterModal(false);
     }
 
     const  openRegisterNO = () => {
@@ -164,12 +164,12 @@ const Sogaeting = () => {
     }
 
     const cutBlurOK = () => {
+        setOpenModal(false);
         const newBlur = myBlur - 2.5 >= -1 ? myBlur - 2.5 : -1;
         setMyBlur(newBlur);
-        changeStream();
-        const newData = {data: true};
+        // changeStream();
+        const newData = {data: true , Blur: newBlur};
         sendCutBlur(newData);
-        setOpenModal(false);
     }
 
     const cutBlurNO = () => {
@@ -280,7 +280,9 @@ const Sogaeting = () => {
         newSession.on('signal:sendOpenRegister', (event: any) => {
             const data = JSON.parse(event.data);
             const newOpenRegister = data.data;
-            setOpenRegister(newOpenRegister);
+            if(newOpenRegister){
+                setOpenRegister(true);
+            }
         });
 
         newSession.on('signal:sendTimerChange', (event: any) => {
@@ -297,14 +299,15 @@ const Sogaeting = () => {
             }
         });
 
-        newSession.on('signal:sendCutBlurOK', (event: any) => {
+        newSession.on('signal:sendCutBlur', (event: any) => {
             const data = JSON.parse(event.data);
-            const newBlur = data.data;
-            if(newBlur){
-                const newBlur = myBlur - 2.5 >= -1 ? myBlur - 2.5 : -1;
+            const newOk = data.data;
+            const newBlur = data.Blur;
+            if(newOk){
                 setMyBlur(newBlur);
-                changeStream();
+                // setupCanvas(videoStream);
             }
+            
         });
         
         const token = await getToken();
@@ -340,9 +343,13 @@ const Sogaeting = () => {
         
     }//endjoinsession
 
+    useEffect(() => {
+        setupCanvas(videoStream);
+    }, [myBlur]);
     
 
     const leaveSession = () => {
+        alert("소개팅이 종료됩니다!");
         setSession(undefined);
         setPublisher(undefined);
         setSubscribers([]);
