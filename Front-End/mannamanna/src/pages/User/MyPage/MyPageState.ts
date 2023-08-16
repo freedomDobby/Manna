@@ -1,4 +1,5 @@
 import { atom } from "recoil";
+import { recoilPersist } from "recoil-persist";
 
 export interface MyPageDataType {
   name: string;
@@ -17,6 +18,14 @@ export interface MyPageDataType {
   latitude: number;
   longitude: number;
 }
+
+const sessionStorage =
+  typeof window !== "undefined" ? window.sessionStorage : undefined;
+
+const { persistAtom } = recoilPersist({
+  key: "recoilPersistData",
+  storage: sessionStorage,
+});
 
 export const MyPageDataState = atom<MyPageDataType>({
   key: "MyPageData", // key값은 다른 atom애들이랑 겹치면 안됨
@@ -96,17 +105,20 @@ export const WithdrawalPass = atom<string>({
 
 export const MyPageProfilePicture1 = atom<any>({
   key: "MyPageProfilePicture1",
-  default: null,
+  default: "dummy.jpg",
+
 });
 
 export const MyPageProfilePicture2 = atom<any>({
   key: "MyPageProfilePicture2",
-  default: null,
+  default: "dummy.jpg",
+
 });
 
 export const MyPageProfilePicture3 = atom<any>({
   key: "MyPageProfilePicture3",
-  default: null,
+  default: "dummy.jpg",
+
 });
 
 export const MySido = atom<string>({

@@ -81,6 +81,7 @@ export const CheckSogaeNoteModal: React.FC<CheckModalProps> = ({
       console.error(error);
     }
   };
+  
   const handleRefuse = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     await sendRefuse(e);
