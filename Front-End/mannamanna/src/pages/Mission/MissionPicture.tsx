@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useState } from "react";
 import { ImageContainer, ImageTitle } from "../User/Register/ModalStyle";
 import { useRecoilState } from "recoil";
+import { missionPicture1State, missionPicture2State } from "../../Recoil/State";
 
 interface EnterMission1Props {
   title: string;
@@ -15,6 +16,8 @@ export const EnterMission1: React.FC<EnterMission1Props> = ({
   title,
   coment,
 }) => {
+  const [missionPicture1, setMissionPicture1] = useRecoilState(missionPicture1State);
+
   const readURL = (input: HTMLInputElement) => {
     if (input.files && input.files[0]) {
       const reader = new FileReader();
@@ -39,7 +42,9 @@ export const EnterMission1: React.FC<EnterMission1Props> = ({
 
   const EnterMissionPic1 = (event: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files && event.target.files[0];
+    console.log("첫번째 사진 올리는중 ");
     if (selectedFile) {
+      setMissionPicture1(selectedFile);
       readURL(event.target);
     }
   };
@@ -61,6 +66,8 @@ export const EnterMission2: React.FC<EnterMission2Props> = ({
   title,
   coment,
 }) => {
+  const [missionPicture2, setMissionPicture2] = useRecoilState(missionPicture2State);
+
   const readURL = (input: HTMLInputElement) => {
     if (input.files && input.files[0]) {
       const reader = new FileReader();
@@ -85,7 +92,9 @@ export const EnterMission2: React.FC<EnterMission2Props> = ({
 
   const EnterMissionPic2 = (event: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files && event.target.files[0];
+    console.log("두번째 사진 올리는중")
     if (selectedFile) {
+      setMissionPicture2(selectedFile);
       readURL(event.target);
     }
   };

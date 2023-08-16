@@ -12,7 +12,8 @@ import Card_F from "../../asset/image/Card_F.png";
 
 import { MissionCardBox } from "./MissionModal";
 import { useRecoilState } from "recoil";
-import { MissionCardAtom, MissionTitle } from "../../Recoil/State"; // 이 부분을 적절한 경로로 수정하세요
+import { MissionCardAtom, MissionIdAtom, MissionOpponentAtom, MissionTitle, idAtom } from "../../Recoil/State"; // 이 부분을 적절한 경로로 수정하세요
+import api from "../../apis/Api";
 
 const Mission = () => {
   const missionQuestion = [
@@ -36,11 +37,30 @@ const Mission = () => {
   );
 
   const [missionTitle,setMissionTitle] = useRecoilState(MissionTitle);
+
+  //회원 id
+  const [userId, setUserId] = useRecoilState(idAtom);
+
+  //상대방 id
+  const [opponentId, setOpponentId] = useRecoilState(MissionOpponentAtom);
+
+  const [missionId,setMissionId] = useRecoilState(MissionIdAtom);
   
   // Modal 열기 함수
-  const handleOpen = (id: number) => {
+  const handleOpen = async (id: number) => {
     setSelectedMissionId(id);
     setOpen(true);
+  
+    try {
+      const response = await api.get(`/mission/${userId}`);
+      console.log(response.data);
+      const receivedOpponentId = response.data.data.opponentId; 
+      const missionId = response.data.data.missionId;
+      setOpponentId(receivedOpponentId); 
+      setMissionId(missionId);
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   // Modal 닫기 함수
@@ -49,6 +69,7 @@ const Mission = () => {
     setOpen(false);
   };
   
+  //
 
 
   return (
@@ -73,7 +94,7 @@ const Mission = () => {
         </MissionContainerBox>
       </BackBox>
       {selectedMissionId !== null && (
-        <MissionCardBox mission={missionQuestion[selectedMissionId - 1].text} />
+        <MissionCardBox id={selectedMissionId} mission={missionQuestion[selectedMissionId - 1].text} user1={userId ?? "user1"} user2={opponentId ?? "user2"} />
       )}
     </div>
   );

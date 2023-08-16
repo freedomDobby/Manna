@@ -91,3 +91,10 @@ export interface ChatMessage{
   senderName:string|null;
   message:string|null;
 }
+
+export interface MissionDoReq{
+  memberId: string|null;
+  id:number|null;
+  missionId:number|null;
+  gender:string|null;
+}

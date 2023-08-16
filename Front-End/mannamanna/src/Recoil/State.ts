@@ -236,3 +236,27 @@ export const MissionTitle = atom<string>({
   key:"MissionTitle",
   default:"",
 });
+
+export const MissionOpponentAtom = atom<string | null>({
+  key: "MissionOpponentAtom",
+  default: null,
+});
+
+export const MissionIdAtom = atom<number | null>({
+  key:"MissionIdAtom",
+  default:0
+});
+
+export const missionPicture1State = atom<File>({
+  key: "missionPicture1",
+  default:  new File([], "dummy.jpg"),
+});
+
+export const missionPicture2State = atom<File>({
+  key: "missionPicture2",
+  default: new File([], "dummy.jpg"),
+});
+
+
+
+
