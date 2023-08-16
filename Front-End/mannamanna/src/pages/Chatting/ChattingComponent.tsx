@@ -35,7 +35,11 @@ export function GetChat({ message }: { message: string|null }) {
   return (
     <ChatLeftStyle>
       <ChatProFile />
-      <LeftChatBox>{message}</LeftChatBox>
+      <LeftChatBox>
+      <div style={{width:'90%',height:'90%'}}>
+          {message}
+        </div>
+      </LeftChatBox>
     </ChatLeftStyle>
   );
 }
@@ -43,7 +47,11 @@ export function GetChat({ message }: { message: string|null }) {
   export function SendChat({ message }: { message: string|null }) {
     return (
       <ChatRightStyle>
-        <RightChatBox>{message}</RightChatBox>
+        <RightChatBox>
+          <div style={{width:'90%',height:'90%'}}>
+            {message}
+          </div>
+        </RightChatBox>
         <ChatProFile />
       </ChatRightStyle>
     );
