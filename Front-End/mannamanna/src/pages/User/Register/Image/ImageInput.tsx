@@ -12,6 +12,7 @@ import {
   profilePicture2State,
   profilePicture3State,
 } from "../RegisterState";
+import { MyPageProfilePicture1 } from "../../MyPage/MyPageState";
 
 interface EnterImage1Props {
   title: string;
@@ -27,7 +28,7 @@ interface EnterImage3Props {
 }
 
 export const EnterImage1: React.FC<EnterImage1Props> = ({ title, coment }) => {
-  const [profilePicture1, setProfilePicture1] = useState<File | null>(null);
+  const [profilePicture1, setProfilePicture1] = useRecoilState(profilePicture1State);
 
   const readURL = (input: HTMLInputElement) => {
     if (input.files && input.files[0]) {
@@ -38,6 +39,7 @@ export const EnterImage1: React.FC<EnterImage1Props> = ({ title, coment }) => {
         ) as HTMLImageElement;
         if (previewElement) {
           previewElement.src = e.target?.result as string;
+          // setMyPageProfilePicture1(previewElement.src);
         }
       };
       reader.readAsDataURL(input.files[0]);
@@ -74,7 +76,7 @@ export const EnterImage1: React.FC<EnterImage1Props> = ({ title, coment }) => {
 };
 
 export const EnterImage2: React.FC<EnterImage2Props> = ({ title, coment }) => {
-  const [profilePicture2, setProfilePicture2] = useState<File | null>(null);
+  const [profilePicture2, setProfilePicture2] = useRecoilState(profilePicture2State);
 
   const readURL = (input: HTMLInputElement) => {
     if (input.files && input.files[0]) {
@@ -119,8 +121,9 @@ export const EnterImage2: React.FC<EnterImage2Props> = ({ title, coment }) => {
     </ImageContainer>
   );
 };
+
 export const EnterImage3: React.FC<EnterImage3Props> = ({ title, coment }) => {
-  const [profilePicture3, setProfilePicture3] = useState<File | null>(null);
+  const [profilePicture3, setProfilePicture3] = useRecoilState(profilePicture3State);
 
   const readURL = (input: HTMLInputElement) => {
     if (input.files && input.files[0]) {

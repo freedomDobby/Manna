@@ -34,6 +34,9 @@ import { idAtom } from "../../../Recoil/State";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { profilePicture1State, profilePicture2State, profilePicture3State } from "../Register/RegisterState";
+import { Contain, Container2, EnterImageBtnBox, ImageForm, MostBiggestBox, TitleBox } from "../Register/ModalStyle";
+import { EnterImage1 } from "../Register/Image/ImageInput";
+import { useNavigate } from "react-router-dom";
 
 // 마이페이지 구군
 export const MyPageGuGun = () => {
@@ -973,9 +976,6 @@ export const SaveChangeButton = ({ children }: SaveChangeButtonProps) => {
   const userId = useRecoilValue(idAtom);
   const mysido = useRecoilValue(MySido);
   const mygugun = useRecoilValue(MyGuGun);
-  const myPageProfilePicture1 = useRecoilValue(MyPageProfilePicture1);
-  const myPageProfilePicture2 = useRecoilValue(MyPageProfilePicture2);
-  const myPageProfilePicture3 = useRecoilValue(MyPageProfilePicture3);
   const profilePicture1 = useRecoilValue(profilePicture1State);
   const profilePicture2 = useRecoilValue(profilePicture2State);
   const profilePicture3 = useRecoilValue(profilePicture3State);
@@ -985,7 +985,7 @@ export const SaveChangeButton = ({ children }: SaveChangeButtonProps) => {
       name: myPageData.name,
       height: mypageUserHeight,
       job: myPageJob,
-      isBlockingFriend: isBlock,
+      isBlockingFriend: true,
       isSmoker: isSmoke,
       isDrinker: isDrink,
       religion: myPageReligion,
@@ -998,6 +998,7 @@ export const SaveChangeButton = ({ children }: SaveChangeButtonProps) => {
       latitude: 0,
       longitude: 0,
     };
+    console.log(NewMyPageUser);
     console.log(profilePicture1);
     console.log(profilePicture2);
     console.log(profilePicture3);

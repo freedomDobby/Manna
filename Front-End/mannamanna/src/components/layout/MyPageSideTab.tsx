@@ -86,9 +86,9 @@ const MyPageSideTab: React.FC<SidebarProps> = ({ menu, bg }) => {
       setMyPageMBTI(response.data.data.mbti);
       setMyPageReligion(response.data.data.religion);
       setMyPageJob(response.data.data.job);
-      setIsSmoke(response.data.data.smoker);
-      setIsDrink(response.data.data.drinker);
-      setIsBlock(response.data.data.blockingFriend);
+      setIsSmoke(response.data.data.isSmoker);
+      setIsDrink(response.data.data.isDrinker);
+      setIsBlock(response.data.data.isBlockingFriend);
       setMysido(response.data.data.sido);
       setMyGuGun(response.data.data.gugun);
       setMyPageProfilePicture1(response.data.data.profilePictures[0]);
