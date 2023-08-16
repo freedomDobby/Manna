@@ -20,11 +20,11 @@ function MyPageHistory() {
         return response.data.data;
       });
 
-
     return (
         <MacBookBox width="60%" height="90%" color1="#bcd3ff" color2="#ffffff" alignItems='center'>
-
+             {/* {scheduleList.map((schedule:any, index:any) => (
             <SogeListOnline />
+            ))} */}
             <SogaeListOffline/>
         </MacBookBox>
     );
