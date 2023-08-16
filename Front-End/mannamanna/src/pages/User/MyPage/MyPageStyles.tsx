@@ -1512,7 +1512,7 @@ export function GetMileage() {
   );
 }
 
-export function SogeList() {
+export function SogeListOnline() {
   return (
     <LeftStyle>
       <MileageBox>소개팅소개팅소개팅</MileageBox>
@@ -1520,7 +1520,7 @@ export function SogeList() {
   );
 }
 
-export function MeetList() {
+export function SogaeListOffline() {
   return (
     <RightStyle>
       <MileageBox>미팅미팅미팅</MileageBox>

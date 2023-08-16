@@ -36,7 +36,7 @@ export const DeleteNoteModal = () => {
   const handleRemove = async (e: React.MouseEvent<HTMLButtonElement>) => {
     await sendDelete(e);
     handleClose();
-    window.location.reload();
+    // window.location.reload();
   };
 
   return (

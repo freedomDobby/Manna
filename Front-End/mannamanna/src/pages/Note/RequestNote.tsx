@@ -34,6 +34,7 @@ const RequestNote = () => {
     isError,
   } = useQuery<ReceivedNotesRes[]>(["receivedNote"], async () => {
     const response = await api.get(`note/sent/${userId}`);
+    console.log(response);
     return response.data.data;
   });
 
