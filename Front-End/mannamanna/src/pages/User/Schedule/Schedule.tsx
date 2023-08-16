@@ -39,17 +39,23 @@ import {
   CalendarContainer,
   GoSogaeting,
   HeadSpace,
+  LeftInnerBox,
   MidSpace,
+  RightInnerBox,
   ScheduleContainerBox,
+  ScheduleContainerSpace,
+  ScheduleCustomBox,
   ScheduleState,
+  ScheduleStateBox,
   ShceduleCenterBox,
   ShceduleStyledButton,
   SideSpace,
 } from "./ScheduleStyle";
+import { RightChatBox } from "../../Chatting/ChattingStyle";
 const Schedule = () => {
   const [scheduleId, SetScheduleId] = useRecoilState(scheduleIdAtom); // 이거 써야됨 영기
   const [SogaeOpen, setSogaeOpen] = useRecoilState(SogaeResultNoteAtom);
-  const [opponentId,setOpponentId]=useRecoilState(opponentIdAtom);
+  const [opponentId, setOpponentId] = useRecoilState(opponentIdAtom);
   const [SenderName, setSenderName] = useRecoilState(SenderNameState);
   const [SenderHeight, setSenderHeight] = useRecoilState(SenderHeightState);
   const [SendeAge, setSendeAge] = useRecoilState(SenderAgeState);
@@ -129,87 +135,98 @@ const Schedule = () => {
         <SideSpace>
           <Sidebar />
         </SideSpace>
+
         <MidSpace>
           <ScheduleContainerBox>
             <ShceduleCenterBox>
-              <CalendarContainer>
-                <DateCalendarServerRequest />
-              </CalendarContainer>
-              <CustomBox
-                flexDirection="row"
-                width="75vh"
-                height="10vh"
-                color1="black"
-                color2="#FFCCED"
-              >
-                <GoSogaeting>소개팅 상대방 찾기</GoSogaeting>
-                <ShceduleStyledButton onClick={GoChoice}>
-                  지금 시작하기
-                </ShceduleStyledButton>
-              </CustomBox>
+              <LeftInnerBox>
+                <CalendarContainer>
+                  <DateCalendarServerRequest />
+                </CalendarContainer>
+                <CustomBox
+                  flexDirection="row"
+                  width="97%"
+                  height="20%"
+                  color1="black"
+                  color2="#FFCCED"
+                >
+                  <GoSogaeting>소개팅 상대방 찾기</GoSogaeting>
+                  <ShceduleStyledButton onClick={GoChoice}>
+                    지금 시작하기
+                  </ShceduleStyledButton>
+                </CustomBox>
+              </LeftInnerBox>
             </ShceduleCenterBox>
-            <CustomBox
-              flexDirection="column"
-              width="55vh"
-              height="58vh"
-              color1="black"
-              color2="#F8E3EA"
-            >
-              <ScheduleState>{formattedSelectedDate} 스케줄 현황</ScheduleState>
-              {ScheduleData ? (
-                <div>
-                  {ScheduleData.offlineSchedule?.map(
-                    (schedule: any, index: number) => (
-                      <div key={index}>
-                        오프라인 스케줄<br></br>
-                        날짜: {schedule.date}
-                        <br />
-                        시간: {schedule.time}
-                        <br />
-                        만나는 장소: {schedule.name}
-                        <br />
-                        상세주소: {schedule.detail}
-                        <StyledButton
-                          onClick={() =>
-                            handleCheck(
-                              schedule.opponentId,
-                              schedule.scheduleId
-                            )
-                          }
-                        >
-                          상대방 정보보기 및 입장
-                        </StyledButton>
-                      </div>
-                    )
+
+            <ScheduleContainerSpace>
+              <RightInnerBox>
+                <ScheduleCustomBox>
+                  <ScheduleStateBox>
+                    <ScheduleState>
+                      {formattedSelectedDate} 스케줄 현황
+                    </ScheduleState>
+                  </ScheduleStateBox>
+
+                  {ScheduleData ? (
+                    <div>
+                      {ScheduleData.offlineSchedule?.map(
+                        (schedule: any, index: number) => (
+                          <div key={index}>
+                            오프라인 스케줄
+                            <br />
+                            날짜: {schedule.date}
+                            <br />
+                            시간: {schedule.time}
+                            <br />
+                            만나는 장소: {schedule.name}
+                            <br />
+                            상세주소: {schedule.detail}
+                            <StyledButton
+                              onClick={() =>
+                                handleCheck(
+                                  schedule.opponentId,
+                                  schedule.scheduleId
+                                )
+                              }
+                            >
+                              상대방 정보보기 및 입장
+                            </StyledButton>
+                          </div>
+                        )
+                      )}
+                      {ScheduleData.onlineSchedule?.map(
+                        (schedule: any, index: number) => (
+                          <div key={index}>
+                            온라인 스케줄<br></br>
+                            날짜: {schedule.date}
+                            <br />
+                            시간: {schedule.time}
+                            <br />
+                            <StyledButton
+                              onClick={() =>
+                                handleCheck(
+                                  schedule.opponentId,
+                                  schedule.scheduleId
+                                )
+                              }
+                            >
+                              상대방 정보보기 및 입장
+                            </StyledButton>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  ) : (
+                    <div>스케줄이 없습니다.</div>
                   )}
-                  {ScheduleData.onlineSchedule?.map(
-                    (schedule: any, index: number) => (
-                      <div key={index}>
-                        온라인 스케줄<br></br>
-                        날짜: {schedule.date}
-                        <br />
-                        시간: {schedule.time}
-                        <br />
-                        <StyledButton
-                          onClick={() =>
-                            handleCheck(
-                              schedule.opponentId,
-                              schedule.scheduleId
-                            )
-                          }
-                        >
-                          상대방 정보보기 및 입장
-                        </StyledButton>
-                      </div>
-                    )
-                  )}
-                </div>
-              ) : (
-                <div>스케줄이 없습니다.</div>
-              )}
-              <StyledButton>취소하기</StyledButton>
-            </CustomBox>
+                  <ScheduleStateBox>
+                    <StyledButton>취소하기</StyledButton>
+                  </ScheduleStateBox>
+                </ScheduleCustomBox>
+              </RightInnerBox>
+            </ScheduleContainerSpace>
           </ScheduleContainerBox>
+
           <CheckSchduleModal
             profile={SenderProfile}
             name={SenderName}
