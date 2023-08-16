@@ -50,32 +50,13 @@ function App() {
   const [refreshToken, setRefreshToken] = useRecoilState(refreshTokenAtom);
   const [gender, setGender] = useRecoilState(genderAtom);
   const [Isconnect, setIsconnect] = useState(false);
-  const Chattingx=CreateChattingClient();
+  // const Chattingx=CreateChattingClient();
   const [chatList, setChatList] = useRecoilState(chatListState);
   const [RoomId, setRoomId] = useRecoilState(ChattingRoomState);
 
-
-
-  function Connect() {
-    Chattingx.client = new Client({
-    connectHeaders:{
-      ...(UseraccessToken ? { Authorization: `Bearer ${UseraccessToken}` } : {}),
-      ...(name ? { userName: `${name}` } : {}),
-      ...(id ? { userId: `${id}` } : {}),
-      ...(gender ? { gender: `${gender}` } : {}),
-    },
-    brokerURL: SOCET_URL,
-  });
-
-  Chattingx.client.activate();
-}
-useEffect(() => {
-  if (id == null){
-    setIsconnect(!Isconnect);
-  }else{
-    Connect()
-  }
-},[id])
+  // const Chat = CreateChattingClient();
+      
+  // Chat.client.activate();
 
   return (
     <>
