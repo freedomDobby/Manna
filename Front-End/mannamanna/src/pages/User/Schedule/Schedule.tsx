@@ -47,9 +47,13 @@ import {
   ScheduleCustomBox,
   ScheduleState,
   ScheduleStateBox,
+  ScheduleUl,
+  SchelduleStyledButton,
+  ScheuleListBox,
   ShceduleCenterBox,
   ShceduleStyledButton,
   SideSpace,
+  StyledTableCell,
 } from "./ScheduleStyle";
 import { RightChatBox } from "../../Chatting/ChattingStyle";
 const Schedule = () => {
@@ -167,58 +171,72 @@ const Schedule = () => {
                     </ScheduleState>
                   </ScheduleStateBox>
 
-                  {ScheduleData ? (
-                    <div>
-                      {ScheduleData.offlineSchedule?.map(
-                        (schedule: any, index: number) => (
-                          <div key={index}>
-                            오프라인 스케줄
-                            <br />
-                            날짜: {schedule.date}
-                            <br />
-                            시간: {schedule.time}
-                            <br />
-                            만나는 장소: {schedule.name}
-                            <br />
-                            상세주소: {schedule.detail}
-                            <StyledButton
-                              onClick={() =>
-                                handleCheck(
-                                  schedule.opponentId,
-                                  schedule.scheduleId
-                                )
-                              }
-                            >
-                              상대방 정보보기 및 입장
-                            </StyledButton>
-                          </div>
-                        )
-                      )}
-                      {ScheduleData.onlineSchedule?.map(
-                        (schedule: any, index: number) => (
-                          <div key={index}>
-                            온라인 스케줄<br></br>
-                            날짜: {schedule.date}
-                            <br />
-                            시간: {schedule.time}
-                            <br />
-                            <StyledButton
-                              onClick={() =>
-                                handleCheck(
-                                  schedule.opponentId,
-                                  schedule.scheduleId
-                                )
-                              }
-                            >
-                              상대방 정보보기 및 입장
-                            </StyledButton>
-                          </div>
-                        )
-                      )}
-                    </div>
-                  ) : (
-                    <div>스케줄이 없습니다.</div>
-                  )}
+                  <ScheuleListBox>
+                    {ScheduleData ? (
+                      <ScheduleUl>
+                        {ScheduleData.offlineSchedule?.map(
+                          (schedule: any, index: number) => (
+                            <tbody style={{ border: "1px solid black" }}>
+                              <tr key={index}>
+                                <StyledTableCell>오프라인</StyledTableCell>
+                                <StyledTableCell>
+                                  {schedule.date}
+                                  <br />
+                                  {schedule.time}
+                                </StyledTableCell>
+                                <StyledTableCell>
+                                  만나는 장소: {schedule.name}
+                                  <br />
+                                  상세주소: {schedule.detail}
+                                </StyledTableCell>
+                                <StyledTableCell>
+                                  <SchelduleStyledButton
+                                    onClick={() =>
+                                      handleCheck(
+                                        schedule.opponentId,
+                                        schedule.scheduleId
+                                      )
+                                    }
+                                  >
+                                    입장
+                                  </SchelduleStyledButton>
+                                </StyledTableCell>
+                              </tr>
+                            </tbody>
+                          )
+                        )}
+                        {ScheduleData.onlineSchedule?.map(
+                          (schedule: any, index: number) => (
+                            <tbody>
+                              <tr key={index}>
+                                <StyledTableCell>온라인</StyledTableCell>
+                                <StyledTableCell>
+                                  {schedule.date}
+                                </StyledTableCell>
+                                <StyledTableCell>
+                                  {schedule.time}
+                                </StyledTableCell>
+                                <StyledTableCell>
+                                  <SchelduleStyledButton
+                                    onClick={() =>
+                                      handleCheck(
+                                        schedule.opponentId,
+                                        schedule.scheduleId
+                                      )
+                                    }
+                                  >
+                                    입장
+                                  </SchelduleStyledButton>
+                                </StyledTableCell>
+                              </tr>
+                            </tbody>
+                          )
+                        )}
+                      </ScheduleUl>
+                    ) : (
+                      <div>스케줄이 없습니다.</div>
+                    )}
+                  </ScheuleListBox>
                   <ScheduleStateBox>
                     <StyledButton>취소하기</StyledButton>
                   </ScheduleStateBox>

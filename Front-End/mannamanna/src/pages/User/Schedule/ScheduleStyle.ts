@@ -39,6 +39,7 @@ export const ScheduleContainerBox = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  overflow: hidden; /* 스크롤 내용이 보이도록 추가 */
 `;
 
 // 왼쪽 박스
@@ -73,7 +74,7 @@ export const CalendarContainer = styled.div`
   border: solid 0.4vh black;
   border-radius: 0.5vh;
   width: 98%;
-  height: 67%;
+  height: 67 %;
 `;
 
 export const GoSogaeting = styled.div`
@@ -109,7 +110,7 @@ export const ScheduleContainerSpace = styled.div`
 `;
 
 export const ScheduleStateBox = styled.div`
-  border: 1px solid blue;
+  // border: 1px solid blue;
   height: 10%;
   width: 100%;
   display: flex;
@@ -122,6 +123,41 @@ export const ScheduleState = styled.div`
   fontsize: 3vh;
   // height: 10%;
   // width: 100%;
+`;
+
+export const ScheuleListBox = styled.div`
+  // border: 1px solid red;
+  width: 100%;
+  height: 80%;
+  overflow: auto; /* 스크롤 속성 추가 */
+  border-collapse: collapse;
+
+  &::-webkit-scrollbar {
+    width: 0.5vw;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 0.5vh;
+    background: rgba(
+      ${parseInt("#f8e3ea".slice(1, 3), 16)},
+      ${parseInt("#f8e3ea".slice(3, 5), 16)},
+      ${parseInt("#f8e3ea".slice(5, 7), 16)},
+      0.7
+    );
+  }
+`;
+
+export const ScheduleUl = styled.table`
+  margin-top: 2%;
+  width: 100%;
+  height: 100%;
+`;
+
+export const StyledTableCell = styled.td`
+  border: 1px solid #ffffff;
+  font-size: 1.5rem;
+  text-align: center;
+  // padding: 1.5%;
+  // padding: 5%;
 `;
 
 export const ScheduleCustomBox = styled.div`
@@ -137,5 +173,24 @@ export const ScheduleCustomBox = styled.div`
   flex-direction: column;
   background-color: #f8e3ea;
   border-radius: 3px;
-  justify-content: space-between; /* 두 개의 요소가 양쪽 끝에 배치되도록 설정 */
+  justify-content: space-between;
+`;
+
+export const SchelduleStyledButton = styled.button`
+  margin: 1px;
+  width: 80%;
+  height: 70%;
+  color: #ffcced;
+  border: solid 0.4vh;
+  border-color: #ffcced;
+  background-color: #ffffff;
+  border-radius: 1.5vh;
+  font-size: 2.5vh;
+  transition: border-color 0.3s, color 0.3s;
+
+  &:hover {
+    border-color: #d9cff4;
+    color: #d9cff4;
+    border: solid 0.3vh;
+  }
 `;
