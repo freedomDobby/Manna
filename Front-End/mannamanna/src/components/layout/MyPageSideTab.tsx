@@ -7,11 +7,16 @@ import {
   IsBlock,
   IsDrink,
   IsSmoke,
+  MyGuGun,
   MyPageDataState,
   MyPageJob,
   MyPageMBTI,
+  MyPageProfilePicture1,
+  MyPageProfilePicture2,
+  MyPageProfilePicture3,
   MyPageReligion,
   MyPageSelfIntro,
+  MySido,
   MypageUserHeight,
 } from "../../pages/User/MyPage/MyPageState";
 import api from "../../apis/Api";
@@ -39,8 +44,7 @@ const Sidecom = styled.button`
 
 const MyPageSideTab: React.FC<SidebarProps> = ({ menu, bg }) => {
   const [myPageData, setmyPageData] = useRecoilState(MyPageDataState);
-  const [myPageUserHeight, setMyPageUserHeight] =
-    useRecoilState(MypageUserHeight);
+  const [myPageUserHeight, setMyPageUserHeight] = useRecoilState(MypageUserHeight);
   const [myPageSelfIntro, setMySelfIntro] = useRecoilState(MyPageSelfIntro);
   const [myPageMBTI, setMyPageMBTI] = useRecoilState(MyPageMBTI);
   const [myPageReligion, setMyPageReligion] = useRecoilState(MyPageReligion);
@@ -48,6 +52,11 @@ const MyPageSideTab: React.FC<SidebarProps> = ({ menu, bg }) => {
   const [isSmoke, setIsSmoke] = useRecoilState(IsSmoke);
   const [isDrink, setIsDrink] = useRecoilState(IsDrink);
   const [isBlock, setIsBlock] = useRecoilState(IsBlock);
+  const [mysido, setMysido] = useRecoilState(MySido);
+  const [myGuGun, setMyGuGun] = useRecoilState(MyGuGun);
+  const [myPageProfilePicture1, setMyPageProfilePicture1] = useRecoilState(MyPageProfilePicture1);
+  const [myPageProfilePicture2, setMyPageProfilePicture2] = useRecoilState(MyPageProfilePicture2);
+  const [myPageProfilePicture3, setMyPageProfilePicture3] = useRecoilState(MyPageProfilePicture3);
   const userId = useRecoilValue(idAtom);
 
   const navigate = useNavigate();
@@ -61,19 +70,16 @@ const MyPageSideTab: React.FC<SidebarProps> = ({ menu, bg }) => {
         name: response.data.data.name,
         height: response.data.data.height,
         job: response.data.data.job,
-        isBlockingFriend: response.data.data.blockingFriend,
-        isSmoker: response.data.data.smoker,
-        isDrinker: response.data.data.drinker,
+        isBlockingFriend: response.data.data.isBlockingFriend,
+        isSmoker: response.data.data.isSmoker,
+        isDrinker: response.data.data.isDrinker,
         religion: response.data.data.religion,
         mbti: response.data.data.mbti,
-        profilePictures: response.data.data.profilePictures,
         introduction: response.data.data.introduction,
         mileage: response.data.data.mileage,
         sido: response.data.data.sido,
         gugun: response.data.data.gugun,
         detail: response.data.data.detailAddress,
-        latitude: response.data.data.latitude,
-        longitude: response.data.data.longitude,
       }));
       setMyPageUserHeight(response.data.data.height);
       setMySelfIntro(response.data.data.introduction);
@@ -83,7 +89,11 @@ const MyPageSideTab: React.FC<SidebarProps> = ({ menu, bg }) => {
       setIsSmoke(response.data.data.smoker);
       setIsDrink(response.data.data.drinker);
       setIsBlock(response.data.data.blockingFriend);
-      console.log(myPageData.profilePictures[0].path);
+      setMysido(response.data.data.sido);
+      setMyGuGun(response.data.data.gugun);
+      setMyPageProfilePicture1(response.data.data.profilePictures[0]);
+      setMyPageProfilePicture2(response.data.data.profilePictures[1]);
+      setMyPageProfilePicture3(response.data.data.profilePictures[2]);
     } catch (error) {
       console.error(error);
       alert("오류가 발생했습니다.");

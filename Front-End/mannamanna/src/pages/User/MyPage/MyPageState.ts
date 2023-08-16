@@ -9,14 +9,6 @@ export interface MyPageDataType {
   isDrinker: boolean;
   religion: string;
   mbti: string;
-  profilePictures: [
-    {
-      id: number;
-      path: string;
-      name: string;
-      priority: number;
-    }
-  ];
   introduction: string;
   mileage: number;
   sido: string;
@@ -37,14 +29,6 @@ export const MyPageDataState = atom<MyPageDataType>({
     isDrinker: true,
     religion: "string",
     mbti: "string",
-    profilePictures: [
-      {
-        id: 0,
-        path: "string",
-        name: "string",
-        priority: 0,
-      },
-    ],
     introduction: "string",
     mileage: 0,
     sido: "string",
@@ -107,5 +91,30 @@ export const ChangePass = atom<string>({
 
 export const WithdrawalPass = atom<string>({
   key: "WithdrawalPass",
+  default: "",
+});
+
+export const MyPageProfilePicture1 = atom<any>({
+  key: "MyPageProfilePicture1",
+  default: null,
+});
+
+export const MyPageProfilePicture2 = atom<any>({
+  key: "MyPageProfilePicture2",
+  default: null,
+});
+
+export const MyPageProfilePicture3 = atom<any>({
+  key: "MyPageProfilePicture3",
+  default: null,
+});
+
+export const MySido = atom<string>({
+  key: "MySido",
+  default: "서울특별시",
+});
+
+export const MyGuGun = atom<string>({
+  key: "MyGuGun",
   default: "",
 });

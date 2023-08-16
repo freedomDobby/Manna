@@ -1,5 +1,5 @@
 import { useRecoilState, useRecoilValue } from "recoil";
-import { MyPageDataState } from "../../pages/User/MyPage/MyPageState";
+import { MyPageDataState, MyPageProfilePicture1, MyPageProfilePicture2, MyPageProfilePicture3 } from "../../pages/User/MyPage/MyPageState";
 import { ProFileStyle } from "../../pages/User/MyPage/MyPageModifyStyle";
 import {
   PictureBox,
@@ -9,17 +9,18 @@ import { ChangePicModal } from "../../pages/User/MyPage/MyPageModal/ChangePicMod
 import { ChangePicAtom, ChangePicIndexAtom } from "../../Recoil/State";
 
 export const Profile = () => {
-  const myPageDataState = useRecoilValue(MyPageDataState);
-  const hello = myPageDataState.profilePictures[0].path;
+  const myPageProfilePicture1 = useRecoilValue(MyPageProfilePicture1);
+  const hello = myPageProfilePicture1.path;
   return <ProFileStyle style={{ backgroundImage: `url(${hello})` }} />;
 };
 
 export const ModifyProfile = () => {
-  const myPageDataState = useRecoilValue(MyPageDataState);
-  const profilePictures = myPageDataState.profilePictures;
+  const myPageProfilePicture1 = useRecoilValue(MyPageProfilePicture1);
+  const myPageProfilePicture2 = useRecoilValue(MyPageProfilePicture2);
+  const myPageProfilePicture3 = useRecoilValue(MyPageProfilePicture3);
   const [ChangeOpen, setChangeOpen] = useRecoilState(ChangePicAtom);
-  const [ChangePicIndex, setChangePicIndex] =
-    useRecoilState(ChangePicIndexAtom);
+  const [ChangePicIndex, setChangePicIndex] = useRecoilState(ChangePicIndexAtom);
+
   const ChangePic = (index: any) => {
     // index 매개변수 추가
     setChangeOpen(!ChangeOpen);
@@ -29,13 +30,9 @@ export const ModifyProfile = () => {
 
   return (
     <PictureContainer>
-      {profilePictures.map((picture, index) => (
-        <PictureBox
-          key={index}
-          onClick={() => ChangePic(index)} // ChangePic 함수에 index 전달
-          style={{ backgroundImage: `url(${picture.path})` }}
-        />
-      ))}
+        <PictureBox onClick={() => ChangePic(0)} style={{ backgroundImage: `url(${myPageProfilePicture1.path})` }}/>
+        <PictureBox onClick={() => ChangePic(0)} style={{ backgroundImage: `url(${myPageProfilePicture2.path})` }}/>
+        <PictureBox onClick={() => ChangePic(0)} style={{ backgroundImage: `url(${myPageProfilePicture3.path})` }}/>
       <ChangePicModal />
     </PictureContainer>
   );

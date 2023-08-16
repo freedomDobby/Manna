@@ -3,7 +3,9 @@ import {
   DrinkCustomSwitch,
   JobSelectBox,
   MBTISelectBox,
+  MyPageGuGun,
   MyPagePassButton,
+  MyPageSido,
   MyPageTextArea,
   MyPageUserHeightSlider,
   ReligionSelectBox,
@@ -28,6 +30,7 @@ import {
 } from "./MyPageModifyStyle";
 import { ModifyPic } from "./MyPageStyle";
 import { ModifyProfile } from "../../../components/common/Profile";
+import { GuGun } from "../Register/Address/EnterGuGun";
 
 function MyPageModify() {
   return (
@@ -50,7 +53,9 @@ function MyPageModify() {
           <ModifySpace>
             <ModifyWhat text="주소" />
             <ModifyModal>
-              <ModifyLocal />
+              {/* <ModifyLocal /> */}
+              <MyPageSido />
+              <MyPageGuGun />
             </ModifyModal>
           </ModifySpace>
           <ModifySpace>
