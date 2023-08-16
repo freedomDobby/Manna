@@ -91,3 +91,8 @@ export interface ChatMessage{
   senderName:string|null;
   message:string|null;
 }
+
+export interface MakeChatRoom{
+  maleId:string|null;
+  femaleId:string|null;
+}

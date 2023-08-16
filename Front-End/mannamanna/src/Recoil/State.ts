@@ -236,3 +236,8 @@ export const MissionTitle = atom<string>({
   key:"MissionTitle",
   default:"",
 });
+
+export const opponentIdAtom=atom<string>({
+  key:"opponentIdAtom",
+  default:"",
+})

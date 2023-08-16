@@ -11,6 +11,7 @@ import {
   DeleteNoteAtom,
   SogaeResultNoteAtom,
   idAtom,
+  opponentIdAtom,
   scheduleIdAtom,
   selectedDateAtom,
   sendNoteIdAtom,
@@ -37,8 +38,7 @@ import { MyPageContainerBox } from "../MyPage/MyPageStyle";
 const Schedule = () => {
   const [scheduleId, SetScheduleId] = useRecoilState(scheduleIdAtom); // 이거 써야됨 영기
   const [SogaeOpen, setSogaeOpen] = useRecoilState(SogaeResultNoteAtom);
-  const [receiver, setReceiver] = useRecoilState(sendNoteReceiverAtom);
-  const [noteId, setNoteId] = useRecoilState(sendNoteIdAtom);
+  const [opponentId,setOpponentId]=useRecoilState(opponentIdAtom);
   const [SenderName, setSenderName] = useRecoilState(SenderNameState);
   const [SenderHeight, setSenderHeight] = useRecoilState(SenderHeightState);
   const [SendeAge, setSendeAge] = useRecoilState(SenderAgeState);
@@ -87,6 +87,7 @@ const Schedule = () => {
     console.log("누름");
     setSogaeOpen(true);
     SetScheduleId(sessionId);
+    setOpponentId(opponentId);
     processSenderInfo(opponentId);
   };
 
