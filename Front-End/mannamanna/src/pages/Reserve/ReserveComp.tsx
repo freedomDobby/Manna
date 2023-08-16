@@ -10,10 +10,12 @@ import {useState} from "react";
 
 const LocateSelectBox = styled.div`
   display: flex;
+  justify-content: space-between;
   height: 8%;
   padding-left: 3%;
   padding-bottom: 1%;
   padding-top: 1%;
+  padding-right: 3%;
 `
 
 const ReserveMainBox = styled.div`
@@ -26,10 +28,12 @@ const ReserveMainBox = styled.div`
 
 const KaKaoMapBox = styled.div`
   width: 49%;
+  border: 2px solid black;
 `
 
 const ReservePlaceBox = styled.div`
   width: 49%;
+  border: 2px solid black;
 `;
 
 const InnerBox = styled.div`
@@ -57,6 +61,8 @@ const SelectLocate = styled.select`
   background: none;
   border: none;
   border-left: 1px solid black;
+  font: inherit;
+  font-size: 10px;
 
   height: 100%;
   width: 30%;
@@ -68,6 +74,32 @@ const LocateDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`
+
+const PlaceFilterBox = styled.div`
+  height: 100%;
+  width: 40%;
+  display: flex;
+  justify-content: right;
+  border: 2px solid black;
+  border-radius: 5px;
+`
+
+const PlaceFilterButton = styled.button`
+  background: none;
+  border: none;
+  padding: 0;
+  outline: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  -webkit-appearance: none; /* Safari와 Chrome */
+  -moz-appearance: none; /* Firefox */
+  appearance: none; /* 모든 브라우저에서 기본 버튼 스타일 제거 */
+  width: 25%;
+  height: 100%;
+  border-right: 1px black solid;
+  font-size: 15px;
 `
 
 const getPlaceByLocate = (ReservePlaceRequest: IReservePlaceRequest) => {
@@ -117,7 +149,7 @@ const ReserveComp = (props: IReserveCompProps) => {
                             setSido(event.target.value);
                             setGuguns(LocateAddress[event.target.value])
                         }}>
-                            <option> 시도 선택</option>
+                            <option> 시도</option>
                             {
                                 Object.keys(LocateAddress).map((sido) => (
                                     <option key={sido} value={sido}>{sido}</option>
@@ -125,11 +157,10 @@ const ReserveComp = (props: IReserveCompProps) => {
                             }
                         </SelectLocate>
                         <SelectLocate value={gugun} onChange={(event) => {
-                            console.log(22)
                             setGuugn(event.target.value);
                             setQueryType("locate");
                         }}>
-                            <option> 구군 선택</option>
+                            <option> 구군</option>
                             {
                                 guguns.map((gugun) => (
                                     <option key={gugun} value={gugun}>{gugun}</option>
@@ -137,6 +168,20 @@ const ReserveComp = (props: IReserveCompProps) => {
                             }
                         </SelectLocate>
                     </SelectBox>
+                    <PlaceFilterBox>
+                        <PlaceFilterButton onClick={() => setCategory("")}>
+                            전체
+                        </PlaceFilterButton>
+                        <PlaceFilterButton onClick={() => setCategory("카페")}>
+                            카페
+                        </PlaceFilterButton>
+                        <PlaceFilterButton onClick={() => setCategory("음식점")}>
+                            음식점
+                        </PlaceFilterButton>
+                        <PlaceFilterButton onClick={() => setCategory("공원")} style={{borderRight: "none"}}>
+                            공원
+                        </PlaceFilterButton>
+                    </PlaceFilterBox>
                 </LocateSelectBox>
                 <ReserveMainBox>
                     <KaKaoMapBox>
