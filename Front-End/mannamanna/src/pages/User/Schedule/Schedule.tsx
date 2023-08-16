@@ -1,14 +1,15 @@
 // import React from 'react';
+// import MacBookBox from "./../../../components/common/macbookBox";
+// import RadiusContainerBox from "./../../../components/common/RadiusContainer";
+// import unKnown from "../../../asset/image/unknown.png";
 import BackBox from "../../../components/common/Back";
 import Sidebar from "../../../components/layout/Sidebar/SidebarHome";
-import RadiusContainerBox from "./../../../components/common/RadiusContainer";
 import DateCalendarServerRequest from "../../../components/common/UserCalendar";
 import { CenterBox, StyledButton } from "../Login/LoginStyle";
 import CustomBox from "../../../components/common/CustomInputBox";
-import unKnown from "../../../asset/image/unknown.png";
 import { useNavigate } from "react-router-dom";
 import {
-  DeleteNoteAtom,
+  // DeleteNoteAtom,
   SogaeResultNoteAtom,
   idAtom,
   scheduleIdAtom,
@@ -19,10 +20,9 @@ import {
 import { useRecoilState } from "recoil";
 import { useEffect } from "react";
 import moment from "moment";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import api from "../../../apis/Api";
 import { DetailScheduleReq } from "../../../apis/Request/Request";
-import MacBookBox from "./../../../components/common/macbookBox";
 import {
   SenderAgeState,
   SenderHeightState,
@@ -34,6 +34,17 @@ import {
 } from "../../Note/NoteState";
 import { CheckSchduleModal } from "./SchduelModal";
 import { MyPageContainerBox } from "../MyPage/MyPageStyle";
+import {
+  CalendarContainer,
+  GoSogaeting,
+  HeadSpace,
+  MidSpace,
+  ScheduleContainerBox,
+  ScheduleState,
+  ShceduleCenterBox,
+  ShceduleStyledButton,
+  SideSpace,
+} from "./ScheduleStyle";
 const Schedule = () => {
   const [scheduleId, SetScheduleId] = useRecoilState(scheduleIdAtom); // 이거 써야됨 영기
   const [SogaeOpen, setSogaeOpen] = useRecoilState(SogaeResultNoteAtom);
@@ -95,9 +106,9 @@ const Schedule = () => {
       const SenderResponse = await api.get(`/user/mypage/${senderId}`);
       const promiseResult = SenderResponse.data;
       console.log(promiseResult.data);
+      // setSendeAge(promiseResult.data.name);
       setSenderName(promiseResult.data.name);
       setSenderHeight(promiseResult.data.height);
-      // setSendeAge(promiseResult.data.name);
       setSenderJob(promiseResult.data.job);
       setSenderMbti(promiseResult.data.mbti);
       setSenderPr(promiseResult.data.introduction);
@@ -112,26 +123,17 @@ const Schedule = () => {
 
   return (
     <div>
-      <div style={{ height: "5vh" }}></div>
+      <HeadSpace />
       <BackBox>
-        <div style={{ height: "80vh" }}>
+        <SideSpace>
           <Sidebar />
-        </div>
-        <div style={{ height: "80vh" }}>
-          <MyPageContainerBox
-            style={{ flexDirection: "row", justifyContent: "space-around" }}
-          >
-            <CenterBox style={{ flexDirection: "column" }}>
-              <div
-                style={{
-                  border: "solid 0.4vh black",
-                  borderRadius: "0.5vh",
-                  width: "76vh",
-                  height: "45vh",
-                }}
-              >
+        </SideSpace>
+        <MidSpace>
+          <ScheduleContainerBox>
+            <ShceduleCenterBox>
+              <CalendarContainer>
                 <DateCalendarServerRequest />
-              </div>
+              </CalendarContainer>
               <CustomBox
                 flexDirection="row"
                 width="75vh"
@@ -139,14 +141,12 @@ const Schedule = () => {
                 color1="black"
                 color2="#FFCCED"
               >
-                <div style={{ color: "white", fontSize: "4vh" }}>
-                  소개팅 상대방 찾기
-                </div>
-                <StyledButton style={{ marginTop: "1vh" }} onClick={GoChoice}>
+                <GoSogaeting>소개팅 상대방 찾기</GoSogaeting>
+                <ShceduleStyledButton onClick={GoChoice}>
                   지금 시작하기
-                </StyledButton>
+                </ShceduleStyledButton>
               </CustomBox>
-            </CenterBox>
+            </ShceduleCenterBox>
             <CustomBox
               flexDirection="column"
               width="55vh"
@@ -154,9 +154,7 @@ const Schedule = () => {
               color1="black"
               color2="#F8E3EA"
             >
-              <div style={{ fontSize: "3vh" }}>
-                {formattedSelectedDate} 스케줄 현황
-              </div>
+              <ScheduleState>{formattedSelectedDate} 스케줄 현황</ScheduleState>
               {ScheduleData ? (
                 <div>
                   {ScheduleData.offlineSchedule?.map(
@@ -210,7 +208,7 @@ const Schedule = () => {
               )}
               <StyledButton>취소하기</StyledButton>
             </CustomBox>
-          </MyPageContainerBox>
+          </ScheduleContainerBox>
           <CheckSchduleModal
             profile={SenderProfile}
             name={SenderName}
@@ -220,8 +218,7 @@ const Schedule = () => {
             mbti={SenderMbti}
             selfPr={SenderPr}
           ></CheckSchduleModal>
-        </div>
-        <div></div>
+        </MidSpace>
       </BackBox>
     </div>
   );
