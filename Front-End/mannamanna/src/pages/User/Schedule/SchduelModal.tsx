@@ -32,7 +32,7 @@ import {
   Job,
 } from "../../Note/Modal/NoteModalStyle";
 import { useNavigate } from "react-router-dom";
-import { userSessionId } from "../../Soagaeting/SogaetingState";
+import { dateName, sogaeUserName, userSessionId } from "../../Soagaeting/SogaetingState";
 import { MakeChatRoom } from "../../../apis/Request/Request";
 
 interface CheckModalProps {
@@ -64,6 +64,8 @@ export const CheckSchduleModal: React.FC<CheckModalProps> = ({
   const [scheduleId, SetScheduleId] = useRecoilState(scheduleIdAtom);
   const [RoomId, setRoomId] = useRecoilState(ChattingRoomState);
   const [myUserSessionId, setMyUserSessionId] = useRecoilState(userSessionId);
+  const [myUserName, setMyUserName] = useRecoilState(sogaeUserName);
+  const [myDateName, setMyDateName] = useRecoilState(dateName);
   const navigate = useNavigate();
   const GoSogaetingWait = () => {
     navigate('/sogaeting');

@@ -70,7 +70,7 @@ const ReserveComp = (props: IReserveCompProps) => {
     }, [category, gugun]);
 
     return (
-        <MacBookBox width={"80vw"} height={"70vh"} color1={"#bcd3ff"} color2={"#ffffff"} alignItems={"center"}>
+        <MacBookBox width="98%" height="98%" color1="#ffcced" color2="#ffffff" alignItems="center">
             <InnerBox>
                 <LocateSelectBox>
                     <SelectBox>
@@ -128,8 +128,8 @@ const ReserveComp = (props: IReserveCompProps) => {
                     <ReservePlaceBox>
                         {isLoading ? <span>now loading...</span> :
                             <ReservePlaceComp data={data.data}
-                                              femaleId={props.userId == "male" ? props.opponentId : props.userId}
-                                              maleId={props.userId == "male" ? props.userId : props.opponentId}
+                                              maleId={props.userId == "male" ? props.opponentId : props.userId}
+                                              femaleId={props.userId == "male" ? props.userId : props.opponentId}
                                               index={0}/>}
                     </ReservePlaceBox>
                 </ReserveMainBox>

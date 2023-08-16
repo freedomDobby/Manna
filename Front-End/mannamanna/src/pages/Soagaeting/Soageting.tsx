@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { OpenVidu, StreamManager, Session, SignalOptions} from 'openvidu-browser';
+import { useRecoilState } from 'recoil';
+import { OpenVidu, StreamManager, SignalOptions} from 'openvidu-browser';
 import { dateName, isAudio, isVideo, sogaeUserName, timerTime, userSessionId } from './SogaetingState';
 import { apiopen } from '../../apis/Api';
 import { CenteredDiv } from '../Landing/LandingStyle';
@@ -18,12 +18,13 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import PersonOffIcon from '@mui/icons-material/PersonOff';
 import MoreTimeIcon from '@mui/icons-material/MoreTime';
 import BlurOffIcon from '@mui/icons-material/BlurOff';
-import UndoIcon from '@mui/icons-material/Undo';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import WavingHandIcon from '@mui/icons-material/WavingHand';
 import { SenderAgeState, SenderHeightState, SenderJobState, SenderMbtiState, SenderNameState, SenderPrState, SenderProfileState } from '../Note/NoteState';
-import { Age, Height, Info1, Info2, InfoContainer, Job, MBTI, Name, NameInfo, ProfileContainer, SelfPrInfo } from '../Note/Modal/NoteModalStyle';
-import { ProfileBox } from '../User/MyPage/MyPageModifyStyle';
 import { ChattingComponent } from '../Chatting/ChattingComponent';
-import UnScrollMacBox from '../../components/common/unScrollMacBox';
+import ReserveComp from '../Reserve/ReserveComp';
+import { Modal } from '@mui/material';
+import { MyPageSmallButton } from '../User/MyPage/MyPageStyles';
 
 const Sogaeting = () => {
     const [myUserSessionId, setMyUserSessionId] = useRecoilState(userSessionId);
@@ -41,15 +42,20 @@ const Sogaeting = () => {
     const [SenderMbti, setSenderMbti] = useRecoilState(SenderMbtiState);
     const [SenderPr, setSenderPr] = useRecoilState(SenderPrState);
     const [SenderProfile, setSenderProfile] = useRecoilState(SenderProfileState);
-
     const [openRegister, setOpenRegister] = useState<boolean>(false);
-
     const [timer, setTimer] = useRecoilState(timerTime);
     const [myBlur, setMyBlur] = useState<number>(10);
     const videoRef = useRef<HTMLVideoElement | null>(null);
     const videoRefTemp = useRef<HTMLVideoElement | null>(null);
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const OV = new OpenVidu();
+
+    const [openModal, setOpenModal] = useState<boolean>(false);
+    const [openRegisterModal, setOpenRegisterModal] = useState<boolean>(false);
+
+    const GoBack = () =>{
+        window.location.replace("/schedule");
+    }
 
     const setupCamera = async () => {
         try {
@@ -134,11 +140,56 @@ const Sogaeting = () => {
         setMyIsVideo(newIsVideo);
     }
 
+    const handleChangeOpenRegister = async (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        const newData = {data: true};
+        sendWantOpenRegister(newData);
+    }
+
+    const openRegisterOK = () => {
+        setOpenRegister(true);
+        const newData = {data: true};
+        sendOpenRegister(newData);
+        setOpenRegisterModal(false);
+    }
+
+    const  openRegisterNO = () => {
+        setOpenRegisterModal(false);
+    }
+
     const handleChangeBlur = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
+        const newData = {data: true};
+        sendWantCutBlur(newData);
+    }
+
+    const cutBlurOK = () => {
         const newBlur = myBlur - 2.5 >= -1 ? myBlur - 2.5 : -1;
         setMyBlur(newBlur);
         changeStream();
+        const newData = {data: true};
+        sendCutBlur(newData);
+        setOpenModal(false);
+    }
+
+    const cutBlurNO = () => {
+        setOpenModal(false);
+    }
+
+    const sendWantCutBlur = (data: any) => {
+        const signalOptions: SignalOptions = {
+            data: JSON.stringify(data),
+            type: 'sendWantCutBlur',
+        };
+        session.signal(signalOptions);
+    }
+
+    const sendCutBlur = (data: any) => {
+        const signalOptions: SignalOptions = {
+            data: JSON.stringify(data),
+            type: 'sendCutBlur',
+        };
+        session.signal(signalOptions);
     }
 
     const changeStream = () => {
@@ -164,18 +215,26 @@ const Sogaeting = () => {
         session.signal(signalOptions);
     }
 
-    const handleChangeOpenRegister = async () => {
-        const newOpenRegister = openRegister ? false : true;
-        setOpenRegister(newOpenRegister);
+    // const handleChangeOpenRegister = async () => {
+    //     const newOpenRegister = openRegister ? false : true;
+    //     setOpenRegister(newOpenRegister);
+    // }
+
+    // useEffect(() => {
+    //     if(session !== undefined){
+    //         const newData = {data: openRegister};
+    //         sendOpenRegister(newData);
+    //     }
+    // }, [openRegister]);
+    
+    const sendWantOpenRegister = (data: any) => {
+        const signalOptions: SignalOptions = {
+            data: JSON.stringify(data),
+            type: 'sendWantOpenRegister',
+        };
+        session.signal(signalOptions);
     }
 
-    useEffect(() => {
-        if(session !== undefined){
-            const newData = {data: openRegister};
-            sendOpenRegister(newData);
-        }
-    }, [openRegister]);
-    
     const sendOpenRegister = (data: any) => {
         const signalOptions: SignalOptions = {
             data: JSON.stringify(data),
@@ -210,6 +269,14 @@ const Sogaeting = () => {
             console.warn(exception);
         });
 
+        newSession.on('signal:sendWantOpenRegister', (event: any) => {
+            const data = JSON.parse(event.data);
+            const newOpenRegister = data.data;
+            if(newOpenRegister){
+                setOpenRegisterModal(true);
+            }
+        });
+
         newSession.on('signal:sendOpenRegister', (event: any) => {
             const data = JSON.parse(event.data);
             const newOpenRegister = data.data;
@@ -220,6 +287,24 @@ const Sogaeting = () => {
             const data = JSON.parse(event.data);
             const newTime = data.data;
             setTimer(newTime);
+        });
+
+        newSession.on('signal:sendWantCutBlur', (event: any) => {
+            const data = JSON.parse(event.data);
+            const newBlur = data.data;
+            if(newBlur){
+                setOpenModal(true);
+            }
+        });
+
+        newSession.on('signal:sendCutBlurOK', (event: any) => {
+            const data = JSON.parse(event.data);
+            const newBlur = data.data;
+            if(newBlur){
+                const newBlur = myBlur - 2.5 >= -1 ? myBlur - 2.5 : -1;
+                setMyBlur(newBlur);
+                changeStream();
+            }
         });
         
         const token = await getToken();
@@ -265,6 +350,7 @@ const Sogaeting = () => {
         if (mySession) {
             mySession.disconnect();
         }
+        window.location.replace("/schedule");
     }
 
     const getToken = async () => {
@@ -298,48 +384,160 @@ const Sogaeting = () => {
 
     return (
         <div>
+            <Modal
+                open={openModal}
+                onClose={cutBlurNO}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <div
+                style={{
+                    borderRadius: "8%",
+                    background: "white",
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    width: "25%",
+                    height: "40%",
+                    flexDirection: "column",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}
+                >
+                <MacBookBox
+                    width="100%"
+                    height="100%"
+                    color1="#bcd3ff"
+                    color2="#ffffff"
+                    alignItems="center"
+                >
+                    <div
+                    style={{
+                        height: "100%",
+                        flexDirection: "column",
+                        display: "flex",
+                        justifyContent: "space-around",
+                        alignItems: "center",
+                        marginTop: "5vh",
+                    }}
+                    >
+                    <div style={{ fontSize: "3vh" }}>블러를 줄이겠습니까?</div>
+                    <div>
+                        <MyPageSmallButton onClick={cutBlurOK}>
+                        확인
+                        </MyPageSmallButton>
+                        <MyPageSmallButton onClick={cutBlurNO}>
+                        취소
+                        </MyPageSmallButton>
+                    </div>
+                    </div>
+                </MacBookBox>
+                </div>
+            </Modal>
+
+            <Modal
+                open={openRegisterModal}
+                onClose={openRegisterNO}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <div
+                style={{
+                    borderRadius: "8%",
+                    background: "white",
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    width: "25%",
+                    height: "40%",
+                    flexDirection: "column",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}
+                >
+                <MacBookBox
+                    width="100%"
+                    height="100%"
+                    color1="#bcd3ff"
+                    color2="#ffffff"
+                    alignItems="center"
+                >
+                    <div
+                    style={{
+                        height: "100%",
+                        flexDirection: "column",
+                        display: "flex",
+                        justifyContent: "space-around",
+                        alignItems: "center",
+                        marginTop: "5vh",
+                    }}
+                    >
+                    <div style={{ fontSize: "3vh" }}>상대방의 마음을 수락하시겠습니까? </div>
+                    <div>
+                        <MyPageSmallButton onClick={openRegisterOK}>
+                        확인
+                        </MyPageSmallButton>
+                        <MyPageSmallButton onClick={openRegisterNO}>
+                        취소
+                        </MyPageSmallButton>
+                    </div>
+                    </div>
+                </MacBookBox>
+                </div>
+            </Modal>
 
             {/* 세션에 들어가기 전 내 상태를 확인하고 입장하기를 누르기 전 화면 */}
             {session === undefined ? (
-                <CenteredDiv style={{ justifyContent: 'center', alignItems: 'center' }}>
-
-                    <div style={{ fontSize: '3vw', color: 'white', marginTop: '6vh' }}>
-                        너와 내가 이어지는 중...
+                <div>
+                    <div style={{ width: '100%', height: '10vh', display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
+                        <div style={{ width: '10%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <TimePlusIconButton onClick={GoBack}><ArrowBackIosIcon fontSize='large'/></TimePlusIconButton>
+                        </div>
                     </div>
+                    <CenteredDiv style={{ justifyContent: 'center', alignItems: 'center' }}>
 
-                    <CenterBox style={{display:'flex',justifyContent:'space-around',width:'90%'}}>
-                        <SmallMacBookProfile 
-                        width="25vw"
-                        height="45vh"
-                        color1="#bcd3ff"
-                        color2="#ffffff"
-                        alignItems="center"
-                        Username=""
-                        age="내 모습 확인하기"
-                        address=""
-                        >
-                        <video ref={videoRefTemp} autoPlay style={{width: '100%', height: '90%', marginTop:'2.5%'}}/>
-                        </SmallMacBookProfile>  
+                        <div style={{ fontSize: '3vw', color: 'white', marginTop: '6vh' }}>
+                            너와 내가 이어지는 중...
+                        </div>
 
-                        <HeartAnimation></HeartAnimation>
+                        <CenterBox style={{display:'flex',justifyContent:'space-around',width:'90%'}}>
+                            <SmallMacBookProfile 
+                            width="25vw"
+                            height="45vh"
+                            color1="#bcd3ff"
+                            color2="#ffffff"
+                            alignItems="center"
+                            Username=""
+                            age="내 모습 확인하기"
+                            address=""
+                            >
+                            <video ref={videoRefTemp} autoPlay style={{width: '100%', height: '90%', marginTop:'2.5%'}}/>
+                            </SmallMacBookProfile>  
 
-                        <SmallMacBookProfile 
-                        width="25vw"
-                        height="45vh"
-                        color1="#ffcced"
-                        color2="#ffffff"
-                        alignItems="center"
-                        Username=""
-                        age= "상대방 정보"
-                        address=""
-                        >
-                            <img src= {SenderProfile} width= "100%" height= "98%"/>
-                        </SmallMacBookProfile>  
-                    </CenterBox>
+                            <HeartAnimation></HeartAnimation>
 
-                    <StyledButton style={{ marginTop: '1vh', marginBottom: '5vh' }} onClick={joinSession}>입장하기</StyledButton>
+                            <SmallMacBookProfile 
+                            width="25vw"
+                            height="45vh"
+                            color1="#ffcced"
+                            color2="#ffffff"
+                            alignItems="center"
+                            Username=""
+                            age= "상대방 정보"
+                            address=""
+                            >
+                                <img src= {SenderProfile} width= "100%" height= "98%"/>
+                            </SmallMacBookProfile>  
+                        </CenterBox>
 
-                </CenteredDiv>
+                        <StyledButton style={{ marginTop: '1vh', marginBottom: '5vh' }} onClick={joinSession}>입장하기</StyledButton>
+
+                    </CenteredDiv>
+                </div>
             ) : null}
 
             {/* 오픈비두에 필터를 적용하기 위한 비디오 안보이게 처리한다.  */}
@@ -368,16 +566,14 @@ const Sogaeting = () => {
                         <div style={{ width: '100%', height: '70%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                             <div style={{ width: '80%', height: '100%', display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
                                 <div style={{ width: '10%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}/>
-                                <div style={{ border:'solid 1px orange', width: '80%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                                    예약하기 영역 
+                                <div style={{ width: '80%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                                    <ReserveComp userId={myUserName} opponentId={myDateName}/>
                                 </div>
                                 <div style={{ border:'solid 0.2rem black', borderRadius: '1rem', width: '10%', height: '90%', display: 'flex', justifyContent: 'center', alignItems: 'flex-end'}}>
                                     <div style={{width: '80%', height: '100%', flexDirection: 'column', display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
                                         <MicVideoIconButton onClick={handleChangeMyIsVideo}>{myIsVideo ? (<VideocamIcon/>) : (<VideocamOffIcon/>)}</MicVideoIconButton>
                                         <MicVideoIconButton onClick={handleChangeMyIsAudio}>{myIsAudio ? (<MicIcon/>) : (<MicOffIcon/>)}</MicVideoIconButton>
-                                        <MicVideoIconButton onClick={handleChangeBlur}><BlurOffIcon/></MicVideoIconButton>
-                                        <HeartIconButton onClick={handleChangeOpenRegister}><UndoIcon/></HeartIconButton>
-                                        <MicVideoIconButton onClick={leaveSession}><PersonOffIcon/></MicVideoIconButton>
+                                        <MicVideoIconButton onClick={leaveSession}><WavingHandIcon/></MicVideoIconButton>
                                     </div>
                                 </div>
                             </div>
@@ -404,8 +600,7 @@ const Sogaeting = () => {
                                             <div style={{width: '100%', height: '80%', flexDirection: 'row', display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
                                                 <MicVideoIconButton onClick={handleChangeMyIsVideo}>{myIsVideo ? (<VideocamIcon/>) : (<VideocamOffIcon/>)}</MicVideoIconButton>
                                                 <MicVideoIconButton onClick={handleChangeMyIsAudio}>{myIsAudio ? (<MicIcon/>) : (<MicOffIcon/>)}</MicVideoIconButton>
-                                                <MicVideoIconButton onClick={handleChangeBlur}><BlurOffIcon/></MicVideoIconButton>
-                                                <HeartIconButton onClick={handleChangeOpenRegister}><FavoriteIcon/></HeartIconButton>
+                                                { myBlur > -1 ? <MicVideoIconButton onClick={handleChangeBlur}><BlurOffIcon/></MicVideoIconButton> : <HeartIconButton onClick={handleChangeOpenRegister}><FavoriteIcon/></HeartIconButton> }
                                                 <MicVideoIconButton onClick={leaveSession}><PersonOffIcon/></MicVideoIconButton>
                                             </div>
                                             <div style={{borderTop:'solid 0.3rem black', borderBottomRightRadius:'0.8rem', borderBottomLeftRadius:'0.8rem', background:'#ffcced', width: '100%', height: '10%', flexDirection: 'column', display: 'flex', justifyContent: 'center', alignItems: 'center'}}/>
@@ -428,7 +623,7 @@ const Sogaeting = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div style={{border:'solid 2px blue', width: '100%', height: '50%', display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>
+                                    <div style={{ width: '100%', height: '50%', display: 'flex', justifyContent: 'space-evenly', alignItems: 'center' }}>
                                         <MacBookBox width="90%" height="90%" color1="#ffcced" color2="#ffffff" alignItems="center">
                                             <ChattingComponent></ChattingComponent>
                                         </MacBookBox>
@@ -436,7 +631,7 @@ const Sogaeting = () => {
                                     <div style={{width: '100%', height: '25%', flexDirection: 'row', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                                         <Timer/>
                                         <div style={{width: '20%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                                            <TimePlusIconButton onClick={handleChangeTimer}><MoreTimeIcon/></TimePlusIconButton>
+                                            <MicVideoIconButton onClick={handleChangeTimer}><MoreTimeIcon/></MicVideoIconButton>
                                         </div>
                                     </div>
                                 </div>
