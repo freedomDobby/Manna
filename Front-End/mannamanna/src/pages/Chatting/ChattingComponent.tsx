@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import BackBox from "../../components/common/Back";
 import MacBookBox from "../../components/common/macbookBox";
 import { TextField, Button } from "@mui/material";
@@ -19,15 +19,16 @@ import {
 import SidebarChat from "../../components/layout/Sidebar/SidebarChat";
 import { MyPageContainerBox } from "../User/MyPage/MyPageStyle";
 import { useRecoilState } from "recoil";
-import { ChattingRoomState, chatListState, genderAtom, idAtom, inputValueState, nameAtom } from "../../Recoil/State";
+import { ChattingRoomState, accessTokenAtom, chatListState, genderAtom, idAtom, inputValueState, nameAtom } from "../../Recoil/State";
 import CreateChattingClient from "../User/Login/Clinet";
 import { useQuery } from "@tanstack/react-query";
 import api from "../../apis/Api";
 import { StyledButton } from "../User/Login/LoginStyle";
-import { ChatMessage } from "../../apis/Request/Request";
-import { Client, Message } from "@stomp/stompjs";
+import { ChatMessage } from "../../apis/Request/Request"; 
+import { Client, CompatClient, Message, Stomp } from "@stomp/stompjs";
 import { SOCET_URL } from "../../apis/Url";
 import { ChatOutputRes } from "../../apis/Response/Response";
+import SockJS from "sockjs-client";
 
 export function GetChat({ message }: { message: string|null }) {
   return (
@@ -73,16 +74,20 @@ export function GetChat({ message }: { message: string|null }) {
     const [chatList, setChatList] = useState<ChatOutputRes[]>([]);
     const [name, setName] = useRecoilState(nameAtom);
     const [inputValue, setInputValue] = useState("");
-    const [chatCheck,seteChatCheck]=useState("")
-  
-    const Chat = CreateChattingClient();
-      
-    Chat.client.activate();
-  
-    function getMessage() {
-      Chat.client.subscribe(`/sub/chat/room${RoomId}`, (body: Message) => {
-        const message = JSON.parse(body.body) as ChatMessage;
-        console.log(message);
+
+    const client = useRef<CompatClient>();
+
+    // 웹소켓 연결
+    const connect=()=>{
+      client.current=Stomp.over(()=>{
+        const ws = new SockJS("https://i9b205.p.ssafy.io/ws");
+        return ws;
+      })
+    }
+    client.current?.connect({}, () => {
+      // 웹소켓 이벤트 핸들러 설정
+      client.current!.subscribe(`/sub/chat/room${RoomId}`, res => {
+        const message = JSON.parse(res.body) as ChatMessage;
         const addChat:ChatOutputRes={
           senderId: message.senderId,
           senderName: message.senderName,
@@ -91,27 +96,23 @@ export function GetChat({ message }: { message: string|null }) {
         }
         setChatList((chat_list) => [...chat_list, addChat]);
       });
-    }
-    Chat.client.onConnect = () => {
-      getMessage();
-    };
+    });
+  useEffect(() => {
+      connect();
+  }, []);
 
-    function handleChange(event: ChangeEvent<HTMLInputElement>) {
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleSubmit();
+    }
+  };
+
+    
+    const handleChange=(event: React.ChangeEvent<HTMLInputElement>)=> {
       setInputValue(event.target.value);
     }
   
-    function publish(chat: ChatMessage) {
-      console.log(chat.message);
-      if (!Chat.client.connected) {
-        return;
-      }
-      Chat.client.publish({
-        destination: `/sub/chat/room${RoomId}`,
-        body: JSON.stringify(chat),
-      });
-    }
-  
-    const sendMessage = (message: string) => {
+    const SendMessage=(message: string)=> {
       const newChat: ChatMessage = {
         MessageType: "TALK",
         roomId: RoomId,
@@ -119,43 +120,57 @@ export function GetChat({ message }: { message: string|null }) {
         senderName: name,
         message: message,
       };
-      console.log(newChat);
-      publish(newChat);
-      setInputValue("");
-    };
+      client.current?.send(
+        `/sub/chat/room${RoomId}`,
+        {},
+        JSON.stringify(newChat)
+      )
+    }
+
   
-    function handleSubmit(event: FormEvent) {
+    const handleSubmit=()=> {
       if (inputValue === "") {
         return;
       }
-      sendMessage(inputValue);
+      SendMessage(inputValue);
       setInputValue("");
     }
-
-
-    const { data: ChattingHistory } = useQuery<ChatOutputRes[]>(["ChattingHistory"], async () => {
+    useEffect(() => {
       if(RoomId===0){
         return;
       }
-      const response = await api.get(`chat/${RoomId}`);
-      setChatList(response.data.data);
-      return response.data.data;
-    });
-
-    const renderChatComponents = (chatList:ChatOutputRes[]) => {
-      return chatList.map((item, index) => {
-        if (item.senderId === Userid) {
-          return <SendChat key={index} message={item.message} />;
-        } else {
-          return <GetChat key={index} message={item.message} />;
-        }
-      });
-    };
-
-
+      api.get(`chat/${RoomId}`)
+        .then(res => {
+          setChatList(res.data.data);
+        })
+        .catch(e => {
+          console.error(e);
+        });
   
+    }, []);
+
+    useEffect(() => {
+      const rapperDiv = document.getElementById("rapperDiv");
+      if (rapperDiv) {
+        rapperDiv.scrollTo({
+          top: rapperDiv.scrollHeight,
+          behavior: "smooth",
+        });
+      }
+    }, [chatList]);
+ 
+    const color2 = "#ffcced";
+
+    
     return (
-      <>           
+    <>
+      <div
+        id="rapperDiv"
+        style={{
+          overflow: "auto",
+          maxHeight: "55vh", // Firefox용 스크롤바 숨김 스타일
+        }}
+      >
               <ChatOutBox>
                 <ChatInBox>
                 {chatList?.map((item, index) => {
@@ -167,28 +182,39 @@ export function GetChat({ message }: { message: string|null }) {
           })}
                 </ChatInBox>
               </ChatOutBox>
-      <ChatInputBox>
+        </div>
+        <ChatInputBox>
         <input
           placeholder="메시지를 입력하세요"
           type={"text"}
           onChange={handleChange}
+          onKeyDown={handleKeyPress}
           value={inputValue}
           style={{
+            height:'50%',
             width: "70%",
+            fontSize:'large',
             backgroundColor: "#ffcced",
-            borderRadius: "0.5vw",
+            borderRadius: "1rem",
+            marginRight:'1vw',
           }}
           autoFocus
         />
-        <Button
-          variant="contained"
-          sx={{ backgroundColor: "#ffcced" }}
-          onClick={handleSubmit}
-        >
-          <SendIcon />
-        </Button>
+<div
+  style={{
+    backgroundColor: "#ffcced",
+    height: '5vh',
+    width: '5vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius:'2vh'
+  }}
+  onClick={handleSubmit}
+>
+  <SendIcon style={{ width: '90%', height: '90%' }} />
+</div>
         </ChatInputBox>
-      </>
+        </>
     );
   };
-  

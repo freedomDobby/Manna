@@ -93,7 +93,7 @@ export const ChatInputBox = styled.div`
     flex-direction: row;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     height: 15%;
 `
 
