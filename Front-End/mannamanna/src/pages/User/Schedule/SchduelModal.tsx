@@ -31,7 +31,7 @@ import {
   Job,
 } from "../../Note/Modal/NoteModalStyle";
 import { useNavigate } from "react-router-dom";
-import { userSessionId } from "../../Soagaeting/SogaetingState";
+import { dateName, sogaeUserName, userSessionId } from "../../Soagaeting/SogaetingState";
 import { MakeChatRoom } from "../../../apis/Request/Request";
 
 interface CheckModalProps {
@@ -62,6 +62,8 @@ export const CheckSchduleModal: React.FC<CheckModalProps> = ({
   const [scheduleId, SetScheduleId] = useRecoilState(scheduleIdAtom);
   const [RoomId, setRoomId] = useRecoilState(ChattingRoomState);
   const [myUserSessionId, setMyUserSessionId] = useRecoilState(userSessionId);
+  const [myUserName, setMyUserName] = useRecoilState(sogaeUserName);
+  const [myDateName, setMyDateName] = useRecoilState(dateName);
   const navigate = useNavigate();
   const GoSogaetingWait = () => {
     navigate('/sogaeting');
@@ -73,10 +75,15 @@ export const CheckSchduleModal: React.FC<CheckModalProps> = ({
     maleId:UserId,
     femaleId:opponentId,
     }
+    if(UserId){
+      const myuser = UserId;
+      setMyUserName(myuser);
+    }
     console.log(ChatRommData);
-    const response = await api.post('chat/room', ChatRommData);
-    console.log("나와라@@@@@@@@@@@@@@@@@@@@@@@"+response.data.roomId);
-    setRoomId(response.data.roomId);
+    // const response = await api.post('chat/room', ChatRommData);
+    // console.log("나와라@@@@@@@@@@@@@@@@@@@@@@@"+response.data.roomId);
+    // setRoomId(response.data.roomId);
+    setMyDateName(opponentId)
     handleClose();
     GoSogaetingWait();
   };
