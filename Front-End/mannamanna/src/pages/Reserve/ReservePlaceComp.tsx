@@ -1,4 +1,10 @@
-import {IReservationOfflineRequest, IReservePlace, IReservePlaceProps} from "./Interfaces";
+import {
+    IReservationOfflineRequest,
+    IReservePlace,
+    IReservePlaceProps,
+    ModalContainerProps,
+    ModalProps
+} from "./Interfaces";
 import {useState} from "react";
 import styled from "styled-components";
 import axios from "axios";
@@ -76,6 +82,28 @@ const ReserveButton = styled.button`
   appearance: none; /* 모든 브라우저에서 기본 버튼 스타일 제거 */
 `
 
+const ModalContainer = styled.div<ModalContainerProps>`
+  display: ${props => (props.isOpen ? 'flex' : 'none')};
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+`;
+
+const ModalContent = styled.div`
+  width: 400px;
+  height: 400px;
+  background-color: white;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+`;
+
 const insertReservation = (ReservationOfflineRequest: IReservationOfflineRequest) => {
     return axios({
         method: "POST",
@@ -88,27 +116,35 @@ const insertReservation = (ReservationOfflineRequest: IReservationOfflineRequest
 const ReservePlaceComp = (props: IReservePlaceProps) => {
     function initialState() {
         return [
-            <PlacePageButton key={1} onClick={() => {
-                ItemList(1)
-            }}>{1}</PlacePageButton>,
-            <PlacePageButton key={2} onClick={() => {
-                ItemList(2)
-            }}>{2}</PlacePageButton>,
-            <PlacePageButton key={3} onClick={() => {
-                ItemList(3)
-            }}>{3}</PlacePageButton>,
-            <PlacePageButton key={4} onClick={() => {
-                ItemList(4)
-            }}>{4}</PlacePageButton>,
-            <PlacePageButton key={5} onClick={() => {
-                ItemList(5)
-            }}>{5}</PlacePageButton>];
+            <PlacePageButton key={1} onClick={() => {ItemList(1)}}>{1}</PlacePageButton>,
+            <PlacePageButton key={2} onClick={() => {ItemList(2)}}>{2}</PlacePageButton>,
+            <PlacePageButton key={3} onClick={() => {ItemList(3)}}>{3}</PlacePageButton>,
+            <PlacePageButton key={4} onClick={() => {ItemList(4)}}>{4}</PlacePageButton>,
+            <PlacePageButton key={5} onClick={() => {ItemList(5)}}>{5}</PlacePageButton>];
     }
 
     const [index, setIndex] = useState(props.index);
     const [data, setData] = useState(props.data.slice(index * 10, index * 10 + 10));
     const [itemElements, setItemElements] = useState<any>(initialState())
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
     const [placeComponent, setPlaceComponent] = useState<any>(makePlaceComponent(data));
+
+    const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
+        return (
+            <ModalContainer isOpen={isOpen}>
+                <ModalContent>
+                    <span className="close" onClick={onClose}>&times;</span>
+                    <p>This is a modal!</p>
+                </ModalContent>
+            </ModalContainer>
+        );
+    };
 
     const maxIndex = props.data.length / 10;
 
@@ -160,10 +196,12 @@ const ReservePlaceComp = (props: IReservePlaceProps) => {
                         {item.name}
                     </PlaceNameBox>
                     <ReserveButton
-                        onClick={() => insertReservation(makeRequestJSON(item))
-                            .then((response) => alert(response.data.msg))
-                            .catch(() => alert("스케쥴 등록에 실패하였습니다."))
-                    }>
+                        //     onClick={() => insertReservation(makeRequestJSON(item))
+                        //         .then((response) => alert(response.data.msg))
+                        //         .catch(() => alert("스케쥴 등록에 실패하였습니다."))
+                        // }
+                        onClick={openModal}
+                    >
                         ️💖예약하기
                     </ReserveButton>
                 </PlaceElement>
@@ -187,6 +225,7 @@ const ReservePlaceComp = (props: IReservePlaceProps) => {
                     ▶︎
                 </PlacePageButton>
             </PlacePagingButtonBox>
+            <Modal isOpen={isModalOpen} onClose={closeModal} />
         </PlaceContainer>
     )
 }

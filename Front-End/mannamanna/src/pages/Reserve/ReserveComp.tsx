@@ -145,13 +145,11 @@ const ReserveComp = (props: IReserveCompProps) => {
         data
     } = useQuery(["placeData"], fetchData);
     const [sido, setSido] = useState("");
-    const [gugun, setGuugn] = useState("");
+    const [gugun, setGugun] = useState("");
     const [category, setCategory] = useState("");
     const [guguns, setGuguns] = useState<string[]>([]);
 
     useEffect(() => {
-        console.log("num : " + gugun);
-        console.log("num : " + category);
         fetchData().then(data => {
             queryClient.setQueryData(["placeData"], data);
         });
@@ -176,7 +174,7 @@ const ReserveComp = (props: IReserveCompProps) => {
                         </SelectLocate>
                         <SelectLocate value={gugun} onChange={(event) => {
                             setQueryType("locate");
-                            setGuugn(event.target.value);
+                            setGugun(event.target.value);
                         }}>
                             <option> 구군</option>
                             {
@@ -211,7 +209,7 @@ const ReserveComp = (props: IReserveCompProps) => {
                 </LocateSelectBox>
                 <ReserveMainBox>
                     <KaKaoMapBox>
-                        <KakaoMap/>
+                        <KakaoMap />
                     </KaKaoMapBox>
                     <ReservePlaceBox>
                         {isLoading ? <span>now loading...</span> :

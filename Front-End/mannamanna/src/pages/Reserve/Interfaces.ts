@@ -55,3 +55,13 @@ export interface IMiddleReservePlace {
     opponentId: string;
     category: string;
 }
+
+
+export interface ModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+}
+
+export interface ModalContainerProps {
+    isOpen: boolean;
+}
