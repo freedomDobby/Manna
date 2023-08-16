@@ -45,7 +45,7 @@ export const ModifyPic = styled.div`
   height: 90%;
   background: rgba(255, 255, 255, 0.5);
   border-radius: 2vh;
-  //   text-align: center;
+  flex-direction: column;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -54,8 +54,8 @@ export const ModifyPic = styled.div`
 
 export const PictureBox = styled.div`
   border: solid 1px black;
-  width: 30%;
-  height: 90%;
+  width: 100%;
+  height: 100%;
   cursor: pointer;
   background-size: cover;
   background-position: center;
