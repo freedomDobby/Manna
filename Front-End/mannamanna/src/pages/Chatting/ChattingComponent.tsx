@@ -164,13 +164,7 @@ export function GetChat({ message }: { message: string|null }) {
     
     return (
     <>
-      <div
-        id="rapperDiv"
-        style={{
-          overflow: "auto",
-          maxHeight: "55vh", // Firefox용 스크롤바 숨김 스타일
-        }}
-      >
+      <div id="rapperDiv" style={{ overflow: "auto", minHeight:'84%', maxHeight: "84%",}}>
               <ChatOutBox>
                 <ChatInBox>
                 {chatList?.map((item, index) => {
@@ -182,38 +176,40 @@ export function GetChat({ message }: { message: string|null }) {
           })}
                 </ChatInBox>
               </ChatOutBox>
-        </div>
+      </div>
         <ChatInputBox>
-        <input
-          placeholder="메시지를 입력하세요"
-          type={"text"}
-          onChange={handleChange}
-          onKeyDown={handleKeyPress}
-          value={inputValue}
-          style={{
-            height:'50%',
-            width: "70%",
-            fontSize:'large',
-            backgroundColor: "#ffcced",
-            borderRadius: "1rem",
-            marginRight:'1vw',
-          }}
-          autoFocus
-        />
-<div
-  style={{
-    backgroundColor: "#ffcced",
-    height: '5vh',
-    width: '5vh',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius:'2vh'
-  }}
-  onClick={handleSubmit}
->
-  <SendIcon style={{ width: '90%', height: '90%' }} />
-</div>
+                        <input
+                          placeholder="메시지를 입력하세요"
+                          type={"text"}
+                          onChange={handleChange}
+                          onKeyDown={handleKeyPress}
+                          value={inputValue}
+                          style={{
+                            height:'50%',
+                            width: "70%",
+                            fontSize:'large',
+                            backgroundColor: "#ffcced",
+                            borderRadius: "1rem",
+                            marginRight:'1vw',
+                          }}
+                          autoFocus
+                        />
+                        <div>
+                        <div
+                  style={{
+                    backgroundColor: "#ffcced",
+                    height: '5vh',
+                    width: '5vh',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius:'2vh'
+                  }}
+                  onClick={handleSubmit}
+                >
+                  <SendIcon style={{ width: '90%', height: '90%' }} />
+                </div>
+                        </div>
         </ChatInputBox>
         </>
     );

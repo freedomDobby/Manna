@@ -22,6 +22,8 @@ import UndoIcon from '@mui/icons-material/Undo';
 import { SenderAgeState, SenderHeightState, SenderJobState, SenderMbtiState, SenderNameState, SenderPrState, SenderProfileState } from '../Note/NoteState';
 import { Age, Height, Info1, Info2, InfoContainer, Job, MBTI, Name, NameInfo, ProfileContainer, SelfPrInfo } from '../Note/Modal/NoteModalStyle';
 import { ProfileBox } from '../User/MyPage/MyPageModifyStyle';
+import { ChattingComponent } from '../Chatting/ChattingComponent';
+import UnScrollMacBox from '../../components/common/unScrollMacBox';
 
 const Sogaeting = () => {
     const [myUserSessionId, setMyUserSessionId] = useRecoilState(userSessionId);
@@ -426,9 +428,10 @@ const Sogaeting = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div style={{border:'solid 2px blue', width: '100%', height: '50%'}}>
-                                        채팅영역 
-                                        
+                                    <div style={{border:'solid 2px blue', width: '100%', height: '50%', display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>
+                                        <MacBookBox width="90%" height="90%" color1="#ffcced" color2="#ffffff" alignItems="center">
+                                            <ChattingComponent></ChattingComponent>
+                                        </MacBookBox>
                                     </div>
                                     <div style={{width: '100%', height: '25%', flexDirection: 'row', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                                         <Timer/>
