@@ -5,20 +5,6 @@ export interface IReservePlaceProps {
     maleId: string;
 }
 
-export interface IReservationOfflineRequest {
-    femaleId: string;
-    maleId: string;
-    date: string;
-    reserveAddressId: number;
-}
-
-
-export interface IReservePlaceResponse {
-    result: boolean;
-    msg: string;
-    data: IReservePlace[];
-}
-
 export interface IReservePlace {
     id: number;
     name: string;
@@ -45,17 +31,11 @@ export interface ILocateObject {
     [key: string]: string[];
 }
 
-export interface IModalProps {
-    isOpen: boolean;
-    onClose: boolean
-}
-
 export interface IMiddleReservePlace {
     userId: string;
     opponentId: string;
     category: string;
 }
-
 
 export interface ModalProps {
     isOpen: boolean;
