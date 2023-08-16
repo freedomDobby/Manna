@@ -54,7 +54,7 @@ export const SelectLocate = styled.select`
   border: none;
   border-left: 1px solid black;
   font: inherit;
-  font-size: 10px;
+  font-size: 15px;
 
   height: 100%;
   width: 30%;

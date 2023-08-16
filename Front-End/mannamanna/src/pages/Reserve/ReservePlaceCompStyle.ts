@@ -13,13 +13,14 @@ export const PlaceContainer = styled.div`
 `
 
 export const PlaceBox = styled.div`
-  padding-top: 3%;
+  padding-top: 2%;
   height: 85%;
   width: 100%;
 `
 
 export const PlacePagingButtonBox = styled.div`
-  height: 10%;
+  margin-top: 3%;
+  height: 5%;
   margin-left: 5%;
   margin-right: 5%;
   display: flex;
