@@ -45,3 +45,9 @@ export interface ModalProps {
 export interface ModalContainerProps {
     isOpen: boolean;
 }
+
+export interface IMissionStartRequest {
+    sogaetingId: number | null;
+    maleId: string;
+    femaleId: string;
+}

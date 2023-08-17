@@ -243,7 +243,7 @@ export const MissionOpponentAtom = atom<string | null>({
   default: null,
 });
 
-export const MissionIdAtom = atom<number | null>({
+export const MissionIdAtom = atom<number>({
   key:"MissionIdAtom",
   default:0
 });

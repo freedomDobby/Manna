@@ -25,6 +25,9 @@ import { ChattingComponent } from '../Chatting/ChattingComponent';
 import ReserveComp from '../Reserve/ReserveComp';
 import { Modal } from '@mui/material';
 import { MyPageSmallButton } from '../User/MyPage/MyPageStyles';
+import { MissionIdAtom, genderAtom, scheduleIdAtom } from '../../Recoil/State';
+import { IMissionStartRequest } from '../Reserve/Interfaces';
+import axios from 'axios';
 
 const Sogaeting = () => {
     const [myUserSessionId, setMyUserSessionId] = useRecoilState(userSessionId);
@@ -53,9 +56,56 @@ const Sogaeting = () => {
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [openRegisterModal, setOpenRegisterModal] = useState<boolean>(false);
 
+    const [missionId, setMissionId] = useRecoilState(MissionIdAtom);
+
     const GoBack = () =>{
         window.location.replace("/schedule");
     }
+
+    const fetchMissionQuestion = (missionId: number) => {
+        return axios({
+            method: "POST",
+            url: `https://i9b205.p.ssafy.io/api/mission/assign`,
+            headers: {"Content-Type": "application/json"},
+            data: {missionId: missionId}
+        })
+    }
+
+    const fetchMission = (MissionStartRequest: IMissionStartRequest) => {
+        return axios({
+            method: "POST",
+            url: `https://i9b205.p.ssafy.io/api/mission/start`,
+            headers: {"Content-Type": "application/json"},
+            data: MissionStartRequest
+        })
+    }
+
+    const missionRequest = async () => {
+        let maleId;
+        let femaleId;
+        if (userGender === "male") {
+            maleId = myId;
+            femaleId = opponentId;
+        } else {
+            maleId = opponentId;
+            femaleId = myId;
+        }
+    
+        try {
+            const response = await fetchMission({
+                sogaetingId: scheduleId,
+                maleId: maleId,
+                femaleId: femaleId,
+            });
+    
+            // Call fetchMissionQuestion after fetching the mission
+            const missionId = response.data.id;
+            await fetchMissionQuestion(missionId);
+        } catch (error) {
+            console.log("Error:", error);
+        }
+    };
+    
 
     const setupCamera = async () => {
         try {
@@ -226,8 +276,41 @@ const Sogaeting = () => {
         session.signal(signalOptions);
     }
 
+    const fetchSogaeting = (MissionStartRequest: IMissionStartRequest) => {
+        return axios({
+            method: "POST",
+            url: `https://i9b205.p.ssafy.io/api/sogaeting/start`,
+            headers: {"Content-Type": "application/json"},
+            data: MissionStartRequest
+        })
+      }
+
+    const [scheduleId] = useRecoilState(scheduleIdAtom);
+    const [opponentId] = useRecoilState(dateName);
+    const [myId] = useRecoilState(sogaeUserName);
+    const [userGender] = useRecoilState(genderAtom);
+  
+
     // Session에 참여할 때 
     const joinSession = async () => {
+        let maleId;
+        let femaleId;
+        if(userGender=="male") {
+            maleId = myId;
+            femaleId = opponentId;
+        }
+        else{
+            maleId = opponentId;
+            femaleId = myId;
+        }
+        console.log("maleId: "+maleId);
+        fetchSogaeting({
+          sogaetingId: scheduleId,
+          maleId: maleId,
+          femaleId: femaleId,}
+        ).then(response => console.log(response))
+        .catch(() => console.log("이미 존재하는 소개팅입니다."))
+
 
         // Session을 초기화 해준다. 
         const newSession = OV.initSession();
@@ -569,7 +652,15 @@ const Sogaeting = () => {
                                     <div style={{width: '80%', height: '100%', flexDirection: 'column', display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
                                         <MicVideoIconButton onClick={handleChangeMyIsVideo}>{myIsVideo ? (<VideocamIcon/>) : (<VideocamOffIcon/>)}</MicVideoIconButton>
                                         <MicVideoIconButton onClick={handleChangeMyIsAudio}>{myIsAudio ? (<MicIcon/>) : (<MicOffIcon/>)}</MicVideoIconButton>
-                                        <MicVideoIconButton onClick={leaveSession}><WavingHandIcon/></MicVideoIconButton>
+                                        <MicVideoIconButton onClick={
+                                            leaveSession
+                                            // missionRequest
+                                        //     () => {
+                                        //     // leaveSession();
+                                            
+                                        //     missionRequest();
+                                        // }
+                                        }><WavingHandIcon/></MicVideoIconButton>
                                     </div>
                                 </div>
                             </div>
