@@ -29,14 +29,27 @@ function MyPageHistory() {
 
       console.log(online);
       console.log(offline);
+      const parseDateTime = (dateStr: string, timeStr: string): Date => new Date(`${dateStr}T${timeStr}`);
+
+      // 날짜(date) 및 시간(time) 값을 기준으로 오름차순 정렬하는 비교 함수
+      const compareByDateTime = (a: any, b: any): number =>
+        parseDateTime(a.date, a.time).getTime() - parseDateTime(b.date, b.time).getTime();
+      
+      // 날짜 및 시간을 기준으로 배열 정렬
+      const sortedDataOnline:any= online.slice().sort(compareByDateTime);
+      const sortedDataOffline:any= offline.slice().sort(compareByDateTime);
+      console.log(sortedDataOnline);
+      console.log(sortedDataOffline);
+      
+ 
       
 
     return (
         <MacBookBox width="60%" height="90%" color1="#bcd3ff" color2="#ffffff" alignItems='center'>
-                       {online.map((schedule:any, index:any) => (
+                       {sortedDataOnline.map((schedule:any, index:any) => (
             <SogeListOnline userName={schedule.opponentName} date={schedule.date}/>
             ))}
-              {offline.map((schedule:any, index:any) => (
+              {sortedDataOffline.map((schedule:any, index:any) => (
             <SogaeListOffline/>
             ))}
         </MacBookBox>
