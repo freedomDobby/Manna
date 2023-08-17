@@ -8,7 +8,6 @@ export const ChatPeopleBox = styled.div`
     border-radius: 2vh;
     text-align: center;
     display: flex;
-    justify-content: space-around;
     align-items: center;
     font-size: 1.3vw;
     margin-bottom: 1vh;
