@@ -57,7 +57,7 @@ const DetailProfile = styled.div`
   background-color: rgba(255, 255, 255, 0.3);
   z-index: 1;
   text-align: center;
-  transition: z-index 2s ease-in-out .5s,
+  transition: z-index 2s ease-in-out 0.5s,
   border-radius 5s ease;
   align-items: center;
   
