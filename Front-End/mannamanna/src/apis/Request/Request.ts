@@ -92,7 +92,16 @@ export interface ChatMessage{
   message:string|null;
 }
 
+
+export interface MissionDoReq{
+  memberId: string|null;
+  id:number|null;
+  missionId:number|null;
+  gender:string|null;
+}
+
 export interface MakeChatRoom{
   maleId:string|null;
   femaleId:string|null;
+
 }
