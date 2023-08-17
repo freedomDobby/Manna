@@ -80,7 +80,7 @@ const EnterTel = () => {
       question="전화번호를 입력해주세요 (양식을 지켜주세요)"
       Type="text"
       Id="UserNum"
-      placeholder="010-1234-4570"
+      placeholder="010-1234-5678"
       onChange={EnterTelChange}
       value={userTel}
     />

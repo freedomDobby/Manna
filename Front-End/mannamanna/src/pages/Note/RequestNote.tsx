@@ -48,7 +48,7 @@ const RequestNote = () => {
 
   return (
     <SendContainer>
-      {receivedNoteList.reverse().map((note, index) => (
+      {receivedNoteList.map((note, index) => (
         <RequestNoteBody
           key={index}
           comment="보낸 쪽지"

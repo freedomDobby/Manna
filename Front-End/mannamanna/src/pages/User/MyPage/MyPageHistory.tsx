@@ -20,10 +20,15 @@ function MyPageHistory() {
       } = useQuery<any>(["scheduleList"], async () => {
         const response = await api.get(`schedule/${userId}`);
         console.log(response.data.data);
-        const offlinelist=response.data.data.offlineSchedule;
+        if(response.data.data.offlineSchedule!==null){
+          const offlinelist=response.data.data.offlineSchedule;
+          SetOffline(offlinelist);
+        }
+        if(response.data.data.onlineSchedule!==null){
+
         const onlinelist=response.data.data.onlineSchedule;
         SetOnline(onlinelist);
-        SetOffline(offlinelist);
+        }
         return response.data.data;
       });
 
@@ -41,15 +46,15 @@ function MyPageHistory() {
       console.log(sortedDataOnline);
       console.log(sortedDataOffline);
       
- 
+      
       
 
     return (
         <MacBookBox width="60%" height="90%" color1="#bcd3ff" color2="#ffffff" alignItems='center'>
-                       {sortedDataOnline.map((schedule:any, index:any) => (
+                       {sortedDataOnline?.map((schedule:any, index:any) => (
             <SogeListOnline userName={schedule.opponentName} date={schedule.date}/>
             ))}
-              {sortedDataOffline.map((schedule:any, index:any) => (
+              {sortedDataOffline?.map((schedule:any, index:any) => (
             <SogaeListOffline/>
             ))}
         </MacBookBox>

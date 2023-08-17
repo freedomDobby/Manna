@@ -1,4 +1,5 @@
 import { atom } from "recoil";
+import { recoilPersist } from "recoil-persist";
 
 export interface RegisterDataType {
   id: string;
@@ -23,6 +24,10 @@ export interface RegisterDataType {
   longitude: number; //api
   // blockingFriend: boolean;
 }
+const { persistAtom } = recoilPersist({
+  key: "recoilPersistData",
+  storage: sessionStorage,
+});
 
 export const RegisterDataState = atom<RegisterDataType>({
   key: "RegisterData",
@@ -66,16 +71,16 @@ export const userNameState = atom<string>({
 
 export const userTelState = atom<string>({
   key: "userTel",
-  default: "010-1234-1234",
+  default: "",
 });
 
 export const userIdState = atom<string>({
   key: "userId",
-  default: "UserId",
+  default: "",
 });
 
 export const userPwdState = atom<string>({
-  key: "userPwd",
+  key: "userPwdState",
   default: "User1234",
 });
 
@@ -170,22 +175,25 @@ export const profilePicture3State = atom<File>({
 
 export const profile_nicknameState = atom<string>({
   key: "profile_nickname",
-  default: "unknow",
+  default: "",
+
 });
 
 export const friendsState = atom<string>({
   key: "friends",
-  default: "unknow",
+  default: "",
 });
 
 export const account_emailState = atom<string>({
   key: "account_email",
-  default: "unknow",
+  default: "",
+
 });
 
 export const genderState = atom<string>({
-  key: "Usergender",
+  key: "genderState",
   default: "unknown",
+
 });
 
 export const age_rangeState = atom<number | null>({
