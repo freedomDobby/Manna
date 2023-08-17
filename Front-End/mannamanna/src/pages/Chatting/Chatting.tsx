@@ -74,7 +74,7 @@ export const Chatting = () => {
     });
     console.log(ChattingRoom);
     
-    setRoomId(ChattingRoom);
+   await setRoomId(ChattingRoom);
   };
 
     const Chat=CreateChattingClient();

@@ -221,9 +221,10 @@ export const inputValueState = atom({
   default: "",
 });
 
-export const ChattingRoomState = atom({
+export const ChattingRoomState = atom<any>({
   key: "ChattingRoom",
-  default: 0,
+  default: "",
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const chatListState = atom<ChatOutputRes[]>({
