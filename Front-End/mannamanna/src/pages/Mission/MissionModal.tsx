@@ -57,7 +57,11 @@ export const MissionCardBox = ({ id,mission,user1,user2 }: MissionCardProps) => 
   
   //등록 버튼
   const doMission = async ()=>{
-    
+    if ( missionPicture1 === null){
+      setOpen(false);
+      setMissionPicture1(null);
+      return;
+    }
     try {
       const formdata = new FormData();
       const json = JSON.stringify(MissionDoData);
@@ -69,12 +73,6 @@ export const MissionCardBox = ({ id,mission,user1,user2 }: MissionCardProps) => 
         console.log("첫번째 사진올림")
         formdata.append("missionPicture", missionPicture1);
       }
-      else if(missionPicture2.name!=null && missionPicture2 instanceof File){
-        console.log(missionPicture2);
-        console.log("두번째 사진 올림");
-        formdata.append("missionPicture", missionPicture2);
-      }
-
       console.log("FormData:", formDataToObject(formdata));
       const response = await api.put("/mission/do", formdata, {
         headers: {
@@ -99,6 +97,7 @@ export const MissionCardBox = ({ id,mission,user1,user2 }: MissionCardProps) => 
     //     return response.data.data;
     //   }
     // );
+    setOpen(false);
 
   }
 
