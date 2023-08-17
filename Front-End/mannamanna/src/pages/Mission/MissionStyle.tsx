@@ -9,6 +9,7 @@ export const MissionContainerBox = styled.div`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  margin-top: 1.3vh;
 `;
 
 export const MissionBox = styled.div`

@@ -30,16 +30,21 @@ const NoteLogoBox = styled.div`
 const MidPart = styled.div`
   // border: solid 1px blue;
   // background-color: green;
-  height: 100%;
-  width: 70%;
+  // height: 100%;
+  // width: 70%;
+  width: 140vh;
+  height: 80vh;
 `;
 
 const KeyPart = styled.div`
   border: solid 5px black;
   background-color: white;
   // background-color: black;
-  width: 100%;
-  height: 100%;
+  // width: 100%;
+  // height: 100%;
+  
+  width: 140vh;
+  height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
