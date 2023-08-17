@@ -1317,7 +1317,7 @@ export const MyPageTextArea = () => {
 };
 
 // 내 정보 수정 selbox 공통
-const SelectBoxWrapper = styled.div`
+export const SelectBoxWrapper = styled.div`
   select {
     width: 10vw;
     height: 30%;
@@ -1515,8 +1515,13 @@ export function GetMileage() {
 export function SogeListOnline({ userName, date,type }: any) {
   return (
     <LeftStyle>
-      <MileageBox>{userName}와 함께한 추억..
-      <br />날짜:{date}</MileageBox>
+      <MileageBox>
+        <div>
+        {userName}와 함께한 추억..
+        </div>
+        <div>
+        날짜:{date}
+        </div></MileageBox>
     </LeftStyle>
   );
 }
@@ -1526,7 +1531,14 @@ export function SogeListOnline({ userName, date,type }: any) {
 export function SogaeListOffline({ userName, date,type }: any) {
   return (
     <RightStyle>
-      <MileageBox>미팅미팅미팅</MileageBox>
+        <MileageBox>
+        <div>
+        {userName}와 함께한 추억..
+        </div>
+        <div>
+        날짜:{date}
+        </div>
+        </MileageBox>
     </RightStyle>
   );
 }

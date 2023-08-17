@@ -10,7 +10,7 @@ import dayjs, {Dayjs} from 'dayjs';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import MacBookBox from "../../components/common/macbookBox";
 import {
-    ButtonBox,
+    ButtonBox, CloseButton,
     DateTimeBox, IDBox,
     InnerBox,
     ModalBox,
@@ -74,7 +74,10 @@ const ReservePlaceComp = (props: IReservePlaceProps) => {
 
     const Modal: React.FC<ModalProps> = ({isOpen, onClose}) => {
         return (
-            <ModalContainer isOpen={isOpen} onClick={closeModal}>
+            <ModalContainer isOpen={isOpen} >
+                <CloseButton onClick={closeModal}>
+                    X
+                </CloseButton>
                 <MacBookBox width={"30vw"} height={"70vh"} color1={"#bcd3ff"} color2={"#ffffff"} alignItems={"center"}>
                     <InnerBox>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>

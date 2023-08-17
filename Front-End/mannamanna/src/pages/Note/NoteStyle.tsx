@@ -143,10 +143,10 @@ const NoteContainer = styled.div`
 `;
 
 const NoteTopBar = styled.div`
-  // border: 1px solid black;
+  border-bottom: 1px solid black;
   width: 100%;
   height: 7%;
-  background-color: #bcd3ff;
+  background-color: #ffcced;
   align-items: center;
 `;
 const NoteInfoBar = styled.div`
@@ -160,8 +160,10 @@ const NoteInfoBar = styled.div`
 `;
 const Info = styled.div`
   // border: 1px solid black;
-  width: 40%;
+  width: 100%;
   height: 100%;
+  display: flex;
+  align-items: center;
 `;
 
 const NoteMidBar = styled.div`
@@ -176,14 +178,22 @@ const NotePart = styled.div`
   border: 1px solid black;
   width: 90%;
   height: 80%;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 const NoteTitle = styled.div`
+  border-bottom: 1px solid black;
+  background: #ffcced;
   width: 100%;
-  height: 15%;
+  height: 30%;
+  overflow: auto;
 `;
 const NoteDetail = styled.div`
   width: 100%;
-  height: 85%;
+  height: 70%;
+  overflow: auto;
 `;
 const NoteFootBar = styled.div`
   border-top: 1px solid black;
@@ -195,8 +205,10 @@ const NoteFootBar = styled.div`
   align-items: center;
 `;
 const NoteButton = styled.button`
-  width: 20%;
+  width: 30%;
   height: 90%;
+  background: #ffcced;
+  font-family: inherit;
   margin-left: 1%;
   margin-right: 3%;
 `;

@@ -607,7 +607,7 @@ const Sogaeting = () => {
                             <div style={{width: '40%', height: '100%', flexDirection: 'column', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                                 <div style={{border:'solid 0.3rem black', borderRadius:'1rem', width: '80%', height: '90%', flexDirection: 'column', background:'white'}}>
                                     <div style={{width: '100%', height: '25%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                                        <div style={{border:'solid 0.3rem black', borderRadius:'1rem', width: '80%', height: '80%', background:'#ffcced', flexDirection: 'row', display: 'flex'}}>
+                                        <div style={{border:'solid 0.3rem black', borderRadius:'1rem', width: '85%', height: '80%', background:'#ffcced', flexDirection: 'row', display: 'flex'}}>
                                             <div style={{width: '40%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                                                 <div style={{border:'solid 0.2rem black', width: '80%', height: '80%'}}>
                                                     <img src= {SenderProfile} width= "100%" height= "100%"/>
@@ -620,9 +620,13 @@ const Sogaeting = () => {
                                         </div>
                                     </div>
                                     <div style={{ width: '100%', height: '50%', display: 'flex', justifyContent: 'space-evenly', alignItems: 'center' }}>
-                                        <MacBookBox width="90%" height="90%" color1="#ffcced" color2="#ffffff" alignItems="center">
-                                            <ChattingComponent></ChattingComponent>
-                                        </MacBookBox>
+                                        <div style={{border:'solid 0.3rem black', borderRadius:'1rem', background:'#ffffff', width: '90%', height: '95%', flexDirection: 'column', display: 'flex', justifyContent: 'space-around', alignItems: 'center', marginLeft: '2.5%'}}>
+                                            <div style={{borderBottom:'solid 0.3rem black',borderTopRightRadius:'0.8rem', borderTopLeftRadius:'0.8rem', background:'#ffcced', width: '100%', height: '5%', flexDirection: 'column', display: 'flex', justifyContent: 'center', alignItems: 'center'}}/>
+                                            <div style={{width: '100%', height: '90%', flexDirection: 'column', display: 'inline-block', justifyContent: 'space-around', alignItems: 'center'}}>
+                                                <ChattingComponent></ChattingComponent>
+                                            </div>
+                                            <div style={{borderTop:'solid 0.3rem black', borderBottomRightRadius:'0.8rem', borderBottomLeftRadius:'0.8rem', background:'#ffcced', width: '100%', height: '5%', flexDirection: 'column', display: 'flex', justifyContent: 'center', alignItems: 'center'}}/>
+                                        </div>
                                     </div>
                                     <div style={{width: '100%', height: '25%', flexDirection: 'row', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                                         <Timer/>

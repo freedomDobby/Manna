@@ -33,7 +33,7 @@ const SecondBox = styled.div`
   background-size: 100% 100%;
   height: 120%;
   width: 90%;
-  margin-top: 0%;
+  margin-top: 10%;
 `;
 
 export const HalfBox = styled.div`
@@ -48,12 +48,11 @@ export const HalfBox = styled.div`
 
 //메인페이지내 달력 담는 박스
 const CanlendarBox = styled.div`
-  border: 5px solid #f5e3ec;
-  // border: 5px solid blue;
+  border: 0.2rem solid #000000;
   height: 80%;
   width: 90%;
-  border-radius: 5%;
-  background-color: #ece7f9;
+  border-radius: 1rem;
+  background-color: #f5e3ec;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -61,16 +60,17 @@ const CanlendarBox = styled.div`
 `;
 
 export const MainCanlendarBody = styled.div`
-  border: 4px solid black;
-  border-radius: 10%;
-  width: 80%;
+  border: 0.2rem solid #000000;
+  background: #ffffff;
+  border-radius: 1rem;
+  width: 90%;
   height: 100%;
-  margin-top: 5%;
+  margin-top: 10%;
 `;
 
 export const MainScheduleBody = styled.div`
   // border: 2px solid green;
-  width: 20%;
+  width: 50%;
   height: 90%;
   text-align: center;
   display: flex;

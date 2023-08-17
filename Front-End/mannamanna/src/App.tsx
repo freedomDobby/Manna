@@ -50,13 +50,9 @@ function App() {
   const [refreshToken, setRefreshToken] = useRecoilState(refreshTokenAtom);
   const [gender, setGender] = useRecoilState(genderAtom);
   const [Isconnect, setIsconnect] = useState(false);
-  // const Chattingx=CreateChattingClient();
   const [chatList, setChatList] = useRecoilState(chatListState);
   const [RoomId, setRoomId] = useRecoilState(ChattingRoomState);
 
-  // const Chat = CreateChattingClient();
-      
-  // Chat.client.activate();
 
   return (
     <>

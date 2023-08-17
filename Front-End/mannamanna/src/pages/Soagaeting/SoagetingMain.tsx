@@ -21,7 +21,7 @@ import {
 } from "./SoagaetinStyle";
 import { StyledButton } from "../User/Login/LoginStyle";
 import { useRecoilState } from "recoil";
-import { SendNoteModalAtom, SogaeNoteModalAtom, SogaetingFilterAtom, genderAtom, idAtom, sendNoteReceiverAtom } from "../../Recoil/State";
+import { SendNoteModalAtom, SogaeNoteModalAtom, SogaetingFilterAtom, genderAtom, idAtom, memberNameAtom, sendNoteReceiverAtom } from "../../Recoil/State";
 import {
   FalseNoteModal,
   TrueNoteModal,
@@ -31,6 +31,10 @@ import { SogaetingFilterReq } from '../../apis/Request/Request';
 import { useMutation } from '@tanstack/react-query';
 import api from '../../apis/Api';
 import { SogaetingMember } from '../../apis/Response/Response';
+import SelectionObj1 from "../../components/common/Sogeting/Selection/Selection1";
+import SelectionObj2 from "../../components/common/Sogeting/Selection/Selection2";
+import SelectionObj3 from "../../components/common/Sogeting/Selection/Selection3";
+import SelectionObj4 from "../../components/common/Sogeting/Selection/Selection4";
 // import Button from '@mui/material/Button';
 
 const SoagetingFilter = () => {
@@ -43,13 +47,18 @@ const SoagetingFilter = () => {
   const [userId, setId] = useRecoilState(idAtom);
   const [usergender, setGender] = useRecoilState(genderAtom);
   const [notereceiver, setReceiver] = useRecoilState(sendNoteReceiverAtom);
-  const handleOpenSogaeModal = async (memberId:string) => {
+  const [memberName, setMemberName] = useRecoilState(memberNameAtom);
+  
+  
+  const handleOpenSogaeModal = async (memberId:string,memberName:string) => {
     await setReceiver(memberId);
+    await setMemberName(memberName);
     setSogaeOpen(true);
   };
 
-  const handleNoteModal = async(memberId:string) => {
+  const handleNoteModal = async(memberId:string,memberName:string) => {
     await setReceiver(memberId);
+    await setMemberName(memberName);
     setNoteOpen(true);
   };
 
@@ -127,84 +136,95 @@ const SoagetingFilter = () => {
   }, []);
 
   return (
-    <div>
-      <Back>
-        <SelectSpace>
-          <TrueNoteModal />
-          <FalseNoteModal />
-          <Font1>
-            <p>
-              소개팅
-              <br />
-              추천
-            </p>
-            <Btn1 ChangeFilter={()=>fetechchangerecommand()}
-            title="새로운 인원 추천"/>
-            <Btn1 ChangeFilter={()=>refreshfetch()}
-          title="필터 적용"/>
-          </Font1>
-          <FilterContainer>
-            <FilterBody></FilterBody>
-          </FilterContainer>
-        </SelectSpace>
-
-        <SelectPeople>
+    <div style={{ height: '89vh', flexDirection: 'row', display: 'flex',}}>
+      <div style={{ width: '20%' ,height: '100%', flexDirection: 'column', display: 'flex',}}>
+        <div style={{ width: '100%' , height: '30%', flexDirection: 'column', display: 'flex', }}>
+          <div style={{ width: '100%' , height: '40%', color: 'white', fontSize: '2.5rem', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            소개팅 추천
+          </div>
+          <div style={{ width: '100%' , height: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <button onClick={fetechchangerecommand} style={{ border:'0.1rem solid black', borderRadius: '1rem', background: '#f8e3ea', fontFamily: 'inherit', width: '60%' , height: '80%', fontSize: 'large'}}>새로운 사람 추천</button>
+          </div>
+        </div>
+        <div style={{ width: '100%' , height: '70%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <div style={{border:'solid 0.2rem black', borderRadius:'1rem', background:'#ffffff', width: '60%', height: '95%', flexDirection: 'column', display: 'flex', justifyContent: 'space-around', alignItems: 'center', marginLeft: '2.5%'}}>
+              <div style={{borderBottom:'solid 0.2rem black',borderTopRightRadius:'0.8rem', borderTopLeftRadius:'0.8rem', background:'#f8e3ea', width: '100%', height: '5%', flexDirection: 'column', display: 'flex', justifyContent: 'center', alignItems: 'center'}}/>
+              <div style={{width: '100%', height: '90%', flexDirection: 'column', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                <SelectionObj1 />
+                <SelectionObj2 />
+                <SelectionObj3 />
+                <SelectionObj4 />
+                <button onClick={refreshfetch} style={{ border:'0.1rem solid black', borderRadius: '1rem', background: '#f8e3ea', fontFamily: 'inherit', width: '60%' , height: '3rem'}}>필터 적용</button>
+              </div>
+              <div style={{borderTop:'solid 0.2rem black', borderBottomRightRadius:'0.8rem', borderBottomLeftRadius:'0.8rem', background:'#f8e3ea', width: '100%', height: '5%', flexDirection: 'column', display: 'flex', justifyContent: 'center', alignItems: 'center'}}/>
+          </div>
+        </div>
+      </div>
+      <div style={{ width: '20%' ,height: '100%', flexDirection: 'column', display: 'flex',}}>
         {recommandData && recommandData.length > 0 && (
-            <div>
-          {recommandData.map((member: SogaetingMember, index: number) => (
-          <FilterComponent
-            name={member.id}
-            age={member.birth}
-            height={member.height}
-            location={member.sido}
-            selfPR={member.introduction}
-            smoke={member.isSmoke ? "흡연" : "비흡연"}
-            alchol={member.isDrink ? "술좋아" : "술싫어"}
-            mbti={member.mbti}
-            profilePicture={`https://i9b205.p.ssafy.io/img/${member.pictureURLs[0]}`}
-            isOnline={member.isOnline}
-            onApplicationClick={()=>handleOpenSogaeModal(member.id)}
-            onMessageClick={()=>handleNoteModal(member.id)}
-            onReportClick={()=>handleNoteModal(member.id)}
-          />                  ))}
+          <div style={{width: '100%' , height: '100%'}}>
+            {recommandData.map((member: SogaetingMember, index: number) => (
+              <div style={{width: '100%' , height: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <FilterComponent
+                  name={member.id}
+                  age={member.birth}
+                  height={member.height}
+                  location={member.sido}
+                  selfPR={member.introduction}
+                  smoke={member.isSmoke ? "흡연" : "비흡연"}
+                  alchol={member.isDrink ? "술좋아" : "술싫어"}
+                  mbti={member.mbti}
+                  profilePicture={`https://i9b205.p.ssafy.io/img/${member.pictureURLs[0]}`}
+                  isOnline={member.isOnline}
+                  onApplicationClick={()=>handleOpenSogaeModal(member.id)}
+                  onMessageClick={()=>handleNoteModal(member.id)}
+                  onReportClick={()=>handleNoteModal(member.id)}
+                />                  
+              </div>
+            ))}
           </div>
         )}
-        </SelectPeople>
-
-        <MidSpace>
-          <Font1>
-            <p>
-              내 근처
-              <br />
-              추천
-            </p>
-          </Font1>
-          <Btn1 ChangeFilter={()=>fetechchangelocate()}
-          title="다른 인원 추천"/>
-        </MidSpace>
-        <BtnContainer>
-        </BtnContainer>
+      </div>
+      <div style={{ width: '20%' ,height: '100%', flexDirection: 'column', display: 'flex',}}>
+        <div style={{ width: '100%' , height: '30%', flexDirection: 'column', display: 'flex', }}>
+          <div style={{ width: '100%' , height: '40%', color: 'white', fontSize: '2.5rem', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            내 근처 추천
+          </div>
+          <div style={{ width: '100%' , height: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <button onClick={fetechchangelocate} style={{ border:'0.1rem solid black', borderRadius: '1rem', background: '#f8e3ea', fontFamily: 'inherit', width: '60%' , height: '80%', fontSize: 'large'}}>다른 상대 추천</button>
+          </div>
+        </div>
+        <div style={{ width: '100%' , height: '70%' }}/>
+      </div>
+      <div style={{width: '40%' ,height: '100%'}}>
         {locateData && locateData.length > 0 && (
-            <NearPeople>
-          {locateData.map((member: SogaetingMember, index: number) => (
-          <FilterComponent
-            name={member.id}
-            age={member.birth}
-            height={member.height}
-            location={member.sido}
-            selfPR={member.introduction}
-            smoke={member.isSmoke ? "흡연" : "비흡연"}
-            alchol={member.isDrink ? "술좋아" : "술싫어"}
-            mbti={member.mbti}
-            profilePicture={`https://i9b205.p.ssafy.io/img/${member.pictureURLs[0]}`}
-            isOnline={member.isOnline}
-            onApplicationClick={()=>handleOpenSogaeModal(member.id)}
-            onMessageClick={()=>handleNoteModal(member.id)}
-            onReportClick={()=>handleNoteModal(member.id)}
-          />                  ))}
-          </NearPeople>
+          <div style={{width: '100%' , height: '100%', display: 'flex', flexWrap : 'wrap'}}>
+            {locateData.map((member: SogaetingMember, index: number) => (
+              <div style={{ width: '50%' , height: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <FilterComponent
+                  name={member.id}
+                  age={member.birth}
+                  height={member.height}
+                  location={member.sido}
+                  selfPR={member.introduction}
+                  smoke={member.isSmoke ? "흡연" : "비흡연"}
+                  alchol={member.isDrink ? "술좋아" : "술싫어"}
+                  mbti={member.mbti}
+                  profilePicture={`https://i9b205.p.ssafy.io/img/${member.pictureURLs[0]}`}
+                  isOnline={member.isOnline}
+                  onApplicationClick={()=>handleOpenSogaeModal(member.id)}
+                  onMessageClick={()=>handleNoteModal(member.id)}
+                  onReportClick={()=>handleNoteModal(member.id)}
+                />
+              </div>                  
+            ))}
+          </div>
         )}
-      </Back>
+      </div>
+      <div>
+        <TrueNoteModal/>
+        <FalseNoteModal/>
+      </div>
     </div>
   );
 };

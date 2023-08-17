@@ -53,7 +53,7 @@ const FilterComponent: React.FC<FilterProps> = ({
           <DetailBox1>
             <DetailInfo>{name}</DetailInfo>
             <DetailInfo>{age}살 </DetailInfo>
-            <DetailInfo>{height} cm</DetailInfo>
+            <DetailInfo>{height}cm</DetailInfo>
             <DetailInfo>{location}</DetailInfo>
           </DetailBox1>
           <DetailBox2>{selfPR}</DetailBox2>
@@ -87,11 +87,11 @@ const FilterComponent: React.FC<FilterProps> = ({
         ) : (
           <UnderBar>
             <OfflineBox />
-            <BtnContainer>
-         <ChooseBtn onClick={onApplicationClick}>신청</ChooseBtn>
+          <BtnContainer>
+          <ChooseBtn onClick={onApplicationClick}>신청</ChooseBtn>
           <ChooseBtn onClick={onReportClick}>신고</ChooseBtn>
           <ChooseBtn onClick={onMessageClick}>쪽지</ChooseBtn>
-    </BtnContainer>
+          </BtnContainer>
           </UnderBar>
         )}
       </Profile>

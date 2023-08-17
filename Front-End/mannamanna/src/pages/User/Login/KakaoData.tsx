@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ForgotPasswordLink } from "./LoginStyle";
+import { ForgotPasswordLink, StyledButton } from "./LoginStyle";
 import { useRecoilState } from "recoil";
 // import api from "../../../apis/Api";
 import kakao from "../../../asset/image/kakao.png";
@@ -15,6 +15,7 @@ import {
 import { RegisterMessageAtom, RegisterModalAtom } from "../../../Recoil/State";
 import { Answer, AnswerBox, SmallInputBox } from "../Register/RegisterStyle";
 import { EnterImage } from "../Register/Image/EnterImageModal";
+import { Button } from "@mui/material";
 
 declare global {
   interface Window {
@@ -24,7 +25,7 @@ declare global {
   }
 }
 
-const Kakao: React.FC = () => {
+const KaKaoData: React.FC = () => {
   const [userInfo] = useRecoilState(RegisterDataState);
   const [open, setOpen] = useRecoilState(RegisterModalAtom);
   const [message, setMessage] = useRecoilState(RegisterMessageAtom);
@@ -80,17 +81,34 @@ const Kakao: React.FC = () => {
   };
 
   return (
-    
     <AnswerBox>
-      <Answer>카카오 로그인</Answer>
-      <img
+      <Answer>카카오 연동</Answer>
+      <Button
+        sx={{
+          margin: "1px",
+          width: "10vw",
+          height: " 7vh",
+          color: "#ffcced",
+          border: "solid 0.4vh",
+          borderColor: "#ffcced",
+          backgroundColor: "#ffffff",
+          borderRadius: "1.5vh",
+          fontSize: " 2.5vh",
+          // transition: " border-color 0.3s color 0.3s",
+          "&:hover": {
+            borderColor: "#d9cff4",
+            color: "#d9cff4",
+            border: "solid 0.3vh",
+            backgroundColor: "white",
+          },
+        }}
+        variant="contained"
         onClick={handleLoginKakao}
-        src={kakao}
-        alt="카카오 이미지"
-        style={{ cursor: "pointer" }}
-      />
+      >
+        연동
+      </Button>
     </AnswerBox>
   );
 };
 
-export default Kakao;
+export default KaKaoData;

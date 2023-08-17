@@ -275,3 +275,20 @@ export const opponentIdAtom=atom<string>({
   default:"",
 })
 
+export const myImgageAtom=atom<any>({
+  key:"myImgageAtom",
+  default:"",
+})
+
+export const opponentImageAtom=atom<any>({
+  key:"opponentImage",
+  default:"",
+})
+
+
+export const memberNameAtom=atom<any>({
+  key:"memberNameAtom",
+  default:"",
+})
+
+
