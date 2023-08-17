@@ -14,6 +14,7 @@ import {
   findIdModalAtom,
   findPwModalAtom,
   idAtom,
+  memberNameAtom,
   nameAtom,
   sendNoteAtom,
   sendNoteIdAtom,
@@ -406,6 +407,8 @@ export const FalseNoteModal = () => {
   const [open, setOpen] = useRecoilState(SendNoteModalAtom);
   const [sendnote, Setsendnote] = useRecoilState(sendNoteAtom);
   const [UserId] = useRecoilState(idAtom);
+  const [UserName] =useRecoilState(nameAtom);
+  const [memberName, setMemberName] = useRecoilState(memberNameAtom);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [notereceiver, setReceiver] = useRecoilState(sendNoteReceiverAtom);
@@ -465,11 +468,11 @@ export const FalseNoteModal = () => {
             alignItems="center"
           >
             <StyledFormContainer>
-              {UserId !== null ? (
-                <NoteQuestion question="보내는 이" Id={UserId} />
+              {UserName !== null ? (
+                <NoteQuestion question="보내는 이" Id={UserName} />
               ) : null}
-              {notereceiver !== null ? (
-                <NoteQuestion question="받는 이" Id={notereceiver} />
+              {memberName !== null ? (
+                <NoteQuestion question="받는 이" Id={memberName} />
               ) : null}
               <Question
                 question="제목"
@@ -513,6 +516,8 @@ export const TrueNoteModal = () => {
   const [open, setOpen] = useRecoilState(SogaeNoteModalAtom);
   const [sendnote, Setsendnote] = useRecoilState(sogaetingNoteAtom);
   const [UserId] = useRecoilState(idAtom);
+  const [UserName] =useRecoilState(nameAtom);
+  const [memberName, setMemberName] = useRecoilState(memberNameAtom);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [notereceiver, setReceiver] = useRecoilState(sendNoteReceiverAtom);
@@ -570,11 +575,11 @@ export const TrueNoteModal = () => {
             alignItems="center"
           >
             <StyledFormContainer>
-              {UserId !== null ? (
-                <NoteQuestion question="보내는 이" Id={UserId} />
+            {UserName !== null ? (
+                <NoteQuestion question="보내는 이" Id={UserName} />
               ) : null}
-                {notereceiver !== null ? (
-                <NoteQuestion question="받는 이" Id={notereceiver} />
+              {memberName !== null ? (
+                <NoteQuestion question="받는 이" Id={memberName} />
               ) : null}
               <Question
                 question="원하는 날짜"

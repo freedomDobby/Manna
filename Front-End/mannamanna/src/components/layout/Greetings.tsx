@@ -57,6 +57,7 @@ function Greetings() {
     await setId(null);
     await setName(null);
     navigate("/");
+    window.location.reload();
   };
 
   // 노트 알람

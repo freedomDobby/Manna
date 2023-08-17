@@ -86,17 +86,16 @@ export const CircularImageComponent = ({ src, alt }:any) => (
   }
 
   export const ChattingComponent = () => {
-    const [Userid, setId] = useRecoilState(idAtom);
+    const [userId, setId] = useRecoilState(idAtom);
     const [gender, setGender] = useRecoilState(genderAtom);
     const [RoomId, setRoomId] = useRecoilState(ChattingRoomState);
     const [chatList, setChatList] = useState<ChatOutputRes[]>([]);
-    const [name, setName] = useRecoilState(nameAtom);
+    const [userName, setName] = useRecoilState(nameAtom);
     const [inputValue, setInputValue] = useState("");
     const [showMessage, setShowMessage] = useState(false);
-
     const [myImage, setmyImage] = useRecoilState(myImgageAtom);
     const [opponetImage, setopponetImage] = useRecoilState(opponentImageAtom);
-
+    const [userAccessToken, setUseraccessToken] = useRecoilState(accessTokenAtom);
     const handleMouseEnter = () => {
       setShowMessage(true);
     };
@@ -107,12 +106,23 @@ export const CircularImageComponent = ({ src, alt }:any) => (
     const client = useRef<CompatClient>();
 
     // 웹소켓 연결
-    const connect=()=>{
-      client.current=Stomp.over(()=>{
-        const ws = new SockJS("https://i9b205.p.ssafy.io/ws");
-        return ws;
-      })
-    }
+    function connect(){
+      const headers:any={
+        userId:userId,
+        gender: gender,
+        userName: userName,
+        token:userAccessToken
+      }
+      var socket= new SockJS("https://i9b205.p.ssafy.io/ws");
+      client.current=Stomp.over(socket);
+      client.current.connect(headers,function(frame:any){
+
+      });
+    };
+
+    useEffect(() => {
+      connect();
+  }, []);
     client.current?.connect({}, () => {
       // 웹소켓 이벤트 핸들러 설정
       client.current!.subscribe(`/sub/chat/room${RoomId}`, res => {
@@ -126,9 +136,6 @@ export const CircularImageComponent = ({ src, alt }:any) => (
         setChatList((chat_list) => [...chat_list, addChat]);
       });
     });
-  useEffect(() => {
-      connect();
-  }, []);
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
@@ -145,8 +152,8 @@ export const CircularImageComponent = ({ src, alt }:any) => (
       const newChat: ChatMessage = {
         MessageType: "TALK",
         roomId: RoomId,
-        senderId: Userid,
-        senderName: name,
+        senderId: userId,
+        senderName: userName,
         message: message,
       };
       client.current?.send(
@@ -209,7 +216,7 @@ export const CircularImageComponent = ({ src, alt }:any) => (
               <ChatOutBox>
                 <ChatInBox>
                 {chatList?.map((item, index) => {
-            if (item.senderId === Userid) {
+            if (item.senderId === userId) {
               return <SendChat key={index} message={item.message} />;
             } else {
               return <GetChat key={index} message={item.message} />;

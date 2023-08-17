@@ -21,7 +21,7 @@ import {
 } from "./SoagaetinStyle";
 import { StyledButton } from "../User/Login/LoginStyle";
 import { useRecoilState } from "recoil";
-import { SendNoteModalAtom, SogaeNoteModalAtom, SogaetingFilterAtom, genderAtom, idAtom, sendNoteReceiverAtom } from "../../Recoil/State";
+import { SendNoteModalAtom, SogaeNoteModalAtom, SogaetingFilterAtom, genderAtom, idAtom, memberNameAtom, sendNoteReceiverAtom } from "../../Recoil/State";
 import {
   FalseNoteModal,
   TrueNoteModal,
@@ -47,14 +47,18 @@ const SoagetingFilter = () => {
   const [userId, setId] = useRecoilState(idAtom);
   const [usergender, setGender] = useRecoilState(genderAtom);
   const [notereceiver, setReceiver] = useRecoilState(sendNoteReceiverAtom);
+  const [memberName, setMemberName] = useRecoilState(memberNameAtom);
   
-  const handleOpenSogaeModal = async (memberId:string) => {
+  
+  const handleOpenSogaeModal = async (memberId:string,memberName:string) => {
     await setReceiver(memberId);
+    await setMemberName(memberName);
     setSogaeOpen(true);
   };
 
-  const handleNoteModal = async(memberId:string) => {
+  const handleNoteModal = async(memberId:string,memberName:string) => {
     await setReceiver(memberId);
+    await setMemberName(memberName);
     setNoteOpen(true);
   };
 

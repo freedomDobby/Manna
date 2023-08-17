@@ -285,3 +285,10 @@ export const opponentImageAtom=atom<any>({
   default:"",
 })
 
+
+export const memberNameAtom=atom<any>({
+  key:"memberNameAtom",
+  default:"",
+})
+
+

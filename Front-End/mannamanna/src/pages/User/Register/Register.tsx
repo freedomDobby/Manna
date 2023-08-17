@@ -29,6 +29,7 @@ import { EnterImage } from "./Image/EnterImageModal";
 import { EnterLocation } from "./Address/EnterAddressModal";
 // import KakaoAPI from "./Address/AddressApi";
 import Kakao from "./../Login/KaKaoLogin";
+import KaKaoData from "../Login/KakaoData";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -50,7 +51,7 @@ const Register = () => {
           <SideInnerBox />
           <SideInnerBox />
         </SideBox>
-        <MainBox>
+        <MainBox>  
           <MainLogoBox>
             <SignUP src={signup} />
           </MainLogoBox>
@@ -75,6 +76,9 @@ const Register = () => {
                 >
                   <SmallInputBox>
                     <Kakao />
+                  </SmallInputBox>
+                  <SmallInputBox>
+                    <KaKaoData />
                   </SmallInputBox>
                   <SmallInputBox>
                     <AnswerBox>

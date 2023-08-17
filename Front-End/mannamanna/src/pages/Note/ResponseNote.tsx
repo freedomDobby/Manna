@@ -101,7 +101,7 @@ const ResponseNote = () => {
   
   return (
     <SendContainer>
-      {receivedNoteList.reverse().map((note, index) => (
+      {receivedNoteList.map((note, index) => (
         <ResponsetNoteBody
           key={index}
           comment="받은쪽지"
