@@ -1,15 +1,15 @@
 package com.ssafy.manna.global.common.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn
 @Getter
+@Builder
+@AllArgsConstructor
 public class Address extends BaseTimeEntity {
 
     @Id
@@ -20,7 +20,6 @@ public class Address extends BaseTimeEntity {
     private String detail;
     private Double latitude;
     private Double longitude;
-//    private String dtype;
 
     public Address(String sido, String gugun, String detail, Double latitude, Double longitude) {
         this.sido = sido;

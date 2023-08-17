@@ -1,5 +1,10 @@
 package com.ssafy.manna.messenger.service;
 
+import com.ssafy.manna.member.domain.Member;
+import com.ssafy.manna.member.repository.MemberRepository;
+import com.ssafy.manna.messenger.dto.request.MakeChattingRoomRequest;
+import java.util.Optional;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -17,4 +22,13 @@ class ChatRoomServiceTest {
 //        System.out.println(chatRoomById);
 //    }
 
+//    @Test
+//    public void 채팅방중복_테스트(){
+//        try {
+//            chatRoomServiceImpl.createChatRoom(
+//                new MakeChattingRoomRequest("test12", "hongykssafy"));
+//        } catch (RuntimeException e) {
+//            System.out.println(e.getMessage());
+//        }
+//    }
 }

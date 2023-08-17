@@ -1,5 +1,6 @@
 package com.ssafy.manna.member.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,7 +23,9 @@ public class MemberSignUpRequest {
     private String emailDomain;
     private int height;
     private String job;
+    @JsonProperty("isSmoker")
     private boolean isSmoker;
+    @JsonProperty("isDrinker")
     private boolean isDrinker;
     private String mbti;
     private String religion;
@@ -36,17 +39,5 @@ public class MemberSignUpRequest {
     private String detail;
     private Double latitude;
     private Double longitude;
-
-    //회원 프로필 사진 3개
-//    private MultipartFile profilePicture1;
-//    private Integer priority1;
-//
-//    private MultipartFile profilePicture2;
-//    private Integer priority2;
-//
-//    private MultipartFile profilePicture3;
-//    private Integer priority3;
-//
-
 
 }

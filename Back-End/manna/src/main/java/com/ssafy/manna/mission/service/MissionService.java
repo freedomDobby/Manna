@@ -1,10 +1,11 @@
 package com.ssafy.manna.mission.service;
 
+import com.ssafy.manna.mission.domain.Mission;
 import com.ssafy.manna.mission.dto.request.MissionAssignRequest;
+import com.ssafy.manna.mission.dto.request.MissionDeleteRequest;
 import com.ssafy.manna.mission.dto.request.MissionDoRequest;
-import com.ssafy.manna.mission.dto.request.MissionGiveUpRequest;
-import com.ssafy.manna.mission.dto.response.MissionCallResponse;
-import com.ssafy.manna.mission.dto.response.MissionFinishResponse;
+import com.ssafy.manna.mission.dto.request.MissionStartRequest;
+import com.ssafy.manna.mission.dto.response.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -19,7 +20,7 @@ public interface MissionService {
     List<MissionCallResponse> getMissionListByUserId(String userid);
 
     // 미션 포기하기
-    void giveUpMission(MissionGiveUpRequest missionGiveUpRequest);
+    void giveUpMission(MissionAssignRequest missionAssignRequest);
 
     // 미션 사진 올리기
     void doMission(MissionDoRequest missionDoRequest, MultipartFile missionPicture) throws IOException;
@@ -27,5 +28,14 @@ public interface MissionService {
     // 사진 등록
     String storeFile(String memberId, MultipartFile file) throws IOException;
 
-    MissionFinishResponse finishMission(String id);
+    MissionFinishResponse finishMission(Integer missionId);
+
+    Mission startMission(MissionStartRequest missionStartRequest);
+
+    MissionParticipantResponse getParticipant(String userId);
+
+    MissionDetailResponse getImagePerCard(Integer missionId, Integer cardId, String userId);
+
+
+    void deleteMission(MissionDeleteRequest missionDeleteRequest);
 }

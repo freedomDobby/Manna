@@ -2,6 +2,7 @@ package com.ssafy.manna.messenger.service;
 
 import com.ssafy.manna.member.domain.Member;
 import com.ssafy.manna.member.repository.MemberRepository;
+import com.ssafy.manna.messenger.Enums.ChatRoomExceptionEnums;
 import com.ssafy.manna.messenger.domain.ChatRoom;
 import com.ssafy.manna.messenger.domain.RedisChat;
 import com.ssafy.manna.messenger.domain.RedisChatRoom;
@@ -12,6 +13,7 @@ import com.ssafy.manna.messenger.repository.ChatRepository;
 import com.ssafy.manna.messenger.repository.ChatRoomRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -21,9 +23,11 @@ import java.util.List;
 
 import static com.ssafy.manna.member.Enums.GenderEnum.GENDER_MALE;
 import static com.ssafy.manna.member.Enums.MemberExceptionsEnum.*;
+import static com.ssafy.manna.messenger.Enums.ChatRoomExceptionEnums.*;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class ChatRoomServiceImpl implements ChatRoomService {
 
     // Redis
@@ -61,45 +65,50 @@ public class ChatRoomServiceImpl implements ChatRoomService {
     @Override
     public List<ChatRoomResponse> findChatRoomById(String userId) {
         Member findMember = memberRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException(MEMBER_EXCEPTIONS_NONE_MEMBER.getValue()));
+            .orElseThrow(() -> new RuntimeException(MEMBER_EXCEPTIONS_NONE_MEMBER.getValue()));
 
         return getChatRooms(findMember).stream()
-                .map(this::chatRoomDtoMapping).toList();
+            .map(this::chatRoomDtoMapping).toList();
     }
 
     @Override
     public List<ChatHistoryResponse> findChatHistoryByRoomId(String roomId) {
         RedisChat redisChat = chatRepository.findById(roomId)
-                .orElseThrow(() -> new RuntimeException("요청과 일치하는 방이 존재하지 않습니다."));
+            .orElseThrow(() -> new RuntimeException("요청과 일치하는 방이 존재하지 않습니다."));
 
         return redisChat.getRedisChatHistories().stream()
-                .map(redisChatHistory -> modelMapper.map(redisChatHistory, ChatHistoryResponse.class))
-                .toList();
+            .map(redisChatHistory -> modelMapper.map(redisChatHistory, ChatHistoryResponse.class))
+            .toList();
     }
 
     private ChatRoom saveChatRoom(MakeChattingRoomRequest makeChattingRoomRequest) {
         Member female = memberRepository.findById(makeChattingRoomRequest.getFemaleId())
-                .orElseThrow(() -> new RuntimeException(MEMBER_EXCEPTIONS_NONE_FEMALE.getValue()));
+            .orElseThrow(() -> new RuntimeException(MEMBER_EXCEPTIONS_NONE_FEMALE.getValue()));
 
         Member male = memberRepository.findById(makeChattingRoomRequest.getMaleId())
-                .orElseThrow(() -> new RuntimeException(MEMBER_EXCEPTIONS_NONE_MALE.getValue()));
+            .orElseThrow(() -> new RuntimeException(MEMBER_EXCEPTIONS_NONE_MALE.getValue()));
+
+        if (chatRoomRepository.findByMaleAndFemale(male, female).isPresent()) {
+            log.error("중복방 에러");
+            throw new RuntimeException(CHAT_ROOM_DUPLICATE_EXCEPTION.getValue());
+        }
 
         return chatRoomRepository.save(ChatRoom.of(male, female));
     }
 
     private ChatRoomResponse chatRoomDtoMapping(ChatRoom chatRoom) {
         return ChatRoomResponse.builder()
-                .maleId(chatRoom.getMale().getId())
-                .femaleId(chatRoom.getFemale().getId())
-                .headMessage(chatRoom.getHeadMessage())
-                .name(chatRoom.getName())
-                .id(chatRoom.getId())
-                .build();
+            .maleId(chatRoom.getMale().getId())
+            .femaleId(chatRoom.getFemale().getId())
+            .headMessage(chatRoom.getHeadMessage())
+            .name(chatRoom.getName())
+            .id(chatRoom.getId())
+            .build();
     }
 
     private List<ChatRoom> getChatRooms(Member findMember) {
         return findMember.getGender().equals(GENDER_MALE.getValue()) ?
-                chatRoomRepository.findByMale(findMember)
-                : chatRoomRepository.findByFemale(findMember);
+            chatRoomRepository.findByMale(findMember)
+            : chatRoomRepository.findByFemale(findMember);
     }
 }

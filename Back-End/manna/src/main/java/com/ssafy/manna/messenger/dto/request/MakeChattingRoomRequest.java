@@ -1,5 +1,6 @@
 package com.ssafy.manna.messenger.dto.request;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data

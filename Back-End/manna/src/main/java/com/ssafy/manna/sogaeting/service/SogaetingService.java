@@ -1,6 +1,8 @@
 package com.ssafy.manna.sogaeting.service;
 
 import com.ssafy.manna.sogaeting.dto.request.*;
+import com.ssafy.manna.sogaeting.dto.response.SogaetingChatRecommendResponse;
+import com.ssafy.manna.sogaeting.dto.response.SogaetingInfoResponse;
 import com.ssafy.manna.sogaeting.dto.response.SogaetingMemberResponsePage;
 
 public interface SogaetingService {
@@ -29,4 +31,8 @@ public interface SogaetingService {
     void start(SogaetingStartRequest sogaetingStartRequest);
 
     void success(SogaetingSuccessRequest sogaetingSuccessRequest);
+
+    SogaetingChatRecommendResponse getRandomTCodeDetailName();
+
+    SogaetingInfoResponse getSogaetingById(int id) throws Exception;
 }

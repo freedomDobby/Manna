@@ -1,6 +1,8 @@
 package com.ssafy.manna.sogaeting.service;
 
+import com.ssafy.manna.global.common.domain.CodeDetail;
 import com.ssafy.manna.global.common.domain.Session;
+import com.ssafy.manna.global.common.repository.CodeDetailRepository;
 import com.ssafy.manna.global.common.service.SessionService;
 import com.ssafy.manna.member.Enums.BanCode;
 import com.ssafy.manna.member.domain.Ban;
@@ -9,6 +11,8 @@ import com.ssafy.manna.member.repository.MemberRepository;
 import com.ssafy.manna.sogaeting.domain.Sogaeting;
 import com.ssafy.manna.sogaeting.dto.request.*;
 import com.ssafy.manna.sogaeting.dto.response.ImageMappedSogaetingMemberResponse;
+import com.ssafy.manna.sogaeting.dto.response.SogaetingChatRecommendResponse;
+import com.ssafy.manna.sogaeting.dto.response.SogaetingInfoResponse;
 import com.ssafy.manna.sogaeting.dto.response.SogaetingMemberResponse;
 import com.ssafy.manna.sogaeting.dto.response.SogaetingMemberResponsePage;
 import com.ssafy.manna.sogaeting.repository.CustomSogaetingRepository;
@@ -39,6 +43,7 @@ public class SogaetingServiceImpl implements SogaetingService {
     private final SessionService sessionService;
     private final ModelMapper modelMapper;
     private final SogaetingRepository sogaetingRepository;
+    private final CodeDetailRepository codeDetailRepository;
 
     private static String subStringLast(SogaetingMemberResponse sogaetingMemberResponse) {
         return StringUtils.substringAfterLast(sogaetingMemberResponse.getPictureURL(), "/");
@@ -56,6 +61,7 @@ public class SogaetingServiceImpl implements SogaetingService {
                 .context(sogaetingReportRequest.getContext())
                 .code(BanCode.valueOf(sogaetingReportRequest.getCode()))
                 .build();
+
     }
 
     @Override
@@ -130,10 +136,16 @@ public class SogaetingServiceImpl implements SogaetingService {
     // 소개팅 시작하기
     @Override
     public void start(SogaetingStartRequest sogaetingStartRequest) {
-        Member findMaleMember = memberRepository.findById(sogaetingStartRequest.getMaleId()).orElseThrow(() -> new RuntimeException("일치하는 회원이 없습니다."));
         Member findFemaleMember = memberRepository.findById(sogaetingStartRequest.getFemaleId()).orElseThrow(() -> new RuntimeException("일치하는 회원이 없습니다."));
+        Member findMaleMember = memberRepository.findById(sogaetingStartRequest.getMaleId()).orElseThrow(() -> new RuntimeException("일치하는 회원이 없습니다."));
+
+        System.out.println(isIdAlreadyUsed(sogaetingStartRequest.getSogaetingId()));
+        if (isIdAlreadyUsed(sogaetingStartRequest.getSogaetingId())) {
+            throw new RuntimeException("이미 사용된 ID입니다.");
+        }
 
         Sogaeting sogaeting = Sogaeting.builder()
+                .id(sogaetingStartRequest.getSogaetingId())
                 .female(findFemaleMember)
                 .male(findMaleMember)
                 .isSuccess(false)
@@ -141,6 +153,11 @@ public class SogaetingServiceImpl implements SogaetingService {
 
         sogaetingRepository.save(sogaeting);
     }
+
+    public boolean isIdAlreadyUsed(int id) {
+        return sogaetingRepository.existsById(id);
+    }
+
 
     // 소개팅 성공 저장
     @Override
@@ -150,6 +167,37 @@ public class SogaetingServiceImpl implements SogaetingService {
         sogaeting.updateIsSuccess(true);
         sogaetingRepository.save(sogaeting);
 
+    }
+
+    @Override
+    public SogaetingChatRecommendResponse getRandomTCodeDetailName() {
+        CodeDetail codeDetail = codeDetailRepository.findRandomById("T");
+        String name = codeDetail.getName();
+        SogaetingChatRecommendResponse sogaetingChatRecommendResponse = new SogaetingChatRecommendResponse(name);
+        return sogaetingChatRecommendResponse;
+    }
+
+    @Override
+    public SogaetingInfoResponse getSogaetingById(int id) throws Exception {
+        Sogaeting sogaeting = sogaetingRepository.findById(id).get();
+
+
+        // 여기서 Member 정보 가져오기
+        ///Member femaleMember = memberRepository.findById(sogaeting.getFemale()).orElse("일치하는 회원이 없습니다.");
+        //Member maleMember = memberRepository.findById(sogaeting.getMale()).orElse("일치하는 회원이 없습니다.");
+
+        Member findFemaleMember = sogaeting.getFemale();
+        Member findMaleMember = sogaeting.getMale();
+
+
+        boolean isSuccess = sogaeting.getIsSuccess();
+
+        // Member 정보가 null이 아닌 경우에만 이름 가져오기
+        String femaleId = (findFemaleMember != null) ? findFemaleMember.getId() : null;
+        String maleId = (findMaleMember != null) ? findMaleMember.getId() : null;
+
+        SogaetingInfoResponse sogaetingInfoResponse = new SogaetingInfoResponse(id, femaleId, maleId, isSuccess);
+        return sogaetingInfoResponse;
     }
 
     private PageRequest get2PageRequest(SogaetingFilteringRequest sogaetingFilteringRequest) {

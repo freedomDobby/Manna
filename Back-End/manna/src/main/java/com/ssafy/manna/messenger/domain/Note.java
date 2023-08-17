@@ -35,8 +35,11 @@ public class Note {
 
     private Boolean isReject;
 
+    //받은쪽지 삭제한 경우
     private Boolean isDeleted;
 
+    //보낸쪽지 삭제하기
+    private Boolean isSentDeleted;
     public void updateIsCheck(boolean isCheck) {
         this.isCheck = isCheck;
     }
@@ -48,6 +51,6 @@ public class Note {
     public void updateDeleted(boolean isDeleted) {
         this.isDeleted = isDeleted;
     }
-
-
+    
+    public void updateSentDeleted(boolean isSentDeleted){this.isSentDeleted = isSentDeleted;}
 }

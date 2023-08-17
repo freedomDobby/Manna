@@ -13,8 +13,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
 
-        registry.addResourceHandler("/img/**")       //url패턴 설정
-                .addResourceLocations("file:////manna/upload/images/member/");    //실제 파일 저장 경로
+        registry.addResourceHandler("/img/**","/mission/**")       //url패턴 설정
+                .addResourceLocations("file:////manna/upload/images/member/","file:////manna/upload/images/mission/");    //실제 파일 저장 경로
     }
 
     @Bean

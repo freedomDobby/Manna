@@ -12,7 +12,7 @@ import java.util.List;
 public interface OnlineScheduleService {
 
     //스케줄 등록
-    void insertSchedule(OnlineScheduleRequest scheduleRequest) throws Exception;
+    void insertSchedule(OnlineScheduleRequest scheduleRequest);
 
     //스케줄 삭제
     void deleteSchedule(Integer id) throws Exception;

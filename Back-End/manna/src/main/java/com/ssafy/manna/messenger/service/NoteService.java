@@ -14,35 +14,35 @@ import java.util.List;
 public interface NoteService {
 
     //쪽지 전송하기(일반 쪽지)
-    void send(NoteSendRequest noteSendRequest) throws Exception;
+    void send(NoteSendRequest noteSendRequest);
 
     //소개팅 쪽지 전송하기
-    void sendSogaeNote(SogaeNoteSendRequest sogaeNoteSendRequest) throws Exception;
+    void sendSogaeNote(SogaeNoteSendRequest sogaeNoteSendRequest);
 
-    //쪽지 삭제하기
-    void deleteNote(int id) throws Exception;
+    //쪽지 삭제하기 - 받은쪽지, 보낸 쪽지
+    void deleteNote(int id,String userId);
 
     //쪽지 내용 보기 (읽기처리)
     //1. 소개팅 쪽지면 소개팅 Response
     //2. 소개팅 쪽지 아니면 일반 Response
-    NoteDetailResponse readDetailNote(int id) throws Exception;
+    NoteDetailResponse readDetailNote(int id);
 
-    SogaeNoteDetailResponse readSogaeDetailNote(int id) throws Exception;
+    SogaeNoteDetailResponse readSogaeDetailNote(int id);
 
     //받은 쪽지 List 반환
-    List<NoteListResponse> receivedNoteList(String userId) throws Exception;
+    List<NoteListResponse> receivedNoteList(String userId);
 
     //보낸 쪽지 List 반환
-    List<NoteListResponse> sentNoteList(String userId) throws Exception;
+    List<NoteListResponse> sentNoteList(String userId);
 
     //새로운 쪽지 LIST 반환
-    List<NoteListResponse> newNoteList(String userId) throws Exception;
+    List<NoteListResponse> newNoteList(String userId);
 
     //소개팅 쪽지 수락
-    void acceptSogating(int noteId) throws Exception;
+    void acceptSogating(int noteId);
 
     //소개팅 쪽지 거절
-    void refuseSogating(int noteId) throws Exception;
+    void refuseSogating(int noteId);
 
     LocalDateTime setNowTime();
 

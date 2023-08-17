@@ -2,6 +2,7 @@ package com.ssafy.manna.schedule.controller;
 
 import com.ssafy.manna.global.util.ResponseTemplate;
 import com.ssafy.manna.schedule.domain.ReservePlace;
+import com.ssafy.manna.schedule.dto.request.ReserveMiddlePlaceRequest;
 import com.ssafy.manna.schedule.dto.request.ReservePlaceRequest;
 import com.ssafy.manna.schedule.service.ReservePlaceService;
 import lombok.RequiredArgsConstructor;
@@ -35,10 +36,12 @@ public class ReservePlaceController {
 
     //예약 - sido,gugun, category 골라서 return
     @PostMapping("/placeList")
-    public ResponseEntity<?> getRecommendList(@RequestBody ReservePlaceRequest reservePlaceRequest) {
+    public ResponseEntity<?> getRecommendList(
+            @RequestBody ReservePlaceRequest reservePlaceRequest) {
         ResponseTemplate<?> body;
         try {
-            List<ReservePlace> recommendList = reservePlaceService.getRecommendList(reservePlaceRequest);
+            List<ReservePlace> recommendList = reservePlaceService.getRecommendList(
+                    reservePlaceRequest);
 
             body = ResponseTemplate.builder()
                     .result(true)
@@ -53,13 +56,35 @@ public class ReservePlaceController {
 
     }
 
-
     //두사람 id 받아서 위도 경도 계산해서 가운데 지점들 추천
-    @GetMapping("{userId}/{opponentId}")
-    public ResponseEntity<?> recommendMiddle(@PathVariable("userId") String userId, @PathVariable("opponentId") String opponentId) {
+//    @GetMapping("{userId}/{opponentId}/{category}")
+//    public ResponseEntity<?> recommendMiddle(@PathVariable("userId") String userId,
+//            @PathVariable("opponentId") String opponentId,
+//            @PathVariable("category") String category) {
+//        ResponseTemplate<?> body;
+//        try {
+//            List<ReservePlace> reservePlaces = reservePlaceService.recommendMiddle(userId,
+//                    opponentId, category);
+//            body = ResponseTemplate.builder()
+//                    .result(true)
+//                    .msg("회원 위치 기반 장소 추천")
+//                    .data(reservePlaces)
+//                    .build();
+//            return new ResponseEntity<>(body, HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
+//
+//    }
+
+    @PostMapping(value = "/middlePlaceList")
+    public ResponseEntity<?> recommendMiddle(
+            @RequestBody ReserveMiddlePlaceRequest reserveMiddlePlaceRequest) {
         ResponseTemplate<?> body;
         try {
-            List<ReservePlace> reservePlaces = reservePlaceService.recommendMiddle(userId, opponentId);
+            List<ReservePlace> reservePlaces = reservePlaceService.recommendMiddle(
+                    reserveMiddlePlaceRequest);
+
             body = ResponseTemplate.builder()
                     .result(true)
                     .msg("회원 위치 기반 장소 추천")

@@ -1,5 +1,6 @@
 package com.ssafy.manna.member.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.manna.global.common.dto.ProfilePictureDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,10 +24,13 @@ public class MemberInfoResponse {
     // 직업
     private String job;
     // 지인차단여부
+    @JsonProperty("isBlockingFriend")
     private boolean isBlockingFriend;
     // 흡연
+    @JsonProperty("isSmoker")
     private boolean isSmoker;
     // 음주
+    @JsonProperty("isDrinker")
     private boolean isDrinker;
     // 종교
     private String religion;

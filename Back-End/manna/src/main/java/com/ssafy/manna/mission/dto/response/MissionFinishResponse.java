@@ -11,6 +11,5 @@ import lombok.NoArgsConstructor;
 @Builder
 public class MissionFinishResponse {
 
-    private String maleId;
-    private String femaleId;
+    private boolean result;
 }

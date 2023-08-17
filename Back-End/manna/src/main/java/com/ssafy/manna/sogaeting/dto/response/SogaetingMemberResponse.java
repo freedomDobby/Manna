@@ -1,5 +1,6 @@
 package com.ssafy.manna.sogaeting.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 
@@ -13,7 +14,9 @@ public class SogaetingMemberResponse {
     private String mbti;
     private String religion;
     private String introduction;
+    @JsonProperty("isSmoke")
     private Boolean isSmoke;
+    @JsonProperty("isDrink")
     private Boolean isDrink;
     private Integer height;
     private String pictureURL;

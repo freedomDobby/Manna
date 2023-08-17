@@ -16,11 +16,25 @@ public interface ReservePlaceRepository extends JpaRepository<ReservePlace, Inte
 
     List<ReservePlace> findAllBySidoAndGugunAndCategory(String sido, String gugun, String category);
 
+    List<ReservePlace> findAllBySidoAndGugun(String sido, String gugun);
+
     @Query("SELECT rp FROM ReservePlace rp " +
             "WHERE rp.latitude BETWEEN :minLat AND :maxLat " +
             "AND rp.longitude BETWEEN :minLon AND :maxLon")
     List<ReservePlace> findNearbyReservePlaces(@Param("minLat") double minLat,
-                                               @Param("maxLat") double maxLat,
-                                               @Param("minLon") double minLon,
-                                               @Param("maxLon") double maxLon);
+            @Param("maxLat") double maxLat,
+            @Param("minLon") double minLon,
+            @Param("maxLon") double maxLon);
+
+    @Query("SELECT rp FROM ReservePlace rp " +
+            "WHERE rp.latitude BETWEEN :minLat AND :maxLat " +
+            "AND rp.longitude BETWEEN :minLon AND :maxLon " +
+            "AND rp.category = :category")
+    List<ReservePlace> findNearbyAndCategoryReservePlaces(
+            @Param("minLat") double minLat,
+            @Param("maxLat") double maxLat,
+            @Param("minLon") double minLon,
+            @Param("maxLon") double maxLon,
+            @Param("category") String category);
 }
+

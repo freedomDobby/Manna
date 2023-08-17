@@ -11,5 +11,8 @@ public interface CodeDetailRepository extends JpaRepository<CodeDetail, Long> {
     @Query("SELECT cd FROM CodeDetail cd JOIN cd.code c WHERE c.id = 'M' ORDER BY RAND() LIMIT 6")
     List<CodeDetail> findRandomTop6ById(String id);
 
+    @Query("SELECT cd FROM CodeDetail cd JOIN cd.code c WHERE c.id = 'T' ORDER BY RAND() LIMIT 1")
+    CodeDetail findRandomById(String id);
+
 
 }

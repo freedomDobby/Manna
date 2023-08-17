@@ -1,6 +1,7 @@
 package com.ssafy.manna.schedule.service;
 
 import com.ssafy.manna.schedule.domain.ReservePlace;
+import com.ssafy.manna.schedule.dto.request.ReserveMiddlePlaceRequest;
 import com.ssafy.manna.schedule.dto.request.ReservePlaceRequest;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,5 @@ public interface ReservePlaceService {
     List<ReservePlace> getRecommendList(ReservePlaceRequest reservePlaceRequest) throws Exception;
 
     //두 사람 위치 가운데 장소 조회하기
-    List<ReservePlace> recommendMiddle(String userId, String opponentId) throws Exception;
-
+    List<ReservePlace> recommendMiddle(ReserveMiddlePlaceRequest reserveMiddlePlaceRequest) throws Exception;
 }

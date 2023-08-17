@@ -1,5 +1,6 @@
 package com.ssafy.manna.member.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,10 +18,13 @@ public class MemberUpdateRequest {
     // 직업
     private String job;
     // 지인차단여부
+    @JsonProperty("isBlockingFriend")
     private Boolean isBlockingFriend;
     // 흡연
+    @JsonProperty("isSmoker")
     private Boolean isSmoker;
     // 음주
+    @JsonProperty("isDrinker")
     private Boolean isDrinker;
     // 종교
     private String religion;
@@ -36,8 +40,4 @@ public class MemberUpdateRequest {
     private Double latitude;
     private Double longitude;
 
-    //회원 프로필 3개
-//    private Integer priority1;
-//    private Integer priority2;
-//    private Integer priority3;
 }

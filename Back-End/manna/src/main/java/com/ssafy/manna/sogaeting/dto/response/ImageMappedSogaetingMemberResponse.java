@@ -1,5 +1,6 @@
 package com.ssafy.manna.sogaeting.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -16,8 +17,11 @@ public class ImageMappedSogaetingMemberResponse {
     private String mbti;
     private String religion;
     private String introduction;
+    @JsonProperty("isSmoke")
     private Boolean isSmoke;
+    @JsonProperty("isDrink")
     private Boolean isDrink;
+    @JsonProperty("isOnline")
     private Boolean isOnline;
     private Integer height;
     private List<String> pictureURLs = new ArrayList<>();

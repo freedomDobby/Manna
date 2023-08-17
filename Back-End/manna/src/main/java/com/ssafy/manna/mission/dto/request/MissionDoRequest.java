@@ -12,7 +12,8 @@ import lombok.RequiredArgsConstructor;
 public class MissionDoRequest {
 
     private String memberId;
-    private int id;
+    private int id;     //0,1,2,3,4,5
+    private int missionId; //미션 id
     private String gender;
     //private String path;
 

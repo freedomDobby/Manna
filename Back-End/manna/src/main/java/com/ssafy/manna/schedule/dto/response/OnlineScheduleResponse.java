@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OnlineScheduleResponse {
-
+    private String opponentName;
     //스케줄 아이디
     private Integer scheduleId;
     //상대방 아이디

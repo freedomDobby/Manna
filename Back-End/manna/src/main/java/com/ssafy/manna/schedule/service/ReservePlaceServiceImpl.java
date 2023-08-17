@@ -4,8 +4,10 @@ import com.ssafy.manna.global.util.GeoUtils;
 import com.ssafy.manna.member.domain.Member;
 import com.ssafy.manna.member.repository.MemberRepository;
 import com.ssafy.manna.schedule.domain.ReservePlace;
+import com.ssafy.manna.schedule.dto.request.ReserveMiddlePlaceRequest;
 import com.ssafy.manna.schedule.dto.request.ReservePlaceRequest;
 import com.ssafy.manna.schedule.repository.ReservePlaceRepository;
+import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -27,7 +29,8 @@ public class ReservePlaceServiceImpl implements ReservePlaceService {
     @Override
     public ReservePlace getPlaceInfo(Integer id) throws Exception {
         //id로 찾아서 
-        ReservePlace reservePlace = reservePlaceRepository.findById(id).orElseThrow(() -> new Exception("예약 장소 정보가 없습니다."));
+        ReservePlace reservePlace = reservePlaceRepository.findById(id)
+                .orElseThrow(() -> new Exception("예약 장소 정보가 없습니다."));
         return reservePlace;
     }
 
@@ -36,19 +39,33 @@ public class ReservePlaceServiceImpl implements ReservePlaceService {
         String sido = reservePlaceRequest.getSido();
         String gugun = reservePlaceRequest.getGugun();
         String category = reservePlaceRequest.getCategory();
-        List<ReservePlace> recommendList = reservePlaceRepository.findAllBySidoAndGugunAndCategory(sido, gugun, category);
+
+        boolean isEmptyCategory = StringUtils.isEmpty(category);
+
+        List<ReservePlace> recommendList;
+        // 카테고리 선택 안했을 때
+        if (!isEmptyCategory) {
+            recommendList = reservePlaceRepository.findAllBySidoAndGugunAndCategory(sido, gugun,
+                    category);
+        }
+        // 카테고리 선택 했을 때
+        else {
+            recommendList = reservePlaceRepository.findAllBySidoAndGugun(sido, gugun);
+        }
         return recommendList;
     }
 
     @Override
-    public List<ReservePlace> recommendMiddle(String userId, String opponentId) throws Exception {
+    public List<ReservePlace> recommendMiddle(ReserveMiddlePlaceRequest reserveMiddlePlaceRequest)
+            throws Exception {
         final int EARTH_RADIUS = 6371; // 지구의 반지름 (단위: km)
-        Member member1 = memberRepository.findById(userId).orElseThrow(() -> new Exception("회원 정보가 없습니다."));
-        Member member2 = memberRepository.findById(opponentId).orElseThrow(() -> new Exception("회원 정보가 없습니다."));
+        Member member1 = memberRepository.findById(reserveMiddlePlaceRequest.getUserId())
+                .orElseThrow(() -> new Exception("회원 정보가 없습니다."));
+        Member member2 = memberRepository.findById(reserveMiddlePlaceRequest.getOpponentId())
+                .orElseThrow(() -> new Exception("회원 정보가 없습니다."));
 
         double latitude1 = member1.getMemberDetail().getAddress().getLatitude();
         double longitude1 = member1.getMemberDetail().getAddress().getLongitude();
-
 
         double latitude2 = member2.getMemberDetail().getAddress().getLatitude();
         double longitude2 = member2.getMemberDetail().getAddress().getLongitude();
@@ -64,7 +81,8 @@ public class ReservePlaceServiceImpl implements ReservePlaceService {
         double metersPerDegreeLatitude = 111320.0; // 약 111.32 km
 
 // 경도에 따른 1도 당 이동 거리 계산 (단위: 미터)
-        double metersPerDegreeLongitude = metersPerDegreeLatitude * Math.cos(Math.toRadians(latitudeMiddle));
+        double metersPerDegreeLongitude =
+                metersPerDegreeLatitude * Math.cos(Math.toRadians(latitudeMiddle));
 
 // 현재 위치 기준 검색 거리 좌표
         double radius = 1000.0; // 반경 1 km
@@ -73,15 +91,24 @@ public class ReservePlaceServiceImpl implements ReservePlaceService {
         double maxX = longitudeMiddle + (radius / metersPerDegreeLongitude);
         double minX = longitudeMiddle - (radius / metersPerDegreeLongitude);
 
-
         System.out.println(maxY + "," + minY + "," + maxX + "," + minX);
-//        List<ReservePlace> tempNearByPlaces = reservePlaceRepository.findNearbyReservePlaces(minX,maxX,minY,maxY);
-        List<ReservePlace> tempNearByPlaces = reservePlaceRepository.findNearbyReservePlaces(minY, maxY, minX, maxX);
+        boolean isEmptyCategory = StringUtils.isEmpty(reserveMiddlePlaceRequest.getCategory());
+        System.out.println(isEmptyCategory);
+        List<ReservePlace> tempNearByPlaces;
+        if (isEmptyCategory) {
+            tempNearByPlaces = reservePlaceRepository.findNearbyReservePlaces(minY, maxY, minX,
+                    maxX);
+        } else {
+            tempNearByPlaces = reservePlaceRepository.findNearbyAndCategoryReservePlaces(minY, maxY,
+                    minX, maxX, reserveMiddlePlaceRequest.getCategory());
+        }
+        System.out.println(tempNearByPlaces.size() + ">>");
 
         List<ReservePlace> nearByPlaces = new ArrayList<>();
         for (ReservePlace place : tempNearByPlaces) {
-            double distance = GeoUtils.getDistance(latitudeMiddle, longitudeMiddle, place.getLatitude(), place.getLongitude());
-            System.out.println(distance);
+            double distance = GeoUtils.getDistance(latitudeMiddle, longitudeMiddle,
+                    place.getLatitude(), place.getLongitude());
+            System.out.println("radius" + radius + " " + "distance" + distance);
             if (distance < radius) {
                 nearByPlaces.add(place);
             }
@@ -91,5 +118,6 @@ public class ReservePlaceServiceImpl implements ReservePlaceService {
 
         return nearByPlaces;
     }
+
 
 }

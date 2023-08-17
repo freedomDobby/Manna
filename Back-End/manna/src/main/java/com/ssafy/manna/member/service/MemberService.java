@@ -2,10 +2,8 @@ package com.ssafy.manna.member.service;
 
 import com.ssafy.manna.global.common.dto.MailDto;
 import com.ssafy.manna.member.domain.Member;
-import com.ssafy.manna.member.dto.request.MemberFindIdRequest;
-import com.ssafy.manna.member.dto.request.MemberFindPwdRequest;
-import com.ssafy.manna.member.dto.request.MemberSignUpRequest;
-import com.ssafy.manna.member.dto.request.MemberUpdateRequest;
+import com.ssafy.manna.member.dto.request.*;
+import com.ssafy.manna.member.dto.response.MemberFindIdResponse;
 import com.ssafy.manna.member.dto.response.MemberInfoResponse;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,23 +12,13 @@ import java.util.Optional;
 
 
 public interface MemberService {
-    //회원가입
-//    void signUp(MemberSignUpRequest memberSignUpRequest) throws Exception;
 
     void signUp(MemberSignUpRequest memberSignUpRequest, MultipartFile[] multipartFiles) throws Exception;
-
-    //정보 수정
-    void update(MemberUpdateRequest memberUpdateRequest, String id) throws Exception;
 
     //회원탈퇴
     void delete(String pwd, String id);
 
-    //정보조회
-//    Optional<Member> getInfo(String id);
-
     Optional<Member> findOne(String insertedUserId);
-
-//    void signUp(String id, String pwd);
 
     //이름이랑 mail로 member 찾기
     Optional<Member> findMemberByNameAndEmail(MemberFindIdRequest memberFindIdRequest);
@@ -46,15 +34,19 @@ public interface MemberService {
 
     void sendMail(MailDto mailDto);
 
-//    Optional<ProfilePicture> findProfilePictureById(Integer id);
-
     //마이페이지 정보 조회
-    MemberInfoResponse getInfo(Member member);
+    MemberInfoResponse getInfo(String id);
 
-    void updateInfo(Member member, MemberUpdateRequest memberUpdateRequest, MultipartFile[] multipartFiles)
-            throws Exception;
+    void updateInfo(String id, MemberUpdateRequest memberUpdateRequest, MultipartFile[] multipartFiles);
 
-    void findPwd(Member member, MemberFindPwdRequest memberFindPwdRequest);
+    void findPwd(MemberFindPwdRequest memberFindPwdRequest);
 
     String storeFile(String memberId, MultipartFile file) throws IOException;
+
+    void checkPassword(MemberCheckPwdRequest memberCheckPwdRequest);
+
+    void changePassword(MemberCheckPwdRequest memberChangePwdRequest);
+
+    MemberFindIdResponse findId(MemberFindIdRequest memberFindIdRequest);
+
 }

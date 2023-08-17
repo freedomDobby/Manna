@@ -34,11 +34,6 @@ public class ChatRoomController {
         return chatRoomServiceImpl.createChatRoom(makeChattingRoomRequest);
     }
 
-//    @GetMapping("/room/{userId}")
-//    public RedisChatRoom findRoomsById(@PathVariable String userId) {
-//        return chatRoomService.findRoomById(userId);
-//    }
-
     @GetMapping("/room/{userId}")
     public ResponseEntity<ResponseTemplate<List<ChatRoomResponse>>> findRoomsById(
             @PathVariable String userId) {

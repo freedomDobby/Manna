@@ -48,4 +48,8 @@ public class MissionQuestion extends BaseStartEndEntity {
         this.femaleIsDone = femaleIsDone;
     }
 
+    public boolean checkCardIsDone() {
+        return this.maleIsDone && this.femaleIsDone;
+    }
+
 }
