@@ -178,7 +178,6 @@ export function GetChat({ message }: { message: string|null }) {
         });
   
     }, []);
-
     useEffect(() => {
       const rapperDiv = document.getElementById("rapperDiv");
       if (rapperDiv) {

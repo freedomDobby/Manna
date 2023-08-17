@@ -105,19 +105,19 @@ export const WithdrawalPass = atom<string>({
 
 export const MyPageProfilePicture1 = atom<any>({
   key: "MyPageProfilePicture1",
-  default: "dummy.jpg",
+  default: "",
 
 });
 
 export const MyPageProfilePicture2 = atom<any>({
   key: "MyPageProfilePicture2",
-  default: "dummy.jpg",
+  default: "",
 
 });
 
 export const MyPageProfilePicture3 = atom<any>({
   key: "MyPageProfilePicture3",
-  default: "dummy.jpg",
+  default: "",
 
 });
 

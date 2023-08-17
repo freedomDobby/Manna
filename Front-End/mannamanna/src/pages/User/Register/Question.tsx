@@ -1,5 +1,5 @@
-import React from "react";
-import { Question, Question2 } from "./AnswerBox";
+import React, { useEffect } from "react";
+import { Question, Question2, QuestionTel } from "./AnswerBox";
 import { useRecoilState } from "recoil";
 import {
   userAgeState,
@@ -54,18 +54,38 @@ const EnterTel = () => {
   const [userTel, setUserTel] = useRecoilState(userTelState);
 
   const EnterTelChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUserTel(event.target.value);
+    if (event.target.value.length > 13) {
+      alert("전화번호의 최대 길이는 13글자입니다. ")
+      setUserTel("");
+      return
+    }else{
+      setUserTel(event.target.value);
+    }
     // console.log(userTel); // 이 부분은 비동기적으로 업데이트되므로 최신값이 아닐 수 있습니다.
   };
+  useEffect(() => {
+    if (userTel.length === 10) {
+      setUserTel(userTel.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3'));
+    }
+    if (userTel.length === 13) {
+      setUserTel(userTel.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'));
+    }
+  }, [userTel]);
+
+
 
   return (
-    <Question
-      question="전화번호를 입력해주세요"
+    <div>
+          <QuestionTel
+      question="전화번호를 입력해주세요 (양식을 지켜주세요)"
       Type="text"
       Id="UserNum"
       placeholder="010-1234-4570"
       onChange={EnterTelChange}
+      value={userTel}
     />
+    </div>
+
   );
 };
 
@@ -74,17 +94,23 @@ const EnterId = () => {
   const [userId, setUserId] = useRecoilState(userIdState);
 
   const EnterIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUserId(event.target.value);
-    // console.log(userId); // 이 부분은 비동기적으로 업데이트되므로 최신값이 아닐 수 있습니다.
+    if (event.target.value.length > 20) {
+      alert("아이디의 최대 길이는 20글자입니다. ")
+      setUserId("");
+      return
+    }else{
+      setUserId(event.target.value);
+    }
   };
 
   return (
-    <Question
+    <QuestionTel
       question="아이디를 입력해주세요"
       Type="text"
       Id="UserId"
-      placeholder="아이디"
+      placeholder="아이디(최대 20글자)"
       onChange={EnterIdChange}
+      value={userId}
     />
   );
 };

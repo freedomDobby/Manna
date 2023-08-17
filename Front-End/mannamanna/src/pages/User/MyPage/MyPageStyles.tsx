@@ -1515,7 +1515,8 @@ export function GetMileage() {
 export function SogeListOnline({ userName, date,type }: any) {
   return (
     <LeftStyle>
-      <MileageBox>소개팅소개팅소개팅</MileageBox>
+      <MileageBox>{userName}와 함께한 추억..
+      <br />날짜:{date}</MileageBox>
     </LeftStyle>
   );
 }
