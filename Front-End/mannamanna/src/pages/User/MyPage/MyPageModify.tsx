@@ -31,6 +31,7 @@ import {
 import { ModifyPic } from "./MyPageStyle";
 import { ModifyProfile } from "../../../components/common/Profile";
 import { GuGun } from "../Register/Address/EnterGuGun";
+import { EnterImage } from "../Register/Image/EnterImageModal";
 
 function MyPageModify() {
   return (
@@ -101,8 +102,8 @@ function MyPageModify() {
       <PictureInfomation>
         <BasicTitle>사진등록</BasicTitle>
         <ModifyPic>
-          {/* <EnterImage>사진 등록하기</EnterImage> */}
           <ModifyProfile />
+          {/* <EnterImage>사진 등록하기</EnterImage> */}
         </ModifyPic>
       </PictureInfomation>
       <ModifySelfPr>

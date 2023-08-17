@@ -237,6 +237,7 @@ export const MissionTitle = atom<string>({
   default:"",
 });
 
+
 export const MissionOpponentAtom = atom<string | null>({
   key: "MissionOpponentAtom",
   default: null,
@@ -267,4 +268,10 @@ export const missionPicture2Url = atom<string>({
   default:"",
 });
 
+
+
+export const opponentIdAtom=atom<string>({
+  key:"opponentIdAtom",
+  default:"",
+})
 

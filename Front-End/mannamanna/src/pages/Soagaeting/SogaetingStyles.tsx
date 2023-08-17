@@ -25,13 +25,7 @@ const MicVideoIconButtonStyle = styled(IconButton)`
 `;
 
 const TimePlusIconButtonStyle = styled(IconButton)`
-  color: black;
-  background-color: #f8e3ea;
-  border: solid 0.2rem black;
-  border-radius: 50%;
-  &:hover {
-    background-color: #ffffff;
-  }
+  color: white;
 `;
 
 interface SogaeIconButtonProps {
@@ -104,3 +98,11 @@ export const Timer: React.FC = () => {
     </div>
   );
 };
+
+interface SogaeBlurModalButtonProps {
+  onClick: () =>void;
+};
+
+// export const SogaeBlurModal = () => {
+//   return()
+// };

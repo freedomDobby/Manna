@@ -34,6 +34,10 @@ import { idAtom } from "../../../Recoil/State";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { profilePicture1State, profilePicture2State, profilePicture3State } from "../Register/RegisterState";
+import { Contain, Container2, EnterImageBtnBox, ImageForm, MostBiggestBox, TitleBox } from "../Register/ModalStyle";
+import { EnterImage1 } from "../Register/Image/ImageInput";
+import { useNavigate } from "react-router-dom";
+import { AxiosRequestConfig } from "axios";
 
 // 마이페이지 구군
 export const MyPageGuGun = () => {
@@ -768,6 +772,7 @@ export const WithdrawalButton = ({ children }: WithdrawalButtonProps) => {
     pwd: withdrawalPass,
   };
   const CheckPassword = async () => {
+    console.log(WithdrawalData);
     try {
       const response = await api.post("/user/mypage/checkPwd", WithdrawalData);
       if (response.data.result) {
@@ -783,8 +788,13 @@ export const WithdrawalButton = ({ children }: WithdrawalButtonProps) => {
 
   const withdarwal = async () => {
     try {
-      const response = await api.post(`/user/mypage/${userId}`, WithdrawalData);
+      const axiosConfig: AxiosRequestConfig = {
+        data: WithdrawalData, 
+      };
+      const response = await api.delete(`/user/delete`, axiosConfig);
+      console.log(response);
       alert("회원 탈퇴가 완료 되었습니다.");
+      setOpen(false)
     } catch (error) {
       console.error(error);
       alert("오류가 발생했습니다.");
@@ -859,10 +869,10 @@ export const WithdrawalButton = ({ children }: WithdrawalButtonProps) => {
             >
               <div style={{ fontSize: "3vh" }}>정말 탈퇴하시겠습니까?</div>
               <div>
-                {/* <MyPageSmallButton onClick={CheckPassword}>확인</MyPageSmallButton> */}
-                <MyPageSmallButton onClick={handleClose}>
+                <MyPageSmallButton onClick={CheckPassword}>확인</MyPageSmallButton>
+                {/* <MyPageSmallButton onClick={handleClose}>
                   확인
-                </MyPageSmallButton>
+                </MyPageSmallButton> */}
                 <MyPageSmallButton onClick={handleClose}>
                   취소
                 </MyPageSmallButton>
@@ -973,9 +983,6 @@ export const SaveChangeButton = ({ children }: SaveChangeButtonProps) => {
   const userId = useRecoilValue(idAtom);
   const mysido = useRecoilValue(MySido);
   const mygugun = useRecoilValue(MyGuGun);
-  const myPageProfilePicture1 = useRecoilValue(MyPageProfilePicture1);
-  const myPageProfilePicture2 = useRecoilValue(MyPageProfilePicture2);
-  const myPageProfilePicture3 = useRecoilValue(MyPageProfilePicture3);
   const profilePicture1 = useRecoilValue(profilePicture1State);
   const profilePicture2 = useRecoilValue(profilePicture2State);
   const profilePicture3 = useRecoilValue(profilePicture3State);
@@ -985,7 +992,7 @@ export const SaveChangeButton = ({ children }: SaveChangeButtonProps) => {
       name: myPageData.name,
       height: mypageUserHeight,
       job: myPageJob,
-      isBlockingFriend: isBlock,
+      isBlockingFriend: true,
       isSmoker: isSmoke,
       isDrinker: isDrink,
       religion: myPageReligion,
@@ -998,6 +1005,7 @@ export const SaveChangeButton = ({ children }: SaveChangeButtonProps) => {
       latitude: 0,
       longitude: 0,
     };
+    console.log(NewMyPageUser);
     console.log(profilePicture1);
     console.log(profilePicture2);
     console.log(profilePicture3);
@@ -1504,7 +1512,7 @@ export function GetMileage() {
   );
 }
 
-export function SogeList() {
+export function SogeListOnline({ userName, date,type }: any) {
   return (
     <LeftStyle>
       <MileageBox>소개팅소개팅소개팅</MileageBox>
@@ -1512,7 +1520,9 @@ export function SogeList() {
   );
 }
 
-export function MeetList() {
+
+
+export function SogaeListOffline({ userName, date,type }: any) {
   return (
     <RightStyle>
       <MileageBox>미팅미팅미팅</MileageBox>
