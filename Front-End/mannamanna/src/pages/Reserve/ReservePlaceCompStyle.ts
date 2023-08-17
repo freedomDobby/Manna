@@ -164,3 +164,17 @@ export const ReserveFetchButton = styled.button`
   height: 100%;
   background-color: #bcd3ff;
 `
+
+export const CloseButton = styled.button`
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 30px;
+  height: 30px;
+  background-color: #ccc;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+`

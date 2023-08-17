@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import BackBox from "../../components/common/Back";
 import MacBookBox from "../../components/common/macbookBox";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, IconButton } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import QuizIcon from '@mui/icons-material/Quiz';
 import {
@@ -225,9 +225,9 @@ export const CircularImageComponent = ({ src, alt }:any) => (
                 </ChatInBox>
               </ChatOutBox>
       </div>
-        <ChatInputBox>
+      <ChatInputBox>
         <input
-          placeholder="메시지를 입력하세요"
+          placeholder=" 메시지를 입력하세요"
           type={"text"}
           onChange={handleChange}
           onKeyDown={handleKeyPress}
@@ -237,72 +237,76 @@ export const CircularImageComponent = ({ src, alt }:any) => (
             width: "70%",
             fontSize:'large',
             backgroundColor: "#ffcced",
-            borderRadius: "1rem",
-            marginRight:'1vw',
+            borderRadius: "0.5rem",
+            border: '0.1rem solid black',
+            marginRight:'3%',
+            fontFamily: 'inherit',
           }}
           autoFocus
         />
         <div  style={{
-            backgroundColor: "#ffcced",
-            height: '5vh',
-            width: '13vh',
+            backgroundColor: "#ffffff",
+            height: '60%',
+            width: '20%',
             display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'space-around',
-            borderRadius:'2vh'
-          }}>
-        <div
+            justifyContent: 'space-around',
+            alignItems: 'center',
+        }}>
+        <IconButton
           style={{
             backgroundColor: "#ffcced",
-            height: '5vh',
-            width: '5vh',
+            height: '100%',
+            width: '3rem',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            borderRadius:'2vh'
+            borderRadius: '0.5rem',
+            color: 'black',
+            border: 'solid 0.1rem black',
           }}
           onClick={handleSubmit}
         >
-          <SendIcon style={{ width: '90%', height: '90%' }} />
-        </div>
-        <div
-      style={{
-        backgroundColor: "#ffcced",
-        height: '5vh',
-        width: '5vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: '2vh',
-        position: 'relative', // 필수: 메시지를 상대 위치로 표시하기 위해
-      }}
-      onClick={handleQuiz}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <QuizIcon style={{ width: '90%', height: '90%' }} />
-      {showMessage && (
-        <div
-          style={{
-            position: 'absolute',
-            backgroundColor: 'rgba(0, 0, 0, 0.7)',
-            color: 'white',
-            borderRadius: '4px',
-            padding: '4px',
-            fontSize: '1.2rem',
-            bottom: '100%',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            zIndex: 1,
-          }}
-        >
-          누르면 밸런스 게임을 보내요😖
-        </div>
-      )}
-    </div>
-        </div>
+          <SendIcon/>
+        </IconButton>
 
-        </ChatInputBox>
-        </>
+        <IconButton
+          style={{
+            backgroundColor: "#ffcced",
+            height: '100%',
+            width: '3rem',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: '0.5rem',
+            color: 'black',
+            border: 'solid 0.1rem black',
+            fontFamily:'inherit',
+          }}
+          onClick={handleQuiz}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          {showMessage && (
+            <div
+              style={{
+                position: 'absolute',
+                backgroundColor: 'rgba(255, 204, 237, 0.7)',
+                color: 'black',
+                borderRadius: '0.5rem',
+                fontSize: '1rem',
+                bottom: '100%',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                zIndex: 1,
+              }}
+            >
+              누르면 밸런스 게임을 보내요😖
+            </div>
+          )}
+          <QuizIcon/>
+        </IconButton>
+        </div>
+      </ChatInputBox>
+    </>
     );
   };

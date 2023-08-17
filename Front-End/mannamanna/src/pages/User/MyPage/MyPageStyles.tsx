@@ -1317,7 +1317,7 @@ export const MyPageTextArea = () => {
 };
 
 // 내 정보 수정 selbox 공통
-const SelectBoxWrapper = styled.div`
+export const SelectBoxWrapper = styled.div`
   select {
     width: 10vw;
     height: 30%;

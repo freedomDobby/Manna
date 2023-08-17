@@ -13,7 +13,8 @@ const Choice = () => {
         navigate('/sogaetingMain');
       }
       const GoMeeting = () => {
-        navigate('/meetingMain');
+        alert("서비스 준비 중입니다. ")
+        // navigate('/meetingMain');
       }
     return (
         <CenterBox style={{flexDirection:'column'}}>
