@@ -127,6 +127,7 @@ const MyCalendar = () => {
     isError,
   } = useQuery<any>(["scheduleList"], async () => {
     const response = await api.get(`schedule/${userId}`);
+    console.log(response.data);
     return response.data;
   });
 

@@ -3,8 +3,8 @@ import { MyPageDataState } from "./MyPageState";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 export const MileageBox = styled.div`
-  width: 20vw;
-  height: 7vh;
+  width: 70%;
+  height: 70%;
   background: white;
   border: solid 0.5vh black;
   border-radius: 2vh;

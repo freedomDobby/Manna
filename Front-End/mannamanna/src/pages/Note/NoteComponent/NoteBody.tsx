@@ -47,8 +47,12 @@ export const RequestNoteBody: React.FC<RequestNoteBodyProps> = ({
       </NoteInfoBar>
       <NoteMidBar>
         <NotePart>
-          <NoteTitle>제목: {Title}</NoteTitle>
-          <NoteDetail>내용 : {Note}</NoteDetail>
+          <NoteTitle><div>
+          제목: {Title}
+            </div></NoteTitle>
+          <NoteDetail><div>
+          내용 : {Note}
+            </div></NoteDetail>
         </NotePart>
       </NoteMidBar>
       <NoteFootBar>

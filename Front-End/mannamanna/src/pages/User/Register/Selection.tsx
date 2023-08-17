@@ -254,7 +254,7 @@ export const Sido = () => {
       <select
         value={Sido}
         onChange={handleChange}
-        style={{ fontSize: "1.5rem" }}
+
       >
         <option value="서울특별시"> 서울특별시</option>
         <option value="부산광역시"> 부산광역시</option>

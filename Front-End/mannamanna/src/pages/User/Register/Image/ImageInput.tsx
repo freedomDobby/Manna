@@ -13,6 +13,7 @@ import {
   profilePicture3State,
 } from "../RegisterState";
 import { MyPageProfilePicture1 } from "../../MyPage/MyPageState";
+import unknow from "../../../../asset/image/unknown.png"
 
 interface EnterImage1Props {
   title: string;
@@ -66,7 +67,7 @@ export const EnterImage1: React.FC<EnterImage1Props> = ({ title, coment }) => {
       <ImageTitle>{title}</ImageTitle>
       <img
         id="preview1"
-        src=""
+        src={unknow}
         alt="베스트 사진"
         style={{ maxWidth: "100%", maxHeight: "200px" }}
       />
@@ -113,7 +114,7 @@ export const EnterImage2: React.FC<EnterImage2Props> = ({ title, coment }) => {
       <ImageTitle>{title}</ImageTitle>
       <img
         id="preview2"
-        src=""
+        src={unknow}
         alt="사진 2"
         style={{ maxWidth: "100%", maxHeight: "200px" }}
       />
@@ -160,7 +161,7 @@ export const EnterImage3: React.FC<EnterImage3Props> = ({ title, coment }) => {
       <ImageTitle>{title}</ImageTitle>
       <img
         id="preview3"
-        src=""
+        src={unknow}
         alt="사진 3"
         style={{ maxWidth: "100%", maxHeight: "200px" }}
       />
