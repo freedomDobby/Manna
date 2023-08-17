@@ -138,10 +138,10 @@ const MyCalendar = () => {
     return response.data;
   });
   let dayList:any=[];
-if(scheduleList===null){
+if(scheduleList!==null){
   const offlineDates = scheduleList?.data.offlineSchedule.map((item: any) => item.date) || [];
 const onlineDates = scheduleList?.data.onlineSchedule.map((item: any) => item.date) || [];
-if(offlineDates!==undefined&&onlineDates!==undefined){
+if(offlineDates!==undefined||onlineDates!==undefined){
   dayList = [...offlineDates, ...onlineDates];
 }
 

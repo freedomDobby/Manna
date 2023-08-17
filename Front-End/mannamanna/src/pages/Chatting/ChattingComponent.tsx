@@ -103,7 +103,7 @@ export const CircularImageComponent = ({ src, alt }:any) => (
     const handleMouseLeave = () => {
       setShowMessage(false);
     };
-    const Chatting = CreateChattingClient();
+    const client = useRef<CompatClient>();
 
     // 웹소켓 연결
     function connect(){
@@ -114,8 +114,8 @@ export const CircularImageComponent = ({ src, alt }:any) => (
         token:userAccessToken
       }
       var socket= new SockJS("https://i9b205.p.ssafy.io/ws");
-      Chatting.client.current=Stomp.over(socket);
-      Chatting.client.current.connect(headers,function(frame:any){
+      client.current=Stomp.over(socket);
+      client.current.connect(headers,function(frame:any){
 
       });
     };
@@ -123,9 +123,9 @@ export const CircularImageComponent = ({ src, alt }:any) => (
     useEffect(() => {
       connect();
   }, []);
-  Chatting.client.current?.connect({}, () => {
+    client.current?.connect({}, () => {
       // 웹소켓 이벤트 핸들러 설정
-      Chatting.client.current!.subscribe(`/sub/chat/room${RoomId}`, res => {
+      client.current!.subscribe(`/sub/chat/room${RoomId}`, res => {
         const message = JSON.parse(res.body) as ChatMessage;
         const addChat:ChatOutputRes={
           senderId: message.senderId,
@@ -156,7 +156,7 @@ export const CircularImageComponent = ({ src, alt }:any) => (
         senderName: userName,
         message: message,
       };
-      Chatting.client.current?.send(
+      client.current?.send(
         `/sub/chat/room${RoomId}`,
         {},
         JSON.stringify(newChat)
@@ -184,19 +184,20 @@ export const CircularImageComponent = ({ src, alt }:any) => (
       });
     }
 
-    useEffect(() => {
-      if(RoomId===0){
-        return;
-      }
-      api.get(`chat/${RoomId}`)
-        .then(res => {
-          setChatList(res.data.data);
-        })
-        .catch(e => {
-          console.error(e);
-        });
+    // useEffect(() => {
+    //   if(RoomId===0){
+    //     return;
+    //   }
+    //   api.get(`chat/${RoomId}`)
+    //     .then(res => {
+    //       setChatList(res.data.data);
+    //     })
+    //     .catch(e => {
+    //       console.error(e);
+    //     });
   
-    }, []);
+    // }, []);
+
     useEffect(() => {
       const rapperDiv = document.getElementById("rapperDiv");
       if (rapperDiv) {
@@ -207,6 +208,18 @@ export const CircularImageComponent = ({ src, alt }:any) => (
       }
     }, [chatList]);
  
+
+    const {
+      data: chattingRommList,
+    } = useQuery<any>(["chattingRommList"], async () => {
+      const response = await api.get(`chat/${RoomId}`);
+      console.log(response.data.data);
+      setChatList(response.data.data);
+      return response.data;
+    });
+
+
+
   
 
     
@@ -219,7 +232,7 @@ export const CircularImageComponent = ({ src, alt }:any) => (
             if (item.senderId === userId) {
               return <SendChat key={index} message={item.message} />;
             } else {
-              return <GetChat key={index} message={item.message} />;
+              return <GetChat key={index } message={item.message} />;
             }
           })}
                 </ChatInBox>

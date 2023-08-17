@@ -9,7 +9,9 @@ import {
   SogaeResultNoteAtom,
   genderAtom,
   idAtom,
+  myImgageAtom,
   opponentIdAtom,
+  opponentImageAtom,
   scheduleIdAtom,
   sendNoteAtom,
   sendNoteIdAtom,
@@ -34,6 +36,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { dateName, sogaeUserName, userSessionId } from "../../Soagaeting/SogaetingState";
 import { MakeChatRoom } from "../../../apis/Request/Request";
+import CreateChattingClient from "../Login/Clinet";
 
 interface CheckModalProps {
   profile: string; //프로필 사진 받아올건데, url 맞나?
@@ -66,6 +69,8 @@ export const CheckSchduleModal: React.FC<CheckModalProps> = ({
   const [myUserSessionId, setMyUserSessionId] = useRecoilState(userSessionId);
   const [myUserName, setMyUserName] = useRecoilState(sogaeUserName);
   const [myDateName, setMyDateName] = useRecoilState(dateName);
+  const [myImage, setmyImage] = useRecoilState(myImgageAtom);
+  const [opponetImage, setopponetImage] = useRecoilState(opponentImageAtom);
   const navigate = useNavigate();
   const GoSogaetingWait = () => {
     navigate('/sogaeting');
@@ -82,9 +87,29 @@ export const CheckSchduleModal: React.FC<CheckModalProps> = ({
       femaleId: gender == 'female' ? UserId : opponentId,
     };
     console.log(ChatRommData);
-    api.post('chat/room', ChatRommData)
+   await api.post('chat/room', ChatRommData)
     .then(res => {
       setRoomId(res.data.roomId);
+       api.get(`/user/mypage/${UserId}`)
+      .then(res => {
+        console.log(res);
+        console.log(res.data.data.profilePictures[0].path);
+        setmyImage(res.data.data.profilePictures[0].path);
+      })
+      .catch(error => {
+        console.error("Error:", error.message);
+      });
+       api.get(`/user/mypage/${opponentId}`)
+      .then(res => {
+        console.log(res);
+        console.log(res.data.data.profilePictures[0]);
+        setopponetImage(res.data.data.profilePictures[0].path);
+      })
+      .catch(error => {
+        console.error("Error:", error.message);
+      });
+      handleClose();
+      GoSogaetingWait();
     })
     .catch(error => {
       if (error.response) {
@@ -109,6 +134,26 @@ export const CheckSchduleModal: React.FC<CheckModalProps> = ({
             if (foundChatRoom) {
               const chatRoomId = foundChatRoom.id;
               setRoomId(chatRoomId);
+              api.get(`/user/mypage/${UserId}`)
+      .then(res => {
+        console.log(res);
+        console.log(res.data.data.profilePictures[0].path);
+        setmyImage(res.data.data.profilePictures[0].path);
+      })
+      .catch(error => {
+        console.error("Error:", error.message);
+      });
+       api.get(`/user/mypage/${opponentId}`)
+      .then(res => {
+        console.log(res);
+        console.log(res.data.data.profilePictures[0]);
+        setopponetImage(res.data.data.profilePictures[0].path);
+      })
+      .catch(error => {
+        console.error("Error:", error.message);
+      });
+              handleClose();
+              GoSogaetingWait();
             } else {
 
             }
