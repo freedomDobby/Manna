@@ -176,9 +176,9 @@ const SoagetingFilter = () => {
                   mbti={member.mbti}
                   profilePicture={`https://i9b205.p.ssafy.io/img/${member.pictureURLs[0]}`}
                   isOnline={member.isOnline}
-                  onApplicationClick={()=>handleOpenSogaeModal(member.id)}
-                  onMessageClick={()=>handleNoteModal(member.id)}
-                  onReportClick={()=>handleNoteModal(member.id)}
+                  onApplicationClick={()=>handleOpenSogaeModal(member.id,member.name)}
+                  onMessageClick={()=>handleNoteModal(member.id,member.name)}
+                  onReportClick={()=>handleNoteModal(member.id,member.name)}
                 />                  
               </div>
             ))}
@@ -212,9 +212,9 @@ const SoagetingFilter = () => {
                   mbti={member.mbti}
                   profilePicture={`https://i9b205.p.ssafy.io/img/${member.pictureURLs[0]}`}
                   isOnline={member.isOnline}
-                  onApplicationClick={()=>handleOpenSogaeModal(member.id)}
-                  onMessageClick={()=>handleNoteModal(member.id)}
-                  onReportClick={()=>handleNoteModal(member.id)}
+                  onApplicationClick={()=>handleOpenSogaeModal(member.id,member.name)}
+                  onMessageClick={()=>handleNoteModal(member.id,member.name)}
+                  onReportClick={()=>handleNoteModal(member.id,member.name)}
                 />
               </div>                  
             ))}

@@ -103,7 +103,7 @@ export const CircularImageComponent = ({ src, alt }:any) => (
     const handleMouseLeave = () => {
       setShowMessage(false);
     };
-    const client = useRef<CompatClient>();
+    const Chatting = CreateChattingClient();
 
     // 웹소켓 연결
     function connect(){
@@ -114,8 +114,8 @@ export const CircularImageComponent = ({ src, alt }:any) => (
         token:userAccessToken
       }
       var socket= new SockJS("https://i9b205.p.ssafy.io/ws");
-      client.current=Stomp.over(socket);
-      client.current.connect(headers,function(frame:any){
+      Chatting.client.current=Stomp.over(socket);
+      Chatting.client.current.connect(headers,function(frame:any){
 
       });
     };
@@ -123,9 +123,9 @@ export const CircularImageComponent = ({ src, alt }:any) => (
     useEffect(() => {
       connect();
   }, []);
-    client.current?.connect({}, () => {
+  Chatting.client.current?.connect({}, () => {
       // 웹소켓 이벤트 핸들러 설정
-      client.current!.subscribe(`/sub/chat/room${RoomId}`, res => {
+      Chatting.client.current!.subscribe(`/sub/chat/room${RoomId}`, res => {
         const message = JSON.parse(res.body) as ChatMessage;
         const addChat:ChatOutputRes={
           senderId: message.senderId,
@@ -156,7 +156,7 @@ export const CircularImageComponent = ({ src, alt }:any) => (
         senderName: userName,
         message: message,
       };
-      client.current?.send(
+      Chatting.client.current?.send(
         `/sub/chat/room${RoomId}`,
         {},
         JSON.stringify(newChat)
