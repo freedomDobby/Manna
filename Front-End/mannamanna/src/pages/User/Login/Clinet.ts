@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useRecoilState } from "recoil";
-import { Client, Message, Stomp } from "@stomp/stompjs";
+import { Client, CompatClient, Message, Stomp } from "@stomp/stompjs";
 import {
   ChattingRoomState,
   LoginErrorModalAtom,
@@ -15,6 +15,7 @@ import {
 import { ChatMessage } from "../../../apis/Request/Request";
 import { SOCET_URL } from "../../../apis/Url";
 
+
 const CreateChattingClient = () => {
   const [gender, setGender] = useRecoilState(genderAtom);
   const [name, setName] = useRecoilState(nameAtom);
@@ -22,20 +23,11 @@ const CreateChattingClient = () => {
   const [UseraccessToken, setUseraccessToken] = useRecoilState(
     accessTokenAtom
   );
+  const client = useRef<CompatClient>();
   const [chatList, setChatList] = useRecoilState(chatListState);
   const [refreshToken, setRefreshToken] = useRecoilState(refreshTokenAtom);
   const [inputValue, setInputValue] = useRecoilState(inputValueState); 
   const [RoomId, setRoomId] = useRecoilState(ChattingRoomState);
-  const client = new Client({
-    connectHeaders:{
-      ...(UseraccessToken ? { Authorization: `Bearer ${UseraccessToken}` } : {}),
-      ...(name ? { userName: `${name}` } : {}),
-      ...(id ? { userId: `${id}` } : {}),
-      ...(gender ? { gender: `${gender}` } : {}),
-    },
-    brokerURL: SOCET_URL,
-    // ... other configuration options ...
-  });
 
 
   return {client};

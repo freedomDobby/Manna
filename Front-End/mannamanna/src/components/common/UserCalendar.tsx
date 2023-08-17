@@ -137,14 +137,17 @@ const MyCalendar = () => {
     console.log(response.data);
     return response.data;
   });
+  let dayList:any=[];
+if(scheduleList!==null){
+  const offlineDates = scheduleList?.data.offlineSchedule.map((item: any) => item.date) || [];
+const onlineDates = scheduleList?.data.onlineSchedule.map((item: any) => item.date) || [];
+if(offlineDates!==undefined||onlineDates!==undefined){
+  dayList = [...offlineDates, ...onlineDates];
+}
 
-  const offlineDates =
-    scheduleList?.data.offlineSchedule.map((item: any) => item.date) || [];
-  const onlineDates =
-    scheduleList?.data.onlineSchedule.map((item: any) => item.date) || [];
-  const dayList = [...offlineDates, ...onlineDates];
+}
   const addContent = ({ date }: { date: Date }) => {
-    if (dayList.find((day) => day === moment(date).format("YYYY-MM-DD"))) {
+    if (dayList.find((day:any) => day === moment(date).format("YYYY-MM-DD"))) {
       return (
         // 하트 이모티콘
         <div
