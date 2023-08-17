@@ -79,14 +79,8 @@ export const CircularImageComponent = ({ src, alt }:any) => (
   
   export function ChatPeople({ userName, onEnterRoom }: ChatPeopleProps) {
     return (
-      <ChatPeopleBox>
-        <ChatProFile />
-        <div>
-          <div>{userName}과의 채팅방</div>
-        </div>
-        <div style={{ fontSize: "0.3vw" }}>
-          <StyledButton onClick={onEnterRoom}>입장</StyledButton>
-        </div>
+      <ChatPeopleBox  onClick={onEnterRoom}>
+          <div style={{width:'100%'}}>{userName}과의 채팅방</div>
       </ChatPeopleBox>
     );
   }
@@ -295,7 +289,7 @@ export const CircularImageComponent = ({ src, alt }:any) => (
             zIndex: 1,
           }}
         >
-          누르면 밸런스 게임을 보내요  😖
+          누르면 밸런스 게임을 보내요😖
         </div>
       )}
     </div>
