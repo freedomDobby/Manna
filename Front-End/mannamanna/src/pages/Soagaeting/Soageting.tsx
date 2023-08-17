@@ -142,7 +142,7 @@ const Sogaeting = () => {
 
     const handleChangeOpenRegister = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        const newData = {data: true};
+        const newData = {data: true, user: myUserName};
         sendWantOpenRegister(newData);
     }
 
@@ -159,7 +159,7 @@ const Sogaeting = () => {
 
     const handleChangeBlur = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        const newData = {data: true};
+        const newData = {data: true, user: myUserName};
         sendWantCutBlur(newData);
     }
 
@@ -167,7 +167,6 @@ const Sogaeting = () => {
         setOpenModal(false);
         const newBlur = myBlur - 2.5 >= -1 ? myBlur - 2.5 : -1;
         setMyBlur(newBlur);
-        // changeStream();
         const newData = {data: true , Blur: newBlur};
         sendCutBlur(newData);
     }
@@ -192,10 +191,6 @@ const Sogaeting = () => {
         session.signal(signalOptions);
     }
 
-    const changeStream = () => {
-        setupCanvas(videoStream);
-    }
-
     const deleteSubscriber = (streamManager: StreamManager) => {
         setSubscribers([]);
     }
@@ -215,18 +210,6 @@ const Sogaeting = () => {
         session.signal(signalOptions);
     }
 
-    // const handleChangeOpenRegister = async () => {
-    //     const newOpenRegister = openRegister ? false : true;
-    //     setOpenRegister(newOpenRegister);
-    // }
-
-    // useEffect(() => {
-    //     if(session !== undefined){
-    //         const newData = {data: openRegister};
-    //         sendOpenRegister(newData);
-    //     }
-    // }, [openRegister]);
-    
     const sendWantOpenRegister = (data: any) => {
         const signalOptions: SignalOptions = {
             data: JSON.stringify(data),
@@ -272,8 +255,11 @@ const Sogaeting = () => {
         newSession.on('signal:sendWantOpenRegister', (event: any) => {
             const data = JSON.parse(event.data);
             const newOpenRegister = data.data;
+            const nowuser = data.user;
             if(newOpenRegister){
-                setOpenRegisterModal(true);
+                if(nowuser !== myUserName){
+                    setOpenRegisterModal(true);
+                }
             }
         });
 
@@ -281,7 +267,8 @@ const Sogaeting = () => {
             const data = JSON.parse(event.data);
             const newOpenRegister = data.data;
             if(newOpenRegister){
-                setOpenRegister(true);
+                const temp = !openRegisterModal
+                setOpenRegister(temp);
             }
         });
 
@@ -294,8 +281,11 @@ const Sogaeting = () => {
         newSession.on('signal:sendWantCutBlur', (event: any) => {
             const data = JSON.parse(event.data);
             const newBlur = data.data;
+            const nowuser = data.user;
             if(newBlur){
-                setOpenModal(true);
+                if(nowuser !== myUserName){
+                    setOpenModal(true);
+                }
             }
         });
 
@@ -305,7 +295,6 @@ const Sogaeting = () => {
             const newBlur = data.Blur;
             if(newOk){
                 setMyBlur(newBlur);
-                // setupCanvas(videoStream);
             }
             
         });
