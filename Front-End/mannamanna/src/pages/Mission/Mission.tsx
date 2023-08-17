@@ -21,6 +21,7 @@ import { useRecoilState } from "recoil";
 import { MissionCardAtom, MissionIdAtom, MissionOpponentAtom, MissionTitle, idAtom,missionPicture1Url,missionPicture2Url } from "../../Recoil/State"; // 이 부분을 적절한 경로로 수정하세요
 import api from "../../apis/Api";
 import { useQuery } from "@tanstack/react-query";
+import { MidSpace } from "../Soagaeting/SoagaetinStyle";
 
 const cardImages = [Card_A, Card_B, Card_C, Card_D, Card_E, Card_F]
 const deleteImage = [Card_Del_A,Card_Del_B,Card_Del_C,Card_Del_D,Card_Del_E,Card_Del_F]
@@ -114,58 +115,59 @@ const Mission = () => {
         <div style={{ height: "80vh" }}>
           <SidebarMission />
         </div>
-        <MissionContainerBox>
-        <MissionBox>
-          {isLoading ? (
-            <span>isLoading..</span>
-          ) : (
-            data && data.length > 0 ? (
-              data.slice(0, 3).map((item: any, index: number) =>
-                item.isDone ? (
-                  <MissionCard
-                    image={deleteImage[index]}
-                    onClick={() => handleOpen(index + 1)}
-                  ></MissionCard>
+
+          <MissionContainerBox>
+              <MissionBox>
+                {isLoading ? (
+                  <span>isLoading..</span>
                 ) : (
-                  <MissionCard
-                    image={cardImages[index]}
-                    onClick={() => handleOpen(index + 1)}
-                  />
-                )
-              )
-            ) : (
-              <span>진행중인 미션이 없습니다.</span>
-            )
-          )}
-        </MissionBox>
-        <MissionBox>
-          {isLoading ? (
-            <span>isLoading..</span>
-          ) : (
-            data && data.length > 0 ? (
-              data.slice(3, 6).map((item: any, index: number) =>
-                item.isDone ? (
-                  <MissionCard
-                    image={deleteImage[index+3]}
-                    onClick={() => handleOpen(index + 4)}
-                  ></MissionCard>
+                  data && data.length > 0 ? (
+                    data.slice(0, 3).map((item: any, index: number) =>
+                      item.isDone ? (
+                        <MissionCard
+                          image={deleteImage[index]}
+                          onClick={() => handleOpen(index + 1)}
+                        ></MissionCard>
+                      ) : (
+                        <MissionCard
+                          image={cardImages[index]}
+                          onClick={() => handleOpen(index + 1)}
+                        />
+                      )
+                    )
+                  ) : (
+                    <span>진행중인 미션이 없습니다.</span>
+                  )
+                )}
+              </MissionBox>
+              <MissionBox>
+                {isLoading ? (
+                  <span>isLoading..</span>
                 ) : (
-                  <MissionCard
-                    image={cardImages[index+3]}
-                    onClick={() => handleOpen(index + 4)}
-                  />
-                )
-              )
-            ) : (
-              <span></span>
-            )
-          )}
-        </MissionBox>
-        </MissionContainerBox>
+                  data && data.length > 0 ? (
+                    data.slice(3, 6).map((item: any, index: number) =>
+                      item.isDone ? (
+                        <MissionCard
+                          image={deleteImage[index+3]}
+                          onClick={() => handleOpen(index + 4)}
+                        ></MissionCard>
+                      ) : (
+                        <MissionCard
+                          image={cardImages[index+3]}
+                          onClick={() => handleOpen(index + 4)}
+                        />
+                      )
+                    )
+                  ) : (
+                    <span></span>
+                  )
+                )}
+              {/* {selectedMissionId !== null && (
+                <MissionCardBox id={selectedMissionId} mission={missionQuestion[selectedMissionId - 1].text} user1={userId ?? "user1"} user2={opponentId ?? "user2"} />
+              )} */}
+              </MissionBox>
+          </MissionContainerBox>
       </BackBox>
-      {selectedMissionId !== null && (
-        <MissionCardBox id={selectedMissionId} mission={missionQuestion[selectedMissionId - 1].text} user1={userId ?? "user1"} user2={opponentId ?? "user2"} />
-      )}
     </div>
   );
 };

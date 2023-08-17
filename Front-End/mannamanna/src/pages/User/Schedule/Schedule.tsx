@@ -3,7 +3,6 @@
 // import RadiusContainerBox from "./../../../components/common/RadiusContainer";
 // import unKnown from "../../../asset/image/unknown.png";
 import BackBox from "../../../components/common/Back";
-import Sidebar from "../../../components/layout/Sidebar/SidebarHome";
 import DateCalendarServerRequest from "../../../components/common/UserCalendar";
 import { CenterBox, StyledButton } from "../Login/LoginStyle";
 import CustomBox from "../../../components/common/CustomInputBox";
@@ -56,6 +55,7 @@ import {
   StyledTableCell,
 } from "./ScheduleStyle";
 import { RightChatBox } from "../../Chatting/ChattingStyle";
+import SidebarSchdule from "../../../components/layout/Sidebar/SidebarSchdule";
 const Schedule = () => {
   const [scheduleId, SetScheduleId] = useRecoilState(scheduleIdAtom); // 이거 써야됨 영기
   const [SogaeOpen, setSogaeOpen] = useRecoilState(SogaeResultNoteAtom);
@@ -137,7 +137,7 @@ const Schedule = () => {
       <HeadSpace />
       <BackBox>
         <SideSpace>
-          <Sidebar />
+          <SidebarSchdule />
         </SideSpace>
 
         <MidSpace>

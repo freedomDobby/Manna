@@ -24,6 +24,8 @@ import {
   // NoteLogoBox,
 } from "./NoteStyle";
 import api from "../../apis/Api";
+import SidebarNote from "../../components/layout/Sidebar/SidebarNote";
+import { MidSpace } from "../User/Schedule/ScheduleStyle";
 const Note = () => {
   const [userId, setId] = useRecoilState(idAtom);
   const navigate = useNavigate();
@@ -39,35 +41,31 @@ const Note = () => {
       <div
         style={{
           height: "5vh",
-          // border: "1px solid red"
         }}
       />
-      <BackPart>
-        <SidePart>
-          <NoteLogoBox></NoteLogoBox>
-        </SidePart>
-        <MidPart>
-          <KeyPart>
-            <KeySelectPart>
-              <NoteBtn onClick={GoResponseNote}>받은 쪽지</NoteBtn>
-              <NoteBtn onClick={GoRequestNote}>보낸 쪽지</NoteBtn>
-
-              <SearchPart>
-                <SearchInput type="text" placeholder="검색어를 입력해주세요." />
-                <BtnBox>
-                  <SearchBtn>검색조건</SearchBtn>
-                  <SearchBtn>이름</SearchBtn>
-                </BtnBox>
-              </SearchPart>
-            </KeySelectPart>
-
-            <KeyMainPart>
-              <Outlet />
-            </KeyMainPart>
-          </KeyPart>
-        </MidPart>
-        <SidePart />
-      </BackPart>
+      <BackBox>
+        <div style={{ height: "80vh" }}>
+          <SidebarNote />
+        </div>
+        <MidSpace>
+            <KeyPart>
+              <KeySelectPart>
+                <NoteBtn onClick={GoResponseNote}>받은 쪽지</NoteBtn>
+                <NoteBtn onClick={GoRequestNote}>보낸 쪽지</NoteBtn>
+                <SearchPart>
+                  <SearchInput type="text" placeholder="검색어를 입력해주세요." />
+                  <BtnBox>
+                    <SearchBtn>검색조건</SearchBtn>
+                    <SearchBtn>이름</SearchBtn>
+                  </BtnBox>
+                </SearchPart>
+              </KeySelectPart>
+              <KeyMainPart>
+                <Outlet />
+              </KeyMainPart>
+            </KeyPart>
+        </MidSpace>
+      </BackBox>
     </div>
   );
 };
