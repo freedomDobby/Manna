@@ -133,25 +133,27 @@ export const CheckSchduleModal: React.FC<CheckModalProps> = ({
             
             if (foundChatRoom) {
               const chatRoomId = foundChatRoom.id;
-              setRoomId(chatRoomId);
               api.get(`/user/mypage/${UserId}`)
-      .then(res => {
-        console.log(res);
-        console.log(res.data.data.profilePictures[0].path);
-        setmyImage(res.data.data.profilePictures[0].path);
-      })
-      .catch(error => {
-        console.error("Error:", error.message);
-      });
-       api.get(`/user/mypage/${opponentId}`)
-      .then(res => {
-        console.log(res);
-        console.log(res.data.data.profilePictures[0]);
-        setopponetImage(res.data.data.profilePictures[0].path);
-      })
-      .catch(error => {
-        console.error("Error:", error.message);
-      });
+              .then(res => {
+                console.log(res);
+                console.log(res.data.data.profilePictures[0].path);
+                console.log("추가완료")
+                setmyImage(res.data.data.profilePictures[0].path);
+              })
+              .catch(error => {
+                console.error("Error:", error.message);
+              });
+               api.get(`/user/mypage/${opponentId}`)
+              .then(res => {
+                console.log(res);
+                console.log(res.data.data.profilePictures[0]);
+                setopponetImage(res.data.data.profilePictures[0].path);
+                console.log("추가완료2")
+              })
+              .catch(error => {
+                console.error("Error:", error.message);
+              });
+              setRoomId(chatRoomId);
               handleClose();
               GoSogaetingWait();
             } else {
