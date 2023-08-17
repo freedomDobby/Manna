@@ -6,7 +6,7 @@ const FilterContaine = styled.div `
 height: 55vh;
 margin-top:3vh;
 width: 12vw;
-padding: 1.5vw;
+// padding: 1.5vw;
 `
 
 

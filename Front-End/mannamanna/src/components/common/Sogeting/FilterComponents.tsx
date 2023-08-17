@@ -87,11 +87,11 @@ const FilterComponent: React.FC<FilterProps> = ({
         ) : (
           <UnderBar>
             <OfflineBox />
-            <BtnContainer>
-         <ChooseBtn onClick={onApplicationClick}>신청</ChooseBtn>
+          <BtnContainer>
+          <ChooseBtn onClick={onApplicationClick}>신청</ChooseBtn>
           <ChooseBtn onClick={onReportClick}>신고</ChooseBtn>
           <ChooseBtn onClick={onMessageClick}>쪽지</ChooseBtn>
-    </BtnContainer>
+          </BtnContainer>
           </UnderBar>
         )}
       </Profile>

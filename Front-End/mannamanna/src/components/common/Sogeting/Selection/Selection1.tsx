@@ -6,13 +6,13 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { useRecoilState } from "recoil";
 import { SogaetingFilterAtom } from "../../../../Recoil/State";
+import { SelectBoxWrapper } from "../../../../pages/User/MyPage/MyPageStyles";
 
 export default function SelectionObj() {
   const [sogaetingFilter, setSogaetingFilter] = useRecoilState(SogaetingFilterAtom);
 
-  const handleChange = async (event: SelectChangeEvent) => {
+  const handleChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newValue = event.target.value === "true"; 
-    console.log(newValue);
     await setSogaetingFilter((prevFilter) => ({
       ...prevFilter,
       isSmoker: newValue,
@@ -20,29 +20,36 @@ export default function SelectionObj() {
   };
 
   return (
-    <FormControl
-      sx={{
-        mr: 3,
-        ml: 3,
-        mt: 2,
-        mb: 2,
-        // minWidth: 120,
-        border: "0.2vw solid black",
-        backgroundColor: "white",
-        borderRadius: "5vw",
-      }}
-    >
-      <InputLabel id="demo-simple-select-helper-label">흡연</InputLabel>
-      <Select
-        labelId="demo-simple-select-helper-label"
-        id="demo-simple-select-helper"
-        value={sogaetingFilter.isSmoker ? "true" : "false"} // Convert boolean to string
-        label="흡연"
+    <SelectBoxWrapper>
+      <select
+        defaultValue={sogaetingFilter.isSmoker? "true" : "false"}
+        value={sogaetingFilter.isSmoker ? "true" : "false"}
         onChange={handleChange}
+        style={{height:'3rem', margin:'1rem'}}
       >
-        <MenuItem value={"true"}>흡연</MenuItem>
-        <MenuItem value={"false"}>비흡연</MenuItem>
-      </Select>
-    </FormControl>
+        <option value="true"> 흡연</option>
+        <option value="false"> 비흡연</option>
+      </select>
+    </SelectBoxWrapper>
+    // <FormControl
+    //   sx={{
+    //     m: 3,
+    //     border: "0.2vw solid black",
+    //     backgroundColor: "#f8e3ea",
+    //     borderRadius: "1rem",
+    //   }}
+    // >
+    //   <Select
+    //     value={sogaetingFilter.isSmoker ? "true" : "false"} // Convert boolean to string
+    //     label="흡연"
+    //     onChange={handleChange}
+    //     sx={{
+          
+    //     }}
+    //   >
+    //     <MenuItem value={"true"}>흡연</MenuItem>
+    //     <MenuItem value={"false"}>비흡연</MenuItem>
+    //   </Select>
+    // </FormControl>
   );
 }

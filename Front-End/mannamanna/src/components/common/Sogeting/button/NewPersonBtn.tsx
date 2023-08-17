@@ -20,8 +20,10 @@ const PersonBtn: React.FC<PersonBtnProps> = ({ ChangeFilter,title }) => {
       <Button
         variant="outlined"
         sx={{
-          width: "20vh",
-          fontSize: "2vh",
+          color: 'black',
+          fontFamily: 'inherit',
+          fontSize: '1rem',
+          width: "80%",
           display: "flex",
           flexDirection: "column",
           border: "solid 3px black",
@@ -33,12 +35,9 @@ const PersonBtn: React.FC<PersonBtnProps> = ({ ChangeFilter,title }) => {
         }}
         onClick={ChangeFilter}
       >
-        <p style={{ fontSize: "2vh", color: "black", fontWeight: "bold" }}>
+        {/* <p style={{ fontSize: "2vh", color: "black", fontWeight: "bold" }}> */}
           {title}
-        </p>
-        <p style={{ fontSize: "1.5vh", color: "black", fontWeight: "bold" }}>
-          -5 마일리지
-        </p>
+        {/* </p> */}
       </Button>
     </NewPersonBtn>
   );
