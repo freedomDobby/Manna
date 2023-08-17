@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal } from "@mui/material";
 import BackBox from "../../components/common/Back";
 import SidebarMission from "../../components/layout/Sidebar/SidebarMission";
@@ -9,13 +9,26 @@ import Card_C from "../../asset/image/Card_C.png";
 import Card_D from "../../asset/image/Card_D.png";
 import Card_E from "../../asset/image/Card_E.png";
 import Card_F from "../../asset/image/Card_F.png";
+import Card_Del_A from "../../asset/image/A.jpeg";
+import Card_Del_B from "../../asset/image/B.jpeg";
+import Card_Del_C from "../../asset/image/C.jpeg";
+import Card_Del_D from "../../asset/image/D.jpeg";
+import Card_Del_E from "../../asset/image/E.jpeg";
+import Card_Del_F from "../../asset/image/F.jpeg";
 
 import { MissionCardBox } from "./MissionModal";
 import { useRecoilState } from "recoil";
-import { MissionCardAtom, MissionIdAtom, MissionOpponentAtom, MissionTitle, idAtom } from "../../Recoil/State"; // 이 부분을 적절한 경로로 수정하세요
+import { MissionCardAtom, MissionIdAtom, MissionOpponentAtom, MissionTitle, idAtom,missionPicture1Url,missionPicture2Url } from "../../Recoil/State"; // 이 부분을 적절한 경로로 수정하세요
 import api from "../../apis/Api";
+import { useQuery } from "@tanstack/react-query";
+
+const cardImages = [Card_A, Card_B, Card_C, Card_D, Card_E, Card_F]
+const deleteImage = [Card_Del_A,Card_Del_B,Card_Del_C,Card_Del_D,Card_Del_E,Card_Del_F]
 
 const Mission = () => {
+  const [missionId,setMissionId] = useRecoilState(MissionIdAtom);
+
+
   const missionQuestion = [
     { id: 1, text: "저녁 메뉴 공유하기" },
     { id: 2, text: "같은 색 아이템 착용 인증하기" },
@@ -30,34 +43,55 @@ const Mission = () => {
     id: number;
     text: string;
   };
-
   const [open, setOpen] = useRecoilState(MissionCardAtom);
   const [selectedMissionId, setSelectedMissionId] = useState<number | null>(
     null
   );
-
   const [missionTitle,setMissionTitle] = useRecoilState(MissionTitle);
-
   //회원 id
   const [userId, setUserId] = useRecoilState(idAtom);
-
   //상대방 id
   const [opponentId, setOpponentId] = useRecoilState(MissionOpponentAtom);
-
-  const [missionId,setMissionId] = useRecoilState(MissionIdAtom);
   
+  const [picture1Url, setPicture1Url] = useRecoilState(missionPicture1Url);
+  const [picture2Url, setPicture2Url] = useRecoilState(missionPicture2Url);
+  const {data, isLoading} = useQuery(["cardData"], () => api.get(`/mission/${userId}`).then((response) => response.data.data.missionResponses))
+  
+  useEffect(() => {
+    console.log(12);
+    console.log(data);
+    const fetchData = async () => {
+      try {
+        const response = await api.get(`/mission/${userId}`);
+        setOpponentId(response.data.data.opponentId);
+        setMissionId(response.data.data.missionId);
+        const finishResponse = await api.get(`/mission/finish/${response.data.data.missionId}`);
+        console.log(finishResponse.data.result);
+        // if(finishResponse.data.result) alert("미션을 모두 완료했습니다!");
+        //finishResponse.data == true: 미션 완료
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+  
+    fetchData();
+  }, []);
+
   // Modal 열기 함수
   const handleOpen = async (id: number) => {
     setSelectedMissionId(id);
     setOpen(true);
-  
     try {
-      const response = await api.get(`/mission/${userId}`);
-      console.log(response.data);
-      const receivedOpponentId = response.data.data.opponentId; 
-      const missionId = response.data.data.missionId;
-      setOpponentId(receivedOpponentId); 
-      setMissionId(missionId);
+
+
+      const detailResponse = api.get(`/mission/${missionId}/${id}/${userId}`)
+        .then((data) => {
+          console.log(data.data.data);
+          setPicture1Url(`https://i9b205.p.ssafy.io/mission/${data.data.data.userImgPath}`)
+          setPicture2Url(`https://i9b205.p.ssafy.io/mission/${data.data.data.opponentImgPath}`)
+        }
+      );
+
     } catch (error) {
       console.error('Error:', error);
     }
@@ -81,16 +115,52 @@ const Mission = () => {
           <SidebarMission />
         </div>
         <MissionContainerBox>
-          <MissionBox>
-            <MissionCard image={Card_A} onClick={() => handleOpen(1)} />
-            <MissionCard image={Card_B} onClick={() => handleOpen(2)} />
-            <MissionCard image={Card_C} onClick={() => handleOpen(3)} />
-          </MissionBox>
-          <MissionBox>
-            <MissionCard image={Card_D} onClick={() => handleOpen(4)} />
-            <MissionCard image={Card_E} onClick={() => handleOpen(5)} />
-            <MissionCard image={Card_F} onClick={() => handleOpen(6)} />
-          </MissionBox>
+        <MissionBox>
+          {isLoading ? (
+            <span>isLoading..</span>
+          ) : (
+            data && data.length > 0 ? (
+              data.slice(0, 3).map((item: any, index: number) =>
+                item.isDone ? (
+                  <MissionCard
+                    image={deleteImage[index]}
+                    onClick={() => handleOpen(index + 1)}
+                  ></MissionCard>
+                ) : (
+                  <MissionCard
+                    image={cardImages[index]}
+                    onClick={() => handleOpen(index + 1)}
+                  />
+                )
+              )
+            ) : (
+              <span>진행중인 미션이 없습니다.</span>
+            )
+          )}
+        </MissionBox>
+        <MissionBox>
+          {isLoading ? (
+            <span>isLoading..</span>
+          ) : (
+            data && data.length > 0 ? (
+              data.slice(3, 6).map((item: any, index: number) =>
+                item.isDone ? (
+                  <MissionCard
+                    image={deleteImage[index+3]}
+                    onClick={() => handleOpen(index + 4)}
+                  ></MissionCard>
+                ) : (
+                  <MissionCard
+                    image={cardImages[index+3]}
+                    onClick={() => handleOpen(index + 4)}
+                  />
+                )
+              )
+            ) : (
+              <span></span>
+            )
+          )}
+        </MissionBox>
         </MissionContainerBox>
       </BackBox>
       {selectedMissionId !== null && (

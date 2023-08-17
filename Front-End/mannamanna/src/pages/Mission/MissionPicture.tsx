@@ -1,7 +1,7 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { ImageContainer, ImageTitle } from "../User/Register/ModalStyle";
 import { useRecoilState } from "recoil";
-import { missionPicture1State, missionPicture2State } from "../../Recoil/State";
+import { missionPicture1State, missionPicture2State,missionPicture1Url,missionPicture2Url, } from "../../Recoil/State";
 
 interface EnterMission1Props {
   title: string;
@@ -17,6 +17,9 @@ export const EnterMission1: React.FC<EnterMission1Props> = ({
   coment,
 }) => {
   const [missionPicture1, setMissionPicture1] = useRecoilState(missionPicture1State);
+
+  const [picture1Url, setPicture1Url] = useRecoilState(missionPicture1Url);
+ 
 
   const readURL = (input: HTMLInputElement) => {
     if (input.files && input.files[0]) {
@@ -47,18 +50,17 @@ export const EnterMission1: React.FC<EnterMission1Props> = ({
       setMissionPicture1(selectedFile);
       readURL(event.target);
     }
-  };
-
+  }
   return (
     <ImageContainer>
       <ImageTitle>{title}</ImageTitle>
       <img
         id="preview1"
-        src=""
+        src={picture1Url}
         alt="User1"
         style={{ maxWidth: "100%", maxHeight: "200px" }}
       />
-      <input type="file" onChange={EnterMissionPic1} />
+      {picture1Url.substring(picture1Url.lastIndexOf("/") + 1) == "null" ? <input type="file" onChange={EnterMissionPic1} />: <span></span>}
     </ImageContainer>
   );
 };
@@ -67,6 +69,7 @@ export const EnterMission2: React.FC<EnterMission2Props> = ({
   coment,
 }) => {
   const [missionPicture2, setMissionPicture2] = useRecoilState(missionPicture2State);
+  const [picture2Url, setPicture2Url] = useRecoilState(missionPicture2Url);
 
   const readURL = (input: HTMLInputElement) => {
     if (input.files && input.files[0]) {
@@ -104,11 +107,10 @@ export const EnterMission2: React.FC<EnterMission2Props> = ({
       <ImageTitle>{title}</ImageTitle>
       <img
         id="preview2"
-        src=""
+        src={picture2Url}
         alt="User2"
         style={{ maxWidth: "100%", maxHeight: "200px" }}
       />
-      <input type="file" onChange={EnterMissionPic2} />
     </ImageContainer>
   );
 };

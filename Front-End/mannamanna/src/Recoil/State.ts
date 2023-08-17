@@ -247,16 +247,24 @@ export const MissionIdAtom = atom<number | null>({
   default:0
 });
 
-export const missionPicture1State = atom<File>({
+export const missionPicture1State = atom<File|null>({
   key: "missionPicture1",
-  default:  new File([], "dummy.jpg"),
+  default: null,
 });
 
-export const missionPicture2State = atom<File>({
+export const missionPicture2State = atom<File|null>({
   key: "missionPicture2",
-  default: new File([], "dummy.jpg"),
+  default: null,
 });
 
+export const missionPicture1Url = atom<string>({
+  key:"missionPicture1Url",
+  default:"",
+});
 
+export const missionPicture2Url = atom<string>({
+  key:"missionPicture2Url",
+  default:"",
+});
 
 
