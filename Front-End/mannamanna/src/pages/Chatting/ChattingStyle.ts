@@ -15,8 +15,8 @@ export const ChatPeopleBox = styled.div`
 `
 
 export const LeftChatBox = styled.div`
-    width: 80%;
-    height: 80%;
+    width: 100%;
+    height: 100%;
     background: white;
     border: solid 0.5vh black;
     border-radius: 3vh 3vh 3vh 0vh;
@@ -28,8 +28,8 @@ export const LeftChatBox = styled.div`
 `
 
 export const RightChatBox = styled.div`
-    width: 80%;
-    height: 80%;
+    width: 100%;
+    height: 100%;
     background: white;
     border: solid 0.5vh black;
     border-radius: 3vh 3vh 0vh 3vh;
@@ -95,5 +95,20 @@ export const ChatInputBox = styled.div`
     justify-content: center;
     height: 15%;
 `
+
+export const CircularImageContainer = styled.div`
+width: 3vw;
+  height: 3vw;
+  border-radius: 24%;
+  margin: 1vh;
+  overflow: hidden;
+  border: 1px solid black;
+  background-size: cover;
+`;
+
+export const CircularImage = styled.img`
+width: 100%;
+height: 100%;
+`;
 
 

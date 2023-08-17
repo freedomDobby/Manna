@@ -55,15 +55,18 @@ const DetailProfile = styled.div`
   position: absolute;
   width: 18vw;
   background-color: rgba(255, 255, 255, 0.3);
-  z-index: 2;
+  z-index: 1;
   text-align: center;
+  transition: z-index 2s ease-in-out .5s,
+  border-radius 5s ease;
   align-items: center;
+  
   display: flex;
   justify-content: center;
   align-items: center;
 
   ${Profile}:hover & {
-    z-index: 30000;
+    z-index:200;
   }
 `;
 
@@ -71,7 +74,7 @@ const DetailText = styled.div`
   // border: 1px solid red;
   border-radius: 1.5vw;
   height: 60%;
-  width: 13vw;
+  width: 19vw;
   background-color: rgba(0, 0, 0, 0.6);
   color: white;
   text-align: center;
@@ -82,8 +85,8 @@ const DetailText = styled.div`
 `;
 export const DetailBox1 = styled.div`
   // border: 1px solid red;
-  height: 20%;
-  width: 100%;
+  height: 30%;
+  width: 16vh%;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -100,6 +103,7 @@ export const DetailBox2 = styled.div`
 
 export const DetailInfo = styled.div`
   // border: 1px solid red;
+  margin:0.3vh;
 `;
 
 const Online = styled.div`

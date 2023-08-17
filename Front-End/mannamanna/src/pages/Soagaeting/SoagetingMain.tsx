@@ -43,6 +43,7 @@ const SoagetingFilter = () => {
   const [userId, setId] = useRecoilState(idAtom);
   const [usergender, setGender] = useRecoilState(genderAtom);
   const [notereceiver, setReceiver] = useRecoilState(sendNoteReceiverAtom);
+  
   const handleOpenSogaeModal = async (memberId:string) => {
     await setReceiver(memberId);
     setSogaeOpen(true);

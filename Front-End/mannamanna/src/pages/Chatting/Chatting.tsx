@@ -19,7 +19,7 @@ import {
 import SidebarChat from "../../components/layout/Sidebar/SidebarChat";
 import { MyPageContainerBox } from "../User/MyPage/MyPageStyle";
 import { useRecoilState } from "recoil";
-import { ChattingRoomState, chatListState, genderAtom, idAtom, inputValueState, nameAtom } from "../../Recoil/State";
+import { ChattingRoomState, chatListState, genderAtom, idAtom, inputValueState, myImgageAtom, nameAtom, opponentImageAtom } from "../../Recoil/State";
 import CreateChattingClient from "../User/Login/Clinet";
 import { useQuery } from "@tanstack/react-query";
 import api from "../../apis/Api";
@@ -39,6 +39,9 @@ export const Chatting = () => {
   const [inputValue, setInputValue] = useRecoilState(inputValueState); 
   const [chatList, setChatList] = useRecoilState(chatListState);
   const [name, setName] = useRecoilState(nameAtom);
+  const [myImage, setmyImage] = useRecoilState(myImgageAtom);
+  const [opponetImage, setopponetImage] = useRecoilState(opponentImageAtom);
+
 
 
   const { data: ChattingInfo, isLoading, isError } = useQuery<any>(["ChattingInfo"], async () => {
@@ -49,8 +52,28 @@ export const Chatting = () => {
   });
 
   
-  const EnterRoom = (ChattingRoom: number) => {
+  const EnterRoom = async (ChattingRoom: number,opponentId:string) => {
+    console.log(opponentId);
+   await api.get(`/user/mypage/${Userid}`)
+    .then(res => {
+      console.log(res);
+      console.log(res.data.data.profilePictures[0].path);
+      setmyImage(res.data.data.profilePictures[0].path);
+    })
+    .catch(error => {
+      console.error("Error:", error.message);
+    });
+    await api.get(`/user/mypage/${opponentId}`)
+    .then(res => {
+      console.log(res);
+      console.log(res.data.data.profilePictures[0]);
+      setopponetImage(res.data.data.profilePictures[0].path);
+    })
+    .catch(error => {
+      console.error("Error:", error.message);
+    });
     console.log(ChattingRoom);
+    
     setRoomId(ChattingRoom);
   };
 
@@ -91,7 +114,7 @@ export const Chatting = () => {
               userName={gender === "male" ? note.femaleId : note.maleId}
                 onEnterRoom={() =>
                   EnterRoom(
-                    note.id
+                    note.id,gender === "male" ? note.femaleId : note.maleId
                   )} />
                 ))}
                 </ChatInBox>

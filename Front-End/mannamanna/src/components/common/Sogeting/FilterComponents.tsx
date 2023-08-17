@@ -53,7 +53,7 @@ const FilterComponent: React.FC<FilterProps> = ({
           <DetailBox1>
             <DetailInfo>{name}</DetailInfo>
             <DetailInfo>{age}살 </DetailInfo>
-            <DetailInfo>{height} cm</DetailInfo>
+            <DetailInfo>{height}cm</DetailInfo>
             <DetailInfo>{location}</DetailInfo>
           </DetailBox1>
           <DetailBox2>{selfPR}</DetailBox2>
