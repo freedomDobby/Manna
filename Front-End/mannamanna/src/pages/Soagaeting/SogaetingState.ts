@@ -8,7 +8,7 @@ export const userSessionId = atom<string>({
 
 // 유저의 이름 저장
 export const sogaeUserName = atom<string>({
-    key: 'userName',
+    key: 'sogaeUserName',
     default: 'helloworld',
 });
 

@@ -1,5 +1,5 @@
 // import * as React from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useHref } from "react-router-dom";
 import Layout from "./pages/Layout";
 import Landing from "./pages/Landing/Landing";
 import Login from "./pages/User/Login/Login";
@@ -36,12 +36,13 @@ import Kakao from "./pages/User/Login/KaKaoLogin";
 import { Chatting } from "./pages/Chatting/Chatting";
 import { useRecoilState } from "recoil";
 import { ChattingRoomState, accessTokenAtom, chatListState, genderAtom, idAtom, nameAtom, refreshTokenAtom } from "./Recoil/State";
-import { Client, Message } from "@stomp/stompjs";
+import { Client, CompatClient, Message, Stomp } from "@stomp/stompjs";
 import CreateChattingClient from "./pages/User/Login/Clinet";
 import { SOCET_URL } from "./apis/Url";
 import { useEffect, useState } from "react";
 import { ChatMessage } from "./apis/Request/Request";
 import { ChatOutputRes } from "./apis/Response/Response";
+import SockJS from "sockjs-client";
 
 function App() {
   const [name, setName] = useRecoilState(nameAtom);
@@ -52,6 +53,7 @@ function App() {
   const [Isconnect, setIsconnect] = useState(false);
   const [chatList, setChatList] = useRecoilState(chatListState);
   const [RoomId, setRoomId] = useRecoilState(ChattingRoomState);
+
 
 
   return (
