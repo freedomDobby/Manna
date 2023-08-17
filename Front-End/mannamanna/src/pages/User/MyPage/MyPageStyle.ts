@@ -10,6 +10,7 @@ export const MileageBox = styled.div`
   border-radius: 2vh;
   text-align: center;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   font-size: 1.3vw;
