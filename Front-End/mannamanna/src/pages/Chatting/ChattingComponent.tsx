@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import BackBox from "../../components/common/Back";
 import MacBookBox from "../../components/common/macbookBox";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, IconButton } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import QuizIcon from '@mui/icons-material/Quiz';
 import {
@@ -92,10 +92,11 @@ export const CircularImageComponent = ({ src, alt }:any) => (
     const [chatList, setChatList] = useState<ChatOutputRes[]>([]);
     const [name, setName] = useRecoilState(nameAtom);
     const [inputValue, setInputValue] = useState("");
-    const [showMessage, setShowMessage] = useState(false);
-
+    const [showMessage, setShowMessage] = useState(false)
     const [myImage, setmyImage] = useRecoilState(myImgageAtom);
     const [opponetImage, setopponetImage] = useRecoilState(opponentImageAtom);
+    const [userAccessToken,setUserAccessToken]=useRecoilState(accessTokenAtom);
+
 
     const handleMouseEnter = () => {
       setShowMessage(true);
@@ -105,6 +106,26 @@ export const CircularImageComponent = ({ src, alt }:any) => (
       setShowMessage(false);
     };
     const client = useRef<CompatClient>();
+
+
+
+    // const connect=()=>{
+    //   const headers:any={
+    //     userId:Userid,
+    //     gender: gender,
+    //     userName: name,
+    //     token:userAccessToken
+    //   }
+    //   var socket= new SockJS("https://i9b205.p.ssafy.io/ws");
+    //   client.current=Stomp.over(socket);
+    //   client.current.connect(headers,function(frame:any){
+    //     return socket;
+    //   });
+    // };
+
+    useEffect(() => {
+      connect();
+  }, []);
 
     // 웹소켓 연결
     const connect=()=>{
@@ -126,9 +147,7 @@ export const CircularImageComponent = ({ src, alt }:any) => (
         setChatList((chat_list) => [...chat_list, addChat]);
       });
     });
-  useEffect(() => {
-      connect();
-  }, []);
+
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
@@ -204,98 +223,103 @@ export const CircularImageComponent = ({ src, alt }:any) => (
 
     
     return (
-    <>
-      <div id="rapperDiv" style={{ overflow: "auto", minHeight:'84%', maxHeight: "84%",}}>
-              <ChatOutBox>
-                <ChatInBox>
-                {chatList?.map((item, index) => {
-            if (item.senderId === Userid) {
-              return <SendChat key={index} message={item.message} />;
-            } else {
-              return <GetChat key={index} message={item.message} />;
-            }
-          })}
-                </ChatInBox>
-              </ChatOutBox>
-      </div>
+      <>
+        <div id="rapperDiv" style={{ overflow: "auto", minHeight:'84%', maxHeight: "84%",}}>
+                <ChatOutBox>
+                  <ChatInBox>
+                  {chatList?.map((item, index) => {
+              if (item.senderId === Userid) {
+                return <SendChat key={index} message={item.message} />;
+              } else {
+                return <GetChat key={index } message={item.message} />;
+              }
+            })}
+                  </ChatInBox>
+                </ChatOutBox>
+        </div>
         <ChatInputBox>
-        <input
-          placeholder="메시지를 입력하세요"
-          type={"text"}
-          onChange={handleChange}
-          onKeyDown={handleKeyPress}
-          value={inputValue}
-          style={{
-            height:'50%',
-            width: "70%",
-            fontSize:'large',
-            backgroundColor: "#ffcced",
-            borderRadius: "1rem",
-            marginRight:'1vw',
-          }}
-          autoFocus
-        />
-        <div  style={{
-            backgroundColor: "#ffcced",
-            height: '5vh',
-            width: '13vh',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'space-around',
-            borderRadius:'2vh'
+          <input
+            placeholder=" 메시지를 입력하세요"
+            type={"text"}
+            onChange={handleChange}
+            onKeyDown={handleKeyPress}
+            value={inputValue}
+            style={{
+              height:'50%',
+              width: "70%",
+              fontSize:'large',
+              backgroundColor: "#ffcced",
+              borderRadius: "0.5rem",
+              border: '0.1rem solid black',
+              marginRight:'3%',
+              fontFamily: 'inherit',
+            }}
+            autoFocus
+          />
+          <div  style={{
+              backgroundColor: "#ffffff",
+              height: '60%',
+              width: '20%',
+              display: 'flex',
+              justifyContent: 'space-around',
+              alignItems: 'center',
           }}>
-        <div
-          style={{
-            backgroundColor: "#ffcced",
-            height: '5vh',
-            width: '5vh',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRadius:'2vh'
-          }}
-          onClick={handleSubmit}
-        >
-          <SendIcon style={{ width: '90%', height: '90%' }} />
-        </div>
-        <div
-      style={{
-        backgroundColor: "#ffcced",
-        height: '5vh',
-        width: '5vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: '2vh',
-        position: 'relative', // 필수: 메시지를 상대 위치로 표시하기 위해
-      }}
-      onClick={handleQuiz}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <QuizIcon style={{ width: '90%', height: '90%' }} />
-      {showMessage && (
-        <div
-          style={{
-            position: 'absolute',
-            backgroundColor: 'rgba(0, 0, 0, 0.7)',
-            color: 'white',
-            borderRadius: '4px',
-            padding: '4px',
-            fontSize: '1.2rem',
-            bottom: '100%',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            zIndex: 1,
-          }}
-        >
-          누르면 밸런스 게임을 보내요😖
-        </div>
-      )}
-    </div>
-        </div>
-
+          <IconButton
+            style={{
+              backgroundColor: "#ffcced",
+              height: '100%',
+              width: '3rem',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: '0.5rem',
+              color: 'black',
+              border: 'solid 0.1rem black',
+            }}
+            onClick={handleSubmit}
+          >
+            <SendIcon/>
+          </IconButton>
+  
+          <IconButton
+            style={{
+              backgroundColor: "#ffcced",
+              height: '100%',
+              width: '3rem',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: '0.5rem',
+              color: 'black',
+              border: 'solid 0.1rem black',
+              fontFamily:'inherit',
+            }}
+            onClick={handleQuiz}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            {showMessage && (
+              <div
+                style={{
+                  position: 'absolute',
+                  backgroundColor: 'rgba(255, 204, 237, 0.7)',
+                  color: 'black',
+                  borderRadius: '0.5rem',
+                  fontSize: '1rem',
+                  bottom: '100%',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  zIndex: 1,
+                }}
+              >
+                누르면 밸런스 게임을 보내요😖
+              </div>
+            )}
+            <QuizIcon/>
+          </IconButton>
+          </div>
         </ChatInputBox>
-        </>
-    );
-  };
+      </>
+      );
+    };
+  
