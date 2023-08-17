@@ -63,32 +63,32 @@ const ReserveComp = (props: IReserveCompProps) => {
     const [missionId,setMissionId] = useRecoilState(MissionIdAtom) 
 
 
-    const fn = async () => {
-        console.log(scheduleId);
-        let maleId;
-        let femaleId;
-        if(userGender=="male") {
-            maleId = myId;
-            femaleId = opponentId;
-        }
-        else{
-            maleId = opponentId;
-            femaleId = myId;
-        }
-        
-        const response = await fetchMission({
-            sogaetingId: scheduleId,
-            maleId: maleId,
-            femaleId: femaleId,
-        });
-
-        console.log("aa" + response.data);
-        console.log("id" + response.data.id);
-
-    }
+    
 
     useEffect( () => {
-        fn();
+        const fn = async () => {
+            console.log(scheduleId);
+            let maleId;
+            let femaleId;
+            if(userGender=="male") {
+                maleId = myId;
+                femaleId = opponentId;
+            }
+            else{
+                maleId = opponentId;
+                femaleId = myId;
+            }
+            
+            const response = await fetchMission({
+                sogaetingId: scheduleId,
+                maleId: maleId,
+                femaleId: femaleId,
+            });
+    
+            return response.data;
+        }
+        // fn().then(returnVal=>{console.log(returnVal+","+returnVal.data.id+","+returnVal.msg)})
+        fn().then(returnVal=>{fetchMissionQuestion(returnVal.data.id).then(res=>console.log(res))})
     },[])
 
     // useEffect(() => {
