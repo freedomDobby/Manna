@@ -40,26 +40,79 @@ const Main = () => {
         <div style={{ height: "80vh" }}>
           <MyPageContainerBox>
             <InnerBox>
-              <MidBox>
-                <HalfBox>
-                  <CanlendarBox>
-                    {/* 달력 */}
-                    <MainCanlendarBody>
-                      <UserCalendar />
-                    </MainCanlendarBody>
-                    {/* 버튼 */}
-                    <MainScheduleBody>
-                      <StyledButton
-                        onClick={GoSchedule}
-                        style={{ fontSize: "2vh" }}
-                      >
-                        일정확인
-                      </StyledButton>
-                    </MainScheduleBody>
-                  </CanlendarBox>
-                </HalfBox>
+              <MidBox style={{ flexDirection: "column"}}>
+                <SmallBox>
+                  <MainCanlendarBody style={{ flexDirection: "row"}}>
+                    <UserCalendar />
+                  </MainCanlendarBody>
+                </SmallBox>
+                <SmallBox>
+                <div
+                    style={{
+                      display: "flex",
+                      width: '90%',
+                      height: "60%",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: 'center',
+                      fontSize: "1.5vw",
+                    }}
+                  >
+                  <div>소개팅의 부담감 줄이고</div>
+                  <div>미팅의 어색함을 즐거움으로</div>
+                  <div
+                    style={{
+                      display: "flex",
+                      width: "100%",
+                      justifyContent: "center",
+                    }}
+                  >
+                    이제 상대방이 나의 인연이
+                    <p
+                      style={{
+                        color: "#5c8ecb",
+                        textAlign: "center",
+                        width: "15%",
+                        WebkitTextStroke: '0.03rem black',
+                      }}
+                    >
+                      맞나
+                    </p>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      width: "100%",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <p
+                      style={{
+                        color: "#ffcced",
+                        textAlign: "center",
+                        width: "15%",
+                        WebkitTextStroke: '0.03rem black',
+                      }}
+                    >
+                      먼저
+                    </p> 
+                    대화해보고
+                    <p
+                      style={{
+                        color: "#5c8ecb",
+                        textAlign: "center",
+                        width: "15%",
+                        WebkitTextStroke: '0.03rem black',
+                      }}
+                    >
+                      만나
+                    </p>
+                    봐요!
+                  </div>
+                  </div>
+                </SmallBox>
               </MidBox>
-              <MidBox style={{ flexDirection: "column" }}>
+              <MidBox style={{ flexDirection: "column"}}>
                 {/* 그림이 들어간 곳 */}
                 <SmallBox>
                   <SecondBox />
@@ -79,9 +132,10 @@ const Main = () => {
                         color: "#5c8ecb",
                         textAlign: "center",
                         fontSize: "200%",
+                        WebkitTextStroke: '0.03rem black',
                       }}
                     >
-                      새로운 인연 찾으로 가기
+                      새로운 인연 찾으러 가기
                     </div>
                     <div
                       style={{
@@ -96,7 +150,6 @@ const Main = () => {
               </MidBox>
             </InnerBox>
           </MyPageContainerBox>
-          {/* 이게 컨테이너 인가보군 */}
         </div>
       </BackBox>
     </div>

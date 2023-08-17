@@ -9,50 +9,51 @@ import { useRecoilState } from "recoil";
 import { useQuery } from "@tanstack/react-query";
 
 const CalendarContainer = styled.div`
+  margin: 1rem;
   // 달력 전체
   .react-calendar {
-    // border: 3px solid blue;
+    width:100%;
     height: 100%;
     border-radius: 10%;
   }
   /* react-calendar__navigation 스타일 */
   // 달력 헤더
   .react-calendar__navigation {
-    border-top-left-radius: 39px;
-    border-top-right-radius: 39px;
-    width: 100%;
-    height: 15%;
+    margin-left: 5%;
+    width: 90%;
+    height: 13%;
     display: flex;
     justify-content: center; /* 가로 가운데 정렬 */
     align-items: center; /* 세로 가운데 정렬 */
-    background: #ffcced;
-    div {
-      background: #ffcced;
-    }
+    background: rgba(255, 255, 255, 0.35);
     span {
-      font-size: 1.5rem;
-      font-weight: bold;
+      font-size: 1.3rem;
+      font-weight: normal;
       color: black;
     }
     button {
       background: #f8e3ea;
-      border-radius: 0.5rem;
-      border: 1px solid #ffffff;
+      border-radius: 0.2rem;
+      border: 0.1rem solid #ffffff;
       cursor: pointer;
-      margin: 1.5%;
+      margin: 1%;
+      font-family: inherit;
     }
     button:hover {
-      border: 1px solid #d9cff4;
+      border-radius: 0rem;
+      border: 0.1rem solid #000000;
     }
   }
   // 달력 몸통
   .react-calendar__viewContainer {
+    width: 90%;
     height: 85%;
+    margin-left: 5%;
   }
 
-  .react-calendar__month-view {
-    height: 90%;
-  }
+  // .react-calendar__month-view {
+    
+  // }
   /* react-calendar__navigation 버튼 스타일 */
   .react-calendar__navigation button:disabled {
   }
@@ -65,28 +66,34 @@ const CalendarContainer = styled.div`
   /* react-calendar__month-view 스타일 */
 
   .react-calendar__month-view {
-    // border: 1px solid red;
-    padding: 1.5vh 2vw;
+    width: 90%;
+    height: 100%;
+    margin-left: 5%;
     abbr {
       color: black;
       font-size: 2vh;
       font-weight: normal;
     }
   }
-
+  .react-calendar__month-view__weekdays{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
   /* react-calendar__month-view__weekdays 스타일 */
   .react-calendar__month-view__weekdays abbr {
     color: #000000;
-    font-size: 3vh;
+    text-decoration: none;
+    font-size: 2.5vh;
     font-weight: normal;
     font-family: inherit;
-    margin-left: 1.5rem; /* 요일을 오른쪽으로 이동 */
+    margin-left: 33%; /* 요일을 오른쪽으로 이동 */
   }
 
   /* react-calendar__tile 스타일 */
   .react-calendar__tile {
     text-align: center;
-    height: 6vh;
+    height: 5vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -147,8 +154,8 @@ const MyCalendar = () => {
           <img
             src={heart}
             className="diaryImg"
-            width="26"
-            height="26"
+            width="80%"
+            height="50%"
             alt="today is..."
           />
         </div>
