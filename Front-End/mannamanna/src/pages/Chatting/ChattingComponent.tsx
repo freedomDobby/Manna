@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import BackBox from "../../components/common/Back";
 import MacBookBox from "../../components/common/macbookBox";
-import { TextField, Button, IconButton } from "@mui/material";
+import { TextField, Button } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import QuizIcon from '@mui/icons-material/Quiz';
 import {
@@ -86,16 +86,17 @@ export const CircularImageComponent = ({ src, alt }:any) => (
   }
 
   export const ChattingComponent = () => {
-    const [userId, setId] = useRecoilState(idAtom);
+    const [Userid, setId] = useRecoilState(idAtom);
     const [gender, setGender] = useRecoilState(genderAtom);
     const [RoomId, setRoomId] = useRecoilState(ChattingRoomState);
     const [chatList, setChatList] = useState<ChatOutputRes[]>([]);
-    const [userName, setName] = useRecoilState(nameAtom);
+    const [name, setName] = useRecoilState(nameAtom);
     const [inputValue, setInputValue] = useState("");
     const [showMessage, setShowMessage] = useState(false);
+
     const [myImage, setmyImage] = useRecoilState(myImgageAtom);
     const [opponetImage, setopponetImage] = useRecoilState(opponentImageAtom);
-    const [userAccessToken, setUseraccessToken] = useRecoilState(accessTokenAtom);
+
     const handleMouseEnter = () => {
       setShowMessage(true);
     };
@@ -106,23 +107,12 @@ export const CircularImageComponent = ({ src, alt }:any) => (
     const client = useRef<CompatClient>();
 
     // 웹소켓 연결
-    function connect(){
-      const headers:any={
-        userId:userId,
-        gender: gender,
-        userName: userName,
-        token:userAccessToken
-      }
-      var socket= new SockJS("https://i9b205.p.ssafy.io/ws");
-      client.current=Stomp.over(socket);
-      client.current.connect(headers,function(frame:any){
-
-      });
-    };
-
-    useEffect(() => {
-      connect();
-  }, []);
+    const connect=()=>{
+      client.current=Stomp.over(()=>{
+        const ws = new SockJS("https://i9b205.p.ssafy.io/ws");
+        return ws;
+      })
+    }
     client.current?.connect({}, () => {
       // 웹소켓 이벤트 핸들러 설정
       client.current!.subscribe(`/sub/chat/room${RoomId}`, res => {
@@ -136,6 +126,9 @@ export const CircularImageComponent = ({ src, alt }:any) => (
         setChatList((chat_list) => [...chat_list, addChat]);
       });
     });
+  useEffect(() => {
+      connect();
+  }, []);
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
@@ -152,8 +145,8 @@ export const CircularImageComponent = ({ src, alt }:any) => (
       const newChat: ChatMessage = {
         MessageType: "TALK",
         roomId: RoomId,
-        senderId: userId,
-        senderName: userName,
+        senderId: Userid,
+        senderName: name,
         message: message,
       };
       client.current?.send(
@@ -184,20 +177,19 @@ export const CircularImageComponent = ({ src, alt }:any) => (
       });
     }
 
-    // useEffect(() => {
-    //   if(RoomId===0){
-    //     return;
-    //   }
-    //   api.get(`chat/${RoomId}`)
-    //     .then(res => {
-    //       setChatList(res.data.data);
-    //     })
-    //     .catch(e => {
-    //       console.error(e);
-    //     });
+    useEffect(() => {
+      if(RoomId===0){
+        return;
+      }
+      api.get(`chat/${RoomId}`)
+        .then(res => {
+          setChatList(res.data.data);
+        })
+        .catch(e => {
+          console.error(e);
+        });
   
-    // }, []);
-
+    }, []);
     useEffect(() => {
       const rapperDiv = document.getElementById("rapperDiv");
       if (rapperDiv) {
@@ -208,18 +200,6 @@ export const CircularImageComponent = ({ src, alt }:any) => (
       }
     }, [chatList]);
  
-
-    const {
-      data: chattingRommList,
-    } = useQuery<any>(["chattingRommList"], async () => {
-      const response = await api.get(`chat/${RoomId}`);
-      console.log(response.data.data);
-      setChatList(response.data.data);
-      return response.data;
-    });
-
-
-
   
 
     
@@ -229,18 +209,18 @@ export const CircularImageComponent = ({ src, alt }:any) => (
               <ChatOutBox>
                 <ChatInBox>
                 {chatList?.map((item, index) => {
-            if (item.senderId === userId) {
+            if (item.senderId === Userid) {
               return <SendChat key={index} message={item.message} />;
             } else {
-              return <GetChat key={index } message={item.message} />;
+              return <GetChat key={index} message={item.message} />;
             }
           })}
                 </ChatInBox>
               </ChatOutBox>
       </div>
-      <ChatInputBox>
+        <ChatInputBox>
         <input
-          placeholder=" 메시지를 입력하세요"
+          placeholder="메시지를 입력하세요"
           type={"text"}
           onChange={handleChange}
           onKeyDown={handleKeyPress}
@@ -250,76 +230,72 @@ export const CircularImageComponent = ({ src, alt }:any) => (
             width: "70%",
             fontSize:'large',
             backgroundColor: "#ffcced",
-            borderRadius: "0.5rem",
-            border: '0.1rem solid black',
-            marginRight:'3%',
-            fontFamily: 'inherit',
+            borderRadius: "1rem",
+            marginRight:'1vw',
           }}
           autoFocus
         />
         <div  style={{
-            backgroundColor: "#ffffff",
-            height: '60%',
-            width: '20%',
+            backgroundColor: "#ffcced",
+            height: '5vh',
+            width: '13vh',
             display: 'flex',
-            justifyContent: 'space-around',
-            alignItems: 'center',
-        }}>
-        <IconButton
+            justifyContent: 'center',
+            alignItems: 'space-around',
+            borderRadius:'2vh'
+          }}>
+        <div
           style={{
             backgroundColor: "#ffcced",
-            height: '100%',
-            width: '3rem',
+            height: '5vh',
+            width: '5vh',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            borderRadius: '0.5rem',
-            color: 'black',
-            border: 'solid 0.1rem black',
+            borderRadius:'2vh'
           }}
           onClick={handleSubmit}
         >
-          <SendIcon/>
-        </IconButton>
-
-        <IconButton
-          style={{
-            backgroundColor: "#ffcced",
-            height: '100%',
-            width: '3rem',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRadius: '0.5rem',
-            color: 'black',
-            border: 'solid 0.1rem black',
-            fontFamily:'inherit',
-          }}
-          onClick={handleQuiz}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          {showMessage && (
-            <div
-              style={{
-                position: 'absolute',
-                backgroundColor: 'rgba(255, 204, 237, 0.7)',
-                color: 'black',
-                borderRadius: '0.5rem',
-                fontSize: '1rem',
-                bottom: '100%',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                zIndex: 1,
-              }}
-            >
-              누르면 밸런스 게임을 보내요😖
-            </div>
-          )}
-          <QuizIcon/>
-        </IconButton>
+          <SendIcon style={{ width: '90%', height: '90%' }} />
         </div>
-      </ChatInputBox>
-    </>
+        <div
+      style={{
+        backgroundColor: "#ffcced",
+        height: '5vh',
+        width: '5vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: '2vh',
+        position: 'relative', // 필수: 메시지를 상대 위치로 표시하기 위해
+      }}
+      onClick={handleQuiz}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <QuizIcon style={{ width: '90%', height: '90%' }} />
+      {showMessage && (
+        <div
+          style={{
+            position: 'absolute',
+            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+            color: 'white',
+            borderRadius: '4px',
+            padding: '4px',
+            fontSize: '1.2rem',
+            bottom: '100%',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 1,
+          }}
+        >
+          누르면 밸런스 게임을 보내요😖
+        </div>
+      )}
+    </div>
+        </div>
+
+        </ChatInputBox>
+        </>
     );
   };
