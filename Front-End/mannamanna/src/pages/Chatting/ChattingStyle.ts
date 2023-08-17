@@ -16,28 +16,27 @@ export const ChatPeopleBox = styled.div`
 
 export const LeftChatBox = styled.div`
     width: 80%;
-    height: 7vh;
+    height: 80%;
     background: white;
     border: solid 0.5vh black;
     border-radius: 3vh 3vh 3vh 0vh;
-    text-align: center;
+    text-align: left;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.3vw;
+
 `
 
 export const RightChatBox = styled.div`
     width: 80%;
-    height: 7vh;
+    height: 80%;
     background: white;
     border: solid 0.5vh black;
     border-radius: 3vh 3vh 0vh 3vh;
-    text-align: center;
+    text-align: right;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.3vw;
 `
 export const ChatProFile = styled.div`
     width: 3vw;
@@ -93,6 +92,8 @@ export const ChatInputBox = styled.div`
     flex-direction: row;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     height: 15%;
 `
+
+

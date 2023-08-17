@@ -523,7 +523,7 @@ export const TrueNoteModal = () => {
   const sendUnLoveNote = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const updatedMessage: SogaetingReq = {
-      receiver: temp.receiver,
+      receiver: notereceiver,
       sender: temp.sender,
       date: temp.date,
     };

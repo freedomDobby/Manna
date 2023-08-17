@@ -6,11 +6,15 @@ import {
   MidBox,
   CanlendarBox,
   SecondBox,
+  MainCanlendarBody,
+  MainScheduleBody,
+  HalfBox,
 } from "../MainHome/MainHomeStyle";
 import UserCalendar from "../../../components/common/UserCalendar";
 import { useNavigate } from "react-router-dom";
 import SidebarHome from "../../../components/layout/Sidebar/SidebarHome";
 import { MyPageContainerBox } from "../MyPage/MyPageStyle";
+import { CanlendarBody } from "../Schedule/ScheduleStyle";
 
 const Main = () => {
   const navigate = useNavigate();
@@ -37,78 +41,30 @@ const Main = () => {
           <MyPageContainerBox>
             <InnerBox>
               <MidBox>
-                <SmallBox>
+                <HalfBox>
                   <CanlendarBox>
-                    <UserCalendar />
-                    <StyledButton onClick={GoSchedule}>
-                      일정확인하기
-                    </StyledButton>
+                    {/* 달력 */}
+                    <MainCanlendarBody>
+                      <UserCalendar />
+                    </MainCanlendarBody>
+                    {/* 버튼 */}
+                    <MainScheduleBody>
+                      <StyledButton
+                        onClick={GoSchedule}
+                        style={{ fontSize: "2vh" }}
+                      >
+                        일정확인
+                      </StyledButton>
+                    </MainScheduleBody>
                   </CanlendarBox>
-                </SmallBox>
-                <SmallBox>
-                  <SecondBox></SecondBox>
-                </SmallBox>
+                </HalfBox>
               </MidBox>
-              <MidBox>
-                <SmallBox
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    color: "white",
-                    WebkitTextStrokeWidth: "0.5px",
-                    WebkitTextStrokeColor: "#d9cff4",
-                    fontSize: "200%",
-                    fontWeight: "bold",
-                  }}
-                >
-                  <div>소개팅의 부담감 줄이고</div>
-                  <div>미팅의 어색함을 즐거움으로</div>
-                  <div
-                    style={{
-                      display: "flex",
-                      width: "100%",
-                      justifyContent: "center",
-                    }}
-                  >
-                    이제 상대방이 나의 인연이
-                    <p
-                      style={{
-                        color: "#5c8ecb",
-                        textAlign: "center",
-                        width: "10%",
-                      }}
-                    >
-                      맞나
-                    </p>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      width: "100%",
-                      justifyContent: "center",
-                    }}
-                  >
-                    먼저 대화해보고
-                    <p
-                      style={{
-                        color: "#5c8ecb",
-                        textAlign: "center",
-                        width: "10%",
-                      }}
-                    >
-                      만나
-                    </p>
-                    봐요!
-                  </div>
-                  <br />
-                  <div
-                    style={{
-                      color: "#5c8ecb",
-                    }}
-                  >
-                    맞나? 만나!
-                  </div>
+              <MidBox style={{ flexDirection: "column" }}>
+                {/* 그림이 들어간 곳 */}
+                <SmallBox>
+                  <SecondBox />
                 </SmallBox>
+
                 <SmallBox>
                   <CanlendarBox
                     style={{

@@ -78,3 +78,30 @@ export interface SogaetingRecommandReq {
   isDrinker: boolean | null;
   isSmoker: boolean | null;
 }
+
+export interface DetailScheduleReq {
+  userId:string | null;
+  date:string | null;
+}
+
+export interface ChatMessage{
+  MessageType: string|null;
+  roomId:number|null;
+  senderId:string|null;
+  senderName:string|null;
+  message:string|null;
+}
+
+
+export interface MissionDoReq{
+  memberId: string|null;
+  id:number|null;
+  missionId:number|null;
+  gender:string|null;
+}
+
+export interface MakeChatRoom{
+  maleId:string|null;
+  femaleId:string|null;
+
+}

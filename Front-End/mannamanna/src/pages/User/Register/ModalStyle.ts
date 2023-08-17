@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { unknown } from "../../../asset/image/unknown.png";
 
 const MostBiggestBox = styled.div`
   border-radius: 5%;
@@ -29,8 +30,8 @@ const Container2 = styled.div`
   // border: 3px solid red;
   display: flex;
   flex-direction: column;
-  width: 95%;
-  height: 95%;
+  width: 100%;
+  height: 100%;
   justify-content: center;
   align-items: center;
 `;
@@ -40,6 +41,9 @@ const TitleBox = styled.div`
   height: 10%;
   width: 100%;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ImageForm = styled.form`
@@ -49,6 +53,22 @@ const ImageForm = styled.form`
   display: flex;
   justify-content: space-around;
   align-content: center;
+`;
+
+export const EnterLocalBox = styled.div`
+  // border: 1px solid blue;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 60%;
+  width: 80%;
+  margin: 3%;
+`;
+export const LocalLabel = styled.label`
+  // border: 1px solid purple;
+  text-align: center;
+  width: 30%;
+  font-size: 2.5rem;
 `;
 
 const ImageContainer = styled.div`
@@ -75,6 +95,7 @@ const ImageMirror = styled.div`
   border: 1px solid black;
   width: 80%;
   height: 50%;
+  background-image: url(${"unknown"});
   // align-itmes: center;
   // background-color: black;
 `;

@@ -1,5 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
+
 import React from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useRecoilState } from "recoil";
 import {
   DeleteNoteAtom,
@@ -62,7 +63,7 @@ const ResponseNote = () => {
       console.log(promiseResult.data);
       setSenderName(promiseResult.data.name);
       setSenderHeight(promiseResult.data.height);
-      // setSendeAge(promiseResult.data.name);
+      setSendeAge(promiseResult.data.age);
       setSenderJob(promiseResult.data.job);
       setSenderMbti(promiseResult.data.mbti);
       setSenderPr(promiseResult.data.introduction);
@@ -86,8 +87,8 @@ const ResponseNote = () => {
     isError,
   } = useQuery<ReceivedNotesRes[]>(["receivedNote"], async () => {
     const response = await api.get(`note/received/${userId}`);
-    console.log(response.data);
-    return response.data;
+    console.log(response.data.data);
+    return response.data.data;
   });
 
   if (isLoading) {
@@ -95,9 +96,9 @@ const ResponseNote = () => {
   }
 
   if (isError) {
-    return <p>Error occurred while fetching data</p>;
+    return <p>에러입니다.</p>;
   }
-
+  
   return (
     <SendContainer>
       {receivedNoteList.reverse().map((note, index) => (

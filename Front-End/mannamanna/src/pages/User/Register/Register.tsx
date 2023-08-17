@@ -29,7 +29,6 @@ import { EnterImage } from "./Image/EnterImageModal";
 import { EnterLocation } from "./Address/EnterAddressModal";
 // import KakaoAPI from "./Address/AddressApi";
 import Kakao from "./../Login/KaKaoLogin";
-import { LocalApi } from "./Address/LocalApi";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -91,8 +90,8 @@ const Register = () => {
                   <SmallInputBox>
                     <AnswerBox>
                       <Answer> 지역을 선택해주세요</Answer>
+                      <EnterLocation />
                     </AnswerBox>
-                    <EnterLocation />
                   </SmallInputBox>
                 </div>
 

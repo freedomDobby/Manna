@@ -10,7 +10,6 @@ import MainHome from "./pages/User/MainHome/MainHome";
 import Choice from "./pages/Choice";
 import Schedule from "./pages/User/Schedule/Schedule";
 import Mypage from "./pages/User/MyPage/Mypage";
-import Chatting from "./pages/Chatting/Chatting";
 import SoagetingMain from "./pages/Soagaeting/SoagetingMain";
 import SoagetingWait from "./pages/Soagaeting/SoagetingWait";
 import Soageting from "./pages/Soagaeting/Soageting";
@@ -19,7 +18,7 @@ import MeetingMakeRoom from "./pages/Meeting/MeetingMakeRoom";
 import MeetingWait from "./pages/Meeting/MeetingWait";
 import Meeting from "./pages/Meeting/Meeting";
 import Reserve from "./pages/Reserve/Reserve";
-import Mission from "./pages/Mission";
+import Mission from "./pages/Mission/Mission";
 import Note from "./pages/Note/Note";
 import RequestNote from "./pages/Note/RequestNote";
 import ResponseNote from "./pages/Note/ResponseNote";
@@ -34,8 +33,31 @@ import MyPageWithdrawal from "./pages/User/MyPage/MyPageWithdrawal";
 import StudyRecoil from "./pages/Study/StudyRecoil";
 import StudyRecoilResult from "./pages/Study/StudyRecoilResult";
 import Kakao from "./pages/User/Login/KaKaoLogin";
+import { Chatting } from "./pages/Chatting/Chatting";
+import { useRecoilState } from "recoil";
+import { ChattingRoomState, accessTokenAtom, chatListState, genderAtom, idAtom, nameAtom, refreshTokenAtom } from "./Recoil/State";
+import { Client, Message } from "@stomp/stompjs";
+import CreateChattingClient from "./pages/User/Login/Clinet";
+import { SOCET_URL } from "./apis/Url";
+import { useEffect, useState } from "react";
+import { ChatMessage } from "./apis/Request/Request";
+import { ChatOutputRes } from "./apis/Response/Response";
 
 function App() {
+  const [name, setName] = useRecoilState(nameAtom);
+  const [id, setId] = useRecoilState(idAtom);
+  const [UseraccessToken, setUseraccessToken] = useRecoilState(accessTokenAtom);
+  const [refreshToken, setRefreshToken] = useRecoilState(refreshTokenAtom);
+  const [gender, setGender] = useRecoilState(genderAtom);
+  const [Isconnect, setIsconnect] = useState(false);
+  // const Chattingx=CreateChattingClient();
+  const [chatList, setChatList] = useRecoilState(chatListState);
+  const [RoomId, setRoomId] = useRecoilState(ChattingRoomState);
+
+  // const Chat = CreateChattingClient();
+      
+  // Chat.client.activate();
+
   return (
     <>
       <GlobalFont />
@@ -47,7 +69,6 @@ function App() {
           <Route path="choice" element={<Choice />} />
           <Route path="sogaetingMain" element={<SoagetingMain />} />
           <Route path="sogaetingWait" element={<SoagetingWait />} />
-          <Route path="sogaeting" element={<Soageting />} />
           <Route path="meetingMain" element={<MeetingMain />} />
           <Route path="meetingMakeRoom" element={<MeetingMakeRoom />} />
           <Route path="meetingWait" element={<MeetingWait />} />
@@ -67,6 +88,7 @@ function App() {
           <Route path="alram" element={<Alarm />} />
           <Route index element={<Navigate to="home" replace />} />
         </Route>
+        <Route path="sogaeting" element={<Soageting />} />
         <Route path="meeting" element={<Meeting />} />
         <Route path="home" element={<Landing />} />
         <Route path="login" element={<Login />} />

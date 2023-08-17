@@ -25,7 +25,7 @@ const KakaoMap = () => {
   return (
     <Map
       center={{ lat: 36.354946759143, lng: 127.29980994578 }} // 지도의 중심 좌표
-      style={{ width: "100%", height: "100%", zIndex: "30000000" }} // 지도 크기
+      style={{ width: "100%", height: "100%", zIndex: "1" }} // 지도 크기
       level={3} // 지도 확대 레벨
     >
       {/* MapMarker 컴포넌트를 여기에 추가하여 마커를 표시할 수 있습니다. */}

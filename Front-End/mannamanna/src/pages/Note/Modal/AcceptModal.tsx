@@ -56,6 +56,7 @@ export const CheckSogaeNoteModal: React.FC<CheckModalProps> = ({
   let temp = { ...sendnote };
 
   const sendAccept = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log(noteId);
     e.preventDefault();
     try {
       const response = await api.get(`note/sogae/accept/${noteId}`);
@@ -80,6 +81,7 @@ export const CheckSogaeNoteModal: React.FC<CheckModalProps> = ({
       console.error(error);
     }
   };
+  
   const handleRefuse = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     await sendRefuse(e);
@@ -104,7 +106,12 @@ export const CheckSogaeNoteModal: React.FC<CheckModalProps> = ({
             alignItems="center"
           >
             <ProfileContainer>
-              <ProfileBox style={{ backgroundImage: `url(${profile})` }} />
+              <ProfileBox
+                style={{
+                  backgroundImage: `url(${profile})`,
+                  backgroundSize: "100%",
+                }}
+              />
             </ProfileContainer>
             <InfoContainer>
               <NameInfo>

@@ -85,3 +85,10 @@ export interface SentNotesRes {
     date: string;
   }>;
 }
+
+export interface ChatOutputRes{
+  senderId: string | null, 
+  senderName: string| null, 
+  message: string | null;
+  time: Date | null;
+}

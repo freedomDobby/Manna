@@ -4,14 +4,16 @@ import { userSmokeState } from "../RegisterState";
 
 const SmokeCheck = () => {
   const [userSmoke, setUserSmoke] = useRecoilState(userSmokeState);
+  // console.log(userSmoke);
+
   const handleSmokeingClick = () => {
     setUserSmoke(!userSmoke);
-    // console.log(userSmoke);
+    console.log(userSmoke);
   };
 
   return (
     <Switch
-      checked={!userSmoke}
+      checked={userSmoke}
       onClick={handleSmokeingClick}
       inputProps={{ "aria-label": "controlled" }}
     />

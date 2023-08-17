@@ -197,3 +197,5 @@ export const birthdayState = atom<number | null>({
   key: "birthdat",
   default: null,
 });
+
+// export const []

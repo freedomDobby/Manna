@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import GoBackIcon from "../../../components/common/GoBackIcon";
 import Logo from "../../../components/common/Logo";
-import * as Stomp from '@stomp/stompjs';
+import { Stomp } from "@stomp/stompjs";
 import { Client, Message } from '@stomp/stompjs';
 import {
   CenterBox,
@@ -27,6 +27,8 @@ import { LoginReq } from "../../../apis/Request/Request";
 import api from "../../../apis/Api";
 import { LoginErrorModal } from "../ForgotIdPw/ForgotIdStyles";
 import Kakao from "./KaKaoLogin";
+import CreateChattingClient from "./Clinet";
+import { SOCET_URL } from './../../../apis/Url';
 declare global {
   interface Window {
     Kakao: any;
@@ -44,7 +46,6 @@ const Login = () => {
   const [id, setId] = useRecoilState(idAtom);
   const [UseraccessToken, setUseraccessToken] = useRecoilState(accessTokenAtom);
   const [refreshToken, setRefreshToken] = useRecoilState(refreshTokenAtom);
-
   const GoFindId = () => {
     navigate("/ForgotId");
   };
@@ -56,23 +57,23 @@ const Login = () => {
   const GoRegister = () => {
     navigate("/register");
   };
-  const accessToken = UseraccessToken; 
+  const Chatting=CreateChattingClient();
 
-  // const client = new Client({
-  // brokerURL: 'ws://localhost:8080/api/ws',
-  // connectHeaders: {
-  //   ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
-  //   userName: name,
-  //   userId: userId,
-  //   gender: gender,
-  // },
-  // debug: (str: string) => {
-  //   console.log(str);
-  // },
-  // reconnectDelay: 5000,
-  // heartbeatIncoming: 4000,
-  // heartbeatOutgoing: 4000,
-  // });
+  //   function connect() {
+  //     Chatting.client.current = new Client({
+  //     connectHeaders:{
+  //       ...(UseraccessToken ? { Authorization: `Bearer ${UseraccessToken}` } : {}),
+  //       ...(name ? { userName: `${name}` } : {}),
+  //       ...(id ? { userId: `${id}` } : {}),
+  //       ...(gender ? { gender: `${gender}` } : {}),
+  //     },
+  //     brokerURL: SOCET_URL,
+  //     onConnect: () => {
+  //       console.log("연결");
+  //     },
+  //   });
+  //   Chatting.client.current.activate();
+  // }
 
   const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -80,21 +81,22 @@ const Login = () => {
       id: userId,
       pwd: userPw,
     };
-    // console.log(userData);
     try {
       const response = await api.post("/user/login", userData);
       console.log(response.data);
-      setGender(response.data.gender);
-      setName(response.data.userName);
-      setId(response.data.id);
-      setUseraccessToken(response.data.accessToken);
-      setRefreshToken(response.data.refreshToken);
+      await setGender(response.data.gender);
+      await setName(response.data.userName);
+      await setId(response.data.id);
+      await setUseraccessToken(response.data.accessToken);
+      await setRefreshToken(response.data.refreshToken);
       navigate("/main");
     } catch (error) {
       console.error(error);
       setOpen(true);
     }
   };
+
+
 
   return (
     <div>
