@@ -50,15 +50,16 @@ const Note = () => {
         <MidSpace>
             <KeyPart>
               <KeySelectPart>
+                <div style={{width:'60%', height: '100%'}}></div>
                 <NoteBtn onClick={GoResponseNote}>받은 쪽지</NoteBtn>
                 <NoteBtn onClick={GoRequestNote}>보낸 쪽지</NoteBtn>
-                <SearchPart>
+                {/* <SearchPart>
                   <SearchInput type="text" placeholder="검색어를 입력해주세요." />
                   <BtnBox>
                     <SearchBtn>검색조건</SearchBtn>
                     <SearchBtn>이름</SearchBtn>
                   </BtnBox>
-                </SearchPart>
+                </SearchPart> */}
               </KeySelectPart>
               <KeyMainPart>
                 <Outlet />
