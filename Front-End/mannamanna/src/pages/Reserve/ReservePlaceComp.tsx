@@ -70,7 +70,7 @@ const ReservePlaceComp = (props: IReservePlaceProps) => {
         setIsModalOpen(false);
     };
     const [placeComponent, setPlaceComponent] = useState<any>(makePlaceComponent(data));
-    const [date, setDate] = useState<Dayjs | null>(dayjs('2022-04-17T15:30'));
+    const [date, setDate] = useState<Dayjs | null>(dayjs(new Date()));
 
     const Modal: React.FC<ModalProps> = ({isOpen, onClose}) => {
         return (
