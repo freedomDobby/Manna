@@ -237,9 +237,6 @@ const Schedule = () => {
                       <div>스케줄이 없습니다.</div>
                     )}
                   </ScheuleListBox>
-                  <ScheduleStateBox>
-                    <StyledButton>취소하기</StyledButton>
-                  </ScheduleStateBox>
                 </ScheduleCustomBox>
               </RightInnerBox>
             </ScheduleContainerSpace>

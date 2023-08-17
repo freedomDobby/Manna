@@ -83,11 +83,11 @@ export const GoSogaeting = styled.div`
 `;
 
 export const ShceduleStyledButton = styled.button`
+  border: solid 0.4vh #ffcced;
   margin: 1px;
   width: 20vh;
   height: 50%;
   color: #ffcced;
-  border: solid 0.4vh #ffcced;
   background-color: #ffffff;
   border-radius: 1.5vh;
   font-size: 2.5vh;
@@ -153,11 +153,10 @@ export const ScheduleUl = styled.table`
 `;
 
 export const StyledTableCell = styled.td`
-  border: 1px solid #ffffff;
+  // border: 1px solid #ffffff;
   font-size: 1.5rem;
   text-align: center;
   // padding: 1.5%;
-  // padding: 5%;
 `;
 
 export const ScheduleCustomBox = styled.div`
@@ -179,7 +178,7 @@ export const ScheduleCustomBox = styled.div`
 export const SchelduleStyledButton = styled.button`
   margin: 1px;
   width: 80%;
-  height: 70%;
+  height: 5vh;
   color: #ffcced;
   border: solid 0.4vh;
   border-color: #ffcced;
@@ -193,4 +192,10 @@ export const SchelduleStyledButton = styled.button`
     color: #d9cff4;
     border: solid 0.3vh;
   }
+`;
+
+export const CanlendarBody = styled.div`
+  // border: 2px solid green;
+  width: 90%;
+  height: 90%;
 `;
