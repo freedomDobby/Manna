@@ -16,11 +16,13 @@ import {
   ChatPeopleOutBox,
   ChatOutBox,
   ChatInputBox,
+  CircularImageContainer,
+  CircularImage,
 } from "./ChattingStyle";
 import SidebarChat from "../../components/layout/Sidebar/SidebarChat";
 import { MyPageContainerBox } from "../User/MyPage/MyPageStyle";
 import { useRecoilState } from "recoil";
-import { ChattingRoomState, accessTokenAtom, chatListState, genderAtom, idAtom, inputValueState, nameAtom } from "../../Recoil/State";
+import { ChattingRoomState, accessTokenAtom, chatListState, genderAtom, idAtom, inputValueState, myImgageAtom, nameAtom, opponentImageAtom } from "../../Recoil/State";
 import CreateChattingClient from "../User/Login/Clinet";
 import { useQuery } from "@tanstack/react-query";
 import api from "../../apis/Api";
@@ -32,9 +34,11 @@ import { ChatOutputRes } from "../../apis/Response/Response";
 import SockJS from "sockjs-client";
 
 export function GetChat({ message }: { message: string|null }) {
+  const [myImage, setmyImage] = useRecoilState(myImgageAtom);
+  const [opponetImage, setopponetImage] = useRecoilState(opponentImageAtom);
   return (
     <ChatLeftStyle>
-      <ChatProFile />
+      <CircularImageComponent src={opponetImage} />
       <LeftChatBox>
       <div style={{width:'90%',height:'90%'}}>
           {message}
@@ -45,6 +49,9 @@ export function GetChat({ message }: { message: string|null }) {
 }
   
   export function SendChat({ message }: { message: string|null }) {
+    const [myImage, setmyImage] = useRecoilState(myImgageAtom);
+    const [opponetImage, setopponetImage] = useRecoilState(opponentImageAtom);
+    console.log(myImage);
     return (
       <ChatRightStyle>
         <RightChatBox>
@@ -52,10 +59,18 @@ export function GetChat({ message }: { message: string|null }) {
             {message}
           </div>
         </RightChatBox>
-        <ChatProFile />
+        <CircularImageComponent src={myImage}/>
       </ChatRightStyle>
     );
   }
+
+
+export const CircularImageComponent = ({ src, alt }:any) => (
+
+  <CircularImageContainer style={{ backgroundImage: `url(${src})` }} />
+
+);
+
   
   interface ChatPeopleProps {
     userName: string;
@@ -84,6 +99,9 @@ export function GetChat({ message }: { message: string|null }) {
     const [name, setName] = useRecoilState(nameAtom);
     const [inputValue, setInputValue] = useState("");
     const [showMessage, setShowMessage] = useState(false);
+
+    const [myImage, setmyImage] = useRecoilState(myImgageAtom);
+    const [opponetImage, setopponetImage] = useRecoilState(opponentImageAtom);
 
     const handleMouseEnter = () => {
       setShowMessage(true);
