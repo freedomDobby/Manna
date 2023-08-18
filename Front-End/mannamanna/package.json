@@ -1,0 +1,83 @@
+{
+  "name": "superman",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.1",
+    "@mui/material": "^5.14.4",
+    "@mui/x-date-pickers": "^6.10.1",
+    "@reduxjs/toolkit": "^1.9.5",
+    "@stomp/stompjs": "^7.0.0",
+    "@tanstack/react-query": "^4.32.0",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.39",
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@types/react-redux": "^7.1.25",
+    "@types/redux": "^3.6.0",
+    "@types/redux-logger": "^3.0.9",
+    "@types/socket.io-client": "^3.0.0",
+    "@types/sockjs-client": "^1.5.1",
+    "@types/stompjs": "^2.3.5",
+    "axios": "^1.4.0",
+    "browser-image-compression": "^2.0.2",
+    "dayjs": "^1.11.9",
+    "framer-motion": "^10.14.0",
+    "kakao.maps.d.ts": "^0.1.38",
+    "moment": "^2.29.4",
+    "openvidu-browser": "^2.28.0",
+    "react": "^18.2.0",
+    "react-calendar": "^4.6.0",
+    "react-dom": "^18.2.0",
+    "react-kakao-maps": "^0.0.13",
+    "react-kakao-maps-sdk": "^1.1.11",
+    "react-redux": "^8.1.1",
+    "react-router-dom": "^6.14.2",
+    "react-scripts": "5.0.1",
+    "recoil": "^0.7.7",
+    "recoil-persist": "^5.1.0",
+    "redux": "^4.2.1",
+    "redux-logger": "^3.0.6",
+    "socket.io-client": "^4.7.2",
+    "sockjs-client": "^1.6.1",
+    "styled-components": "^6.0.5",
+    "styled-reset": "^4.5.1",
+    "typesafe-actions": "^5.1.0",
+    "typescript": "^4.9.5",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@types/styled-components": "^5.1.26",
+    "tailwindcss": "^3.3.3"
+  }
+}
