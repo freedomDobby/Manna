@@ -132,7 +132,7 @@ const MyCalendar = () => {
     data: scheduleList,
     isLoading,
     isError,
-  } = useQuery<any>(["scheduleList"], async () => {
+  } = useQuery<any>(["calendarData"], async () => {
     const response = await api.get(`schedule/${userId}`);
     console.log(response.data);
     return response.data;
