@@ -162,9 +162,9 @@ const Mission = () => {
                     <span></span>
                   )
                 )}
-              {/* {selectedMissionId !== null && (
+              {selectedMissionId !== null && (
                 <MissionCardBox id={selectedMissionId} mission={missionQuestion[selectedMissionId - 1].text} user1={userId ?? "user1"} user2={opponentId ?? "user2"} />
-              )} */}
+              )}
               </MissionBox>
           </MissionContainerBox>
       </BackBox>

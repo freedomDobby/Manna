@@ -1,7 +1,7 @@
 import MacBookBox from "../../components/common/macbookBox";
 import KakaoMap from "../../components/common/KakaoMap";
 import axios from "axios";
-import {IMiddleReservePlace, IReserveCompProps, IReservePlaceRequest} from "./Interfaces";
+import {IMiddleReservePlace, IMissionStartRequest, IReserveCompProps, IReservePlaceRequest} from "./Interfaces";
 import {useQuery, useQueryClient} from "@tanstack/react-query";
 import ReservePlaceComp from "./ReservePlaceComp";
 import {LocateAddress} from "./LocateObject";
@@ -15,8 +15,9 @@ import {
     SelectBox,
     SelectLocate
 } from "./ReserveCompStyle";
-import { useRecoilValue } from "recoil";
-import { genderAtom } from "../../Recoil/State";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { MissionIdAtom, genderAtom, scheduleIdAtom } from "../../Recoil/State";
+import { dateName, sogaeUserName } from "../Soagaeting/SogaetingState";
 
 const getPlaceByLocate = (ReservePlaceRequest: IReservePlaceRequest) => {
     return axios({
@@ -36,7 +37,66 @@ const getPlaceByMember = (MiddleReservePlace: IMiddleReservePlace) => {
     })
 }
 
+const fetchMission = (MissionStartRequest: IMissionStartRequest) => {
+    return axios({
+        method: "POST",
+        url: `https://i9b205.p.ssafy.io/api/mission/start`,
+        headers: {"Content-Type": "application/json"},
+        data: MissionStartRequest
+    })
+}
+
+const fetchMissionQuestion = (missionId: number) => {
+    return axios({
+        method: "POST",
+        url: `https://i9b205.p.ssafy.io/api/mission/assign`,
+        headers: {"Content-Type": "application/json"},
+        data: {missionId: missionId}
+    })
+}
+
 const ReserveComp = (props: IReserveCompProps) => {
+    const [scheduleId] = useRecoilState(scheduleIdAtom);
+    const [opponentId] = useRecoilState(dateName);
+    const [myId] = useRecoilState(sogaeUserName);
+    const [userGender] = useRecoilState(genderAtom);
+    const [missionId,setMissionId] = useRecoilState(MissionIdAtom) 
+
+
+    
+
+    useEffect( () => {
+        const fn = async () => {
+            console.log(scheduleId);
+            let maleId;
+            let femaleId;
+            if(userGender=="male") {
+                maleId = myId;
+                femaleId = opponentId;
+            }
+            else{
+                maleId = opponentId;
+                femaleId = myId;
+            }
+            
+            const response = await fetchMission({
+                sogaetingId: scheduleId,
+                maleId: maleId,
+                femaleId: femaleId,
+            });
+    
+            return response.data;
+        }
+        // fn().then(returnVal=>{console.log(returnVal+","+returnVal.data.id+","+returnVal.msg)})
+        fn().then(returnVal=>{fetchMissionQuestion(returnVal.data.id).then(res=>console.log(res))})
+    },[])
+
+    // useEffect(() => {
+    //     fetchMissionQuestion(missionId)
+    //     .then(() => console.log("미션디테일 불러오기 성공!!!!"))
+    //     .catch(() => console.log("실패"))
+    //  }, [missionId])
+
     const [queryType, setQueryType] = useState('member'); // 'posts' 또는 'comments'
     const queryClient = useQueryClient();
     const gender = useRecoilValue(genderAtom);
